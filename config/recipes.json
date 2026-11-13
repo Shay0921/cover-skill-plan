@@ -14,7 +14,7 @@
     "R-list-01": {"name":"条目+证据页","intent":"左列行式条目（编号/复选/纯行）、右侧一个内容载体","regions":{"head":{"allow":["h1","sub","kicker"]},"full":{"allow":["ck","list","text-block"]},"left":{"allow":["frow","ck","list","text-block"]},"right":{"allow":["phone","shot","text-block"]},"bottom":{"allow":["text-block","serif","cta","fcard"]}},
       "layouts":{
         "frow-phone":{"name":"编号条目 · 右机","when":"源页 05：左列编号行式条目，右整屏机互证","order":["head","left","right"],"tracks":[{"region":"left","share":[0.46,0.50]},{"region":"right","share":[0.46,0.50]}],"headline":[1,1],"carriers":[{"component":"phone","region":"right","width":[36,42]}]},
-        "ck-phone":{"name":"复选条目 · 右机","when":"源页 14：左列复选条目，右整屏机互证","order":["head","left","right"],"tracks":[{"region":"left","share":[0.46,0.50]},{"region":"right","share":[0.46,0.50]}],"headline":[1,1],"carriers":[{"component":"phone","region":"right","width":[39,44]}]},
+        "ck-phone":{"name":"复选条目 · 右机","when":"源页 14：通栏复选条目，右整屏机互证","order":["head","full","right"],"tracks":[{"region":"full","share":[0.46,0.50]},{"region":"right","share":[0.46,0.50]}],"headline":[1,1],"carriers":[{"component":"phone","region":"right","width":[39,44]}]},
         "ck-shots-cover":{"name":"复选条目 · 双图窗","when":"封面档（源页 02）：左列复选条目，右双局部图窗","order":["head","left","right"],"tracks":[{"region":"left","share":[0.46,0.50]},{"region":"right","share":[0.46,0.50]}],"headline":[1,1],"carriers":[{"component":"shot","region":"right","width":[40,43]}]},
         "list-text-cover":{"name":"条目 · 正文段","when":"封面档（源页 03）：左列条目，右正文段无画面载体","order":["head","left","right"],"tracks":[{"region":"left","share":[0.46,0.50]},{"region":"right","share":[0.46,0.50]}],"headline":[1,1]}
       }},
