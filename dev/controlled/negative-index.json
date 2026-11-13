@@ -1,23 +1,23 @@
 {
   "purpose": "负例夹具 → 拦截层级 stage → 规则码 索引。索引是生成物：跑完 dev/test-controlled.mjs 归档夹具后执行 node dev/check-negative-index.mjs --write 重建；平时直接运行本脚本对账，任何漂移或套件失败即退出码 1。规则码变更时按此表同步更新对应夹具。",
   "generatedAt": "2026-11-13",
-  "scope": "dev/controlled/controlled-negative-1113-0902",
+  "scope": "dev/controlled/controlled-negative-1113-0917",
   "suite": {
-    "total": 186,
-    "passed": 186,
+    "total": 188,
+    "passed": 188,
     "failed": 0,
     "fontMode": "CDN blocked intentionally: system-font geometric regression, not production font evidence"
   },
   "stages": {
-    "lint": 79,
-    "geometry": 25,
-    "pass": 37,
+    "lint": 78,
+    "geometry": 26,
+    "pass": 39,
     "load": 36,
     "pipeline": 5,
     "build": 3,
     "direct-probe": 1
   },
-  "count": 186,
+  "count": 188,
   "legend": {
     "blocked": "gate 必须 failed（夹具报告 status=failed）",
     "passed": "正例对照：gate passed，可带 WARN",
@@ -1645,6 +1645,20 @@
       "suite_expected": "overlay 区域必须是 .p-page 的直接子级"
     },
     {
+      "dir": "phone-auto-height-text",
+      "outcome": "passed",
+      "stage": "pass",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [
+        "FONT",
+        "L16",
+        "R7"
+      ],
+      "first_error": null,
+      "suite_expected": "passed"
+    },
+    {
       "dir": "phone-count-at-cap",
       "outcome": "passed",
       "stage": "pass",
@@ -1674,21 +1688,7 @@
       "suite_expected": "最多 3 个"
     },
     {
-      "dir": "phone-wall-without-caption",
-      "outcome": "blocked",
-      "stage": "lint",
-      "passed": true,
-      "rules": [
-        "BATCH",
-        "L10",
-        "L19"
-      ],
-      "warn_rules": [],
-      "first_error": "p01 L19: 区域 wall 的 wall-phone-1 缺少壳下的界面名 text-block",
-      "suite_expected": "L19"
-    },
-    {
-      "dir": "phone-wall-without-cell",
+      "dir": "phone-root-short-text",
       "outcome": "blocked",
       "stage": "lint",
       "passed": true,
@@ -1699,8 +1699,38 @@
       "warn_rules": [
         "L16"
       ],
-      "first_error": "p01 L19: 区域 wall 有 2 只手机，wall-phone-1 必须包在 .phone-cell 内",
+      "first_error": "p01 L19: 带比例的 phone 根 crush-phone 内不得放文字叶：锁高壳内塞文字会挤压画面，界面名应与壳同层（见配方登记卡绑定字段）",
       "suite_expected": "L19"
+    },
+    {
+      "dir": "phone-wall-without-caption",
+      "outcome": "passed",
+      "stage": "pass",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [
+        "FONT",
+        "R7"
+      ],
+      "first_error": null,
+      "suite_expected": "passed"
+    },
+    {
+      "dir": "phone-wall-without-cell",
+      "outcome": "blocked",
+      "stage": "geometry",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "R1",
+        "R2"
+      ],
+      "warn_rules": [
+        "FONT",
+        "L16"
+      ],
+      "first_error": "p01 R1: wall-phone-1 越出所属区域 wall",
+      "suite_expected": "R1"
     },
     {
       "dir": "placeholder-clean",

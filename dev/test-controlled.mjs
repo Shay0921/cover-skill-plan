@@ -114,7 +114,7 @@ try {
   await test('disallowed-component', baseline.replace('data-component="text-block"', 'data-component="qa"'), 'L11');
   await test('disallowed-region', baseline.replace('data-region="right"', 'data-region="wall"'), 'L11');
   await test('nested-components', wrap(`<div data-component="text-block" data-layer="outer" data-group>${text('main-copy')}</div>`), 'L11');
-  // 手机都带 .phone-cell 与界面名，让这一例只取证 R2（L19 已在 lint 阶段短路，会顶掉几何检查）。
+  // 手机都带 .phone-cell 与界面名（带比例壳内无文字叶，新 L19 放行），让这一例只取证 R2（几何阶段）。
   await test('two-overlapping-phones', wrap(`<div class="phone-cell">${phone('phone-a')}${text('phone-a-label', '界面甲')}</div><div class="phone-cell">${phone('phone-b')}${text('phone-b-label', '界面乙')}</div>`), 'R2');
   await test('overlapping-text', wrap(text('copy-a', '清楚表达', 'style="position:absolute;top:0;left:0"') + text('copy-b', '真实素材', 'style="position:absolute;top:0;left:0"')), 'R2');
   await test('text-clipped', wrap(text('main-copy', '保留来源。'.repeat(12), 'style="height:2cqw;overflow:hidden"')), 'R3');
@@ -266,10 +266,17 @@ try {
     await test(`appearance-${property}`, wrap(text('main-copy', '清楚表达', `style="${property}:${value}"`)), 'L17');
   await test('appearance-seed-variable', wrap(text('main-copy', '清楚表达', 'style="--paper:#0f0"')), 'L17');
   await testWarn('inline-unknown-property', wrap(text('main-copy', '清楚表达', 'style="mrgin-top:2cqw"')), 'L18');
-  // B6（L19）：同区并排多只手机，每只都要有 .phone-cell 与壳下的界面名。
-  // 计划必须写 R-phone-01（wall 区允许 phone/text-block，asWall 见上）：夹具基座先合配方契约，L19 才是唯一拦截理由。
-  await test('phone-wall-without-caption', wallPage(2, false), 'L19', asWall);
-  await test('phone-wall-without-cell', wallPage(2, true, false), 'L19', asWall);
+  // C3（2026-11-13）：原 L19"多机每只要 .phone-cell + 壳下界面名"退役 → 归属 R-phone-01 登记卡绑定字段（人审把关）。
+  // without-caption 改登记 passed+目检项：真实形态 = 3 壳无标签 + head 标题（h1 进账目），gate 不再复述配方决策。
+  // without-cell 改登记 R1：壳不是装饰——无壳裸排时标签换行溢出区域，几何后果层 R1 接住（裁决"砍后 R 系仍拦"实证）。
+  await test('phone-wall-without-caption', wallPage(3, false).replace('<main class="body">', '<div class="heading" data-region="head"><h1 class="h1" data-component="h1" data-layer="headline" data-editable="text" data-from="h1">受控组件试验</h1></div><main class="body">'), null, asWall);
+  await test('phone-wall-without-cell', wallPage(2, true, false), 'R1', asWall);
+  // 新 L19（后果化改写）：带比例（锁高）的 phone 根内禁文字叶。短文字取证——R3 只对溢出报警，
+  // 短文字在锁高壳内静默，新 L19 是唯一守卫；裸文字叶（无 data-component）连 L11 嵌套都拦不住，证明该洞真实存在。
+  const phoneCrush = inner => `<div class="phone" data-component="phone" data-layer="crush-phone" data-group style="position:absolute;left:0;top:0;width:30cqw;height:59.54cqw"><img class="phone-shot" data-slot="image" data-layer="crush-phone-screen" src="assets/iphone-frame.png" alt=""><img class="frame-img" data-slot="image" data-layer="crush-phone-frame" data-decoration src="assets/iphone-frame.png" alt="">${inner}</div>`;
+  await test('phone-root-short-text', wrap(phoneCrush('<p class="cap" data-layer="crush-label" data-editable="text" data-from="h1">界面名</p>')), 'L19');
+  // 对照：高度自适应的壳塞同款文字叶 → 壳随内容生长，无挤压后果，放行。
+  await test('phone-auto-height-text', wrap(phoneCrush('<p class="cap" data-layer="crush-label" data-editable="text" data-from="h1">界面名</p>').replace('height:59.54cqw', 'height:auto')), null);
   // B8：源片段只写 assets/ 相对路径，手写 dataURL 绕过素材登记与来源追溯。
   await test('source-dataurl-image', wrap('<figure class="shot" data-component="shot" data-layer="du-shot" data-group><img data-slot="image" data-layer="du-image" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==" alt=""></figure>'), 'L0');
   // C14：data-decoration 不能替图片豁免检查——脱离组件根的直接拒绝，在组件内的照样参与越界检查。
@@ -403,7 +410,7 @@ try {
   const first = await runBatch({ srcDir: f.src, outDir: f.out, inst, browserOptions: opts });
   assert.equal(first.status, 'passed');
   const png = path.join(f.out, '01.png'), hash = sha256(fs.readFileSync(png));
-  // 两只手机各自带 .phone-cell 与界面名（合 L19 契约），让这一例像 two-overlapping-phones 一样只取证 R2。
+  // 两只手机各自带 .phone-cell 与界面名（带比例壳内无文字叶，新 L19 放行），让这一例像 two-overlapping-phones 一样只取证 R2。
   fs.writeFileSync(path.join(f.src, 'p01.part.html'), wrap(`<div class="phone-cell">${phone('phone-a')}${text('phone-a-label', '界面甲')}</div><div class="phone-cell">${phone('phone-b')}${text('phone-b-label', '界面乙')}</div>`));
   const failed = await runBatch({ srcDir: f.src, outDir: f.out, inst, browserOptions: opts });
   results.push({ name: 'stale-png-protection', passed: failed.status === 'failed' && sha256(fs.readFileSync(png)) === hash && !Object.keys(failed.artifacts).length, expected: 'old PNG retained as historical, failed report has no deliverables', status: failed.status });

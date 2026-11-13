@@ -144,18 +144,14 @@ export function inspectFragmentDOM(html, contract) {
     if (!hasCaption)
       error('L23', `出血区域 ${bleedRegions.map(el => el.getAttribute('data-region')).join('/')} 缺少配文：head 或 bottom 至少要有一处标题或说明文字，不允许整页只剩图`);
   }
-  // 同区并排多只手机时每只都要有界面名：小标题是壳的兄弟节点，包在 .phone-cell 里（图注塞进带比例的 .phone 根会压坏画面）。
-  for (const region of root.querySelectorAll('[data-region]')) {
-    const id = region.getAttribute('data-region');
-    const phones = [...region.querySelectorAll('[data-component="phone"]')].filter(el => el.closest('[data-region]') === region);
-    if (phones.length < 2) continue;
-    for (const phone of phones) {
-      const cell = phone.closest('.phone-cell');
-      const layer = phone.getAttribute('data-layer') || '(无 data-layer)';
-      if (!cell) error('L19', `区域 ${id} 有 ${phones.length} 只手机，${layer} 必须包在 .phone-cell 内`);
-      else if (cell.querySelectorAll('[data-component="phone"]').length !== 1) error('L19', `区域 ${id} 的 .phone-cell 只放一只手机（${layer}）`);
-      else if (!cell.querySelector('[data-component="text-block"]')) error('L19', `区域 ${id} 的 ${layer} 缺少壳下的界面名 text-block`);
-    }
+  // 带比例的 phone 根内禁文字叶（L19，C3 后果化改写 2026-11-13）：锁了高度的壳里塞文字会挤压/压坏画面。
+  // R3 只对"溢出"报警，短文字在锁高壳内不溢出 → 静默，本规则是唯一守卫，故不限文字长度一律拦。
+  // "多机并排每只要 .phone-cell + 壳下界面名"是配方决策（原 L19 已退役），归属 R-phone-01/R-wall-01 登记卡绑定字段，gate 不复述。
+  for (const phone of root.querySelectorAll('[data-component="phone"]')) {
+    const h = /(?:^|;)\s*height\s*:\s*([^;]+)/.exec(phone.getAttribute('style') || '')?.[1]?.trim();
+    if (!h || h === 'auto') continue; // 高度自适应的壳随内容生长，塞文字无挤压后果
+    if (phone.querySelector('[data-editable="text"]'))
+      error('L19', `带比例的 phone 根 ${phone.getAttribute('data-layer') || '(无 data-layer)'} 内不得放文字叶：锁高壳内塞文字会挤压画面，界面名应与壳同层（见配方登记卡绑定字段）`);
   }
   // 下限在配方级，不在区域级：require 条目写组件 id 表示必须有，写 id 数组表示组内任一即可；form 说"它得长成目录里登记过的样子才算"；两者都不锁摆位。
   for (const entry of contract.recipe.require || []) {

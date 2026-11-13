@@ -1,9 +1,10 @@
 # 后续执行路线图 TODO（2026-11-13）
 
-> **▶ 当前指针（2026-11-13 更新）：阶段 3 收尾 · 下一步 = T6（gate 瘦身逐刀）**
-> - T1/T2/T3/T5 已收口（2026-11-13）：T1 第六轮 183/183；T2 lint 轮全绿；T3 基线重建（scope → `controlled-negative-1113-0853`，count=183，对账全绿）；**T5 L24 已落地**（lint-dom 新增占位符残留检查，正负例 3 条入套件，全套件 186/186，基线重建 count=186、scope → `controlled-negative-1113-0902`、裸跑对账退出码 0）
+> **▶ 当前指针（2026-11-13 更新）：阶段 3 收尾 · 下一步 = T6 第二刀（C5：L22 迁卡 + gate 删除）**
+> - T1–T5 已收口；**T6 第一刀 C3 已落地（2026-11-13）**：L19 后果化改写 + 4 例实证，套件 188/188，基线 scope → `controlled-negative-1113-0917`，对账退出码 0
 > - T4 P→R 已全部完成（生产面+dev 副本；新夹具 P 码归零，249 文件携 R 码）
-> - T6 起每刀单独 git commit（用户侧操作）；阶段闸门 T7 必须用户确认
+> - ⚠️ C3 改动待 git 单独 commit（用户侧）：`tools/lint-dom.mjs` + `dev/test-controlled.mjs` + `references/04-recipes.md`（R-phone-01 后果红线）+ 归属图/TODO + 新归档 0917
+> - 阶段闸门 T7 必须用户确认
 > - 🗑 删除裁决（监工已核，2026-11-13）：`controlled-slim-1113-1/` **可整目录删除**——索引已指向 1113-0853、全仓无脚本/文档依赖、内容为新库子集；删后 git 提交一笔。⚠️ 11-11 两个归档（composition-1111-1148 / library-1111-1046）是受保护历史快照，**永不删改**
 
 > **用途**：会话压缩后的新任务启动文档。按顺序执行，每步有完成判据；完成一项勾一项。
@@ -12,7 +13,7 @@
 > - `dev/constraint-ownership-map.md` —— 阶段 3 产出物 A（33 规则码三分类 + C1-C6 冲突裁决）
 > - `dev/config-audit-2026-11-13.md` —— 七维审计 + 批次 A/B 修复方案
 > - `references/04-recipes.md` —— 20 张登记卡（规格级配方 require/allow 的唯一锚）
-> - `dev/controlled/negative-index.json` —— 回归基线（2026-11-13 T5 后定稿：scope → `controlled-negative-1113-0902`，count=186，对账全绿；T6 每刀以此为回归基准。过渡库 1113-0853 已被 0902 严格超集取代，确认零依赖后可删）
+> - `dev/controlled/negative-index.json` —— 回归基线（2026-11-13 T6-C3 后：scope → `controlled-negative-1113-0917`，count=188，对账全绿；后续每刀以此为回归基准。过期库 1113-0853 / 1113-0902 / 1113-0915（中途失败品）均已被 0917 取代，确认后可删）
 > - `dev/MILESTONE-PENDULUM-2026-11-12.md` —— 论证档案（阶段 5 验收看 §5.4）
 
 ## 当前进度快照（勿重做）
@@ -57,7 +58,7 @@
 - 判据达成：含占位符的页面被拦（文本/属性两个位置均取证）；干净页通过 ✅
 
 ### T6. gate 瘦身逐刀（按 constraint-ownership-map.md §4/§6 顺序）
-- [ ] **C3**：L19 后果化改写为"带比例 phone 根内禁文字叶"——实证时必须构造**短文字**负例（R3 对短文字静默，长文字溢出测不出来）
+- [x] **C3**（✅ 2026-11-13）：L19 后果化改写落地——原"多机 .phone-cell + 界面名"退役归 R-phone-01 卡；gate 改为"带比例（锁高）phone 根内禁文字叶"。实证 4 例：`phone-root-short-text`（短文字，新 L19 唯一守卫）、`phone-auto-height-text`（auto 壳放行对照）、`phone-wall-without-cell`（**R1 后果层接住**）、`phone-wall-without-caption`（真实形态放行归卡人审）。套件 188/188，基线 scope → `controlled-negative-1113-0917`，对账退出码 0
 - [ ] **C5**：L22（金句 rule 无 source）迁登记卡，gate 删除；负例 `rule-without-source` 改登记 passed+目检项；R-quote-01 卡绑定字段写明"省出处连 rule 一起省"——已裁决接受残余风险（此路径只剩人眼把关）
 - [ ] **C6**：L23 保留，误伤再收窄（预案：hero 出血且 head 也空）
 - [ ] 拆分类：L6 账目面留 gate、L11 结构契约留 gate；砍 L11①②③、L20 静态层、R13
