@@ -1,0 +1,66 @@
+{
+  "version": 1,
+  "runId": "3ac4319a-553b-4003-a88e-fabe8c62e4f0",
+  "units": {
+    "rect": "cqw",
+    "share": "占正文宽度比例"
+  },
+  "pages": [
+    {
+      "nn": "01",
+      "status": "passed",
+      "regions": [
+        {
+          "id": "head",
+          "wCqw": 86.8,
+          "hCqw": 15.6,
+          "share": 1
+        },
+        {
+          "id": "left",
+          "wCqw": 86.8,
+          "hCqw": 76.6,
+          "share": 1
+        },
+        {
+          "id": "bottom",
+          "wCqw": 86.8,
+          "hCqw": 5.3,
+          "share": 1
+        }
+      ],
+      "carriers": [
+        {
+          "layer": "overview-evidence",
+          "component": "phone",
+          "region": "left",
+          "wCqw": 37.8,
+          "hCqw": 75
+        }
+      ],
+      "bands": [
+        {
+          "band": 1,
+          "coveredPx": 225.921875,
+          "emptyPx": 134.078125
+        },
+        {
+          "band": 2,
+          "coveredPx": 290.4375,
+          "emptyPx": 69.5625
+        },
+        {
+          "band": 3,
+          "coveredPx": 360,
+          "emptyPx": 0
+        },
+        {
+          "band": 4,
+          "coveredPx": 166.1875,
+          "emptyPx": 193.8125
+        }
+      ],
+      "errors": []
+    }
+  ]
+}

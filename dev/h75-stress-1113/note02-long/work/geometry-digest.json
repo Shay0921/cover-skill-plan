@@ -1,0 +1,74 @@
+{
+  "version": 1,
+  "runId": "01cf6de0-6a4e-47b7-b92e-a297d0e8a6f3",
+  "units": {
+    "rect": "cqw",
+    "share": "占正文宽度比例"
+  },
+  "pages": [
+    {
+      "nn": "01",
+      "status": "failed",
+      "regions": [
+        {
+          "id": "head",
+          "wCqw": 86.8,
+          "hCqw": 25.7,
+          "share": 1
+        },
+        {
+          "id": "left",
+          "wCqw": 41.9,
+          "hCqw": 67,
+          "share": 0.483
+        },
+        {
+          "id": "right",
+          "wCqw": 41.9,
+          "hCqw": 67,
+          "share": 0.483
+        },
+        {
+          "id": "bottom",
+          "wCqw": 86.8,
+          "hCqw": 4.7,
+          "share": 1
+        }
+      ],
+      "carriers": [
+        {
+          "layer": "overview-evidence",
+          "component": "phone",
+          "region": "left",
+          "wCqw": 33.8,
+          "hCqw": 67
+        }
+      ],
+      "bands": [
+        {
+          "band": 1,
+          "coveredPx": 225.921875,
+          "emptyPx": 134.078125
+        },
+        {
+          "band": 2,
+          "coveredPx": 264.6875,
+          "emptyPx": 95.3125
+        },
+        {
+          "band": 3,
+          "coveredPx": 360,
+          "emptyPx": 0
+        },
+        {
+          "band": 4,
+          "coveredPx": 175.578125,
+          "emptyPx": 184.421875
+        }
+      ],
+      "errors": [
+        "R14: overview-evidence 宽 33.8cqw 超出骨架档 36–40cqw"
+      ]
+    }
+  ]
+}
