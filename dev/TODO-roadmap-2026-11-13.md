@@ -15,7 +15,9 @@
 - ✅ 阶段 3 产出物 A（constraint-ownership-map.md）完成；C3/C5/C6 已裁决（按 A 文档执行 + F1 范围扣除 11-11 画廊档案）
 - ✅ 审计完成：七维对账 8 项问题清单（见 config-audit）
 - ✅ 批次 A（config 6 处）已改完并 delta 复核：data-02→[["ldr"]]、data-03→[["ledger"]]、phone-01→[["phone"]]、wall-01→[["shot"]]、compare-01 补 bottom?
-- 🔄 第六轮回归在跑：harness 四处下游对齐已完成（empty-checkbox TDZ、wall01-phone-only 反转、loadReject 锚点改 R-card-02、7 条夹具同步 R-list-01）
+- ✅ 第六轮回归收口：`controlled-slim-1113-1/test-results.json`（11-13 01:54）183/183 全部符合预期
+- ✅ 批次 B 生产面（11-13 01:53）：config/recipes.json 20 条 R-id 化 + references/recipes/ 41 骨架 R 码化，与登记卡三方一致
+- ✅ 批次 B dev 副本（11-13 用户裁决"迁移而非封存"，git 可追溯历史）：dev/recipes/ 41 骨架 data-recipe P→R 改写完成，实测 dev↔生产逐一一致、P 码归零；11-11 画廊档案（controlled-composition-1111-1148）按原裁决不动
 
 ---
 
@@ -33,11 +35,12 @@
 - [ ] `check-negative-index.mjs --write` 重建索引（实测 175 条口径）
 - 判据：索引与夹具一一对应、全绿；此后任何 gate 改动以此为回归基准
 
-### T4. 批次 B：41 骨架 P→R 改码（F1 前置任务）
-- [ ] 41 个 `dev/recipes/*.part.html` 的 `data-recipe` 改为对应 R-id（同配方各档统一；映射按登记卡"骨架文件"行，P→R 对照见 config-audit 问题 #1）
-- [ ] ⚠️ `dev/controlled/controlled-composition-1111-1148`（11-11 画廊档案）**不改**——历史快照保真
-- [ ] 改完后夹具/索引再重建一轮 + 全量回归
-- 判据：grep `data-recipe="P` 在 dev/recipes/ 归零；回归全绿
+### T4. 批次 B：41 骨架 P→R 改码（✅ 已完成，2026-11-13）
+- [x] 生产面：`references/recipes/` 41 骨架 + `config/recipes.json` 20 条均已 R 码化（入册时完成）
+- [x] dev 副本：`dev/recipes/` 41 骨架按用户裁决（11-13，git 可追溯历史故迁移而非封存）改为对应 R-id，与生产面逐一一致
+- [x] ⚠️ `dev/controlled/controlled-composition-1111-1148`（11-11 画廊档案）**不改**——历史快照保真
+- [ ] 剩余验证项（并入 T3 重建轮一起做）：夹具/索引重建 + 全量回归（重建后的夹具自然携带 R 码）
+- 判据：grep `data-recipe="P` 在 dev/recipes/ 与 references/recipes/ 均归零 ✅；回归全绿（待 T3）
 
 ### T5. gate 补占位符残留检查（L24）
 - [ ] 成品 HTML 含 `{{` 即 FAIL（DEVPLAN 保留类明文要求）
@@ -58,7 +61,7 @@
 ## 第二部分：阶段 4（种子只读 + 资产入册）
 
 ### T8. 种子只读校验
-- [ ] gate 新增种子文件校验和比对；基线 = `references/04-recipes.md` 文首已登记的校验和（57668B46…C3D294 那版）；⚠️ 先确认当前 seed/paper-journal.html（含修饰段 .h68/.h75/.tight/.w08 等）与该校验和一致，不一致则以当前版为准更新登记
+- [ ] gate 新增种子文件校验和比对；基线 = `references/04-recipes.md` 文首已登记的校验和（`5318D18B…D958`，2026-11-13 随 P→R 迁移刷新后的现行版）；✅ 已实测当前 `seed/paper-journal.html` 与该校验和精确一致，无需更新登记
 - 判据：任何种子改动 → gate FAIL
 
 ### T9. 资产入册
