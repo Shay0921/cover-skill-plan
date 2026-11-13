@@ -1,34 +1,22 @@
 {
   "version": 2,
-  "runId": "00638598-e3f6-4840-bd1b-8ce361f5e848",
-  "startedAt": "2026-11-13T15:11:26.250Z",
+  "runId": "5cb526c8-14e2-4441-bca7-0d1c16e26149",
+  "startedAt": "2026-11-13T16:06:52.795Z",
   "mode": "gate",
-  "status": "failed",
-  "inputHash": "f2c8715894ef90fde9eb497f0411e239c6ad1dc41f4e0b817732b86036fc689c",
-  "plan": "d:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1fix-p19-1113\\work\\03-plan.json",
-  "src": "d:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1fix-p19-1113\\work\\src",
-  "out": "d:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1fix-p19-1113\\out",
+  "status": "passed",
+  "inputHash": "41c0a044013c7b11d30186d459db0b623d3deb14d88f6a46bc13a6b53469a1b1",
+  "plan": "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1fix-p19-1113\\work\\03-plan.json",
+  "src": "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1fix-p19-1113\\work\\src",
+  "out": "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1fix-p19-1113\\out",
   "expectedPages": [
     "19"
   ],
   "pages": [
     {
       "nn": "19",
-      "htmlHash": "9eb4a9e81fcbb6aa1b828e793f212c1246ffb081a294fe877b6cfaa4185817cb",
-      "sourceHash": "721849878304d5cadbc5233fea96a53ebf037e76e99fd27d33c267c81203652c",
+      "htmlHash": "3120935535e55a3bc708b841068560ed86eb6ca66cc2c933c2915d4c47c8c577",
+      "sourceHash": "b5d9e8e99d7611ab4bb5d78e17d4f67093f2f7103cc7bc93e23249fbbf51df83",
       "issues": [
-        {
-          "level": "ERROR",
-          "rule": "R14",
-          "msg": "detail-crop-evidence 宽 50.2cqw 超出骨架档 41–46cqw",
-          "layer": "detail-crop-evidence",
-          "widthCqw": 50.2,
-          "want": [
-            41,
-            46
-          ],
-          "hint": "先保载体宽度档，再让文字列收缩；不要反过来压主体"
-        },
         {
           "level": "WARN",
           "rule": "R7",
@@ -41,23 +29,23 @@
             },
             {
               "band": 2,
-              "coveredPx": 140.703125,
-              "emptyPx": 219.296875
+              "coveredPx": 209.4375,
+              "emptyPx": 150.5625
             },
             {
               "band": 3,
-              "coveredPx": 322.3125,
-              "emptyPx": 37.6875
+              "coveredPx": 307.484375,
+              "emptyPx": 52.515625
             },
             {
               "band": 4,
-              "coveredPx": 52,
-              "emptyPx": 308
+              "coveredPx": 108.234375,
+              "emptyPx": 251.765625
             }
           ]
         }
       ],
-      "status": "failed",
+      "status": "passed",
       "canvas": {
         "w": 1080,
         "h": 1440
@@ -255,10 +243,10 @@
           "coordinateReference": "canvas-top-left",
           "units": "px",
           "rect": {
-            "x": 72.265625,
-            "y": 593.34375,
-            "w": 361.234375,
-            "h": 321.234375
+            "x": 126.265625,
+            "y": 477.59375,
+            "w": 311.546875,
+            "h": 552.734375
           },
           "visible": true,
           "editable": null,
@@ -275,7 +263,7 @@
           "coordinateReference": "canvas-top-left",
           "units": "px",
           "rect": {
-            "x": 72.265625,
+            "x": 126.265625,
             "y": 719.9375,
             "w": 233.28125,
             "h": 67.046875
@@ -295,10 +283,10 @@
           "coordinateReference": "canvas-top-left",
           "units": "px",
           "rect": {
-            "x": 337.9375,
-            "y": 617.09375,
-            "w": 95.5625,
-            "h": 96.75
+            "x": 391.9375,
+            "y": 501.34375,
+            "w": 45.875,
+            "h": 193.5
           },
           "visible": true,
           "editable": "text",
@@ -315,10 +303,10 @@
           "coordinateReference": "canvas-top-left",
           "units": "px",
           "rect": {
-            "x": 337.9375,
-            "y": 721.390625,
-            "w": 95.5625,
-            "h": 168.4375
+            "x": 391.9375,
+            "y": 702.390625,
+            "w": 45.875,
+            "h": 303.1875
           },
           "visible": true,
           "editable": "text",
@@ -335,9 +323,9 @@
           "coordinateReference": "canvas-top-left",
           "units": "px",
           "rect": {
-            "x": 72.265625,
-            "y": 940.484375,
-            "w": 361.234375,
+            "x": 126.265625,
+            "y": 1056.234375,
+            "w": 311.546875,
             "h": 101.0625
           },
           "visible": true,
@@ -355,10 +343,10 @@
           "coordinateReference": "canvas-top-left",
           "units": "px",
           "rect": {
-            "x": 465.890625,
-            "y": 590.828125,
-            "w": 541.84375,
-            "h": 453.234375
+            "x": 486.40625,
+            "y": 618.765625,
+            "w": 467.328125,
+            "h": 397.34375
           },
           "visible": true,
           "editable": null,
@@ -375,10 +363,10 @@
           "coordinateReference": "canvas-top-left",
           "units": "px",
           "rect": {
-            "x": 465.890625,
-            "y": 590.828125,
-            "w": 541.84375,
-            "h": 406.375
+            "x": 486.40625,
+            "y": 618.765625,
+            "w": 467.328125,
+            "h": 350.484375
           },
           "visible": true,
           "editable": null,
@@ -395,9 +383,9 @@
           "coordinateReference": "canvas-top-left",
           "units": "px",
           "rect": {
-            "x": 465.890625,
-            "y": 1012.3125,
-            "w": 541.84375,
+            "x": 486.40625,
+            "y": 984.359375,
+            "w": 467.328125,
             "h": 31.75
           },
           "visible": true,
@@ -534,18 +522,18 @@
         },
         {
           "band": 2,
-          "coveredPx": 140.703125,
-          "emptyPx": 219.296875
+          "coveredPx": 209.4375,
+          "emptyPx": 150.5625
         },
         {
           "band": 3,
-          "coveredPx": 322.3125,
-          "emptyPx": 37.6875
+          "coveredPx": 307.484375,
+          "emptyPx": 52.515625
         },
         {
           "band": 4,
-          "coveredPx": 52,
-          "emptyPx": 308
+          "coveredPx": 108.234375,
+          "emptyPx": 251.765625
         }
       ],
       "counts": {
@@ -1388,16 +1376,37 @@
         "warnings": [],
         "loadedFaces": 4
       },
-      "inputKey": "83647a2c8373c4c05ff912fbc20d259d43954165cad69377a99b92ca9b381d1f"
+      "inputKey": "284adac429f42f208342b72ff9e486bb5092abb2fecf81689659f1acc7d8d5c2",
+      "pngHash": "e3a44bffeb729ebf39591554389f0c395a29ca11f5fad6fa45756dbca21eb430",
+      "pngBytes": 127361
     }
   ],
   "issues": [
     {
-      "level": "ERROR",
-      "rule": "BATCH",
-      "msg": "几何检查失败页: 19；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+      "level": "WARN",
+      "rule": "FONT",
+      "msg": "同进程不保证整批字体一致；各页 fonts.actual / faces 已记录，请核对实际 face"
     }
   ],
-  "artifacts": {},
-  "updatedAt": "2026-11-13T15:11:29.457Z"
+  "artifacts": {
+    "digest": {
+      "path": "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1fix-p19-1113\\work\\geometry-digest.json"
+    },
+    "sheet": {
+      "path": "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1fix-p19-1113\\work\\_sheet.png",
+      "sha256": "e40cfb0dcf546e2155ae6705ee19b36864e2fc0805e19ccc9e29c8e4b01e80c7"
+    },
+    "manifest": {
+      "path": "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1fix-p19-1113\\work\\editor.manifest.json",
+      "runId": "5cb526c8-14e2-4441-bca7-0d1c16e26149"
+    },
+    "html": [
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1fix-p19-1113\\out\\19.html"
+    ],
+    "png": [
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1fix-p19-1113\\out\\19.png"
+    ]
+  },
+  "updatedAt": "2026-11-13T16:06:55.098Z",
+  "fontPolicy": "Per-target bounded wait + stopLoading; actual platform faces recorded. No batch fallback guarantee."
 }

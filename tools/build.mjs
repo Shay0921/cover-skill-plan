@@ -10,7 +10,7 @@ import { ROOT, sha256, loadProject, assertOutputPages, isMain, cli, parseArgs, n
 // T8 种子只读锁（2026-11-13）：种子是只读基线，任何改动都会改变派生产物的样式与几何前提。
 // 基线 = references/04-recipes.md 文首登记值（P→R 迁移后刷新版）。有意演进种子时三处同步：
 // 改种子 → 刷新 04-recipes.md 登记校验和 → 更新本常量，缺一 gate 即 FAIL。
-export const SEED_SHA256 = 'E11C9E1E856E5FCD322DE89E6EEB1C3A7F63A94094B793A434AC763B8A01905E';
+export const SEED_SHA256 = '98E29FC020A8EBD5A77EA415720F8875CF7209A5B6FFF59638522075AFA5D243';
 
 /** 校验种子内容是否与登记基线一致；不一致即抛错（gate 拒绝构建）。 */
 export function verifySeedChecksum(html) {

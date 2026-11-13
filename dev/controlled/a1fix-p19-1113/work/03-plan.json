@@ -1,0 +1,31 @@
+{
+  "meta": {
+    "style": "paper-journal",
+    "brand": "A1 受控回归",
+    "issue": "2026-11"
+  },
+  "pages": [
+    {
+      "nn": "19",
+      "recipe": "R-data-04",
+      "layout": "panel",
+      "intent": "A1 受控回归",
+      "uses": [
+        "brand-seal",
+        "brand-name",
+        "brand-tag",
+        "topic-proof",
+        "full-frame-headline",
+        "full-frame-intro",
+        "sample-beta-count",
+        "sample-beta-name",
+        "sample-beta-scope",
+        "frame-note",
+        "detail-crop-caption",
+        "pill-original",
+        "pill-synthetic",
+        "pill-traceable"
+      ]
+    }
+  ]
+}

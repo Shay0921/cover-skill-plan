@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "runId": "00638598-e3f6-4840-bd1b-8ce361f5e848",
+  "runId": "5cb526c8-14e2-4441-bca7-0d1c16e26149",
   "units": {
     "rect": "cqw",
     "share": "占正文宽度比例"
@@ -8,7 +8,7 @@
   "pages": [
     {
       "nn": "19",
-      "status": "failed",
+      "status": "passed",
       "regions": [
         {
           "id": "head",
@@ -34,8 +34,8 @@
           "layer": "detail-crop-evidence",
           "component": "shot",
           "region": "full",
-          "wCqw": 50.2,
-          "hCqw": 42
+          "wCqw": 43.3,
+          "hCqw": 36.8
         }
       ],
       "bands": [
@@ -46,23 +46,21 @@
         },
         {
           "band": 2,
-          "coveredPx": 140.703125,
-          "emptyPx": 219.296875
+          "coveredPx": 209.4375,
+          "emptyPx": 150.5625
         },
         {
           "band": 3,
-          "coveredPx": 322.3125,
-          "emptyPx": 37.6875
+          "coveredPx": 307.484375,
+          "emptyPx": 52.515625
         },
         {
           "band": 4,
-          "coveredPx": 52,
-          "emptyPx": 308
+          "coveredPx": 108.234375,
+          "emptyPx": 251.765625
         }
       ],
-      "errors": [
-        "R14: detail-crop-evidence 宽 50.2cqw 超出骨架档 41–46cqw"
-      ]
+      "errors": []
     }
   ]
 }

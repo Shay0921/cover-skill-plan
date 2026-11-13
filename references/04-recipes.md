@@ -5,7 +5,7 @@
 > 命名：按内容语义（DEVPLAN 阶段 2 补充），R-id 沿用草案。
 > 骨架目录：`references/recipes/`（每骨架档一个 `.part.html`，共 41 个）。
 > 资产位：`references/assets/`（iphone-frame.png 910×1806；骨架/harness 不得引用 dev 路径）。
-> 种子基线：`seed/paper-journal.html`（含布局修饰段）SHA-256 = `E11C9E1E856E5FCD322DE89E6EEB1C3A7F63A94094B793A434AC763B8A01905E`——阶段 4 种子只读校验以此版本为基线。（2026-11-13 变更：P→R 迁移把示例页 `data-recipe` 改为 R-quote-01，校验和随之刷新。）（2026-11-13 阶段A 变更：`.phone.h68` 固定档 → 弹性档 `height:auto;flex:1 1 auto;min-height:63.5cqw;max-height:68cqw` + `.phone-cell:has(> .phone.h68)` 拉伸规则，校验和随之刷新；详见 dev/DIAGNOSIS-h68-overflow-2026-11-13.md §8。）（T8 已挂 gate 构建锁：build.mjs `verifySeedChecksum` 每次构建必校验，种子漂移即 FAIL；独立复跑 `node dev/check-seed-lock.mjs`。）（T9 资产入册：`dev/asset-registry.json` 为唯一台账——b64 内嵌源/PNG 交付位/两份字体 CSS（交付渲染字形源，`inlineSeedFonts` 读取处校验，漂移即拒建）/fonts 树目录级 manifest（108 文件，预览资产）；独立复跑 `node dev/check-asset-registry.mjs`，三锁注入取证 `node dev/check-locks-e2e.mjs`。字体演进 = 种子三处同步纪律：改源 → 刷新台账 → 同步锁。）（2026-11-13 阶段B-seed 变更：`.heading` 规则选择器升特异性为 `.p-page .heading`，修复被后定义 `.region{gap:2.4cqw}` 覆盖的 gap 优先级问题，head 区 gap 恢复设计值 1.4cqw，校验和随之刷新；详见 dev/DIAGNOSIS-h68-overflow-2026-11-13.md §8.6。）
+> 种子基线：`seed/paper-journal.html`（含布局修饰段）SHA-256 = `98E29FC020A8EBD5A77EA415720F8875CF7209A5B6FFF59638522075AFA5D243`——阶段 4 种子只读校验以此版本为基线。（2026-11-13 变更：P→R 迁移把示例页 `data-recipe` 改为 R-quote-01，校验和随之刷新。）（2026-11-13 阶段A 变更：`.phone.h68` 固定档 → 弹性档 `height:auto;flex:1 1 auto;min-height:63.5cqw;max-height:68cqw` + `.phone-cell:has(> .phone.h68)` 拉伸规则，校验和随之刷新；详见 dev/DIAGNOSIS-h68-overflow-2026-11-13.md §8。）（T8 已挂 gate 构建锁：build.mjs `verifySeedChecksum` 每次构建必校验，种子漂移即 FAIL；独立复跑 `node dev/check-seed-lock.mjs`。）（T9 资产入册：`dev/asset-registry.json` 为唯一台账——b64 内嵌源/PNG 交付位/两份字体 CSS（交付渲染字形源，`inlineSeedFonts` 读取处校验，漂移即拒建）/fonts 树目录级 manifest（108 文件，预览资产）；独立复跑 `node dev/check-asset-registry.mjs`，三锁注入取证 `node dev/check-locks-e2e.mjs`。字体演进 = 种子三处同步纪律：改源 → 刷新台账 → 同步锁。）（2026-11-13 阶段B-seed 变更：`.heading` 规则选择器升特异性为 `.p-page .heading`，修复被后定义 `.region{gap:2.4cqw}` 覆盖的 gap 优先级问题，head 区 gap 恢复设计值 1.4cqw，校验和随之刷新；详见 dev/DIAGNOSIS-h68-overflow-2026-11-13.md §8.6。）（2026-11-14 批次C2 变更：布局修饰段新增 `.inset45` panel 内衬档（来源页 46，批次 C 甲案用户拍板，悬置的"46 紧凑边距是否入种子"人审项就此销账），data04-panel 骨架挂类，校验和随之刷新；施工依据 dev/EXEC-PLAN-batchC-2026-11-13.md C2。）
 
 ## 配方总表（20 条 · 语义定名 + 角色资格）
 
@@ -255,7 +255,7 @@
 ├─ 耦合约束：标题 ≤1 行；panel 是全页唯一容器
 ├─ 对账：ldr←数值；text-block←解读段；shot←局部图；pill←口径标签
 ├─ 骨架文件：data04-panel←46
-├─ 内联净化：⚠️ panel inline padding → 孤例丢弃，骨架用种子默认容器边距（登记卡注记：46 的紧凑边距是否入种子由阶段 4 人审）
+├─ 内联净化：panel inline padding → 紧凑档 `.inset45` 入种子并挂类（2026-11-14 批次 C 甲案用户拍板，悬置人审项销账；销账记录见下方净化处置表注）
 └─ 头部烘焙：按源页实际 head 照抄
 ```
 
@@ -363,7 +363,7 @@
 | 44 | phone `height:75cqw` | 可复用档位 | `.phone.h75` | ✅ 已入种子（2026-11-13 设计期增补） |
 | 45 | phone `height:75cqw` | 可复用档位 | `.phone.h75` | ✅ 同上（与 44 共档） |
 | 45 | fcard `padding:1.7cqw` | 孤例丢弃 | 骨架用种子默认 padding | 是否为无 ic 卡新增紧凑档 |
-| 46 | panel 内联 padding | 孤例丢弃 | 种子默认容器边距 | 是否新增 panel 紧凑档 |
+| 46 | panel 内联 padding | 可复用档位 | `.inset45`（padding 4.5/5 + gap 4.5） | ✅ 已入种子（2026-11-14 批次 C 甲案，悬置项销账） |
 | 40 | shot `aspect-ratio:1;flex:none` | 孤例丢弃 | 种子默认；1:1 定高档降为注记 | 是否新增 `.shot.sq` 档 |
 | 47 | h1 内 inline-block 手动断行 | 保留 | 属标题排版语义非几何数值，随骨架照抄 | 无需 |
 | 15 | sub 内 hl span | 移除 | 错例不入骨架 | 无需 |
@@ -383,7 +383,7 @@
 | B5 网格档 | wall `grid-template-*`（2×2/2列/1列2行/3列） | 06,27,24,25,02,32 | ✅ 已落地 `.flow-grid.g22/.g2c/.g1c2r/.g3c` |
 | B6 图窗比 | shot `aspect-ratio:1280/960` | 02,22,24,25,34,46 | ✅ 已落地 `.shot>img.ar43`（宿主 img，与源页一致） |
 | B7 柱高数据 | bars 柱 `height:50/100/75/25%` | 10,30 | ✅ 已参数化 `style="height:{{柱高}}%"`（数据驱动几何豁免通道；gate 阶段 3 补 0-100 整数边界校验） |
-| C1 孤例 | p23 居中、p32 三壳、p40 1:1、p45 卡padding、p46 panel padding | 各 1 页 | p40 改判（见下）；其余维持登记 |
+| C1 孤例 | p23 居中、p32 三壳、p40 1:1、p45 卡padding、p46 panel padding | 各 1 页 | p40 改判（见下）；p46 已入种子 `.inset45`（批次 C 甲案）；其余维持登记 |
 
 **p40 1:1 改判（2026-11-13 执行期发现）**：`.shot>img{height:0;flex:1 1 0}` 弹性拉伸依赖容器定高，40 的列高由 ba 卡决定 → 丢弃 1:1 后窗高塌陷为 0（探针实测 img height=0）。该内联是双窗对照档的**结构必需约束**，非可丢弃孤例 → 按裁决 2 保留条目通道转种子 `.shot.sq{aspect-ratio:1/1;flex:none;width:100%}`，骨架挂类。请复核。
 
@@ -392,6 +392,10 @@
 ✅ **闸门裁决已下达（2026-11-13，用户拍板"全部按此执行"）**，全文见 DEVPLAN §4.3"阶段 2 目检闸门裁决记录"。要点：B2-B6 类名**改用几何语义**（不随配方语义，防种子耦合注册表）；B7 走 `{{柱高}}` 数据驱动几何豁免通道 + gate 边界校验；页 26 维持无 sub；harness 修复三处（repeat 回溯 / 资产路径 / 假文字形状）后重渲染，用户复核波及页后闸门关闭。
 
 📌 `.phone.h68` / `.phone.h75` 已于 2026-11-13 走 §4.3 保留条目通道入种子（`seed/paper-journal.html` 第 98-100 行，附来源与波及页注释）；§4.6 的 SHA-256 校验登记待 asset-registry 落地时补录本次种子版本。
+
+### 批次 C2 销账记录（2026-11-14，格式对齐 T7 残余清单）
+
+> `p46-panel-padding`（R-data-04 内联净化悬置项，掉账自阶段 2 入册）：**入种子**——新增 `.inset45`（padding 4.5cqw 5cqw + gap 4.5cqw），data04-panel 骨架挂类，A1 p19 的 R14 载体档失配随档恢复（shot 实测 50.2→43.4cqw 落 [41,46]）。**理由**：观感锚点 = 阶段 2 已目检认可的画廊页 46（源页内联逐字迁移：`padding:4.5cqw 5cqw;gap:4.5cqw`）；config 载体档保持源页派生语义不放宽；与 h68"尊重源页设计意图"同向。**兜底**：R14 载体档 [41,46] + 交付目检。**复发处置**：观感偏差 → 回炉登记卡与种子修饰段，不动 gate。施工依据 dev/EXEC-PLAN-batchC-2026-11-13.md C2；种子 SHA 同步 `98E29FC0…`（build.mjs 常量 + 本文头部登记两处，check-seed-lock 自动跟随）。
 
 ## 配方↔类映射总表（裁决 3：gate 凭此引用校验；入册时随登记卡迁移）
 
