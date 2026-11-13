@@ -153,10 +153,14 @@ try {
   await test('ghost-on-inner-page', ghostHtml(innerHtml), null, asInner);
   await test('overlay-inside-body', ghostInBody(innerHtml), 'overlay 区域必须是 .p-page 的直接子级', asInner);
   const asWall = p => { p.pages[0].recipe = 'R-phone-01'; };
-  await test('phone-count-over-cap', wallPage(4), '最多 3 个', asWall);
+  // C2 拆分（2026-11-13 T6 第四刀）：L11①②③/L20/R13 退役——组件选择/条数/形态/区域登记/require/form 归登记卡（装配自查+人审）；
+  // L11④（未知组件/区域合法性/禁嵌套/归组件根）与 L6 账目面原地保留。max/order/counts 的坏例落在哪个后果层以实测校准。
+  // 实测定性：4 壳同区挤压致声明比例失真（R10，skew>1%），非越界 R1。
+  await test('phone-count-over-cap', wallPage(4), 'R10', asWall);
   await test('phone-count-at-cap', wallPage(3), null, asWall);
   await test('aspect-ratio-crushed', withPhone('crushed-phone', '30cqw', '40cqw'), 'R10');
   // require / form 都挂在配方级：require 说"这页少了它就不配叫这个配方"，form 说"它得长成组件目录登记过的样子"，两者都不锁摆位、不锁条数。
+  // C2 拆分：require/form 检查退役 → missing 类改登记 passed+目检项（卡片锚点人审兜底）；present 控制组保持通过。
   const asRecipe = recipe => p => { p.pages[0].recipe = recipe; };
   const requireCases = [
     ['R-step-01', 'step', stepBlock, 'full'],
@@ -166,26 +170,27 @@ try {
     ['R-close-01', 'cta', ctaBlock, 'full']
   ];
   for (const [recipe, comp, block, region] of requireCases) {
-    await test(`require-${comp}-missing`, pageIn(recipe, region, text('main-copy')), `要求本页至少放一个 ${comp}`, asRecipe(recipe));
+    await test(`require-${comp}-missing`, pageIn(recipe, region, text('main-copy')), null, asRecipe(recipe));
     await test(`require-${comp}-present`, pageIn(recipe, region, block), null, asRecipe(recipe));
   }
   // 同一配方的另一个允许区域同样满足下限，证明 require 只管这页有没有，不管它摆在哪。
   await test('require-any-allowed-region', pageIn('R-close-01', 'bottom', ctaBlock), null, asRecipe('R-close-01'));
-  // any-of 组：组内任一即可。四个带组配方各取证缺失；R-wall-01 审计 #5 收窄为 [["shot"]]，
-  // phone-only 由"另一种满足方式"反转为负例；整组不可见取证改走 R-phone-01（require [["phone"]] 同为组形式）。
-  await test('anyof-card02-missing', pageIn('R-card-02', 'left', text('main-copy')), 'fcard/phone（任一）', asRecipe('R-card-02'));
-  await test('anyof-wall01-missing', pageIn('R-wall-01', 'wall', text('main-copy')), 'shot（任一）', asRecipe('R-wall-01'));
-  await test('anyof-list02-missing', pageIn('R-list-02', 'full', text('main-copy')), 'ck/list（任一）', asRecipe('R-list-02'));
-  await test('anyof-data01-missing', pageIn('R-data-01', 'full', text('main-copy')), 'bars/ldr/ledger（任一）', asRecipe('R-data-01'));
-  await test('wall01-phone-only-rejected', pageIn('R-wall-01', 'wall', `<div class="flow-grid grow" style="grid-template-columns:repeat(3,minmax(0,1fr));align-content:center">${phoneCell('wall-phone-1', true)}</div>`), 'shot（任一）', asRecipe('R-wall-01'));
+  // any-of 组：C2 拆分后组缺省与换载体均放行（组件选择归卡，人审把关）。
+  await test('anyof-card02-missing', pageIn('R-card-02', 'left', text('main-copy')), null, asRecipe('R-card-02'));
+  await test('anyof-wall01-missing', pageIn('R-wall-01', 'wall', text('main-copy')), null, asRecipe('R-wall-01'));
+  await test('anyof-list02-missing', pageIn('R-list-02', 'full', text('main-copy')), null, asRecipe('R-list-02'));
+  await test('anyof-data01-missing', pageIn('R-data-01', 'full', text('main-copy')), null, asRecipe('R-data-01'));
+  await test('wall01-phone-only-rejected', pageIn('R-wall-01', 'wall', `<div class="flow-grid grow" style="grid-template-columns:repeat(3,minmax(0,1fr));align-content:center">${phoneCell('wall-phone-1', true)}</div>`), null, asRecipe('R-wall-01'));
   await test('anyof-wall01-shot-only', pageIn('R-wall-01', 'wall', '<figure class="shot" data-component="shot" data-layer="wall-shot" data-group><img data-slot="image" data-layer="wall-shot-img" style="flex:none;width:30cqw;height:auto;object-fit:contain" src="assets/iphone-frame.png" alt=""><figcaption class="cap" data-layer="wall-shot-cap" data-editable="text" data-from="h1">清楚表达</figcaption></figure>'), null, asRecipe('R-wall-01'));
-  await test('anyof-group-invisible', pageIn('R-phone-01', 'wall', withPhoneStyle('wall-phone-1').replace('class="phone"', 'class="phone" style="opacity:0"')), 'R13', asRecipe('R-phone-01'));
+  // R13 退役（C2）：可见性下限兜底实测由 R12 接住——隐藏组件若是页内唯一组件即"整页不可见"（R12 拦）；
+  // 单组件内的隐藏形态（form-shape-invisible）无几何后果，为已接受残余，目检把关。
+  await test('anyof-group-invisible', pageIn('R-phone-01', 'wall', withPhoneStyle('wall-phone-1').replace('class="phone"', 'class="phone" style="opacity:0"')), 'R12', asRecipe('R-phone-01'));
   // form 逐个形态取证：缺哪一项报哪一项；裸 p.serif 立不起整页金句。
   const asP08 = asRecipe('R-quote-01');
-  await test('form-hero-missing', pageIn('R-quote-01', 'full', quoteGroup({ hero: false })), '呈现形态 hero', asP08);
-  await test('form-marked-missing', pageIn('R-quote-01', 'full', quoteGroup({ hl: false })), '呈现形态 marked', asP08);
-  await test('form-split-missing', pageIn('R-quote-01', 'full', quoteGroup({ br: false })), '呈现形态 split', asP08);
-  await test('form-plain-serif', pageIn('R-quote-01', 'full', serifBlock), '呈现形态 hero', asP08);
+  await test('form-hero-missing', pageIn('R-quote-01', 'full', quoteGroup({ hero: false })), null, asP08);
+  await test('form-marked-missing', pageIn('R-quote-01', 'full', quoteGroup({ hl: false })), null, asP08);
+  await test('form-split-missing', pageIn('R-quote-01', 'full', quoteGroup({ br: false })), null, asP08);
+  await test('form-plain-serif', pageIn('R-quote-01', 'full', serifBlock), null, asP08);
   // B1–B5 加固：隐藏正文与不可见下限兜底、豁免标记的内容边界、品牌与计划一致。
   await test('hidden-body', baseline.replace('<main class="body">', '<main class="body" style="display:none">'), 'R12');
   await test('decoration-with-text-leaf', wrap(text('main-copy') + '<div data-decoration data-layer="deco-smuggle"><span data-editable="text" data-layer="smuggled" data-from="h1">清楚表达</span></div>'), '不得携带文字叶');
@@ -194,8 +199,8 @@ try {
   await test('hidden-display-override', wrap(text('main-copy') + '<div hidden style="display:block">未标记的隐藏文字</div>'), 'L9');
   await test('hidden-without-override', wrap(text('main-copy') + '<div hidden>未标记的隐藏文字</div>'), null);
   await test('brand-mismatch', baseline.replace('data-layer="brand-name" data-editable="text">组合实验', 'data-layer="brand-name" data-editable="text">别的品牌'), '.brand 与计划 meta.brand 不一致');
-  await test('require-invisible', pageIn('R-step-01', 'full', stepBlock.replace('class="step"', 'class="step" style="opacity:0"')), 'R13', asRecipe('R-step-01'));
-  await test('form-shape-invisible', pageIn('R-quote-01', 'full', quoteGroup().replace('<span class="hl">', '<span class="hl" style="display:none">')), 'R13', asP08);
+  await test('require-invisible', pageIn('R-step-01', 'full', stepBlock.replace('class="step"', 'class="step" style="opacity:0"')), 'R12', asRecipe('R-step-01'));
+  await test('form-shape-invisible', pageIn('R-quote-01', 'full', quoteGroup().replace('<span class="hl">', '<span class="hl" style="display:none">')), null, asP08);
   // dark 只是同一风格下的配色开关：计划与画布根类必须互相印证。
   await test('dark-class-without-plan', darkHtml(baseline), 'L6');
   await test('dark-plan-without-class', baseline, '缺少 .dark', p => { p.pages[0].dark = true; });
@@ -321,11 +326,16 @@ try {
   // L20 静态骨架：缺区域、区域乱序、锁宽区域缺席、件数越界。
   // asLayout 只改 plan，页面 data-recipe 必须同步改写，否则 L6 不一致先炸、几何档校验被跳过（1113 第五轮教训）。
   const asListPage = html => html.replace('data-recipe="R-card-01"', 'data-recipe="R-list-01"');
-  await test('skeleton-order-missing-region', asListPage(wrap()), '要求区域 left，本页没有', asLayout('R-list-01', 'frow-phone'));
-  await test('skeleton-tracks-missing-region', asListPage(wrap()), '锁了区域 left 的列宽，本页没有该区域', asLayout('R-list-01', 'frow-phone'));
-  await test('skeleton-order-wrong-sequence', colPage(text('main-copy'), phoneW('right-phone', '41cqw'), { recipe: 'R-list-01', swap: true }), '要求区域顺序', asLayout('R-list-01', 'frow-phone'));
-  await test('skeleton-counts-under', wallPage(2), '要求 phone 3–3 个，实际 2 个', asLayout('R-phone-01', 'trio-labeled'));
-  await test('skeleton-counts-over', wallPage(3), '要求 phone 2–2 个，实际 3 个', asLayout('R-phone-01', 'duo-labeled'));
+  // C2/C4 拆分：L20 静态层退役——order/tracks 存在性照抄骨架不可能违反（违反=手改骨架，归 R14 渲染层量），
+  // counts 件数归登记卡。order/counts 坏例落在哪个后果层以实测校准。
+  await test('skeleton-order-missing-region', asListPage(wrap()), 'R14', asLayout('R-list-01', 'frow-phone'));
+  await test('skeleton-tracks-missing-region', asListPage(wrap()), 'R14', asLayout('R-list-01', 'frow-phone'));
+  // 实测（1113 第六轮）：交换列序后各区域宽度不变、渲染等价、零几何后果——镜像构图（手机放左还是右）是装配决策，
+  // 归登记卡与装配自查，gate 无从量起，按纪律改登记 passed+目检项，不硬塞后果层。
+  await test('skeleton-order-wrong-sequence', colPage(text('main-copy'), phoneW('right-phone', '41cqw'), { recipe: 'R-list-01', swap: true }), null, asLayout('R-list-01', 'frow-phone'));
+  // 实测：件数缺/超都会被 R14 载体档接住（缺→网格拉伸越档；超→档外或溢出 R1）。
+  await test('skeleton-counts-under', wallPage(2), 'R14', asLayout('R-phone-01', 'trio-labeled'));
+  await test('skeleton-counts-over', wallPage(3), 'R14', asLayout('R-phone-01', 'duo-labeled'));
   // R14 几何骨架：列宽占比、载体宽度档、载体缺席、标题行数、锚点缺席。
   await test('skeleton-share-out-of-range', colPage(text('main-copy'), text('side-copy'), { recipe: 'R-list-01', leftStyle: 'flex:1.4' }), '区域 left 列宽占比', asLayout('R-list-01', 'list-text-cover'));
   await test('skeleton-carrier-width', colPage(text('main-copy'), phoneW('right-phone', '30cqw'), { recipe: 'R-list-01' }), '宽 30.0cqw 超出骨架档', asLayout('R-list-01', 'frow-phone'));
@@ -336,7 +346,7 @@ try {
   // 其余配方骨架档：出血档要求 hero 列宽占比 >1（左右出血），普通满宽区域占比 1.0 落档外（R-phone-02）；
   // 双图窗档锁 shot 件数，只放一只即报（R-compare-02）；整幅金句/收束档无载体约束，满宽单组件照常命中（R-quote-01/R-close-01）。
   await test('skeleton-bleed-share', pageIn('R-phone-02', 'hero', shotBlock()), '列宽占比', asLayout('R-phone-02', 'hero-bleed'));
-  await test('skeleton-shot-counts', pageIn('R-compare-02', 'full', baBlocks + shotBlock()), '要求 shot 2–2 个', asLayout('R-compare-02', 'shot-ba'));
+  await test('skeleton-shot-counts', pageIn('R-compare-02', 'full', baBlocks + shotBlock()), '超出骨架档', asLayout('R-compare-02', 'shot-ba'));
   await test('skeleton-quote-tier', pageIn('R-quote-01', 'full', quoteGroup()), null, asLayout('R-quote-01', 'annotated'));
   await test('skeleton-closing-tier', pageIn('R-close-01', 'full', ctaBlock), null, asLayout('R-close-01', 'standard'));
   // R15 时间线内部拉伸：少步骤+短内容撑不满行高即报；内容撑满时不报（与有没有手机无关，量的是内容填充）。
@@ -354,6 +364,8 @@ try {
   // L23 出血区配文：区域挂 .bleed 的出血本身合法（封面手机出血、画面页出血都允许），拦的是"整页只剩图"——
   // head 或 bottom 至少要有一处标题或说明文字；出血区内部的 figcaption 是图的附属，不作数。recipe 用 R-phone-02 + layout free，
   // 让 L23 成为唯一拦截理由（free 不进 L20/R14）。control 证明 head 配文与 bottom 配文都解拦。
+  // C6 复核（2026-11-13）：误伤探测不成立——登记卡世界里没有"无 head 且无 bottom 文字"的合法出血页
+  // （R-wall-01 锚点 h1；R-phone-02 绑定 bottom text-block×1、锚点 bottom），L23 与卡片承诺一致，保留原样不收窄。
   const bleedPage = caption =>
     `<div class="p-page" data-artwork data-size="1080x1440" data-recipe="R-phone-02"><header class="page-header"><div class="brand" data-layer="brand" data-group><span class="nm" data-layer="brand-name" data-editable="text">组合实验</span></div></header>${caption ? '<div class="heading" data-region="head"><h1 class="h1" data-component="h1" data-layer="headline" data-editable="text" data-from="h1">受控组件试验</h1></div>' : ''}<main class="body"><div class="region bleed grow" data-region="hero"><figure class="shot" data-component="shot" data-layer="bleed-shot" data-group><img data-slot="image" data-layer="bleed-shot-img" style="flex:none;width:30cqw;height:auto;object-fit:contain" src="assets/iphone-frame.png" alt=""><figcaption class="cap" data-layer="bleed-shot-cap" data-editable="text" data-from="h1">清楚表达</figcaption></figure></div></main><footer class="footer"><span data-layer="footer-signature" data-editable="text">组合实验</span><span data-numbering>01 / 01</span></footer></div>`;
   await test('bleed-region-without-caption', bleedPage(false), 'L23', asRecipe('R-phone-02'));

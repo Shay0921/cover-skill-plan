@@ -113,14 +113,8 @@ export function inspectFragmentDOM(html, contract) {
     layers.add(id);
   }
   const regions = contract.recipe.regions || {};
-  for (const region of root.querySelectorAll('[data-region]')) {
-    const id = region.getAttribute('data-region');
-    if (!Object.hasOwn(regions, id) || !Array.isArray(regions[id]?.allow)) error('L11', `配方未允许区域: ${id}`);
-    for (const [comp, limit] of Object.entries(regions[id]?.max || {})) {
-      const count = region.querySelectorAll(`[data-component="${comp}"]`).length;
-      if (count > limit) error('L11', `区域 ${id} 的 ${comp} 最多 ${limit} 个，实际 ${count} 个`);
-    }
-  }
+  // C2 拆分（2026-11-13）：原 L11①"配方未允许区域 / 区域 max"已退役——区域登记与件数上限是配方决策，
+  // 归登记卡绑定字段，gate 不复述。allow 数据仍在 config（服务计划加载合法性与下方 L11④ 区域合法性检查）。
   // overlay 锚点唯一：ghost 的 right/bottom 锚的是最近定位祖先，overlay 只有挂在画布根下位置语义才唯一；
   // 落进 main.body 就锚正文区，同一组件 DOM 落点不同视觉位置就不同。
   for (const el of root.querySelectorAll('[data-region="overlay"]'))
@@ -149,45 +143,8 @@ export function inspectFragmentDOM(html, contract) {
     if (phone.querySelector('[data-editable="text"]'))
       error('L19', `带比例的 phone 根 ${phone.getAttribute('data-layer') || '(无 data-layer)'} 内不得放文字叶：锁高壳内塞文字会挤压画面，界面名应与壳同层（见配方登记卡绑定字段）`);
   }
-  // 下限在配方级，不在区域级：require 条目写组件 id 表示必须有，写 id 数组表示组内任一即可；form 说"它得长成目录里登记过的样子才算"；两者都不锁摆位。
-  for (const entry of contract.recipe.require || []) {
-    const group = Array.isArray(entry) ? entry : [entry];
-    if (!group.some(comp => root.querySelector(`[data-component="${comp}"]`)))
-      error('L11', Array.isArray(entry)
-        ? `配方 ${contract.page.recipe} 要求本页至少放一个 ${group.join('/')}（任一）`
-        : `配方 ${contract.page.recipe} 要求本页至少放一个 ${entry}`);
-  }
-  for (const [comp, shapes] of Object.entries(contract.recipe.form || {})) {
-    for (const shape of shapes) {
-      const spec = contract.components[comp]?.shapes?.[shape];
-      if (!spec) { error('L11', `组件 ${comp} 没有登记形态 ${shape}`); continue; }
-      const hit = [...root.querySelectorAll(`[data-component="${comp}"]`)].some(el => el.matches(spec.selector) || el.querySelector(spec.selector));
-      if (!hit) error('L11', `配方 ${contract.page.recipe} 要求 ${comp} 呈现形态 ${shape}（${spec.desc}），本页没有`);
-    }
-  }
-  // 构图骨架（静态部分）：区域顺序、件数、tracks 区域存在。载体宽度档与列宽比例由渲染层 R14 量。
-  // order 只约束列出的区域：未列出的区域不参与排序，带 ? 的区域可缺省。
-  const layout = contract.layout;
-  if (layout) {
-    const present = [...root.querySelectorAll('[data-region]')].map(el => el.getAttribute('data-region'));
-    const wanted = layout.order.map(entry => entry.replace(/\?$/, ''));
-    const optional = new Set(layout.order.filter(entry => entry.endsWith('?')).map(entry => entry.slice(0, -1)));
-    for (const rid of wanted)
-      if (!present.includes(rid) && !optional.has(rid)) error('L20', `骨架 ${contract.page.layout}「${layout.name}」 要求区域 ${rid}，本页没有`);
-    const seq = present.filter(rid => wanted.includes(rid));
-    let cursor = -1;
-    for (const rid of seq) {
-      const at = wanted.indexOf(rid);
-      if (at < cursor) { error('L20', `骨架 ${contract.page.layout}「${layout.name}」 要求区域顺序 ${wanted.join(' → ')}，本页是 ${seq.join(' → ')}`); break; }
-      cursor = at;
-    }
-    for (const track of layout.tracks || [])
-      if (!present.includes(track.region)) error('L20', `骨架 ${contract.page.layout}「${layout.name}」 锁了区域 ${track.region} 的列宽，本页没有该区域`);
-    for (const [comp, [min, max]] of Object.entries(layout.counts || {})) {
-      const count = root.querySelectorAll(`[data-component="${comp}"]`).length;
-      if (count < min || count > max) error('L20', `骨架 ${contract.page.layout}「${layout.name}」 要求 ${comp} ${min}–${max} 个，实际 ${count} 个`);
-    }
-  }
+  // C2 拆分（2026-11-13）：原 L11② require 下限与 ③ form 形态已退役——"这页配不配叫这个配方"的组件/形态承诺
+  // 归登记卡绑定字段（装配自查+人审兜底），gate 不复述；整页空兜底由 R12 负责。config 的 require/form 字段删除随独立小批。
   for (const el of root.querySelectorAll('[data-component]')) {
     const id = el.getAttribute('data-component');
     const region = el.closest('[data-region]')?.getAttribute('data-region');

@@ -63,23 +63,8 @@ export function measureDOM(contract) {
   const bodyComponents = bodyEl ? components.filter(el => bodyEl.contains(el)) : [];
   if (!bodyEl || !bodyComponents.length)
     issue('R12', '正文为空或不可见：main.body 内没有可见组件', { body: bodyEl ? box(rect(bodyEl)) : null });
-  if (contract?.recipe) {
-    for (const entry of contract.recipe.require || []) {
-      const group = Array.isArray(entry) ? entry : [entry];
-      const owners = [...page.querySelectorAll('[data-component]')].filter(el => group.includes(el.getAttribute('data-component')));
-      if (owners.length && !owners.some(el => shown(el) && !decoration(el)))
-        issue('R13', `配方要求的 ${group.join('/')} 全部不可见`, { components: group });
-    }
-    for (const [comp, shapes] of Object.entries(contract.recipe.form || {})) {
-      for (const shape of shapes) {
-        const spec = contract.components?.[comp]?.shapes?.[shape];
-        if (!spec) continue;
-        const owners = [...page.querySelectorAll(`[data-component="${comp}"]`)];
-        const hit = owners.some(el => (el.matches(spec.selector) ? [el] : [...el.querySelectorAll(spec.selector)]).some(n => shown(n) && !decoration(n)));
-        if (owners.length && !hit) issue('R13', `配方要求的 ${comp} 形态 ${shape} 没有可见命中`, { component: comp, shape });
-      }
-    }
-  }
+  // C2 拆分（2026-11-13）：原 R13（配方 require/form 全部不可见）随 require/form 一起退役——
+  // "这页配不配叫这个配方"归登记卡绑定字段（装配自查+人审兜底）；整页空兜底由上方 R12 负责。
   // 构图骨架（几何部分）：列宽比例、标题行数、载体宽度档、锚点载体。
   // 区间来自实测校准；free 页不进入本段，仍受其余通用几何规则约束。
   const layout = contract?.layout;
