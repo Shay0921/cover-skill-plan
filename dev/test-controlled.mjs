@@ -368,6 +368,15 @@ try {
   await test('placeholder-residue-text', wrap(text('h1', '标题{{卖点}}')), 'L24');
   await test('placeholder-residue-attr', wrap(text('h1', '正常文案', 'data-note="{{预留}}"')), 'L24');
   await test('placeholder-clean', wrap(text('h1', '全部替换完成')), null);
+  // B7 柱高边界（L25，2026-11-13 阶段A4）：bars 是唯一数据驱动几何内联通道（height:N% 编码数据值），
+  // 柱高必须 0-100 整数且每个 .b 必带（种子 .b 无默认高度，缺失即塌柱）。正例锁定源页档 50/100/75/25；
+  // 越界/非整数/缺失三个方向的坏例都由 L25 接住。柱图放 R-data-01 full 区（bars 唯一合法落区），不沾 L11④。
+  const barsBlock = (heights, value = '清楚表达') => `<figure class="bars" data-component="bars" data-layer="four-sample-chart" data-group><figcaption class="bl" data-layer="four-chart-heading" data-editable="text" data-from="h1">受控组件试验</figcaption><div class="row">${heights.map((h, i) => `<div class="b" style="height:${h}"><span data-layer="four-value-${i + 1}" data-editable="text" data-from="h1">${value}</span></div>`).join('')}</div><div class="labs">${heights.map((_, i) => `<span data-layer="four-label-${i + 1}" data-editable="text" data-from="h1">清楚表达</span>`).join('')}</div></figure>`;
+  const barsPage = hs => pageIn('R-data-01', 'full', barsBlock(hs));
+  await test('bars-height-clean', barsPage(['50%', '100%', '75%', '25%']), null, asRecipe('R-data-01'));
+  await test('bars-height-over-range', barsPage(['50%', '120%']), '柱高 120% 越界', asRecipe('R-data-01'));
+  await test('bars-height-fractional', barsPage(['50%', '50.5%']), 'L25', asRecipe('R-data-01'));
+  await test('bars-height-missing', barsPage(['50%', '']), 'L25', asRecipe('R-data-01'));
   // text-block 弱档是 L17 之下的合法降档通道：class 切档不被外观拦截，照常通过。
   await test('text-block-muted-tier', wrap(text('main-copy').replace('class="text-block"', 'class="text-block muted"')), null);
   // 骨架 schema 与 plan 选档的加载期拒绝：契约写错直接中断，不留给页面检查。

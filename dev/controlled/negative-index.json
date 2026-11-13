@@ -1,23 +1,23 @@
 {
   "purpose": "负例夹具 → 拦截层级 stage → 规则码 索引。索引是生成物：跑完 dev/test-controlled.mjs 归档夹具后执行 node dev/check-negative-index.mjs --write 重建；平时直接运行本脚本对账，任何漂移或套件失败即退出码 1。规则码变更时按此表同步更新对应夹具。",
   "generatedAt": "2026-11-13",
-  "scope": "dev/controlled/controlled-negative-1113-1659",
+  "scope": "dev/controlled/controlled-negative-1113-1735",
   "suite": {
-    "total": 179,
-    "passed": 179,
+    "total": 183,
+    "passed": 183,
     "failed": 0,
     "fontMode": "CDN blocked intentionally: system-font geometric regression, not production font evidence"
   },
   "stages": {
-    "lint": 56,
-    "pass": 57,
+    "lint": 59,
+    "pass": 58,
     "geometry": 31,
     "load": 26,
     "pipeline": 5,
     "build": 3,
     "direct-probe": 1
   },
-  "count": 179,
+  "count": 183,
   "legend": {
     "blocked": "gate 必须 failed（夹具报告 status=failed）",
     "passed": "正例对照：gate passed，可带 WARN",
@@ -449,6 +449,58 @@
       "warn_rules": [],
       "first_error": "p01 L14: 数字 50 的单位 倍 与所引资产不符（资产为 元）：提升 50 倍",
       "suite_expected": "L14"
+    },
+    {
+      "dir": "bars-height-clean",
+      "outcome": "passed",
+      "stage": "pass",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [
+        "FONT",
+        "R7"
+      ],
+      "first_error": null,
+      "suite_expected": "passed"
+    },
+    {
+      "dir": "bars-height-fractional",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L25"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L25: bars[four-sample-chart] 柱高 \"50.5%\" 不是合法百分比（B7：height:N%，N 为 0-100 整数）",
+      "suite_expected": "L25"
+    },
+    {
+      "dir": "bars-height-missing",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L25"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L25: bars[four-sample-chart] 柱高 \"(缺失)\" 不是合法百分比（B7：height:N%，N 为 0-100 整数）",
+      "suite_expected": "L25"
+    },
+    {
+      "dir": "bars-height-over-range",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L25"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L25: bars[four-sample-chart] 柱高 120% 越界（B7：0≤v≤100）",
+      "suite_expected": "柱高 120% 越界"
     },
     {
       "dir": "bleed-inside-interior-region",

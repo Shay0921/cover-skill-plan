@@ -102,6 +102,23 @@ export function inspectFragmentDOM(html, contract) {
       else if (!issueEl.textContent.includes(contract.meta.issue)) error('L6', '.issue 与计划 meta.issue 不一致');
     } else if (issueEl?.textContent.trim()) error('L6', '计划未提供 meta.issue，期号骨架不得自行编造文字');
   }
+  // B7 柱高边界（L25，2026-11-13 阶段A4）：bars 是唯一"数据驱动几何"合法内联通道——柱高编码数据值
+  // （DEVPLAN §4.3 裁决 4：内容规划期预计算，0-100 整数），种子 .bars .b 无默认高度，槽位缺失/越界
+  // 都让柱图失真。校验：每个 .b 必须带 height 百分比，值为非空整数且 0≤v≤100。
+  // 实装层账目修正：归属图原写 LOAD 层，但柱高值只存在于 AI 填充后的成品页 HTML，计划契约不承载
+  // （loadProject 读不到），故落到 L-gate 静态 DOM 层——修正记录见归属图 B7 落地记录。
+  for (const bars of root.querySelectorAll('[data-component="bars"]')) {
+    const barsAt = `bars[${bars.getAttribute('data-layer') || '?'}]`;
+    const cells = bars.querySelectorAll('.b');
+    if (!cells.length) error('L25', `${barsAt} 缺少 .b 柱格（骨架被改动？）`);
+    for (const b of cells) {
+      const raw = b.style.height.trim();
+      const m = /^([0-9]+)%$/.exec(raw);
+      if (!m) { error('L25', `${barsAt} 柱高 "${raw || '(缺失)'}" 不是合法百分比（B7：height:N%，N 为 0-100 整数）`); continue; }
+      const v = Number(m[1]);
+      if (v > 100) error('L25', `${barsAt} 柱高 ${v}% 越界（B7：0≤v≤100）`);
+    }
+  }
   const brandEl = root.querySelector('.brand');
   if (typeof contract.meta?.brand === 'string' && contract.meta.brand.trim() && brandEl && !brandEl.textContent.includes(contract.meta.brand))
     error('L6', '.brand 与计划 meta.brand 不一致');
