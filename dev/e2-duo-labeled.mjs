@@ -2,6 +2,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { runBatch } from '../tools/pipeline.mjs';
+import { createOptions } from '../tools/cdp.mjs';
 
 const ROOT = path.resolve(import.meta.dirname, '..');
 const base = path.join(ROOT, 'dev', 'e2-tmp-duo');
@@ -49,7 +50,7 @@ fs.writeFileSync(path.join(base, 'work/03-plan.json'), JSON.stringify(plan, null
 fs.writeFileSync(path.join(base, 'work/02-pool.json'), JSON.stringify(pool, null, 2));
 fs.writeFileSync(path.join(src, 'p01.part.html'), body);
 
-const report = await runBatch({ srcDir: src, outDir: out, mode: 'gate' });
+const report = await runBatch({ srcDir: src, outDir: out, mode: 'gate', browserOptions: createOptions({ noSandbox: true }) });
 const errs = report.pages.flatMap(p => p.issues || []).filter(i => i.level === 'ERROR');
 console.log('STATUS:', report.status);
 console.log('ERRORS:', JSON.stringify(errs.map(e => `${e.rule}: ${e.msg}`), null, 1));
