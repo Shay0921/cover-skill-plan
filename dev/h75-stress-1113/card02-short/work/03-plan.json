@@ -1,0 +1,32 @@
+{
+  "meta": {
+    "style": "paper-journal",
+    "brand": "豆仓手记",
+    "issue": ""
+  },
+  "pages": [
+    {
+      "nn": "01",
+      "recipe": "R-card-02",
+      "layout": "centered",
+      "intent": "h75 压力测试（只取证）",
+      "uses": [
+        "brand-seal",
+        "brand-name",
+        "brand-tag",
+        "topic-proof",
+        "anchor-phone-headline",
+        "reading-title",
+        "reading-detail",
+        "context-title",
+        "context-detail",
+        "overview-caption",
+        "trace-title",
+        "trace-detail",
+        "supplement-title",
+        "anchor-supplement-detail",
+        "anchor-phone-note"
+      ]
+    }
+  ]
+}

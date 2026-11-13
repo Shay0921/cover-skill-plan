@@ -1,0 +1,86 @@
+{
+  "thesis": {
+    "id": "h1",
+    "text": "一台机器的完整读法",
+    "evidence": "压力测试合成文案，不陈述产品事实。",
+    "source": "本试验定义"
+  },
+  "highlights": [],
+  "pains": [],
+  "hooks": [],
+  "quotes": [],
+  "data": [
+    {
+      "id": "brand-seal",
+      "text": "豆仓",
+      "evidence": "压力测试合成文案，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "brand-name",
+      "text": "豆仓手记",
+      "evidence": "压力测试合成文案，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "brand-tag",
+      "text": "看清每一步",
+      "evidence": "压力测试合成文案，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "topic-proof",
+      "text": "整机解读",
+      "evidence": "压力测试合成文案，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "phone-sidecard-headline",
+      "text": "完整读法的完整读法",
+      "evidence": "压力测试合成文案，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "phone-sidecard-intro",
+      "text": "把整台机器从入口、优先决策到状态提醒逐层拆开，先看主屏的结构，再对照右侧两张详情卡理解每个提醒的出处与含义，最后回到底部说明确认边界",
+      "evidence": "压力测试合成文案，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "overview-caption",
+      "text": "整台机器的主屏截图",
+      "evidence": "压力测试合成文案，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "sidecard-heading",
+      "text": "提醒逐条对照",
+      "evidence": "压力测试合成文案，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "sidecard-a-claim",
+      "text": "过期提醒按剩余量排序",
+      "evidence": "压力测试合成文案，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "sidecard-a-source",
+      "text": "库存策略第三章",
+      "evidence": "压力测试合成文案，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "sidecard-a-explanation",
+      "text": "余量越少提醒越靠前",
+      "evidence": "压力测试合成文案，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "sidecard-note",
+      "text": "详情卡只覆盖提醒类信息，配置项不在本页豆仓手记",
+      "evidence": "压力测试合成文案，不陈述产品事实。",
+      "source": "本试验定义"
+    }
+  ]
+}

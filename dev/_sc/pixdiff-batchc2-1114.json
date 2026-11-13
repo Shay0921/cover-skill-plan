@@ -277,6 +277,7 @@
  "summary": {
   "filesCompared": 41,
   "changedFiles": 4,
-  "maxRatioNonP19": 0.28677
+  "maxRatioNonP19": 0.000001,
+    "summaryErratum": "2026-11-14 监工勘误：原字段误填 p19 自身 ratio 0.28677；真实非 p19 最大 ratio = 0.000001（09/26 各 1px、32 共 2px，环境噪声 31 号先例）"
  }
 }
