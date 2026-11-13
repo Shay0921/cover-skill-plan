@@ -22,11 +22,11 @@ const SHORT_FAKE = { '主标题前段': '一句话', '标题高亮': '高亮', '
 const SENTENCE_FAKE = '这是一段占位说明，用于核对折行密度';
 const BAR_HEIGHTS = [50, 100, 75, 25]; // 柱高假值按画廊 p30 实测序列，四柱形状对照
 const ASSET_PREFIX = '../../../out/assets/'; // 预览页在 work/src/_sc/，资产在 <gallery>/out/assets/
-// iphone-frame.png 缺失则从 dev/cases/assets 补一次（修全库手机区空白、26 分割线压手机）
+// iphone-frame.png 缺失则从入册资产位补一次（修全库手机区空白、26 分割线压手机；T9 起引用 references/assets，不留 dev 路径引用）
 const outAssetsDir = path.join(ROOT, 'controlled', 'controlled-composition-1111-1148', 'out', 'assets');
 if (!fs.existsSync(path.join(outAssetsDir, 'iphone-frame.png'))) {
   fs.mkdirSync(outAssetsDir, { recursive: true });
-  fs.copyFileSync(path.join(ROOT, 'cases', 'assets', 'iphone-frame.png'), path.join(outAssetsDir, 'iphone-frame.png'));
+  fs.copyFileSync(path.join(ROOT, '..', 'references', 'assets', 'iphone-frame.png'), path.join(outAssetsDir, 'iphone-frame.png'));
 }
 
 fs.mkdirSync(OUT, { recursive: true });

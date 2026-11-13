@@ -1,0 +1,32 @@
+{
+  "purpose": "T9 资产入册：生产资产的唯一台账（路径/尺寸/比例/校验和）。gate 构建经 build.mjs 校验引用完整性；node dev/check-asset-registry.mjs 可随时全量复跑。入册产物（references/、seed/、tools/）不得引用 dev/ 路径；资产只读，演进须先改源再刷新本册校验和。",
+  "generatedAt": "2026-11-13",
+  "assets": [
+    {
+      "path": "seed/iphone-frame.b64",
+      "role": "构建期内嵌手机壳框唯一源（build.mjs seedFrame 解码内嵌）",
+      "format": "dataURL png",
+      "sha256": "F27101A4275E5D923B8CC0E847903D46B5744B8ADDB031D373A8545CB026FFAD",
+      "decodesTo": "references/assets/iphone-frame.png"
+    },
+    {
+      "path": "references/assets/iphone-frame.png",
+      "role": "手机壳框交付资产位（登记卡/骨架引用的标准名 assets/iphone-frame.png 落位于此）",
+      "format": "png",
+      "width": 910,
+      "height": 1806,
+      "ratio": "910:1806",
+      "sha256": "72D26A8A3382A6E3D12F54C6A4D9CDA5C7C887CDC93862D6A31AD581D07E0B08"
+    }
+  ],
+  "invariants": [
+    "seed/iphone-frame.b64 解码后与 references/assets/iphone-frame.png 字节级同一",
+    "入册产物零 dev 路径引用（扫描 references/ seed/ tools/）"
+  ],
+  "forbiddenDevRefScan": {
+    "scope": ["references", "seed", "tools"],
+    "extensions": [".part.html", ".html", ".mjs", ".js", ".json", ".css"],
+    "pattern": "dev/(cases|controlled|_sc|e2-)/",
+    "note": "只扫代码产物；.md 为规则与人审文本（禁令本身以字面示例写在文档里），不参与扫描"
+  }
+}

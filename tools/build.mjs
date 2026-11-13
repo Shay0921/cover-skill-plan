@@ -82,11 +82,23 @@ function rasterMime(buffer) {
 // 除此之外 dataURL 只能由本函数从 assets/ 的真实文件生成，手写等于绕过素材登记。
 function seedFrame() {
   const src = fs.readFileSync(path.join(ROOT, 'seed/iphone-frame.b64'), 'utf8').trim();
+  verifyAssetChecksum('seed/iphone-frame.b64', Buffer.from(src, 'utf8'));
   const match = src.match(/^data:(image\/(?:png|jpeg|webp|gif|bmp));base64,([a-z0-9+/]+={0,2})$/i);
   if (!match) throw new Error('seed/iphone-frame.b64 不是安全 raster dataURL');
   const buffer = Buffer.from(match[2], 'base64');
   if (rasterMime(buffer) !== match[1].toLowerCase()) throw new Error('seed/iphone-frame.b64 类型与实际文件签名不一致');
   return src;
+}
+// T9 资产入册（2026-11-13）：生产资产以 dev/asset-registry.json 为唯一台账，gate 消费时校验引用完整性——
+// 校验和漂移即拒绝构建。资产演进：先改源文件 → node dev/check-asset-registry.mjs 刷新核对 → 更新台账。
+export function verifyAssetChecksum(relPath, buffer) {
+  const registry = JSON.parse(fs.readFileSync(path.join(ROOT, 'dev/asset-registry.json'), 'utf8'));
+  const entry = registry.assets.find(a => a.path === relPath);
+  if (!entry) throw new Error(`资产未入册：${relPath} 不在 dev/asset-registry.json（T9 资产锁，先入册再引用）`);
+  const actual = sha256(buffer).toUpperCase();
+  if (actual !== entry.sha256)
+    throw new Error(`资产校验和不符：${relPath} ${actual.slice(0, 8)}… ≠ 台账 ${entry.sha256.slice(0, 8)}…（T9 资产锁）。如为有意演进：改源 → 复跑 check-asset-registry → 刷新台账。`);
+  return actual;
 }
 export function embedAsset(project, src, nn) {
   const at = nn ? `${nn}: ` : '';

@@ -1,6 +1,6 @@
 # 后续执行路线图 TODO（2026-11-13）
 
-> **▶ 当前指针（2026-11-13 更新）：T7 已批复收口 · 阶段 4 进行中 · T8 种子只读锁已落地（check-seed-lock 4/4，套件 178/178 零涟漪，基线 1312）· 下一步 = T9 资产入册 → T10 闸门**
+> **▶ 当前指针（2026-11-13 更新）：T7 已批复收口 · 阶段 4 进行中 · T8 种子只读锁 ✅ + T9 资产入册 ✅（check 5/5，回归 178/178，基线 1316）· 下一步 = T10 闸门（阶段 4 收口材料待汇总）**
 >
 > - **T7 收口（2026-11-13）**：闸门材料 [T7-GATE-2026-11-13.md](T7-GATE-2026-11-13.md) 已入库（6b88db4）并获批复；六笔刀 commit 已在链，无提交欠账
 > - **T8 种子只读锁已落地（2026-11-13）**：build.mjs 新增 `verifySeedChecksum`（readSeedCSS 构建全链必校验，基线 = 04-recipes 登记 `5318D18B…`，种子漂移即 gate FAIL）；独立校验 `dev/check-seed-lock.mjs` 4/4 PASS（真实种子过锁 / SHA-256 与登记精确一致 / 样式微改必抛 / 空串必抛）；挂锁后全量回归 **178/178 零涟漪**，基线 scope → `controlled-negative-1113-1312`，对账退出码 0；04-recipes 文首登记行 + 归属图 §6 新增行已同步
@@ -95,11 +95,11 @@
 - [x] gate 新增种子文件校验和比对；基线 = `references/04-recipes.md` 文首已登记的校验和（`5318D18B…D958`，2026-11-13 随 P→R 迁移刷新后的现行版）；✅ 已实测当前 `seed/paper-journal.html` 与该校验和精确一致，无需更新登记
 - [x] 判据：任何种子改动 → gate FAIL（✅ 实测：build.mjs `verifySeedChecksum` 挂 readSeedCSS 构建全链；`dev/check-seed-lock.mjs` 4/4——真实种子过锁/SHA 一致/样式微改必抛/空串必抛；挂锁后套件 178/178 零涟漪，基线 1312）
 
-### T9. 资产入册
+### T9. 资产入册 ✅
 
-- [ ] `dev/asset-registry.json`：路径/尺寸/比例/校验和（iphone-frame.png 910×1806 等）；gate 校验引用完整性；资产只读引用
-- [ ] 入册时 `iphone-frame.png` 迁入 references 对应资产位，不留 dev 路径引用
-- [ ] 判据：替换/损坏资产 → gate FAIL
+- [x] `dev/asset-registry.json`：路径/尺寸/比例/校验和（iphone-frame.png 910×1806 等）；gate 校验引用完整性；资产只读引用（✅ 2026-11-13：台账登记 b64 内嵌源 + PNG 交付位两条；build.mjs `verifyAssetChecksum` 挂 seedFrame 构建链——漂移/未入册即拒建；`dev/check-asset-registry.mjs` 5/5 PASS：台账一致/b64↔PNG 字节同一/IHDR 910×1806/零 dev 路径引用扫描 clean；负例实证：漂移必抛 D121BE31≠F27101A4、未入册必抛；harness 收口：render-selfcheck 后备源与 e2 驱动改指 references/assets；回归 178/178 零涟漪，基线 1316）
+- [x] 入册时 `iphone-frame.png` 迁入 references 对应资产位，不留 dev 路径引用（✅ references/assets/iphone-frame.png 实测在位且与 seed/b64 字节级同一；生产面 references/seed/tools 代码产物零 dev 路径引用）
+- [x] 判据：替换/损坏资产 → gate FAIL（✅ 实测：`verifyAssetChecksum` 挂 seedFrame 构建链，b64 漂移/未入册均在构建期抛错拒建；直接调用负例：漂移 D121BE31≠台账 F27101A4 必抛、`assets/unknown.png` 未入册必抛）
 
 ### T10. 注入两个负例并补索引
 

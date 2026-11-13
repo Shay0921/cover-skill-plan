@@ -8,7 +8,7 @@ const base = path.join(ROOT, 'dev', 'e2-tmp-duo');
 const src = path.join(base, 'work/src'), out = path.join(base, 'out');
 fs.rmSync(base, { recursive: true, force: true });
 fs.mkdirSync(src, { recursive: true }); fs.mkdirSync(out, { recursive: true });
-fs.cpSync(path.join(ROOT, 'dev/cases/assets'), path.join(src, 'assets'), { recursive: true });
+fs.cpSync(path.join(ROOT, 'references/assets'), path.join(src, 'assets'), { recursive: true }); // T9：入册资产位，不留 dev 路径引用
 
 // 骨架按 _sc 同款逻辑实例化：占位符→短假文字/画廊资产；h68 结构原样保留
 let body = fs.readFileSync(path.join(ROOT, 'dev/recipes/phone01-duo-labeled.part.html'), 'utf8');
