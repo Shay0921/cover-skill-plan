@@ -55,10 +55,11 @@ export function collectPoolAssets(pool) {
   return assets;
 }
 
-// 构图骨架只锁几何：列宽比例、载体宽度档、标题行数、件数与锚点。组件选择与文案仍由内容决定。
+// 构图骨架只锁几何：列宽比例、载体宽度档、标题行数、锚点。组件选择、件数与文案仍由内容/登记卡决定。
 // 区间数值必须来自实测几何的校准；加载期只校验 schema 与引用合法性，不校验页面。
 const interval = (v, lo, hi) => Array.isArray(v) && v.length === 2 && v.every(n => typeof n === 'number' && isFinite(n)) && v[0] >= lo && v[1] >= v[0] && v[1] <= hi;
-// 能进 carriers/counts/anchor 的只有几何载体组件：锁内容组件的件数或宽度，骨架就变成了内容模板。
+// 能进 carriers/anchor 的只有几何载体组件：锁内容组件的宽度，骨架就变成了内容模板。
+// counts 字段已随 C2 拆分删除（件数归登记卡绑定字段）；pipeline digest 里的 counts 是测量输出标签，非消费面。
 const GEOMETRY_DRIVERS = new Set(['phone', 'shot', 'step', 'bars']);
 function validateRecipeLayouts(id, recipe, catalog) {
   if (recipe.layouts === undefined) return;
@@ -87,11 +88,6 @@ function validateRecipeLayouts(id, recipe, catalog) {
       if (!regions[carrier.region]?.allow?.includes(carrier.component)) throw new Error(`${at} 的 carriers 组件 ${carrier.component} 不被区域 ${carrier.region} 允许`);
       if (!interval(carrier.width, 1, 108)) throw new Error(`${at} 的 carriers.width 必须是 [1,108]cqw 内的宽度区间`);
     }
-    for (const [comp, limits] of Object.entries(layout.counts || {})) {
-      if (!Object.hasOwn(catalog, comp)) throw new Error(`${at} 的 counts 引用了未知组件: ${comp}`);
-      if (!GEOMETRY_DRIVERS.has(comp)) throw new Error(`${at} 的 counts 只能锁定几何载体组件（phone/shot/step/bars）: ${comp}`);
-      if (!interval(limits, 0, 12) || !limits.every(Number.isInteger)) throw new Error(`${at} 的 counts.${comp} 必须是整数件数区间`);
-    }
     if (layout.anchor) {
       if (!Object.hasOwn(regions, layout.anchor.region || '')) throw new Error(`${at} 的 anchor 引用了未知区域: ${layout.anchor.region}`);
       if (!Array.isArray(layout.anchor.carrier) || !layout.anchor.carrier.length || layout.anchor.carrier.some(c => !regions[layout.anchor.region]?.allow?.includes(c)))
@@ -115,27 +111,9 @@ export function loadProject(srcDir, outDir, options = {}) {
     throw new Error('需要 version:3 的 components/recipes 配置');
   if (components.style !== recipes.style) throw new Error('组件与配方 style 不一致');
   for (const [id, recipe] of Object.entries(recipes.recipes)) {
-    const placed = new Set(Object.values(recipe.regions || {}).flatMap(spec => spec.allow || []));
     for (const [region, spec] of Object.entries(recipe.regions || {})) {
-      for (const comp of Object.keys(spec.max || {}))
-        if (!spec.allow?.includes(comp)) throw new Error(`配方 ${id} 区域 ${region} 的 max 写了未允许的组件 ${comp}`);
-      if (spec.require) throw new Error(`配方 ${id} 区域 ${region} 仍写着 require：组件下限在配方级，区域只管允许与上限`);
-    }
-    // require 条目：字符串 = 必须有该组件；数组 = 组内任一即可。组内每个成员仍须被某区域允许。
-    const requiredIds = new Set();
-    for (const entry of recipe.require || []) {
-      const group = Array.isArray(entry) ? entry : [entry];
-      if (Array.isArray(entry) && !group.length) throw new Error(`配方 ${id} 的 require 组不能为空`);
-      for (const comp of group) {
-        if (typeof comp !== 'string' || !placed.has(comp)) throw new Error(`配方 ${id} 的 require 写了任何区域都没允许的组件 ${comp}`);
-        requiredIds.add(comp);
-      }
-    }
-    for (const [comp, shapes] of Object.entries(recipe.form || {})) {
-      if (!requiredIds.has(comp)) throw new Error(`配方 ${id} 的 form 写了不在 require 中的组件 ${comp}`);
-      const defined = components.components[comp]?.shapes;
-      for (const shape of shapes || [])
-        if (!defined || !Object.hasOwn(defined, shape)) throw new Error(`配方 ${id} 要求 ${comp} 的形态 ${shape}，但组件目录没有登记这条 shapes`);
+      // 区域级 require 禁入绊线（防回归注入）：组件下限归登记卡绑定字段，区域只管允许。
+      if (spec.require) throw new Error(`配方 ${id} 区域 ${region} 仍写着 require：组件下限归登记卡，区域只管允许`);
     }
     validateRecipeLayouts(id, recipe, components.components);
   }

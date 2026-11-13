@@ -18,7 +18,7 @@
         "ck-shots-cover":{"name":"复选条目 · 双图窗","when":"封面档（源页 02）：左列复选条目，右双局部图窗","order":["head","left","right"],"tracks":[{"region":"left","share":[0.46,0.50]},{"region":"right","share":[0.46,0.50]}],"headline":[1,1],"carriers":[{"component":"shot","region":"right","width":[40,43]}]},
         "list-text-cover":{"name":"条目 · 正文段","when":"封面档（源页 03）：左列条目，右正文段无画面载体","order":["head","left","right"],"tracks":[{"region":"left","share":[0.46,0.50]},{"region":"right","share":[0.46,0.50]}],"headline":[1,1]}
       }},
-    "R-list-02": {"name":"清单页","intent":"整页只做一份清单，条数是内容主角","require":[["ck","list"]],"regions":{"head":{"allow":["h1","sub","kicker"]},"full":{"allow":["ck","fcard","frow","list","cr","text-block"]},"bottom":{"allow":["fcard","serif","cta","text-block"]}},
+    "R-list-02": {"name":"清单页","intent":"整页只做一份清单，条数是内容主角","regions":{"head":{"allow":["h1","sub","kicker"]},"full":{"allow":["ck","fcard","frow","list","cr","text-block"]},"bottom":{"allow":["fcard","serif","cta","text-block"]}},
       "layouts":{
         "full-list":{"name":"整幅清单 · 行式","when":"源页 16：满栏行式条目铺开","order":["head","full"],"tracks":[{"region":"full","share":[0.98,1.0]}],"headline":[1,1]},
         "full-ck":{"name":"整幅清单 · 复选","when":"源页 18（×3-6 参数化，29 为 6 条实例）：满栏复选条目","order":["head","full"],"tracks":[{"region":"full","share":[0.98,1.0]}],"headline":[1,1]},
@@ -26,7 +26,7 @@
         "tail-card-ck":{"name":"末项卡清单 · 复选","when":"源页 19：复选清单 + 末项补充卡（条数上限 4）","order":["head","full"],"tracks":[{"region":"full","share":[0.98,1.0]}],"headline":[1,1]},
         "boundary":{"name":"边界清单","when":"源页 07：清单 + 边界说明 + 页尾补充卡","order":["head","full","bottom"],"tracks":[{"region":"full","share":[0.98,1.0]}],"headline":[1,1]}
       }},
-    "R-card-02": {"name":"居中标注页","intent":"一只手机居中，两侧各两张标注卡指向画面","require":[["fcard","phone"]],"regions":{"head":{"allow":["h1","sub","kicker"]},"left":{"allow":["fcard","phone","text-block"]},"bottom":{"allow":["serif","text-block"]}},
+    "R-card-02": {"name":"居中标注页","intent":"一只手机居中，两侧各两张标注卡指向画面","regions":{"head":{"allow":["h1","sub","kicker"]},"left":{"allow":["fcard","phone","text-block"]},"bottom":{"allow":["serif","text-block"]}},
       "layouts":{
         "centered":{"name":"居中机 · 两侧标注","when":"源页 45：手机 h75 居中，两侧卡列垂直居中，页尾金句收束","order":["head","left","bottom"],"tracks":[{"region":"left","share":[0.98,1.0]}],"headline":[1,1],"carriers":[{"component":"phone","region":"left","width":[36,40]}]}
       }},
@@ -39,59 +39,59 @@
       "layouts":{
         "phone-dcards":{"name":"等分 · 机左","when":"源页 44：整机居左，右列详情卡×2 + 底部说明","order":["head","left","right","bottom"],"tracks":[{"region":"left","share":[0.46,0.50]},{"region":"right","share":[0.46,0.50]}],"headline":[1,1],"carriers":[{"component":"phone","region":"left","width":[36,40]}]}
       }},
-    "R-wall-01": {"name":"图墙页","intent":"一组局部图按网格排布看全貌","require":[["shot"]],"regions":{"head":{"allow":["h1","sub","kicker"]},"wall":{"allow":["shot","phone","text-block"]},"bottom":{"allow":["serif","cta","fcard","text-block"]}},
+    "R-wall-01": {"name":"图墙页","intent":"一组局部图按网格排布看全貌","regions":{"head":{"allow":["h1","sub","kicker"]},"wall":{"allow":["shot","phone","text-block"]},"bottom":{"allow":["serif","cta","fcard","text-block"]}},
       "layouts":{
-        "quad":{"name":"四图墙 2×2","when":"源页 06：四宫格等分（每格图注）","order":["head","wall","bottom?"],"tracks":[{"region":"wall","share":[0.98,1.0]}],"headline":[1,1],"counts":{"shot":[2,4]}},
-        "quad-fill-bleed":{"name":"四图墙 · 满格出血","when":"源页 27：四宫格满格、横跨左右出血","order":["head","wall","bottom"],"tracks":[{"region":"wall","share":[1.10,1.16]}],"headline":[1,1],"counts":{"shot":[2,4]}},
-        "duo-row":{"name":"双图横排","when":"源页 24：两窗并排居中","order":["head","wall","bottom?"],"tracks":[{"region":"wall","share":[0.98,1.0]}],"headline":[1,1],"counts":{"shot":[2,4]}},
-        "duo-col":{"name":"双图竖排","when":"源页 25：两窗上下叠排","order":["head","wall","bottom?"],"tracks":[{"region":"wall","share":[0.98,1.0]}],"headline":[1,1],"counts":{"shot":[2,4]}}
+        "quad":{"name":"四图墙 2×2","when":"源页 06：四宫格等分（每格图注）","order":["head","wall","bottom?"],"tracks":[{"region":"wall","share":[0.98,1.0]}],"headline":[1,1]},
+        "quad-fill-bleed":{"name":"四图墙 · 满格出血","when":"源页 27：四宫格满格、横跨左右出血","order":["head","wall","bottom"],"tracks":[{"region":"wall","share":[1.10,1.16]}],"headline":[1,1]},
+        "duo-row":{"name":"双图横排","when":"源页 24：两窗并排居中","order":["head","wall","bottom?"],"tracks":[{"region":"wall","share":[0.98,1.0]}],"headline":[1,1]},
+        "duo-col":{"name":"双图竖排","when":"源页 25：两窗上下叠排","order":["head","wall","bottom?"],"tracks":[{"region":"wall","share":[0.98,1.0]}],"headline":[1,1]}
       }},
-    "R-phone-01": {"name":"多屏并陈页","intent":"2-3 只整屏并排，屏与屏对照或演进","issue":true,"require":[["phone"]],"regions":{"head":{"allow":["h1","sub","kicker"]},"left":{"allow":["phone","shot","text-block"]},"right":{"allow":["phone","shot","text-block"]},"wall":{"allow":["phone","shot","text-block"],"max":{"phone":3}},"bottom":{"allow":["text-block","serif","cta","fcard"]}},
+    "R-phone-01": {"name":"多屏并陈页","intent":"2-3 只整屏并排，屏与屏对照或演进","issue":true,"regions":{"head":{"allow":["h1","sub","kicker"]},"left":{"allow":["phone","shot","text-block"]},"right":{"allow":["phone","shot","text-block"]},"wall":{"allow":["phone","shot","text-block"]},"bottom":{"allow":["text-block","serif","cta","fcard"]}},
       "layouts":{
-        "duo-cover":{"name":"双机 · 封面档","when":"源页 04：两只整屏左右并陈作开篇，锁高上限","order":["head","left","right","bottom?"],"tracks":[{"region":"left","share":[0.40,0.55]},{"region":"right","share":[0.40,0.55]}],"headline":[1,1],"counts":{"phone":[2,2]},"carriers":[{"component":"phone","region":"left","width":[33,40]},{"component":"phone","region":"right","width":[33,40]}]},
-        "duo-labeled":{"name":"双机 · 界面名标签","when":"源页 43：两屏并排，每屏带界面名（h68 档）","order":["head","wall","bottom"],"tracks":[{"region":"wall","share":[0.98,1.0]}],"headline":[1,1],"counts":{"phone":[2,2]},"carriers":[{"component":"phone","region":"wall","width":[33,36]}]},
-        "trio-labeled":{"name":"三机 · 界面名标签","when":"源页 32：三屏并排成墙，每屏带界面名","order":["head","wall","bottom"],"tracks":[{"region":"wall","share":[0.98,1.0]}],"headline":[1,1],"counts":{"phone":[3,3]},"carriers":[{"component":"phone","region":"wall","width":[26,29]}]}
+        "duo-cover":{"name":"双机 · 封面档","when":"源页 04：两只整屏左右并陈作开篇，锁高上限","order":["head","left","right","bottom?"],"tracks":[{"region":"left","share":[0.40,0.55]},{"region":"right","share":[0.40,0.55]}],"headline":[1,1],"carriers":[{"component":"phone","region":"left","width":[33,40]},{"component":"phone","region":"right","width":[33,40]}]},
+        "duo-labeled":{"name":"双机 · 界面名标签","when":"源页 43：两屏并排，每屏带界面名（h68 档）","order":["head","wall","bottom"],"tracks":[{"region":"wall","share":[0.98,1.0]}],"headline":[1,1],"carriers":[{"component":"phone","region":"wall","width":[33,36]}]},
+        "trio-labeled":{"name":"三机 · 界面名标签","when":"源页 32：三屏并排成墙，每屏带界面名","order":["head","wall","bottom"],"tracks":[{"region":"wall","share":[0.98,1.0]}],"headline":[1,1],"carriers":[{"component":"phone","region":"wall","width":[26,29]}]}
       }},
-    "R-phone-02": {"name":"独幅大图页","intent":"单一画面主体独占版心，一图说尽","issue":true,"require":[["shot","phone"]],"regions":{"head":{"allow":["h1","sub","kicker"]},"hero":{"allow":["shot","phone"]},"full":{"allow":["shot","phone","text-block","ldr"]},"bottom":{"allow":["kicker","h1","sub","text-block","pills"]},"overlay":{"allow":["ghost"]}},
+    "R-phone-02": {"name":"独幅大图页","intent":"单一画面主体独占版心，一图说尽","issue":true,"regions":{"head":{"allow":["h1","sub","kicker"]},"hero":{"allow":["shot","phone"]},"full":{"allow":["shot","phone","text-block","ldr"]},"bottom":{"allow":["kicker","h1","sub","text-block","pills"]},"overlay":{"allow":["ghost"]}},
       "layouts":{
         "hero-bleed":{"name":"出血画面","when":"hero 出血档（源页 42）：整幅画面左右出血作唯一主角；带壳档（phone 锁高）走 free","order":["head","hero","bottom?","overlay?"],"tracks":[{"region":"hero","share":[1.10,1.18]}],"headline":[1,1],"carriers":[{"component":"shot","region":"hero","width":[96,104]}]}
       }},
-    "R-data-01": {"name":"口径数据页","intent":"数字档 + 柱图 + 深色口径卡，同一口径的多种表达","require":[["bars","ldr","ledger"]],"regions":{"head":{"allow":["h1","sub","kicker"]},"left":{"allow":["ldr","ledger","bars","darkcard","text-block"]},"right":{"allow":["shot","phone","bars","darkcard","text-block"]},"full":{"allow":["ldr","ledger","bars","darkcard","text-block"]},"bottom":{"allow":["serif","text-block","fcard"]}},
+    "R-data-01": {"name":"口径数据页","intent":"数字档 + 柱图 + 深色口径卡，同一口径的多种表达","regions":{"head":{"allow":["h1","sub","kicker"]},"left":{"allow":["ldr","ledger","bars","darkcard","text-block"]},"right":{"allow":["shot","phone","bars","darkcard","text-block"]},"full":{"allow":["ldr","ledger","bars","darkcard","text-block"]},"bottom":{"allow":["serif","text-block","fcard"]}},
       "layouts":{
-        "ldr-bars":{"name":"两栏 · 数字档 + 柱图","when":"源页 10：左数字档、右柱图+口径卡","order":["head","left","right","bottom?"],"tracks":[{"region":"left","share":[0.46,0.50]},{"region":"right","share":[0.46,0.50]}],"headline":[1,1],"counts":{"bars":[1,1]}},
-        "bars-only":{"name":"整幅 · 柱图 + 口径卡","when":"源页 30：满栏柱图与口径卡，省数字档","order":["head","full","bottom?"],"tracks":[{"region":"full","share":[0.98,1.0]}],"headline":[1,1],"counts":{"bars":[1,1]}}
+        "ldr-bars":{"name":"两栏 · 数字档 + 柱图","when":"源页 10：左数字档、右柱图+口径卡","order":["head","left","right","bottom?"],"tracks":[{"region":"left","share":[0.46,0.50]},{"region":"right","share":[0.46,0.50]}],"headline":[1,1]},
+        "bars-only":{"name":"整幅 · 柱图 + 口径卡","when":"源页 30：满栏柱图与口径卡，省数字档","order":["head","full","bottom?"],"tracks":[{"region":"full","share":[0.98,1.0]}],"headline":[1,1]}
       }},
-    "R-data-02": {"name":"数字亮点页","intent":"三个大数字并列 + 底部一张补充卡","require":[["ldr"]],"regions":{"head":{"allow":["h1","sub","kicker"]},"full":{"allow":["ldr","text-block"]},"bottom":{"allow":["serif","text-block","fcard"]},"overlay":{"allow":["ghost"]}},
+    "R-data-02": {"name":"数字亮点页","intent":"三个大数字并列 + 底部一张补充卡","regions":{"head":{"allow":["h1","sub","kicker"]},"full":{"allow":["ldr","text-block"]},"bottom":{"allow":["serif","text-block","fcard"]},"overlay":{"allow":["ghost"]}},
       "layouts":{
         "ldr-tailcard":{"name":"整幅数字 · 页尾窄卡","when":"源页 35：ldr×3 满栏 + fcard 窄卡收底 + ghost","order":["head","full","bottom","overlay"],"tracks":[{"region":"full","share":[0.98,1.0]}],"headline":[1,1]}
       }},
-    "R-data-03": {"name":"账目核对页","intent":"数字账目逐条核对（k/d/n/u 四件套）","require":[["ledger"]],"regions":{"head":{"allow":["h1","sub","kicker"]},"full":{"allow":["ledger","text-block"]},"bottom":{"allow":["serif","text-block"]}}},
-    "R-data-04": {"name":"同板作证页","intent":"面板容器内数字+文字与局部图并排，底部标签行","require":["shot"],"regions":{"head":{"allow":["h1","sub","kicker"]},"full":{"allow":["ldr","text-block","shot"]},"bottom":{"allow":["kicker","h1","sub","text-block","pills"]}},
+    "R-data-03": {"name":"账目核对页","intent":"数字账目逐条核对（k/d/n/u 四件套）","regions":{"head":{"allow":["h1","sub","kicker"]},"full":{"allow":["ledger","text-block"]},"bottom":{"allow":["serif","text-block"]}}},
+    "R-data-04": {"name":"同板作证页","intent":"面板容器内数字+文字与局部图并排，底部标签行","regions":{"head":{"allow":["h1","sub","kicker"]},"full":{"allow":["ldr","text-block","shot"]},"bottom":{"allow":["kicker","h1","sub","text-block","pills"]}},
       "layouts":{
         "panel":{"name":"面板并排 · 标签行","when":"源页 46：panel 内数字/文字/局部图并排，底部 pills","order":["head","full","bottom"],"tracks":[{"region":"full","share":[0.98,1.0]}],"headline":[1,1],"carriers":[{"component":"shot","region":"full","width":[41,46]}]}
       }},
-    "R-compare-01": {"name":"前后对比页","intent":"同一对象 before/after 两态对照","require":["ba"],"regions":{"head":{"allow":["h1","sub","kicker"]},"full":{"allow":["ba","list","shot","phone","text-block"]},"bottom":{"allow":["serif","text-block","fcard"]}},
+    "R-compare-01": {"name":"前后对比页","intent":"同一对象 before/after 两态对照","regions":{"head":{"allow":["h1","sub","kicker"]},"full":{"allow":["ba","list","shot","phone","text-block"]},"bottom":{"allow":["serif","text-block","fcard"]}},
       "layouts":{
         "h2":{"name":"双卡横排对比","when":"源页 12：两块对比横排摊开","order":["head","full","bottom?"],"tracks":[{"region":"full","share":[0.98,1.0]}],"headline":[1,1]},
         "grid4":{"name":"四宫格对比","when":"源页 37：四块对比 2×2 摊开","order":["head","full","bottom?"],"tracks":[{"region":"full","share":[0.98,1.0]}],"headline":[1,1]},
         "v2-vs":{"name":"竖排对比 · 骑缝标记","when":"源页 38：上下两态叠排 + vs 骑缝标记 + 页尾结论","order":["head","full","bottom"],"tracks":[{"region":"full","share":[0.98,1.0]}],"headline":[1,1]},
         "v2-dark":{"name":"竖排对比 · 深色","when":"源页 39：同 v2-vs 档，页面挂 dark 类","order":["head","full","bottom"],"tracks":[{"region":"full","share":[0.98,1.0]}],"headline":[1,1]}
       }},
-    "R-compare-02": {"name":"双窗对照页","intent":"每列一张局部图压顶 + 对比卡在下，双列并读","require":["ba"],"regions":{"head":{"allow":["h1","sub","kicker"]},"full":{"allow":["ba","shot","text-block"]},"bottom":{"allow":["serif","text-block"]}},
+    "R-compare-02": {"name":"双窗对照页","intent":"每列一张局部图压顶 + 对比卡在下，双列并读","regions":{"head":{"allow":["h1","sub","kicker"]},"full":{"allow":["ba","shot","text-block"]},"bottom":{"allow":["serif","text-block"]}},
       "layouts":{
-        "shot-ba":{"name":"双列图窗 + 对比卡","when":"源页 40：两列各 1:1 图窗压顶、对比卡在下","order":["head","full","bottom"],"tracks":[{"region":"full","share":[0.98,1.0]}],"headline":[1,1],"counts":{"shot":[2,2]},"carriers":[{"component":"shot","region":"full","width":[40,45]}]}
+        "shot-ba":{"name":"双列图窗 + 对比卡","when":"源页 40：两列各 1:1 图窗压顶、对比卡在下","order":["head","full","bottom"],"tracks":[{"region":"full","share":[0.98,1.0]}],"headline":[1,1],"carriers":[{"component":"shot","region":"full","width":[40,45]}]}
       }},
-    "R-quote-01": {"name":"金句页","intent":"一句主张独占版心（serif 大字）","require":["serif"],"form":{"serif":["hero","marked","split"]},"regions":{"head":{"allow":["h1","sub","kicker"]},"full":{"allow":["serif","dcard","text-block","seal-lg"]},"bottom":{"allow":["text-block","serif","seal-lg"]},"overlay":{"allow":["ghost"]}},
+    "R-quote-01": {"name":"金句页","intent":"一句主张独占版心（serif 大字）","regions":{"head":{"allow":["h1","sub","kicker"]},"full":{"allow":["serif","dcard","text-block","seal-lg"]},"bottom":{"allow":["text-block","serif","seal-lg"]},"overlay":{"allow":["ghost"]}},
       "layouts":{
         "annotated":{"name":"整幅金句 · 带注","when":"源页 11：金句 + 解释段 + ghost","order":["head","full","bottom?","overlay?"],"tracks":[{"region":"full","share":[0.98,1.0]}],"headline":[1,1]},
         "minimal":{"name":"整幅金句 · 极简","when":"源页 33：仅标题 + 金句 + ghost","order":["head","full","bottom?","overlay?"],"tracks":[{"region":"full","share":[0.98,1.0]}],"headline":[1,1]}
       }},
-    "R-step-01": {"name":"步骤流程页","intent":"4 步流程沿时间线展开，右侧整机+旁注作证","require":["step"],"regions":{"head":{"allow":["h1","sub","kicker"]},"full":{"allow":["step","list","ck","fcard","text-block"]},"right":{"allow":["shot","phone","mn"]},"bottom":{"allow":["serif","cta","text-block"]},"overlay":{"allow":["ghost"]}},
+    "R-step-01": {"name":"步骤流程页","intent":"4 步流程沿时间线展开，右侧整机+旁注作证","regions":{"head":{"allow":["h1","sub","kicker"]},"full":{"allow":["step","list","ck","fcard","text-block"]},"right":{"allow":["shot","phone","mn"]},"bottom":{"allow":["serif","cta","text-block"]},"overlay":{"allow":["ghost"]}},
       "layouts":{
-        "timeline":{"name":"时间线四步 + 右机","when":"源页 09：脊柱线贯穿步骤区，右栏载体锚定行高","order":["head","full","right","overlay?"],"tracks":[{"region":"full","share":[0.46,0.50]},{"region":"right","share":[0.46,0.50]}],"headline":[1,1],"counts":{"step":[4,6]},"anchor":{"region":"right","carrier":["phone","shot"]}}
+        "timeline":{"name":"时间线四步 + 右机","when":"源页 09：脊柱线贯穿步骤区，右栏载体锚定行高","order":["head","full","right","overlay?"],"tracks":[{"region":"full","share":[0.46,0.50]},{"region":"right","share":[0.46,0.50]}],"headline":[1,1],"anchor":{"region":"right","carrier":["phone","shot"]}}
       }},
-    "R-qa-01": {"name":"答疑页","intent":"三组问答逐条答疑","require":["qa"],"regions":{"head":{"allow":["h1","sub","kicker"]},"full":{"allow":["qa","list","text-block","fcard"]},"right":{"allow":["shot","phone","mn"]},"bottom":{"allow":["serif","cta","text-block"]},"overlay":{"allow":["ghost"]}}},
-    "R-close-01": {"name":"收尾页","intent":"页尾收束：标签行+条款列+金句+行动指令","require":["cta"],"regions":{"head":{"allow":["h1","sub","kicker"]},"full":{"allow":["cr","list","serif","text-block","cta","pills","seal-lg","fcard"]},"bottom":{"allow":["cta","text-block","serif","seal-lg"]},"overlay":{"allow":["ghost"]}},
+    "R-qa-01": {"name":"答疑页","intent":"三组问答逐条答疑","regions":{"head":{"allow":["h1","sub","kicker"]},"full":{"allow":["qa","list","text-block","fcard"]},"right":{"allow":["shot","phone","mn"]},"bottom":{"allow":["serif","cta","text-block"]},"overlay":{"allow":["ghost"]}}},
+    "R-close-01": {"name":"收尾页","intent":"页尾收束：标签行+条款列+金句+行动指令","regions":{"head":{"allow":["h1","sub","kicker"]},"full":{"allow":["cr","list","serif","text-block","cta","pills","seal-lg","fcard"]},"bottom":{"allow":["cta","text-block","serif","seal-lg"]},"overlay":{"allow":["ghost"]}},
       "layouts":{
         "standard":{"name":"整幅收束 · 标准","when":"源页 15：条款列 + 行动入口","order":["head","full","bottom?","overlay?"],"tracks":[{"region":"full","share":[0.98,1.0]}],"headline":[1,1]},
         "pills-extended":{"name":"整幅收束 · 标签扩展","when":"源页 31：标签行 + 条款列 + 行动入口 + ghost","order":["head","full","bottom?","overlay?"],"tracks":[{"region":"full","share":[0.98,1.0]}],"headline":[1,1]},

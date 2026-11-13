@@ -1,10 +1,10 @@
 {
   "purpose": "负例夹具 → 拦截层级 stage → 规则码 索引。索引是生成物：跑完 dev/test-controlled.mjs 归档夹具后执行 node dev/check-negative-index.mjs --write 重建；平时直接运行本脚本对账，任何漂移或套件失败即退出码 1。规则码变更时按此表同步更新对应夹具。",
   "generatedAt": "2026-11-13",
-  "scope": "dev/controlled/controlled-negative-1113-1131",
+  "scope": "dev/controlled/controlled-negative-1113-1220",
   "suite": {
-    "total": 188,
-    "passed": 188,
+    "total": 178,
+    "passed": 178,
     "failed": 0,
     "fontMode": "CDN blocked intentionally: system-font geometric regression, not production font evidence"
   },
@@ -12,12 +12,12 @@
     "lint": 56,
     "pass": 56,
     "geometry": 31,
-    "load": 36,
+    "load": 26,
     "pipeline": 5,
     "build": 3,
     "direct-probe": 1
   },
-  "count": 188,
+  "count": 178,
   "legend": {
     "blocked": "gate 必须 failed（夹具报告 status=failed）",
     "passed": "正例对照：gate passed，可带 WARN",
@@ -586,16 +586,6 @@
       "suite_expected": "R11"
     },
     {
-      "dir": "component-shapes-need-directory",
-      "outcome": "load-rejected",
-      "stage": "load",
-      "passed": true,
-      "rules": [],
-      "warn_rules": [],
-      "first_error": null,
-      "suite_expected": "loadProject 拒绝：组件目录没有登记这条 shapes"
-    },
-    {
       "dir": "corrupt-image",
       "outcome": "blocked",
       "stage": "geometry",
@@ -954,16 +944,6 @@
       "suite_expected": "passed"
     },
     {
-      "dir": "form-needs-require",
-      "outcome": "load-rejected",
-      "stage": "load",
-      "passed": true,
-      "rules": [],
-      "warn_rules": [],
-      "first_error": null,
-      "suite_expected": "loadProject 拒绝：form 写了不在 require 中的组件"
-    },
-    {
       "dir": "form-plain-serif",
       "outcome": "passed",
       "stage": "pass",
@@ -988,16 +968,6 @@
       ],
       "first_error": null,
       "suite_expected": "passed"
-    },
-    {
-      "dir": "form-shape-must-exist",
-      "outcome": "load-rejected",
-      "stage": "load",
-      "passed": true,
-      "rules": [],
-      "warn_rules": [],
-      "first_error": null,
-      "suite_expected": "loadProject 拒绝：组件目录没有登记这条 shapes"
     },
     {
       "dir": "form-split-missing",
@@ -1307,36 +1277,6 @@
       "warn_rules": [],
       "first_error": null,
       "suite_expected": "loadProject 拒绝：carriers\\.width 必须是"
-    },
-    {
-      "dir": "layout-counts-content-component",
-      "outcome": "load-rejected",
-      "stage": "load",
-      "passed": true,
-      "rules": [],
-      "warn_rules": [],
-      "first_error": null,
-      "suite_expected": "loadProject 拒绝：counts 只能锁定几何载体组件"
-    },
-    {
-      "dir": "layout-counts-non-integer",
-      "outcome": "load-rejected",
-      "stage": "load",
-      "passed": true,
-      "rules": [],
-      "warn_rules": [],
-      "first_error": null,
-      "suite_expected": "loadProject 拒绝：counts\\.step 必须是整数件数区间"
-    },
-    {
-      "dir": "layout-counts-unknown-component",
-      "outcome": "load-rejected",
-      "stage": "load",
-      "passed": true,
-      "rules": [],
-      "warn_rules": [],
-      "first_error": null,
-      "suite_expected": "loadProject 拒绝：counts 引用了未知组件"
     },
     {
       "dir": "layout-empty-object",
@@ -1853,7 +1793,7 @@
       "rules": [],
       "warn_rules": [],
       "first_error": null,
-      "suite_expected": "loadProject 拒绝：仍写着 require：组件下限在配方级"
+      "suite_expected": "loadProject 拒绝：仍写着 require：组件下限归登记卡"
     },
     {
       "dir": "require-cta-missing",
@@ -1883,36 +1823,6 @@
       "suite_expected": "passed"
     },
     {
-      "dir": "require-group-empty",
-      "outcome": "load-rejected",
-      "stage": "load",
-      "passed": true,
-      "rules": [],
-      "warn_rules": [],
-      "first_error": null,
-      "suite_expected": "loadProject 拒绝：require 组不能为空"
-    },
-    {
-      "dir": "require-group-member-must-be-allowed",
-      "outcome": "load-rejected",
-      "stage": "load",
-      "passed": true,
-      "rules": [],
-      "warn_rules": [],
-      "first_error": null,
-      "suite_expected": "loadProject 拒绝：任何区域都没允许的组件 vrt"
-    },
-    {
-      "dir": "require-group-member-must-be-string",
-      "outcome": "load-rejected",
-      "stage": "load",
-      "passed": true,
-      "rules": [],
-      "warn_rules": [],
-      "first_error": null,
-      "suite_expected": "loadProject 拒绝：任何区域都没允许的组件 42"
-    },
-    {
       "dir": "require-invisible",
       "outcome": "blocked",
       "stage": "geometry",
@@ -1927,16 +1837,6 @@
       ],
       "first_error": "p01 R12: 正文为空或不可见：main.body 内没有可见组件",
       "suite_expected": "R12"
-    },
-    {
-      "dir": "require-must-be-allowed",
-      "outcome": "load-rejected",
-      "stage": "load",
-      "passed": true,
-      "rules": [],
-      "warn_rules": [],
-      "first_error": null,
-      "suite_expected": "loadProject 拒绝：require 写了任何区域都没允许的组件"
     },
     {
       "dir": "require-qa-missing",

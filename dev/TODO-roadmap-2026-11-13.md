@@ -1,10 +1,12 @@
 # 后续执行路线图 TODO（2026-11-13）
 
-> **▶ 当前指针（2026-11-13 更新）：T6 四刀全部落地 · 下一步 = 第五刀（config 独立小批：require/form/counts 字段删除 + LOAD schema 校验随删 + 7 条 loadReject 夹具处置 + 02-constraints 字段段落收尾）→ 阶段闸门 T7（用户确认）**
+> **▶ 当前指针（2026-11-13 更新）：T6 五刀全部落地 · 下一步 = T7 人审闸门（阶段 3 收口，材料见指针末行，待用户复核）**
 >
-> - E2 定性结案（2026-11-13）：duo-labeled h68 溢出 = **骨架实锤**——真实管线（`tools/pipeline.mjs` gate 全链）渲一页 duo-labeled 骨架，R1 ×6（phone/label/frame 双屏全部越出 wall 区），非 harness 预览假象。证据：`dev/e2-duo-h68-1113`（qa-report + 驱动脚本 `dev/e2-duo-labeled.mjs`）。修复决策（h68 降档 or 登记卡加"head 极简"适用条件）不阻塞第五刀，归批次 C / 阶段 4 种子人审；**结论已入 T7 材料**
-> - **批次 C 登记（2026-11-13，骨架修复，gate 阶段 3 范围外）**：① duo-labeled h68 溢出定性单（R1 ×6 实锤）；② 修复决策待批次 C 裁决；③ 修复后 `dev/_sc` 43 号重渲 + 真实管线复验销单
-> - T1–T5 已收口；T6 已落四刀：**C3**（L19 后果化，0917）+ **C5**（L22 迁卡，0934）+ **C6**（L23 复核保留，1028）+ **拆分类**（L11①②③/L20/R13 砍，1103）；当前套件 188/188，基线 scope → `controlled-negative-1113-1131`，对账退出码 0
+> - T1–T5 已收口；T6 已落五刀：**C3**（L19 后果化，0917）+ **C5**（L22 迁卡，0934）+ **C6**（L23 复核保留，1028）+ **拆分类**（L11①②③/L20/R13 砍，1103）+ **config 独立小批**（四字段 28 处删除 + 加载期校验随删 + 10 条 loadReject 退役，1220）；当前套件 **178/178**，基线 scope → `controlled-negative-1113-1220`，对账退出码 0
+> - 第五刀账目修正：loadReject 退役实为 **10 条**（批复清单 9 条漏数 `component-shapes-need-directory`——form-shape 校验的目录侧孪生，实测空转后补退）；`require-belongs-to-recipe` 区域绊线保留改 pattern；外科手术式删字段（git diff 证明改动行 100% 四字段，R14 输入面原样）；七维自查：require↔卡/allow↔卡/allow↔骨架/form↔require/order-tracks↔骨架/counts↔条数/码一致性——四字段相关维度随删除 N/A，allow 与骨架零触碰，coverage 机械复核经 178 全绿套件覆盖
+> - pipeline digest 的 counts 为输出标签，已核非消费面（批复条件 2，免复查）
+> - **批次 C 登记（骨架修复，gate 阶段 3 范围外）**：① duo-labeled h68 溢出定性单（E2 实锤：真实管线 R1 ×6，证据 `dev/e2-duo-h68-1113` + 驱动脚本 `dev/e2-duo-labeled.mjs`）；② 修复决策（h68 降档 or 登记卡加"head 极简"适用条件）待批次 C 裁决，归阶段 4 种子人审；③ 修复后 `dev/_sc` 43 号重渲 + 真实管线复验销单
+> - **T7 闸门材料清单**：六刀 commit 链（待 git 按刀补提）+ 基线轨迹（0440 始 183 → 0853/0902/0915/0917/0928/0934/0951/1010/1028/1057/1103/1131 → **1220 = 178**）+ 残余接受清单（skeleton-order-wrong-sequence 镜像构图、form-shape-invisible 隐藏形态，均有人审/登记卡兜底）+ B–E 销账记录 + E2 定性结论（duo-labeled h68 骨架实锤 R1×6，批次 C 已登记）
 > - 账目修正（2026-11-13）：`phone-count-over-cap` 定层 R1→**R10**（同区挤压致声明比例失真 skew>1%；R10=比例失真、R1=越界，实测定性），夹具/归属图/TODO 三处同步，基线重建 1131
 > - 残余裁决已落地（2026-11-13）：R-phone-01 卡新增装配纪律"列序=叙事序（主屏在左）"；T14 预登记"7 页逐页对照登记卡 hl 节奏"（form-shape-invisible 残余保险丝）；`_sc` 整批重渲 + index 列头注明"右=11-11 历史归档（永不改）"
 > - 附属项已清（2026-11-13）：R-phone-02 卡 intent 统一"bottom 必配"（C6 张力裁决）；`dev/_sc` 41 张骨架预览整批重渲（41/41 PASS，32 号不一致与 43 号坏快照已消）

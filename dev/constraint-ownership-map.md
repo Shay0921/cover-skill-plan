@@ -116,7 +116,7 @@
     - `anyof-group-invisible`/`require-invisible` → **R12**（隐藏组件是页内唯一组件即整页不可见——R12 兜底比预判更强）
     - `skeleton-counts-under/over`、`skeleton-shot-counts` → **R14/R1**（件数缺/超表现为载体档越界或溢出——R14 实测接住）
   - ⚠️ 显式接受残余 2 项：`skeleton-order-wrong-sequence`（列序交换渲染等价、零几何后果，镜像构图归装配/人审）；`form-shape-invisible`（组件内隐藏形态无后果）
-  - config 的 require/form/counts 字段 + LOAD 层 schema 校验 + `02-constraints` 字段段落的最终清理 = **紧随独立小批**（有自己的 loadReject 处置，见 TODO 指针）
+  - **config 字段删除已落地（2026-11-13 T6 第五刀）**：`config/recipes.json` 的 require（15 张）/form（R-quote-01）/区域 max（R-phone-01 wall）/layout counts（11 档）共 28 处删除，外科手术式（git diff 证明改动行 100% 为四字段，R14 输入面 order/tracks/headline/carriers/anchor 原样）；`project.mjs` 对应加载期 schema 校验删除 + 区域级 require 禁入绊线保留（文案改"组件下限归登记卡"）；loadReject 夹具退役 **10 条**（初判 9 条漏数了 form-shape 校验的目录侧孪生 `component-shapes-need-directory`，实测空转后补退），`require-belongs-to-recipe` 保留改 pattern；套件 188→**178/178**，基线 `controlled-negative-1113-1220`，对账退出码 0。登记卡 R-quote-01 无独立 form 行（该串文本原住 config，随本刀删除）；卡面真实保留的是**绑定行 hero 语义**：`quote.hero×1(full)` + `components.json` serif `shapes` 目录 + 两个 quote 骨架 markup 实体化（`class="quote hero"`）——hero 三层全锚零丢失；`marked`/`split` 两档降级为 shapes 目录供造法的**装配自由档**（"form 归登记卡、卡没绑的即自由"裁决的有意终态）
 
 ### C3 多机界面名（L19）——✅ 已落地（2026-11-13 T6 第一刀）
 - **现住两处**：L-gate + DOC + 各多机配方登记卡绑定字段（R-wall-01/R-phone-01 隐含）。
@@ -168,7 +168,7 @@
 | **保留**（不动） | L0 L1 L6(主体) L8 L9 L10 L11④ L14 L15 L16 L17 L18 L21 L23* FONT R0 R1 R2 R3 R4 R7 R8 R9 R10 R11 R12 R14(收窄+B7) R15 R16 R18 BUILD/BATCH |
 | **拆分** | L6（资格面→CARD）、L11（①②③→CARD，④留）——**gate 侧 ✅ 已落地（2026-11-13 T6 第四刀）** |
 | **迁移** | L11①②③、L20 counts、~~L22~~ **✅ L22 已落地（2026-11-13）** → CARD |
-| **砍** | ~~L11①②③的 gate 检查、L20（order/tracks 存在性）、R13~~ **✅ 已落地（2026-11-13 T6 第四刀）**：config 字段删除随独立小批 |
+| **砍** | ~~L11①②③的 gate 检查、L20（order/tracks 存在性）、R13~~ **✅ 已落地（2026-11-13 T6 第四刀）**；~~config 四字段（require/form/counts/max）+ 加载期 schema 校验~~ **✅ 已落地（2026-11-13 T6 第五刀）**：28 处字段 + 10 条 loadReject 退役，套件 178/178（基线 1220） |
 | **后果化改写候选** | ~~L19（C3）~~ **✅ 已落地（2026-11-13）** |
 | **新增** | L24 占位符残留 **✅ 已落地（T5）**；LOAD 层柱高 0–100 整数校验（B7） |
 | **前置同批** | F1 P→R 全链迁移（41 骨架 + recipes.json + 受控套件 + 索引 + 登记卡残留）；F2/F3 重建夹具库与索引 |

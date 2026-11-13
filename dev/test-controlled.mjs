@@ -241,24 +241,13 @@ try {
   });
   loadRejectTest('dark-not-boolean', baseline, /dark 只能是 true 或缺省/, p => { p.pages[0].dark = 'yes'; });
   // 契约自检：配方写错时项目加载必须直接拒绝，不允许把矛盾留给页面检查兜底。
-  loadRejectTest('require-must-be-allowed', baseline, /require 写了任何区域都没允许的组件/, undefined,
-    source => source.replace('"require":["step"]', '"require":["vrt"]'), 'config/recipes.json');
-  loadRejectTest('require-belongs-to-recipe', baseline, /仍写着 require：组件下限在配方级/, undefined,
+  // C2 收尾（第五刀）：配方级 require/form/counts/max 字段与对应 schema 校验已删除——
+  // 10 条相关 loadReject 夹具随之退役（含 form-shape 校验的目录侧孪生 component-shapes-need-directory）；
+  // 区域级 require 禁入绊线保留（防回归注入），pattern 同步新文案。
+  loadRejectTest('require-belongs-to-recipe', baseline, /仍写着 require：组件下限归登记卡/, undefined,
     source => source.replace('"full":{"allow":["step","list","ck","fcard","text-block"]}', '"full":{"allow":["step","list","ck","fcard","text-block"],"require":["step"]}'), 'config/recipes.json');
-  loadRejectTest('form-needs-require', baseline, /form 写了不在 require 中的组件/, undefined,
-    source => source.replace('"require":["serif"],"form":', '"form":'), 'config/recipes.json');
-  loadRejectTest('form-shape-must-exist', baseline, /组件目录没有登记这条 shapes/, undefined,
-    source => source.replace('"serif":["hero","marked","split"]', '"serif":["hero","fancy"]'), 'config/recipes.json');
-  loadRejectTest('component-shapes-need-directory', baseline, /组件目录没有登记这条 shapes/, undefined,
-    source => source.replace('"shapes":{"hero"', '"unused":{"hero"'), 'config/components.json');
   // 孤儿资产与 any-of 组的配置层拒绝：加载即失败，不留给页面检查。
   loadRejectTest('orphan-pool-asset', baseline, /池里存在未被任何页面引用的资产/, (_p, content) => content.highlights.push({ id: 'orphan', text: '没人用的文案', evidence: '负例注入', source: '本试验定义' }));
-  loadRejectTest('require-group-empty', baseline, /require 组不能为空/, undefined,
-    source => source.replace('"require":[["fcard","phone"]]', '"require":[[]]'), 'config/recipes.json');
-  loadRejectTest('require-group-member-must-be-allowed', baseline, /任何区域都没允许的组件 vrt/, undefined,
-    source => source.replace('"require":[["fcard","phone"]]', '"require":[["fcard","vrt"]]'), 'config/recipes.json');
-  loadRejectTest('require-group-member-must-be-string', baseline, /任何区域都没允许的组件 42/, undefined,
-    source => source.replace('"require":[["fcard","phone"]]', '"require":[["fcard",42]]'), 'config/recipes.json');
   await test('bleed-inside-interior-region', wrap(`<div class="phone" data-component="phone" data-layer="interior-bleed" data-bleed data-group style="position:absolute;left:0;top:0;width:30cqw;height:59.54cqw;margin-left:-20cqw"><img class="phone-shot" data-slot="image" data-layer="interior-screen" src="assets/iphone-frame.png" alt=""><img class="frame-img" data-slot="image" data-layer="interior-frame" data-decoration src="assets/iphone-frame.png" alt=""></div>`), 'R1');
   // A1：骨架豁免只覆盖"署名身份"层，页脚口号与品牌里的额外文字仍是内容，必须溯源。
   await test('footer-slogan-untracked', baseline.replace('</footer>', '<span data-layer="footer-slogan" data-editable="text">全网最低价</span></footer>'), 'L8');
@@ -404,19 +393,13 @@ try {
     source => source.replace('"component":"phone","region":"right","width":[40,42]', '"component":"phone","region":"head","width":[40,42]'), 'config/recipes.json');
   loadRejectTest('layout-carrier-width-out-of-range', baseline, /carriers\.width 必须是/, undefined,
     source => source.replace('"component":"phone","region":"right","width":[40,42]', '"component":"phone","region":"right","width":[40,200]'), 'config/recipes.json');
-  loadRejectTest('layout-counts-unknown-component', baseline, /counts 引用了未知组件/, undefined,
-    source => source.replace('"counts":{"phone":[3,3]}', '"counts":{"zzz":[3,3]}'), 'config/recipes.json');
-  loadRejectTest('layout-counts-non-integer', baseline, /counts\.step 必须是整数件数区间/, undefined,
-    source => source.replace('"counts":{"step":[4,6]}', '"counts":{"step":[4,6.5]}'), 'config/recipes.json');
   loadRejectTest('layout-anchor-unknown-region', baseline, /anchor 引用了未知区域/, undefined,
     source => source.replace('"anchor":{"region":"right"', '"anchor":{"region":"nowhere"'), 'config/recipes.json');
   loadRejectTest('layout-anchor-carrier-disallowed', baseline, /anchor\.carrier 必须是锚点区域允许的组件/, undefined,
     source => source.replace('"carrier":["phone","shot"]', '"carrier":["vrt"]'), 'config/recipes.json');
-  // 白名单守卫：内容组件即使被区域允许、也在目录里，也不能进 carriers/counts/anchor——档只锁几何。
+  // 白名单守卫：内容组件即使被区域允许、也在目录里，也不能进 carriers/anchor——档只锁几何。
   loadRejectTest('layout-carrier-content-component', baseline, /carriers 只能锁定几何载体组件/, undefined,
     source => source.replace('"component":"phone","region":"right","width":[40,42]', '"component":"fcard","region":"right","width":[40,42]'), 'config/recipes.json');
-  loadRejectTest('layout-counts-content-component', baseline, /counts 只能锁定几何载体组件/, undefined,
-    source => source.replace('"counts":{"phone":[3,3]}', '"counts":{"fcard":[2,3]}'), 'config/recipes.json');
   loadRejectTest('layout-anchor-content-component', baseline, /anchor\.carrier 只能锁定几何载体组件/, undefined,
     source => source.replace('"carrier":["phone","shot"]', '"carrier":["mn"]'), 'config/recipes.json');
   const f = fixture('stale-png-protection');
