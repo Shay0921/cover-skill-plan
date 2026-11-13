@@ -1,0 +1,2328 @@
+{
+  "purpose": "负例夹具 → 拦截层级 stage → 规则码 索引。索引是生成物：跑完 dev/test-controlled.mjs 归档夹具后执行 node dev/check-negative-index.mjs --write 重建；平时直接运行本脚本对账，任何漂移或套件失败即退出码 1。规则码变更时按此表同步更新对应夹具。",
+  "generatedAt": "2026-11-11",
+  "scope": "dev/controlled/controlled-negative-1111-2251",
+  "suite": {
+    "total": 175,
+    "passed": 175,
+    "failed": 0,
+    "fontMode": "CDN blocked intentionally: system-font geometric regression, not production font evidence"
+  },
+  "stages": {
+    "lint": 74,
+    "geometry": 25,
+    "pass": 35,
+    "load": 32,
+    "pipeline": 5,
+    "build": 3,
+    "direct-probe": 1
+  },
+  "count": 175,
+  "legend": {
+    "blocked": "gate 必须 failed（夹具报告 status=failed）",
+    "passed": "正例对照：gate passed，可带 WARN",
+    "load-rejected": "契约级夹具在 loadProject 阶段抛错，从不生成报告",
+    "probe": "不经 gate 的直接探针（如注册表扩展），没有报告状态",
+    "fixture.passed": "每条夹具自己的套件断言是否达成（expected 是否命中），与 outcome 正交：blocked 的夹具 passed 同样可以是 true——它说的是\"测试判对了\"，不是\"gate 通过\""
+  },
+  "stage_legend": {
+    "load": "契约加载期拒绝（loadProject 抛错）或报告只带契约级 BATCH 文案，无页级规则码",
+    "build": "build 阶段拒绝素材（缺少文件、扩展名与内容不符、手写 dataURL）",
+    "lint": "静态 DOM 检查 L 系列首先报错",
+    "geometry": "真实页面几何检查 R 系列首先报错",
+    "pipeline": "报告轮转、成品一致性、截图等管道与产物层",
+    "pass": "正例对照：无 ERROR，最多带 WARN",
+    "direct-probe": "夹具没有报告：直接调 build/validate 探针注册表扩展，不经 gate"
+  },
+  "fixtures": [
+    {
+      "dir": "active-svg",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L0",
+        "L8",
+        "L9"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L0: 禁止标签/命名空间: <svg>",
+      "suite_expected": "L0"
+    },
+    {
+      "dir": "anyof-group-invisible",
+      "outcome": "blocked",
+      "stage": "geometry",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "R12",
+        "R13"
+      ],
+      "warn_rules": [
+        "FONT",
+        "R7"
+      ],
+      "first_error": "p01 R12: 正文为空或不可见：main.body 内没有可见组件",
+      "suite_expected": "R13"
+    },
+    {
+      "dir": "anyof-p02-missing",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L11"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L11: 配方 P02 要求本页至少放一个 fcard/frow/phone（任一）",
+      "suite_expected": "fcard/frow/phone（任一）"
+    },
+    {
+      "dir": "anyof-p03-missing",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L11"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L11: 配方 P03 要求本页至少放一个 shot/phone（任一）",
+      "suite_expected": "shot/phone（任一）"
+    },
+    {
+      "dir": "anyof-p03-phone-only",
+      "outcome": "passed",
+      "stage": "pass",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [
+        "FONT",
+        "L16",
+        "R7"
+      ],
+      "first_error": null,
+      "suite_expected": "passed"
+    },
+    {
+      "dir": "anyof-p03-shot-only",
+      "outcome": "passed",
+      "stage": "pass",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [
+        "FONT",
+        "R7"
+      ],
+      "first_error": null,
+      "suite_expected": "passed"
+    },
+    {
+      "dir": "anyof-p04-missing",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L11"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L11: 配方 P04 要求本页至少放一个 ck/list（任一）",
+      "suite_expected": "ck/list（任一）"
+    },
+    {
+      "dir": "anyof-p07-missing",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L11"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L11: 配方 P07 要求本页至少放一个 bars/ldr/ledger（任一）",
+      "suite_expected": "bars/ldr/ledger（任一）"
+    },
+    {
+      "dir": "appearance-background",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L17"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L17: <p> 用内联 style 覆盖了外观属性 background：颜色、字体、边框与质感只由种子给出，本页只调布局、尺寸、间距、定位、裁切与构图",
+      "suite_expected": "L17"
+    },
+    {
+      "dir": "appearance-background-color",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L17"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L17: <p> 用内联 style 覆盖了外观属性 background-color：颜色、字体、边框与质感只由种子给出，本页只调布局、尺寸、间距、定位、裁切与构图",
+      "suite_expected": "L17"
+    },
+    {
+      "dir": "appearance-border",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L17"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L17: <p> 用内联 style 覆盖了外观属性 border：颜色、字体、边框与质感只由种子给出，本页只调布局、尺寸、间距、定位、裁切与构图",
+      "suite_expected": "L17"
+    },
+    {
+      "dir": "appearance-border-radius",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L17"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L17: <p> 用内联 style 覆盖了外观属性 border-radius：颜色、字体、边框与质感只由种子给出，本页只调布局、尺寸、间距、定位、裁切与构图",
+      "suite_expected": "L17"
+    },
+    {
+      "dir": "appearance-box-shadow",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L17"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L17: <p> 用内联 style 覆盖了外观属性 box-shadow：颜色、字体、边框与质感只由种子给出，本页只调布局、尺寸、间距、定位、裁切与构图",
+      "suite_expected": "L17"
+    },
+    {
+      "dir": "appearance-color",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L17"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L17: <p> 用内联 style 覆盖了外观属性 color：颜色、字体、边框与质感只由种子给出，本页只调布局、尺寸、间距、定位、裁切与构图",
+      "suite_expected": "L17"
+    },
+    {
+      "dir": "appearance-font-family",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L17"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L17: <p> 用内联 style 覆盖了外观属性 font-family：颜色、字体、边框与质感只由种子给出，本页只调布局、尺寸、间距、定位、裁切与构图",
+      "suite_expected": "L17"
+    },
+    {
+      "dir": "appearance-font-size",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L17"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L17: <p> 用内联 style 覆盖了外观属性 font-size：颜色、字体、边框与质感只由种子给出，本页只调布局、尺寸、间距、定位、裁切与构图",
+      "suite_expected": "L17"
+    },
+    {
+      "dir": "appearance-font-weight",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L17"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L17: <p> 用内联 style 覆盖了外观属性 font-weight：颜色、字体、边框与质感只由种子给出，本页只调布局、尺寸、间距、定位、裁切与构图",
+      "suite_expected": "L17"
+    },
+    {
+      "dir": "appearance-seed-variable",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L17"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L17: <p> 用内联 style 声明自定义属性 --paper：外观取值只由种子给出",
+      "suite_expected": "L17"
+    },
+    {
+      "dir": "appearance-text-shadow",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L17"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L17: <p> 用内联 style 覆盖了外观属性 text-shadow：颜色、字体、边框与质感只由种子给出，本页只调布局、尺寸、间距、定位、裁切与构图",
+      "suite_expected": "L17"
+    },
+    {
+      "dir": "aspect-ratio-crushed",
+      "outcome": "blocked",
+      "stage": "geometry",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "R10"
+      ],
+      "warn_rules": [
+        "FONT",
+        "R7"
+      ],
+      "first_error": "p01 R10: crushed-phone 声明比例 910/1806 被压成 0.625（相差 24.0%）",
+      "suite_expected": "R10"
+    },
+    {
+      "dir": "atomic-component",
+      "outcome": "passed",
+      "stage": "pass",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [
+        "FONT",
+        "R7"
+      ],
+      "first_error": null,
+      "suite_expected": "passed"
+    },
+    {
+      "dir": "b6-data-literal",
+      "outcome": "passed",
+      "stage": "pass",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [
+        "FONT",
+        "R7"
+      ],
+      "first_error": null,
+      "suite_expected": "passed"
+    },
+    {
+      "dir": "b6-data-mismatch-reported",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L14",
+        "L15"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L14: 数字 50 的单位 倍 与所引资产不符（资产为 元）：效率提升 50 倍",
+      "suite_expected": "L15"
+    },
+    {
+      "dir": "b6-data-substring",
+      "outcome": "passed",
+      "stage": "pass",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [
+        "FONT",
+        "R7"
+      ],
+      "first_error": null,
+      "suite_expected": "passed"
+    },
+    {
+      "dir": "b6-fabricated-unit-and-prose",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L14",
+        "L15"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L14: 数字 50 的单位 倍 与所引资产不符（资产为 元）：效率提升 50 倍",
+      "suite_expected": "L14"
+    },
+    {
+      "dir": "b6-multi-source-no-strict",
+      "outcome": "passed",
+      "stage": "pass",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [
+        "FONT",
+        "R7"
+      ],
+      "first_error": null,
+      "suite_expected": "passed"
+    },
+    {
+      "dir": "b6-prose-polish-warn",
+      "outcome": "passed",
+      "stage": "pass",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [
+        "FONT",
+        "L16",
+        "R7"
+      ],
+      "first_error": null,
+      "suite_expected": "WARN L16"
+    },
+    {
+      "dir": "b6-quote-fabricated",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L15"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L15: data-from=\"q1\" 的文案与 quotes 资产 text 不一致：页面「效率提升十倍」／资产「让表达改变，让证据留下。」",
+      "suite_expected": "L15"
+    },
+    {
+      "dir": "b6-quote-literal",
+      "outcome": "passed",
+      "stage": "pass",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [
+        "FONT",
+        "R7"
+      ],
+      "first_error": null,
+      "suite_expected": "passed"
+    },
+    {
+      "dir": "b6-quote-paraphrase-marked",
+      "outcome": "passed",
+      "stage": "pass",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [
+        "FONT",
+        "L15",
+        "R7"
+      ],
+      "first_error": null,
+      "suite_expected": "WARN L15"
+    },
+    {
+      "dir": "b6-unit-match-on-prose",
+      "outcome": "passed",
+      "stage": "pass",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [
+        "FONT",
+        "R7"
+      ],
+      "first_error": null,
+      "suite_expected": "passed"
+    },
+    {
+      "dir": "b6-unit-mismatch-on-prose",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L14"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L14: 数字 50 的单位 倍 与所引资产不符（资产为 元）：提升 50 倍",
+      "suite_expected": "L14"
+    },
+    {
+      "dir": "bleed-inside-interior-region",
+      "outcome": "blocked",
+      "stage": "geometry",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "R1"
+      ],
+      "warn_rules": [
+        "FONT",
+        "R7"
+      ],
+      "first_error": "p01 R1: interior-bleed 越出所属区域 right",
+      "suite_expected": "R1"
+    },
+    {
+      "dir": "bleed-not-touching-edge",
+      "outcome": "blocked",
+      "stage": "geometry",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "R16"
+      ],
+      "warn_rules": [
+        "FONT",
+        "R7"
+      ],
+      "first_error": "p01 R16: bleed-phone 声明 data-bleed 但没有贴到出血边",
+      "suite_expected": "声明 data-bleed 但没有贴到出血边"
+    },
+    {
+      "dir": "bleed-touching-edge",
+      "outcome": "passed",
+      "stage": "pass",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [
+        "FONT"
+      ],
+      "first_error": null,
+      "suite_expected": "passed"
+    },
+    {
+      "dir": "brand-empty",
+      "outcome": "load-rejected",
+      "stage": "load",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [],
+      "first_error": null,
+      "suite_expected": "loadProject 拒绝：brand 不能是空字符串"
+    },
+    {
+      "dir": "brand-extra-text-untracked",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L8"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L8: 文字叶缺少 data-from: 全网最低价",
+      "suite_expected": "L8"
+    },
+    {
+      "dir": "brand-mismatch",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L6"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L6: .brand 与计划 meta.brand 不一致",
+      "suite_expected": ".brand 与计划 meta.brand 不一致"
+    },
+    {
+      "dir": "collapsed-image",
+      "outcome": "blocked",
+      "stage": "geometry",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "R11"
+      ],
+      "warn_rules": [
+        "FONT",
+        "R7"
+      ],
+      "first_error": "p01 R11: 画面塌陷为 937×0: flat-image",
+      "suite_expected": "R11"
+    },
+    {
+      "dir": "component-shapes-need-directory",
+      "outcome": "load-rejected",
+      "stage": "load",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [],
+      "first_error": null,
+      "suite_expected": "loadProject 拒绝：组件目录没有登记这条 shapes"
+    },
+    {
+      "dir": "corrupt-image",
+      "outcome": "blocked",
+      "stage": "geometry",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "R4"
+      ],
+      "warn_rules": [
+        "FONT"
+      ],
+      "first_error": "p01 R4: 图片未加载/损坏: corrupt-image",
+      "suite_expected": "R4"
+    },
+    {
+      "dir": "css-escaped-url",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L0",
+        "L17"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L0: 内联 style 包含动态代码、CSS URL、转义或动画",
+      "suite_expected": "L0"
+    },
+    {
+      "dir": "css-url",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L0",
+        "L17"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L0: 内联 style 包含动态代码、CSS URL、转义或动画",
+      "suite_expected": "L0"
+    },
+    {
+      "dir": "dark-class-without-plan",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L6"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L6: 计划未标 dark，画布根不得带 .dark 配色",
+      "suite_expected": "L6"
+    },
+    {
+      "dir": "dark-false-rejected",
+      "outcome": "load-rejected",
+      "stage": "load",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [],
+      "first_error": null,
+      "suite_expected": "loadProject 拒绝：dark 只能是 true 或缺省"
+    },
+    {
+      "dir": "dark-flag-and-class-agree",
+      "outcome": "passed",
+      "stage": "pass",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [
+        "FONT",
+        "R7"
+      ],
+      "first_error": null,
+      "suite_expected": "passed"
+    },
+    {
+      "dir": "dark-not-boolean",
+      "outcome": "load-rejected",
+      "stage": "load",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [],
+      "first_error": null,
+      "suite_expected": "loadProject 拒绝：dark 只能是 true 或缺省"
+    },
+    {
+      "dir": "dark-plan-without-class",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L6"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L6: 计划标了 dark，画布根缺少 .dark 配色",
+      "suite_expected": "缺少 .dark"
+    },
+    {
+      "dir": "decoration-image-out-of-bounds",
+      "outcome": "blocked",
+      "stage": "geometry",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "R1"
+      ],
+      "warn_rules": [
+        "FONT",
+        "R7"
+      ],
+      "first_error": "p01 R1: oo-image 越出画布",
+      "suite_expected": "R1"
+    },
+    {
+      "dir": "decoration-image-outside-component",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L11"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L11: 图片必须归属显式组件根：data-decoration 只免来源检查，不豁免几何检查",
+      "suite_expected": "L11"
+    },
+    {
+      "dir": "decoration-long-text",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L8"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L8: data-decoration 文本超过 8 字符，业务文案请走组件与 data-from",
+      "suite_expected": "data-decoration 文本超过"
+    },
+    {
+      "dir": "decoration-with-text-leaf",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L11",
+        "L8"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L8: data-decoration 不得携带文字叶 data-editable",
+      "suite_expected": "不得携带文字叶"
+    },
+    {
+      "dir": "disallowed-component",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L11"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L11: 区域 right 不允许组件 qa",
+      "suite_expected": "L11"
+    },
+    {
+      "dir": "disallowed-region",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L11"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L11: 配方未允许区域: wall",
+      "suite_expected": "L11"
+    },
+    {
+      "dir": "duplicate-id",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L9"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L9: 重复图层 id: main-copy",
+      "suite_expected": "L9"
+    },
+    {
+      "dir": "duplicate-plan-page",
+      "outcome": "blocked",
+      "stage": "pipeline",
+      "passed": true,
+      "rules": [
+        "BATCH"
+      ],
+      "warn_rules": [],
+      "first_error": "BATCH: plan 页号重复: 01",
+      "suite_expected": "页号重复"
+    },
+    {
+      "dir": "edited-output",
+      "outcome": "blocked",
+      "stage": "pipeline",
+      "passed": true,
+      "rules": [
+        "BATCH"
+      ],
+      "warn_rules": [],
+      "first_error": "BATCH: 当前 HTML 与已校验源片段/素材/seed 不一致: D:\\AI\\html2png\\mine\\cover-skill-plan\\.tmp-tier6\\neg2\\edited-o",
+      "suite_expected": "edited HTML rejected before navigation"
+    },
+    {
+      "dir": "empty-checkbox",
+      "outcome": "passed",
+      "stage": "pass",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [
+        "FONT",
+        "R7"
+      ],
+      "first_error": null,
+      "suite_expected": "passed"
+    },
+    {
+      "dir": "encoded-url",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L0",
+        "L11"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L0: 不安全的图片来源: javascript:void(0)",
+      "suite_expected": "L0"
+    },
+    {
+      "dir": "event-attribute",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L0"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L0: <main> 禁止属性 onclick",
+      "suite_expected": "L0"
+    },
+    {
+      "dir": "fixed-position",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L0"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L0: 静态卡片不使用 fixed 定位或视口单位",
+      "suite_expected": "L0"
+    },
+    {
+      "dir": "footer-covered",
+      "outcome": "blocked",
+      "stage": "geometry",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "R1"
+      ],
+      "warn_rules": [
+        "FONT",
+        "R7"
+      ],
+      "first_error": "p01 R1: main-copy 越出所属区域 right",
+      "suite_expected": "R1"
+    },
+    {
+      "dir": "footer-slogan-sourced",
+      "outcome": "passed",
+      "stage": "pass",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [
+        "FONT",
+        "R7"
+      ],
+      "first_error": null,
+      "suite_expected": "passed"
+    },
+    {
+      "dir": "footer-slogan-untracked",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L8"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L8: 文字叶缺少 data-from: 全网最低价",
+      "suite_expected": "L8"
+    },
+    {
+      "dir": "footer-wraps-two-lines",
+      "outcome": "blocked",
+      "stage": "geometry",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "R18"
+      ],
+      "warn_rules": [
+        "FONT",
+        "R7"
+      ],
+      "first_error": "p01 R18: 页脚文字折为 3 行：向下出血（--bleed-edge）的单行前提被破坏",
+      "suite_expected": "页脚文字折为"
+    },
+    {
+      "dir": "form-hero-missing",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L11"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L11: 配方 P08 要求 serif 呈现形态 hero（整页金句用种子的大字档 .quote.hero），本页没有",
+      "suite_expected": "呈现形态 hero"
+    },
+    {
+      "dir": "form-marked-missing",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L11"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L11: 配方 P08 要求 serif 呈现形态 marked（引语内部高亮一处），本页没有",
+      "suite_expected": "呈现形态 marked"
+    },
+    {
+      "dir": "form-needs-require",
+      "outcome": "load-rejected",
+      "stage": "load",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [],
+      "first_error": null,
+      "suite_expected": "loadProject 拒绝：form 写了不在 require 中的组件"
+    },
+    {
+      "dir": "form-plain-serif",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L11"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L11: 配方 P08 要求 serif 呈现形态 hero（整页金句用种子的大字档 .quote.hero），本页没有",
+      "suite_expected": "呈现形态 hero"
+    },
+    {
+      "dir": "form-shape-invisible",
+      "outcome": "blocked",
+      "stage": "geometry",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "R13"
+      ],
+      "warn_rules": [
+        "FONT",
+        "R7"
+      ],
+      "first_error": "p01 R13: 配方要求的 serif 形态 marked 没有可见命中",
+      "suite_expected": "R13"
+    },
+    {
+      "dir": "form-shape-must-exist",
+      "outcome": "load-rejected",
+      "stage": "load",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [],
+      "first_error": null,
+      "suite_expected": "loadProject 拒绝：组件目录没有登记这条 shapes"
+    },
+    {
+      "dir": "form-split-missing",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L11"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L11: 配方 P08 要求 serif 呈现形态 split（引语按语义停顿拆分换行），本页没有",
+      "suite_expected": "呈现形态 split"
+    },
+    {
+      "dir": "format-mismatch",
+      "outcome": "blocked",
+      "stage": "build",
+      "passed": true,
+      "rules": [
+        "BATCH"
+      ],
+      "warn_rules": [],
+      "first_error": "BATCH: 01: 素材扩展名与实际格式不一致: assets/fake.jpg",
+      "suite_expected": "扩展名"
+    },
+    {
+      "dir": "ghost-on-cover",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L11"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L11: 配方未允许区域: overlay",
+      "suite_expected": "L11"
+    },
+    {
+      "dir": "ghost-on-inner-page",
+      "outcome": "passed",
+      "stage": "pass",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [
+        "FONT",
+        "R7"
+      ],
+      "first_error": null,
+      "suite_expected": "passed"
+    },
+    {
+      "dir": "hidden-body",
+      "outcome": "blocked",
+      "stage": "geometry",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "R12"
+      ],
+      "warn_rules": [
+        "FONT",
+        "R7"
+      ],
+      "first_error": "p01 R12: 正文为空或不可见：main.body 内没有可见组件",
+      "suite_expected": "R12"
+    },
+    {
+      "dir": "hidden-display-override",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L8",
+        "L9"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L9: 可见业务文字未标记文字叶: 未标记的隐藏文字",
+      "suite_expected": "L9"
+    },
+    {
+      "dir": "hidden-without-override",
+      "outcome": "passed",
+      "stage": "pass",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [
+        "FONT",
+        "R7"
+      ],
+      "first_error": null,
+      "suite_expected": "passed"
+    },
+    {
+      "dir": "inline-flex-layout",
+      "outcome": "passed",
+      "stage": "pass",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [
+        "FONT",
+        "R7"
+      ],
+      "first_error": null,
+      "suite_expected": "passed"
+    },
+    {
+      "dir": "inline-unknown-property",
+      "outcome": "passed",
+      "stage": "pass",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [
+        "FONT",
+        "L18",
+        "R7"
+      ],
+      "first_error": null,
+      "suite_expected": "WARN L18"
+    },
+    {
+      "dir": "inner-page-without-issue",
+      "outcome": "passed",
+      "stage": "pass",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [
+        "FONT",
+        "R7"
+      ],
+      "first_error": null,
+      "suite_expected": "passed"
+    },
+    {
+      "dir": "input-error-rotation",
+      "outcome": "blocked",
+      "stage": "load",
+      "passed": true,
+      "rules": [
+        "BATCH"
+      ],
+      "warn_rules": [],
+      "first_error": "BATCH: 无法读取 JSON D:\\AI\\html2png\\mine\\cover-skill-plan\\.tmp-tier6\\neg2\\input-error-rotation\\work\\0",
+      "suite_expected": "输入错误轮转上一轮报告并写出合法 JSON（不因缺少全局 crypto 抛错）"
+    },
+    {
+      "dir": "insert-reorder-remove",
+      "outcome": "passed",
+      "stage": "pass",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [
+        "FONT",
+        "R7"
+      ],
+      "first_error": null,
+      "suite_expected": "authored semantic IDs remain attached to the same text across four source variants"
+    },
+    {
+      "dir": "issue-fabricated",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L6"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L6: 计划未提供 meta.issue，期号骨架不得自行编造文字",
+      "suite_expected": "L6"
+    },
+    {
+      "dir": "issue-mismatch",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L6"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L6: .issue 与计划 meta.issue 不一致",
+      "suite_expected": "L6"
+    },
+    {
+      "dir": "issue-missing-from-skeleton",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L6"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L6: 计划 meta.issue 为 第 07 期，封面骨架缺少 .issue",
+      "suite_expected": "L6"
+    },
+    {
+      "dir": "issue-on-inner-page",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L6"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L6: 配方 P05 不是封面系列，页眉不得出现期号",
+      "suite_expected": "封面系列"
+    },
+    {
+      "dir": "issue-outside-skeleton",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L6",
+        "L8",
+        "L9"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L6: .issue 期号只能放在 .page-header 骨架内",
+      "suite_expected": "L6"
+    },
+    {
+      "dir": "issue-without-layer",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L9"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L9: .issue 期号缺少 data-layer",
+      "suite_expected": "L9"
+    },
+    {
+      "dir": "layout-anchor-carrier-disallowed",
+      "outcome": "load-rejected",
+      "stage": "load",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [],
+      "first_error": null,
+      "suite_expected": "loadProject 拒绝：anchor\\.carrier 必须是锚点区域允许的组件"
+    },
+    {
+      "dir": "layout-anchor-unknown-region",
+      "outcome": "load-rejected",
+      "stage": "load",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [],
+      "first_error": null,
+      "suite_expected": "loadProject 拒绝：anchor 引用了未知区域"
+    },
+    {
+      "dir": "layout-carrier-region-disallowed",
+      "outcome": "load-rejected",
+      "stage": "load",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [],
+      "first_error": null,
+      "suite_expected": "loadProject 拒绝：不被区域 head 允许"
+    },
+    {
+      "dir": "layout-carrier-unknown-component",
+      "outcome": "load-rejected",
+      "stage": "load",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [],
+      "first_error": null,
+      "suite_expected": "loadProject 拒绝：carriers 引用了未知组件"
+    },
+    {
+      "dir": "layout-carrier-width-out-of-range",
+      "outcome": "load-rejected",
+      "stage": "load",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [],
+      "first_error": null,
+      "suite_expected": "loadProject 拒绝：carriers\\.width 必须是"
+    },
+    {
+      "dir": "layout-counts-non-integer",
+      "outcome": "load-rejected",
+      "stage": "load",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [],
+      "first_error": null,
+      "suite_expected": "loadProject 拒绝：counts\\.step 必须是整数件数区间"
+    },
+    {
+      "dir": "layout-counts-unknown-component",
+      "outcome": "load-rejected",
+      "stage": "load",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [],
+      "first_error": null,
+      "suite_expected": "loadProject 拒绝：counts 引用了未知组件"
+    },
+    {
+      "dir": "layout-empty-object",
+      "outcome": "load-rejected",
+      "stage": "load",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [],
+      "first_error": null,
+      "suite_expected": "loadProject 拒绝：layouts 是空对象"
+    },
+    {
+      "dir": "layout-headline-non-integer",
+      "outcome": "load-rejected",
+      "stage": "load",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [],
+      "first_error": null,
+      "suite_expected": "loadProject 拒绝：headline 必须是整数行数区间"
+    },
+    {
+      "dir": "layout-name-missing",
+      "outcome": "load-rejected",
+      "stage": "load",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [],
+      "first_error": null,
+      "suite_expected": "loadProject 拒绝：缺少 name\\/when"
+    },
+    {
+      "dir": "layout-on-untiered-recipe",
+      "outcome": "load-rejected",
+      "stage": "load",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [],
+      "first_error": null,
+      "suite_expected": "loadProject 拒绝：没有登记骨架"
+    },
+    {
+      "dir": "layout-order-empty",
+      "outcome": "load-rejected",
+      "stage": "load",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [],
+      "first_error": null,
+      "suite_expected": "loadProject 拒绝：order 不能为空"
+    },
+    {
+      "dir": "layout-order-unknown-region",
+      "outcome": "load-rejected",
+      "stage": "load",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [],
+      "first_error": null,
+      "suite_expected": "loadProject 拒绝：order 引用了未知区域"
+    },
+    {
+      "dir": "layout-required-when-tiered",
+      "outcome": "load-rejected",
+      "stage": "load",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [],
+      "first_error": null,
+      "suite_expected": "loadProject 拒绝：pages\\[\\]\\.layout 必须显式选一档"
+    },
+    {
+      "dir": "layout-share-out-of-range",
+      "outcome": "load-rejected",
+      "stage": "load",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [],
+      "first_error": null,
+      "suite_expected": "loadProject 拒绝：tracks\\.share 必须是"
+    },
+    {
+      "dir": "layout-tracks-empty",
+      "outcome": "load-rejected",
+      "stage": "load",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [],
+      "first_error": null,
+      "suite_expected": "loadProject 拒绝：tracks 不能为空"
+    },
+    {
+      "dir": "layout-unknown-tier",
+      "outcome": "load-rejected",
+      "stage": "load",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [],
+      "first_error": null,
+      "suite_expected": "loadProject 拒绝：pages\\[\\]\\.layout 必须显式选一档"
+    },
+    {
+      "dir": "letterboxed-tall-asset",
+      "outcome": "passed",
+      "stage": "pass",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [
+        "FONT",
+        "R7",
+        "R9"
+      ],
+      "first_error": null,
+      "suite_expected": "WARN R9"
+    },
+    {
+      "dir": "missing-evidence",
+      "outcome": "blocked",
+      "stage": "pipeline",
+      "passed": true,
+      "rules": [
+        "BATCH"
+      ],
+      "warn_rules": [],
+      "first_error": "BATCH: 每个内容资产必须包含非空 id / text / evidence / source",
+      "suite_expected": "evidence"
+    },
+    {
+      "dir": "missing-image",
+      "outcome": "blocked",
+      "stage": "build",
+      "passed": true,
+      "rules": [
+        "BATCH"
+      ],
+      "warn_rules": [],
+      "first_error": "BATCH: 01: 缺少本地素材 assets/missing.png；检查 src/assets、work/assets 或 out/assets",
+      "suite_expected": "缺少本地素材"
+    },
+    {
+      "dir": "missing-image-names-page",
+      "outcome": "blocked",
+      "stage": "build",
+      "passed": true,
+      "rules": [
+        "BATCH"
+      ],
+      "warn_rules": [],
+      "first_error": "BATCH: 02: 缺少本地素材 assets/nope.png；检查 src/assets、work/assets 或 out/assets",
+      "suite_expected": "02: 缺少本地素材"
+    },
+    {
+      "dir": "missing-plan-page",
+      "outcome": "blocked",
+      "stage": "pipeline",
+      "passed": true,
+      "rules": [
+        "BATCH"
+      ],
+      "warn_rules": [],
+      "first_error": "BATCH: 缺少计划页源文件: D:\\AI\\html2png\\mine\\cover-skill-plan\\.tmp-tier6\\neg2\\missing-plan-page\\work\\src\\",
+      "suite_expected": "缺少计划页"
+    },
+    {
+      "dir": "missing-provenance",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L8"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L8: 文字叶缺少 data-from: 清楚表达",
+      "suite_expected": "L8"
+    },
+    {
+      "dir": "natural-wrap",
+      "outcome": "passed",
+      "stage": "pass",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [
+        "FONT",
+        "R7"
+      ],
+      "first_error": null,
+      "suite_expected": "passed"
+    },
+    {
+      "dir": "nested-components",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L11"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L11: 组件 text-block 不得嵌套在另一组件内",
+      "suite_expected": "L11"
+    },
+    {
+      "dir": "new-component",
+      "outcome": "probe",
+      "stage": "direct-probe",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [],
+      "first_error": null,
+      "suite_expected": "isolated registry and allow extension; no checker edit"
+    },
+    {
+      "dir": "no-heading-region",
+      "outcome": "passed",
+      "stage": "pass",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [
+        "FONT",
+        "R7"
+      ],
+      "first_error": null,
+      "suite_expected": "passed"
+    },
+    {
+      "dir": "numbering-long-text",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L8"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L8: data-numbering 只放 8 字符内的短序号，业务文案请走组件与 data-from",
+      "suite_expected": "data-numbering 只放"
+    },
+    {
+      "dir": "oneline-wrap",
+      "outcome": "blocked",
+      "stage": "geometry",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "R8"
+      ],
+      "warn_rules": [
+        "FONT",
+        "R7"
+      ],
+      "first_error": "p01 R8: 明确单行文字折为 2 行: main-copy",
+      "suite_expected": "R8"
+    },
+    {
+      "dir": "orphan-pool-asset",
+      "outcome": "load-rejected",
+      "stage": "load",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [],
+      "first_error": null,
+      "suite_expected": "loadProject 拒绝：池里存在未被任何页面引用的资产"
+    },
+    {
+      "dir": "overlapping-text",
+      "outcome": "blocked",
+      "stage": "geometry",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "R2"
+      ],
+      "warn_rules": [
+        "FONT",
+        "R7"
+      ],
+      "first_error": "p01 R2: 独立组件重叠: copy-a ↔ copy-b",
+      "suite_expected": "R2"
+    },
+    {
+      "dir": "overlay-inside-body",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L21"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L21: overlay 区域必须是 .p-page 的直接子级：ghost 的 right/bottom 锚点才唯一，落在正文里会随区域漂移",
+      "suite_expected": "overlay 区域必须是 .p-page 的直接子级"
+    },
+    {
+      "dir": "phone-count-at-cap",
+      "outcome": "passed",
+      "stage": "pass",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [
+        "FONT",
+        "L16",
+        "R7"
+      ],
+      "first_error": null,
+      "suite_expected": "passed"
+    },
+    {
+      "dir": "phone-count-over-cap",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L11"
+      ],
+      "warn_rules": [
+        "L16"
+      ],
+      "first_error": "p01 L11: 区域 wall 的 phone 最多 3 个，实际 4 个",
+      "suite_expected": "最多 3 个"
+    },
+    {
+      "dir": "phone-wall-without-caption",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L19"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L19: 区域 wall 的 wall-phone-1 缺少壳下的界面名 text-block",
+      "suite_expected": "L19"
+    },
+    {
+      "dir": "phone-wall-without-cell",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L19"
+      ],
+      "warn_rules": [
+        "L16"
+      ],
+      "first_error": "p01 L19: 区域 wall 有 2 只手机，wall-phone-1 必须包在 .phone-cell 内",
+      "suite_expected": "L19"
+    },
+    {
+      "dir": "quote-rule-without-source",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L22"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L22: 金句组 quote-a 保留了分隔线 .rule 却省了出处 .source：省出处时连 rule 一起省",
+      "suite_expected": "保留了分隔线 .rule 却省了出处"
+    },
+    {
+      "dir": "region-overflow",
+      "outcome": "blocked",
+      "stage": "geometry",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "R1",
+        "R2"
+      ],
+      "warn_rules": [
+        "FONT",
+        "R7"
+      ],
+      "first_error": "p01 R1: main-copy 越出所属区域 right",
+      "suite_expected": "R1"
+    },
+    {
+      "dir": "require-any-allowed-region",
+      "outcome": "passed",
+      "stage": "pass",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [
+        "FONT",
+        "L16",
+        "R7"
+      ],
+      "first_error": null,
+      "suite_expected": "passed"
+    },
+    {
+      "dir": "require-ba-missing",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L11"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L11: 配方 P09 要求本页至少放一个 ba",
+      "suite_expected": "要求本页至少放一个 ba"
+    },
+    {
+      "dir": "require-ba-present",
+      "outcome": "passed",
+      "stage": "pass",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [
+        "FONT",
+        "L16",
+        "R7"
+      ],
+      "first_error": null,
+      "suite_expected": "passed"
+    },
+    {
+      "dir": "require-belongs-to-recipe",
+      "outcome": "load-rejected",
+      "stage": "load",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [],
+      "first_error": null,
+      "suite_expected": "loadProject 拒绝：仍写着 require：组件下限在配方级"
+    },
+    {
+      "dir": "require-cta-missing",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L11"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L11: 配方 P12 要求本页至少放一个 cta",
+      "suite_expected": "要求本页至少放一个 cta"
+    },
+    {
+      "dir": "require-cta-present",
+      "outcome": "passed",
+      "stage": "pass",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [
+        "FONT",
+        "L16",
+        "R7"
+      ],
+      "first_error": null,
+      "suite_expected": "passed"
+    },
+    {
+      "dir": "require-group-empty",
+      "outcome": "load-rejected",
+      "stage": "load",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [],
+      "first_error": null,
+      "suite_expected": "loadProject 拒绝：require 组不能为空"
+    },
+    {
+      "dir": "require-group-member-must-be-allowed",
+      "outcome": "load-rejected",
+      "stage": "load",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [],
+      "first_error": null,
+      "suite_expected": "loadProject 拒绝：任何区域都没允许的组件 vrt"
+    },
+    {
+      "dir": "require-group-member-must-be-string",
+      "outcome": "load-rejected",
+      "stage": "load",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [],
+      "first_error": null,
+      "suite_expected": "loadProject 拒绝：任何区域都没允许的组件 42"
+    },
+    {
+      "dir": "require-invisible",
+      "outcome": "blocked",
+      "stage": "geometry",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "R12",
+        "R13"
+      ],
+      "warn_rules": [
+        "FONT",
+        "R7"
+      ],
+      "first_error": "p01 R12: 正文为空或不可见：main.body 内没有可见组件",
+      "suite_expected": "R13"
+    },
+    {
+      "dir": "require-must-be-allowed",
+      "outcome": "load-rejected",
+      "stage": "load",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [],
+      "first_error": null,
+      "suite_expected": "loadProject 拒绝：require 写了任何区域都没允许的组件"
+    },
+    {
+      "dir": "require-qa-missing",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L11"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L11: 配方 P10 要求本页至少放一个 qa",
+      "suite_expected": "要求本页至少放一个 qa"
+    },
+    {
+      "dir": "require-qa-present",
+      "outcome": "passed",
+      "stage": "pass",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [
+        "FONT",
+        "L16",
+        "R7"
+      ],
+      "first_error": null,
+      "suite_expected": "passed"
+    },
+    {
+      "dir": "require-serif-missing",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L11"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L11: 配方 P08 要求本页至少放一个 serif",
+      "suite_expected": "要求本页至少放一个 serif"
+    },
+    {
+      "dir": "require-serif-present",
+      "outcome": "passed",
+      "stage": "pass",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [
+        "FONT",
+        "R7"
+      ],
+      "first_error": null,
+      "suite_expected": "passed"
+    },
+    {
+      "dir": "require-step-missing",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L11"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L11: 配方 P06 要求本页至少放一个 step",
+      "suite_expected": "要求本页至少放一个 step"
+    },
+    {
+      "dir": "require-step-present",
+      "outcome": "passed",
+      "stage": "pass",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [
+        "FONT",
+        "R7"
+      ],
+      "first_error": null,
+      "suite_expected": "passed"
+    },
+    {
+      "dir": "script",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L0",
+        "L8",
+        "L9"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L0: 禁止标签/命名空间: <script>",
+      "suite_expected": "L0"
+    },
+    {
+      "dir": "skeleton-anchor-missing",
+      "outcome": "blocked",
+      "stage": "geometry",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "R14"
+      ],
+      "warn_rules": [
+        "FONT",
+        "L16"
+      ],
+      "first_error": "p01 R14: 区域 full 列宽占比 52.2% 超出骨架区间 46–50%",
+      "suite_expected": "锚点区域 right 没有可见的"
+    },
+    {
+      "dir": "skeleton-bleed-share",
+      "outcome": "blocked",
+      "stage": "geometry",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "R14"
+      ],
+      "warn_rules": [
+        "FONT"
+      ],
+      "first_error": "p01 R14: 区域 hero 列宽占比 100.0% 超出骨架区间 110–118%",
+      "suite_expected": "列宽占比"
+    },
+    {
+      "dir": "skeleton-carrier-missing",
+      "outcome": "blocked",
+      "stage": "geometry",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "R14"
+      ],
+      "warn_rules": [
+        "FONT",
+        "R7"
+      ],
+      "first_error": "p01 R14: 骨架要求区域 right 有可见的 phone",
+      "suite_expected": "骨架要求区域 right 有可见的 phone"
+    },
+    {
+      "dir": "skeleton-carrier-width",
+      "outcome": "blocked",
+      "stage": "geometry",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "R14"
+      ],
+      "warn_rules": [
+        "FONT",
+        "R7"
+      ],
+      "first_error": "p01 R14: right-phone 宽 30.0cqw 超出骨架档 40–42cqw",
+      "suite_expected": "宽 30.0cqw 超出骨架档"
+    },
+    {
+      "dir": "skeleton-closing-tier",
+      "outcome": "passed",
+      "stage": "pass",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [
+        "FONT",
+        "L16",
+        "R7"
+      ],
+      "first_error": null,
+      "suite_expected": "passed"
+    },
+    {
+      "dir": "skeleton-counts-over",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L20"
+      ],
+      "warn_rules": [
+        "L16"
+      ],
+      "first_error": "p01 L20: 骨架 D「单机墙」 要求区域 head，本页没有",
+      "suite_expected": "要求 phone 1–1 个，实际 2 个"
+    },
+    {
+      "dir": "skeleton-counts-under",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L20"
+      ],
+      "warn_rules": [
+        "L16"
+      ],
+      "first_error": "p01 L20: 骨架 B「三机墙」 要求区域 head，本页没有",
+      "suite_expected": "要求 phone 3–3 个，实际 2 个"
+    },
+    {
+      "dir": "skeleton-headline-at-cap",
+      "outcome": "passed",
+      "stage": "pass",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [
+        "FONT",
+        "R7"
+      ],
+      "first_error": null,
+      "suite_expected": "passed"
+    },
+    {
+      "dir": "skeleton-headline-lines",
+      "outcome": "blocked",
+      "stage": "geometry",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "R14"
+      ],
+      "warn_rules": [
+        "FONT",
+        "R7"
+      ],
+      "first_error": "p01 R14: 主标题实际 3 行，骨架要求 1–2 行",
+      "suite_expected": "主标题实际 3 行，骨架要求 1–2 行"
+    },
+    {
+      "dir": "skeleton-order-missing-region",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L20"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L20: 骨架 A「等分两栏 · 右机满高」 要求区域 left，本页没有",
+      "suite_expected": "要求区域 left，本页没有"
+    },
+    {
+      "dir": "skeleton-order-wrong-sequence",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L20"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L20: 骨架 A「等分两栏 · 右机满高」 要求区域顺序 head → left → right，本页是 head → right → left",
+      "suite_expected": "要求区域顺序"
+    },
+    {
+      "dir": "skeleton-quote-tier",
+      "outcome": "passed",
+      "stage": "pass",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [
+        "FONT",
+        "R7"
+      ],
+      "first_error": null,
+      "suite_expected": "passed"
+    },
+    {
+      "dir": "skeleton-share-out-of-range",
+      "outcome": "blocked",
+      "stage": "geometry",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "R14"
+      ],
+      "warn_rules": [
+        "FONT",
+        "R7"
+      ],
+      "first_error": "p01 R14: 区域 left 列宽占比 56.3% 超出骨架区间 46–50%",
+      "suite_expected": "区域 left 列宽占比"
+    },
+    {
+      "dir": "skeleton-shot-counts",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L20"
+      ],
+      "warn_rules": [
+        "L16"
+      ],
+      "first_error": "p01 L20: 骨架 B「对比 + 双图窗」 要求 shot 2–2 个，实际 1 个",
+      "suite_expected": "要求 shot 2–2 个"
+    },
+    {
+      "dir": "skeleton-tracks-missing-region",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L20"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L20: 骨架 A「等分两栏 · 右机满高」 要求区域 left，本页没有",
+      "suite_expected": "锁了区域 left 的列宽，本页没有该区域"
+    },
+    {
+      "dir": "source-dataurl-image",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L0"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L0: 不安全的图片来源: data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42m",
+      "suite_expected": "L0"
+    },
+    {
+      "dir": "srcdoc",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L0"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L0: 禁止标签/命名空间: <iframe>",
+      "suite_expected": "L0"
+    },
+    {
+      "dir": "stale-output",
+      "outcome": "blocked",
+      "stage": "pipeline",
+      "passed": true,
+      "rules": [
+        "BATCH"
+      ],
+      "warn_rules": [],
+      "first_error": "BATCH: 输出目录含非本次计划页 99.html；请使用新输出目录，工具不会删除历史产物: D:\\AI\\html2png\\mine\\cover-skill-plan\\.tmp-tier6\\n",
+      "suite_expected": "非本次计划页"
+    },
+    {
+      "dir": "stale-png-protection",
+      "outcome": "blocked",
+      "stage": "geometry",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "R2"
+      ],
+      "warn_rules": [
+        "FONT",
+        "L16",
+        "R7"
+      ],
+      "first_error": "p01 R2: 独立组件重叠: phone-a ↔ phone-b",
+      "suite_expected": "old PNG retained as historical, failed report has no deliverables"
+    },
+    {
+      "dir": "text-block-muted-tier",
+      "outcome": "passed",
+      "stage": "pass",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [
+        "FONT",
+        "R7"
+      ],
+      "first_error": null,
+      "suite_expected": "passed"
+    },
+    {
+      "dir": "text-clipped",
+      "outcome": "blocked",
+      "stage": "geometry",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "R3"
+      ],
+      "warn_rules": [
+        "FONT",
+        "R7"
+      ],
+      "first_error": "p01 R3: 文字被 main-copy 裁切: main-copy",
+      "suite_expected": "R3"
+    },
+    {
+      "dir": "timeline-content-fills",
+      "outcome": "passed",
+      "stage": "pass",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [
+        "FONT",
+        "L16"
+      ],
+      "first_error": null,
+      "suite_expected": "passed"
+    },
+    {
+      "dir": "timeline-stretched-slack",
+      "outcome": "blocked",
+      "stage": "geometry",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "R15"
+      ],
+      "warn_rules": [
+        "FONT",
+        "L16",
+        "R7"
+      ],
+      "first_error": "p01 R15: 时间线步骤 step-1 内部拉伸余量 21.6cqw（>12cqw）：内容撑不满行高",
+      "suite_expected": "内部拉伸余量"
+    },
+    {
+      "dir": "traversal",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L0",
+        "L11"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L0: 不安全的图片来源: assets/../private.png",
+      "suite_expected": "L0"
+    },
+    {
+      "dir": "two-overlapping-phones",
+      "outcome": "blocked",
+      "stage": "geometry",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "R2"
+      ],
+      "warn_rules": [
+        "FONT",
+        "L16",
+        "R7"
+      ],
+      "first_error": "p01 R2: 独立组件重叠: phone-a ↔ phone-b",
+      "suite_expected": "R2"
+    },
+    {
+      "dir": "unknown-source",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L8"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L8: pool 不存在资产: missing",
+      "suite_expected": "L8"
+    },
+    {
+      "dir": "unplanned-source",
+      "outcome": "blocked",
+      "stage": "load",
+      "passed": true,
+      "rules": [
+        "BATCH"
+      ],
+      "warn_rules": [],
+      "first_error": "BATCH: 源目录含计划外页面: p99.part.html",
+      "suite_expected": "计划外页面"
+    },
+    {
+      "dir": "unsupported-number",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L8"
+      ],
+      "warn_rules": [
+        "L16"
+      ],
+      "first_error": "p01 L8: data-from=\"h1\" 的数字 999 不在所属资产中",
+      "suite_expected": "L8"
+    },
+    {
+      "dir": "unused-source",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L10"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L10: 资产 h1 不在本页 uses",
+      "suite_expected": "L10"
+    },
+    {
+      "dir": "wrong-style",
+      "outcome": "blocked",
+      "stage": "load",
+      "passed": true,
+      "rules": [
+        "BATCH"
+      ],
+      "warn_rules": [],
+      "first_error": "BATCH: plan.meta 必须包含匹配的 style 以及 brand / issue 字符串",
+      "suite_expected": "meta"
+    }
+  ]
+}

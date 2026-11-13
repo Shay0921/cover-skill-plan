@@ -1,0 +1,216 @@
+{
+  "status": "passed",
+  "cases": [
+    {
+      "nn": "01",
+      "component": "h1",
+      "recipe": "P01",
+      "region": "head",
+      "collateral": [],
+      "filler": "text-block"
+    },
+    {
+      "nn": "02",
+      "component": "sub",
+      "recipe": "P01",
+      "region": "head",
+      "collateral": [],
+      "filler": "text-block"
+    },
+    {
+      "nn": "03",
+      "component": "kicker",
+      "recipe": "P01",
+      "region": "head",
+      "collateral": [],
+      "filler": "text-block"
+    },
+    {
+      "nn": "04",
+      "component": "fcard",
+      "recipe": "P01",
+      "region": "left",
+      "collateral": [],
+      "filler": null
+    },
+    {
+      "nn": "05",
+      "component": "ck",
+      "recipe": "P01",
+      "region": "left",
+      "collateral": [],
+      "filler": null
+    },
+    {
+      "nn": "06",
+      "component": "frow",
+      "recipe": "P01",
+      "region": "left",
+      "collateral": [],
+      "filler": null
+    },
+    {
+      "nn": "07",
+      "component": "list",
+      "recipe": "P01",
+      "region": "left",
+      "collateral": [],
+      "filler": null
+    },
+    {
+      "nn": "08",
+      "component": "cr",
+      "recipe": "P04",
+      "region": "full",
+      "collateral": [
+        "ck"
+      ],
+      "filler": null
+    },
+    {
+      "nn": "09",
+      "component": "shot",
+      "recipe": "P01",
+      "region": "left",
+      "collateral": [],
+      "filler": null
+    },
+    {
+      "nn": "10",
+      "component": "phone",
+      "recipe": "P01",
+      "region": "left",
+      "collateral": [],
+      "filler": null
+    },
+    {
+      "nn": "11",
+      "component": "text-block",
+      "recipe": "P01",
+      "region": "left",
+      "collateral": [],
+      "filler": null
+    },
+    {
+      "nn": "12",
+      "component": "serif",
+      "recipe": "P01",
+      "region": "left",
+      "collateral": [],
+      "filler": null
+    },
+    {
+      "nn": "13",
+      "component": "cta",
+      "recipe": "P01",
+      "region": "bottom",
+      "collateral": [],
+      "filler": null
+    },
+    {
+      "nn": "14",
+      "component": "ghost",
+      "recipe": "P05",
+      "region": "overlay",
+      "collateral": [],
+      "filler": "text-block"
+    },
+    {
+      "nn": "15",
+      "component": "bars",
+      "recipe": "P01",
+      "region": "right",
+      "collateral": [],
+      "filler": null
+    },
+    {
+      "nn": "16",
+      "component": "ba",
+      "recipe": "P09",
+      "region": "full",
+      "collateral": [],
+      "filler": null
+    },
+    {
+      "nn": "17",
+      "component": "step",
+      "recipe": "P06",
+      "region": "full",
+      "collateral": [],
+      "filler": null
+    },
+    {
+      "nn": "18",
+      "component": "ldr",
+      "recipe": "P07",
+      "region": "left",
+      "collateral": [],
+      "filler": null
+    },
+    {
+      "nn": "19",
+      "component": "pills",
+      "recipe": "P11",
+      "region": "bottom",
+      "collateral": [
+        "shot"
+      ],
+      "filler": null
+    },
+    {
+      "nn": "20",
+      "component": "mn",
+      "recipe": "P05",
+      "region": "left",
+      "collateral": [],
+      "filler": null
+    },
+    {
+      "nn": "21",
+      "component": "dcard",
+      "recipe": "P05",
+      "region": "right",
+      "collateral": [],
+      "filler": null
+    },
+    {
+      "nn": "22",
+      "component": "ledger",
+      "recipe": "P07",
+      "region": "left",
+      "collateral": [],
+      "filler": null
+    },
+    {
+      "nn": "23",
+      "component": "darkcard",
+      "recipe": "P05",
+      "region": "right",
+      "collateral": [],
+      "filler": null
+    },
+    {
+      "nn": "24",
+      "component": "seal-lg",
+      "recipe": "P08",
+      "region": "full",
+      "collateral": [
+        "serif"
+      ],
+      "filler": null
+    },
+    {
+      "nn": "25",
+      "component": "qa",
+      "recipe": "P10",
+      "region": "full",
+      "collateral": [],
+      "filler": null
+    }
+  ],
+  "catalogue": [
+    "vrt"
+  ],
+  "failures": [],
+  "report": "/Users/shay/Code/AI/html2png/mine/cover-skill-plan/dev/controlled/controlled-library-1111-1046/work/qa-report.json"
+}

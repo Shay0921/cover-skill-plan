@@ -1,0 +1,878 @@
+[
+  {
+    "file": "card01-body-aligned.part.html",
+    "name": "card01-body-aligned.part.html",
+    "nn": "21",
+    "label": "要点逐张页 · body 齐列档",
+    "srcCounts": {
+      "kicker": 1,
+      "h1": 1,
+      "sub": 1,
+      "fcard": 4,
+      "phone": 1,
+      "text-block": 1
+    },
+    "status": "PASS",
+    "check": {
+      "w": 1080,
+      "h": 1440,
+      "overflow": [],
+      "h1Lines": 1
+    },
+    "png": "21-card01-body-aligned.png"
+  },
+  {
+    "file": "card01-body-mn.part.html",
+    "name": "card01-body-mn.part.html",
+    "nn": "28",
+    "label": "要点逐张页 · mn 旁注档",
+    "srcCounts": {
+      "kicker": 1,
+      "h1": 1,
+      "sub": 1,
+      "mn": 4,
+      "phone": 1
+    },
+    "status": "PASS",
+    "check": {
+      "w": 1080,
+      "h": 1440,
+      "overflow": [],
+      "h1Lines": 1
+    },
+    "png": "28-card01-body-mn.png"
+  },
+  {
+    "file": "card01-body-stagger.part.html",
+    "name": "card01-body-stagger.part.html",
+    "nn": "20",
+    "label": "要点逐张页 · body 错落档",
+    "srcCounts": {
+      "kicker": 1,
+      "h1": 1,
+      "sub": 1,
+      "fcard": 4,
+      "phone": 1,
+      "text-block": 1
+    },
+    "status": "PASS",
+    "check": {
+      "w": 1080,
+      "h": 1440,
+      "overflow": [],
+      "h1Lines": 1
+    },
+    "png": "20-card01-body-stagger.png"
+  },
+  {
+    "file": "card01-cover-bleed.part.html",
+    "name": "card01-cover-bleed.part.html",
+    "nn": "26",
+    "label": "要点逐张页 · 封面出血档",
+    "srcCounts": {
+      "kicker": 1,
+      "h1": 1,
+      "fcard": 4,
+      "phone": 1
+    },
+    "status": "PASS",
+    "check": {
+      "w": 1080,
+      "h": 1440,
+      "overflow": [],
+      "h1Lines": 1
+    },
+    "png": "26-card01-cover-bleed.png"
+  },
+  {
+    "file": "card01-cover-standard.part.html",
+    "name": "card01-cover-standard.part.html",
+    "nn": "01",
+    "label": "要点逐张页 · 封面标准档",
+    "srcCounts": {
+      "kicker": 1,
+      "h1": 1,
+      "sub": 1,
+      "fcard": 3,
+      "phone": 1
+    },
+    "status": "PASS",
+    "check": {
+      "w": 1080,
+      "h": 1440,
+      "overflow": [],
+      "h1Lines": 1
+    },
+    "png": "01-card01-cover-standard.png"
+  },
+  {
+    "file": "card02-centered.part.html",
+    "name": "card02-centered.part.html",
+    "nn": "45",
+    "label": "居中标注页",
+    "srcCounts": {
+      "kicker": 1,
+      "h1": 1,
+      "fcard": 4,
+      "phone": 1,
+      "serif": 1
+    },
+    "status": "PASS",
+    "check": {
+      "w": 1080,
+      "h": 1440,
+      "overflow": [],
+      "h1Lines": 1
+    },
+    "png": "45-card02-centered.png"
+  },
+  {
+    "file": "close01-minimal.part.html",
+    "name": "close01-minimal.part.html",
+    "nn": "36",
+    "label": "收尾页 · 极简档",
+    "srcCounts": {
+      "h1": 1,
+      "sub": 1,
+      "cr": 3,
+      "cta": 1,
+      "ghost": 1
+    },
+    "status": "PASS",
+    "check": {
+      "w": 1080,
+      "h": 1440,
+      "overflow": [],
+      "h1Lines": 1
+    },
+    "png": "36-close01-minimal.png"
+  },
+  {
+    "file": "close01-pills-extended.part.html",
+    "name": "close01-pills-extended.part.html",
+    "nn": "31",
+    "label": "收尾页 · 标签加多档",
+    "srcCounts": {
+      "h1": 1,
+      "sub": 1,
+      "pills": 1,
+      "cr": 2,
+      "cta": 1,
+      "seal-lg": 1,
+      "ghost": 1
+    },
+    "status": "PASS",
+    "check": {
+      "w": 1080,
+      "h": 1440,
+      "overflow": [],
+      "h1Lines": 1
+    },
+    "png": "31-close01-pills-extended.png"
+  },
+  {
+    "file": "close01-quote.part.html",
+    "name": "close01-quote.part.html",
+    "nn": "47",
+    "label": "收尾页 · 收束金句复合档",
+    "srcCounts": {
+      "h1": 1,
+      "sub": 1,
+      "cr": 3,
+      "serif": 1,
+      "cta": 1,
+      "ghost": 1
+    },
+    "status": "PASS",
+    "check": {
+      "w": 1080,
+      "h": 1440,
+      "overflow": [],
+      "h1Lines": 2
+    },
+    "png": "47-close01-quote.png"
+  },
+  {
+    "file": "close01-standard.part.html",
+    "name": "close01-standard.part.html",
+    "nn": "15",
+    "label": "收尾页 · 标准档",
+    "srcCounts": {
+      "h1": 1,
+      "sub": 1,
+      "pills": 1,
+      "cr": 3,
+      "cta": 1,
+      "seal-lg": 1
+    },
+    "status": "PASS",
+    "check": {
+      "w": 1080,
+      "h": 1440,
+      "overflow": [],
+      "h1Lines": 1
+    },
+    "png": "15-close01-standard.png"
+  },
+  {
+    "file": "compare01-grid4.part.html",
+    "name": "compare01-grid4.part.html",
+    "nn": "37",
+    "label": "前后对比页 · 四宫格档",
+    "srcCounts": {
+      "kicker": 1,
+      "h1": 1,
+      "sub": 1,
+      "ba": 4,
+      "text-block": 1
+    },
+    "status": "PASS",
+    "check": {
+      "w": 1080,
+      "h": 1440,
+      "overflow": [],
+      "h1Lines": 1
+    },
+    "png": "37-compare01-grid4.png"
+  },
+  {
+    "file": "compare01-h2.part.html",
+    "name": "compare01-h2.part.html",
+    "nn": "12",
+    "label": "前后对比页 · 横排双卡档",
+    "srcCounts": {
+      "kicker": 1,
+      "h1": 1,
+      "sub": 1,
+      "ba": 2,
+      "text-block": 1
+    },
+    "status": "PASS",
+    "check": {
+      "w": 1080,
+      "h": 1440,
+      "overflow": [],
+      "h1Lines": 1
+    },
+    "png": "12-compare01-h2.png"
+  },
+  {
+    "file": "compare01-v2-dark.part.html",
+    "name": "compare01-v2-dark.part.html",
+    "nn": "39",
+    "label": "前后对比页 · 竖排VS暗色档",
+    "srcCounts": {
+      "kicker": 1,
+      "h1": 1,
+      "sub": 1,
+      "ba": 2,
+      "serif": 1
+    },
+    "status": "PASS",
+    "check": {
+      "w": 1080,
+      "h": 1440,
+      "overflow": [],
+      "h1Lines": 1
+    },
+    "png": "39-compare01-v2-dark.png"
+  },
+  {
+    "file": "compare01-v2-vs.part.html",
+    "name": "compare01-v2-vs.part.html",
+    "nn": "38",
+    "label": "前后对比页 · 竖排VS档",
+    "srcCounts": {
+      "kicker": 1,
+      "h1": 1,
+      "sub": 1,
+      "ba": 2,
+      "serif": 1
+    },
+    "status": "PASS",
+    "check": {
+      "w": 1080,
+      "h": 1440,
+      "overflow": [],
+      "h1Lines": 1
+    },
+    "png": "38-compare01-v2-vs.png"
+  },
+  {
+    "file": "compare02-shot-ba.part.html",
+    "name": "compare02-shot-ba.part.html",
+    "nn": "40",
+    "label": "双窗对照页 · shot+ba 对照档",
+    "srcCounts": {
+      "kicker": 1,
+      "h1": 1,
+      "sub": 1,
+      "shot": 2,
+      "ba": 2,
+      "text-block": 1
+    },
+    "status": "PASS",
+    "check": {
+      "w": 1080,
+      "h": 1440,
+      "overflow": [],
+      "h1Lines": 1
+    },
+    "png": "40-compare02-shot-ba.png"
+  },
+  {
+    "file": "data01-bars-only.part.html",
+    "name": "data01-bars-only.part.html",
+    "nn": "30",
+    "label": "口径数据页 · 省数字档",
+    "srcCounts": {
+      "kicker": 1,
+      "h1": 1,
+      "sub": 1,
+      "bars": 1,
+      "darkcard": 1,
+      "text-block": 1
+    },
+    "status": "PASS",
+    "check": {
+      "w": 1080,
+      "h": 1440,
+      "overflow": [],
+      "h1Lines": 1
+    },
+    "png": "30-data01-bars-only.png"
+  },
+  {
+    "file": "data01-ldr-bars.part.html",
+    "name": "data01-ldr-bars.part.html",
+    "nn": "10",
+    "label": "口径数据页 · 带数字档",
+    "srcCounts": {
+      "kicker": 1,
+      "h1": 1,
+      "sub": 1,
+      "ldr": 2,
+      "bars": 1,
+      "darkcard": 1,
+      "text-block": 1
+    },
+    "status": "PASS",
+    "check": {
+      "w": 1080,
+      "h": 1440,
+      "overflow": [],
+      "h1Lines": 1
+    },
+    "png": "10-data01-ldr-bars.png"
+  },
+  {
+    "file": "data02-ldr-tailcard.part.html",
+    "name": "data02-ldr-tailcard.part.html",
+    "nn": "35",
+    "label": "数字亮点页 · ldr-tailcard 档",
+    "srcCounts": {
+      "kicker": 1,
+      "h1": 1,
+      "sub": 1,
+      "ldr": 3,
+      "fcard": 1,
+      "ghost": 1
+    },
+    "status": "PASS",
+    "check": {
+      "w": 1080,
+      "h": 1440,
+      "overflow": [],
+      "h1Lines": 1
+    },
+    "png": "35-data02-ldr-tailcard.png"
+  },
+  {
+    "file": "data04-panel.part.html",
+    "name": "data04-panel.part.html",
+    "nn": "46",
+    "label": "同板作证页 · panel 档",
+    "srcCounts": {
+      "kicker": 1,
+      "h1": 1,
+      "sub": 1,
+      "ldr": 1,
+      "text-block": 1,
+      "shot": 1,
+      "pills": 1
+    },
+    "status": "PASS",
+    "check": {
+      "w": 1080,
+      "h": 1440,
+      "overflow": [],
+      "h1Lines": 1
+    },
+    "png": "46-data04-panel.png"
+  },
+  {
+    "file": "list01-ck-phone.part.html",
+    "name": "list01-ck-phone.part.html",
+    "nn": "14",
+    "label": "条目+证据页 · ck 复选档",
+    "srcCounts": {
+      "kicker": 1,
+      "h1": 1,
+      "sub": 1,
+      "ck": 4,
+      "phone": 1
+    },
+    "status": "PASS",
+    "check": {
+      "w": 1080,
+      "h": 1440,
+      "overflow": [],
+      "h1Lines": 1
+    },
+    "png": "14-list01-ck-phone.png"
+  },
+  {
+    "file": "list01-ck-shots-cover.part.html",
+    "name": "list01-ck-shots-cover.part.html",
+    "nn": "02",
+    "label": "条目+证据页 · 封面档",
+    "srcCounts": {
+      "kicker": 1,
+      "h1": 1,
+      "sub": 1,
+      "ck": 4,
+      "shot": 2
+    },
+    "status": "PASS",
+    "check": {
+      "w": 1080,
+      "h": 1440,
+      "overflow": [],
+      "h1Lines": 1
+    },
+    "png": "02-list01-ck-shots-cover.png"
+  },
+  {
+    "file": "list01-frow-phone.part.html",
+    "name": "list01-frow-phone.part.html",
+    "nn": "05",
+    "label": "条目+证据页 · frow 编号档",
+    "srcCounts": {
+      "kicker": 1,
+      "h1": 1,
+      "sub": 1,
+      "frow": 3,
+      "phone": 1
+    },
+    "status": "PASS",
+    "check": {
+      "w": 1080,
+      "h": 1440,
+      "overflow": [],
+      "h1Lines": 1
+    },
+    "png": "05-list01-frow-phone.png"
+  },
+  {
+    "file": "list01-list-text-cover.part.html",
+    "name": "list01-list-text-cover.part.html",
+    "nn": "03",
+    "label": "条目+证据页 · 封面档 list+text-block",
+    "srcCounts": {
+      "kicker": 1,
+      "h1": 1,
+      "sub": 1,
+      "list": 3,
+      "text-block": 1
+    },
+    "status": "PASS",
+    "check": {
+      "w": 1080,
+      "h": 1440,
+      "overflow": [],
+      "h1Lines": 1
+    },
+    "png": "03-list01-list-text-cover.png"
+  },
+  {
+    "file": "list02-boundary.part.html",
+    "name": "list02-boundary.part.html",
+    "nn": "07",
+    "label": "收底卡 · 边界说明档",
+    "srcCounts": {
+      "kicker": 1,
+      "h1": 1,
+      "sub": 1,
+      "ck": 3,
+      "text-block": 1,
+      "fcard": 1
+    },
+    "status": "PASS",
+    "check": {
+      "w": 1080,
+      "h": 1440,
+      "overflow": [],
+      "h1Lines": 1
+    },
+    "png": "07-list02-boundary.png"
+  },
+  {
+    "file": "list02-full-ck.part.html",
+    "name": "list02-full-ck.part.html",
+    "nn": "18",
+    "label": "清单页 · 满栏 ck 档",
+    "srcCounts": {
+      "kicker": 1,
+      "h1": 1,
+      "sub": 1,
+      "ck": 5
+    },
+    "status": "PASS",
+    "check": {
+      "w": 1080,
+      "h": 1440,
+      "overflow": [],
+      "h1Lines": 1
+    },
+    "png": "18-list02-full-ck.png"
+  },
+  {
+    "file": "list02-full-list.part.html",
+    "name": "list02-full-list.part.html",
+    "nn": "16",
+    "label": "清单页 · 满栏 list 档",
+    "srcCounts": {
+      "kicker": 1,
+      "h1": 1,
+      "sub": 1,
+      "list": 4
+    },
+    "status": "PASS",
+    "check": {
+      "w": 1080,
+      "h": 1440,
+      "overflow": [],
+      "h1Lines": 1
+    },
+    "png": "16-list02-full-list.png"
+  },
+  {
+    "file": "list02-tail-card-ck.part.html",
+    "name": "list02-tail-card-ck.part.html",
+    "nn": "19",
+    "label": "末项收尾卡 · ck 档",
+    "srcCounts": {
+      "kicker": 1,
+      "h1": 1,
+      "sub": 1,
+      "ck": 4,
+      "fcard": 1
+    },
+    "status": "PASS",
+    "check": {
+      "w": 1080,
+      "h": 1440,
+      "overflow": [],
+      "h1Lines": 1
+    },
+    "png": "19-list02-tail-card-ck.png"
+  },
+  {
+    "file": "list02-tail-card-list.part.html",
+    "name": "list02-tail-card-list.part.html",
+    "nn": "17",
+    "label": "末项收尾卡 · list 档",
+    "srcCounts": {
+      "kicker": 1,
+      "h1": 1,
+      "sub": 1,
+      "list": 3,
+      "fcard": 1
+    },
+    "status": "PASS",
+    "check": {
+      "w": 1080,
+      "h": 1440,
+      "overflow": [],
+      "h1Lines": 1
+    },
+    "png": "17-list02-tail-card-list.png"
+  },
+  {
+    "file": "note01-dark.part.html",
+    "name": "note01-dark.part.html",
+    "nn": "34",
+    "label": "注解读懂页 · dark 深色档",
+    "srcCounts": {
+      "kicker": 1,
+      "h1": 1,
+      "sub": 1,
+      "mn": 2,
+      "dcard": 1,
+      "shot": 1
+    },
+    "status": "PASS",
+    "check": {
+      "w": 1080,
+      "h": 1440,
+      "overflow": [],
+      "h1Lines": 1
+    },
+    "png": "34-note01-dark.png"
+  },
+  {
+    "file": "note01-light.part.html",
+    "name": "note01-light.part.html",
+    "nn": "08",
+    "label": "注解读懂页 · 浅色档",
+    "srcCounts": {
+      "kicker": 1,
+      "h1": 1,
+      "sub": 1,
+      "mn": 2,
+      "dcard": 1,
+      "shot": 1,
+      "text-block": 1
+    },
+    "status": "PASS",
+    "check": {
+      "w": 1080,
+      "h": 1440,
+      "overflow": [],
+      "h1Lines": 1
+    },
+    "png": "08-note01-light.png"
+  },
+  {
+    "file": "note02-phone-dcards.part.html",
+    "name": "note02-phone-dcards.part.html",
+    "nn": "44",
+    "label": "整机解读页 · phone-dcards 档",
+    "srcCounts": {
+      "kicker": 1,
+      "h1": 1,
+      "sub": 1,
+      "phone": 1,
+      "text-block": 2,
+      "dcard": 2
+    },
+    "status": "PASS",
+    "check": {
+      "w": 1080,
+      "h": 1440,
+      "overflow": [],
+      "h1Lines": 1
+    },
+    "png": "44-note02-phone-dcards.png"
+  },
+  {
+    "file": "phone01-duo-cover.part.html",
+    "name": "phone01-duo-cover.part.html",
+    "nn": "04",
+    "label": "多屏并陈页 · 双屏封面档",
+    "srcCounts": {
+      "kicker": 1,
+      "h1": 1,
+      "sub": 1,
+      "phone": 2,
+      "text-block": 1
+    },
+    "status": "PASS",
+    "check": {
+      "w": 1080,
+      "h": 1440,
+      "overflow": [],
+      "h1Lines": 1
+    },
+    "png": "04-phone01-duo-cover.png"
+  },
+  {
+    "file": "phone01-duo-labeled.part.html",
+    "name": "phone01-duo-labeled.part.html",
+    "nn": "43",
+    "label": "多屏并陈页 · 双屏标签版",
+    "srcCounts": {
+      "kicker": 1,
+      "h1": 1,
+      "sub": 1,
+      "phone": 2,
+      "text-block": 3
+    },
+    "status": "PASS",
+    "check": {
+      "w": 1080,
+      "h": 1440,
+      "overflow": [],
+      "h1Lines": 1
+    },
+    "png": "43-phone01-duo-labeled.png"
+  },
+  {
+    "file": "phone01-trio-labeled.part.html",
+    "name": "phone01-trio-labeled.part.html",
+    "nn": "32",
+    "label": "多屏并陈页 · 三壳标签版",
+    "srcCounts": {
+      "kicker": 1,
+      "h1": 1,
+      "sub": 1,
+      "phone": 3,
+      "text-block": 3,
+      "serif": 1
+    },
+    "status": "PASS",
+    "check": {
+      "w": 1080,
+      "h": 1440,
+      "overflow": [],
+      "h1Lines": 1
+    },
+    "png": "32-phone01-trio-labeled.png"
+  },
+  {
+    "file": "quote01-annotated.part.html",
+    "name": "quote01-annotated.part.html",
+    "nn": "11",
+    "label": "金句页 · 带注解印章档",
+    "srcCounts": {
+      "h1": 1,
+      "sub": 1,
+      "serif": 1,
+      "text-block": 1,
+      "seal-lg": 1,
+      "ghost": 1
+    },
+    "status": "PASS",
+    "check": {
+      "w": 1080,
+      "h": 1440,
+      "overflow": [],
+      "h1Lines": 1
+    },
+    "png": "11-quote01-annotated.png"
+  },
+  {
+    "file": "quote01-minimal.part.html",
+    "name": "quote01-minimal.part.html",
+    "nn": "33",
+    "label": "金句页 · 极简档",
+    "srcCounts": {
+      "h1": 1,
+      "serif": 1,
+      "ghost": 1
+    },
+    "status": "PASS",
+    "check": {
+      "w": 1080,
+      "h": 1440,
+      "overflow": [],
+      "h1Lines": 1
+    },
+    "png": "33-quote01-minimal.png"
+  },
+  {
+    "file": "step01-timeline.part.html",
+    "name": "step01-timeline.part.html",
+    "nn": "09",
+    "label": "步骤流程页 · 时间线档",
+    "srcCounts": {
+      "kicker": 1,
+      "h1": 1,
+      "sub": 1,
+      "step": 4,
+      "phone": 1,
+      "mn": 1,
+      "ghost": 1
+    },
+    "status": "PASS",
+    "check": {
+      "w": 1080,
+      "h": 1440,
+      "overflow": [],
+      "h1Lines": 1
+    },
+    "png": "09-step01-timeline.png"
+  },
+  {
+    "file": "wall01-duo-col.part.html",
+    "name": "wall01-duo-col.part.html",
+    "nn": "25",
+    "label": "图墙页 · 双图纵排居中档",
+    "srcCounts": {
+      "kicker": 1,
+      "h1": 1,
+      "sub": 1,
+      "shot": 2
+    },
+    "status": "PASS",
+    "check": {
+      "w": 1080,
+      "h": 1440,
+      "overflow": [],
+      "h1Lines": 1
+    },
+    "png": "25-wall01-duo-col.png"
+  },
+  {
+    "file": "wall01-duo-row.part.html",
+    "name": "wall01-duo-row.part.html",
+    "nn": "24",
+    "label": "图墙页 · 双图横排档",
+    "srcCounts": {
+      "kicker": 1,
+      "h1": 1,
+      "sub": 1,
+      "shot": 2
+    },
+    "status": "PASS",
+    "check": {
+      "w": 1080,
+      "h": 1440,
+      "overflow": [],
+      "h1Lines": 1
+    },
+    "png": "24-wall01-duo-row.png"
+  },
+  {
+    "file": "wall01-quad-fill-bleed.part.html",
+    "name": "wall01-quad-fill-bleed.part.html",
+    "nn": "27",
+    "label": "图墙页 · fill 铺满裁切出血档",
+    "srcCounts": {
+      "kicker": 1,
+      "h1": 1,
+      "sub": 1,
+      "shot": 4,
+      "text-block": 1
+    },
+    "status": "PASS",
+    "check": {
+      "w": 1080,
+      "h": 1440,
+      "overflow": [],
+      "h1Lines": 1
+    },
+    "png": "27-wall01-quad-fill-bleed.png"
+  },
+  {
+    "file": "wall01-quad.part.html",
+    "name": "wall01-quad.part.html",
+    "nn": "06",
+    "label": "图墙页 · 2×2 natural 档",
+    "srcCounts": {
+      "kicker": 1,
+      "h1": 1,
+      "sub": 1,
+      "shot": 4,
+      "text-block": 1
+    },
+    "status": "PASS",
+    "check": {
+      "w": 1080,
+      "h": 1440,
+      "overflow": [],
+      "h1Lines": 1
+    },
+    "png": "06-wall01-quad.png"
+  }
+]
