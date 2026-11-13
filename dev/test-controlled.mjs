@@ -301,8 +301,8 @@ try {
     fs.copyFileSync(path.resolve(ROOT, '../../skill-tests/assets/shot-overview.jpg'), path.join(f.out, 'assets', 'flat.jpg'));
   });
   // ── 构图骨架（L20/R14）与构图不变量（R15/R16/R18）──
-  // L21/L22 不立项：画廊单机无图注（p01/p05/p09/p14/p26/p28/p45）与 cover-bleed 区内无文字（p26）
-  // 都是合法构图——多机图注已由 L19 覆盖，出血"是否真贴边"已由 R16 覆盖，再立 caption 规则会误伤画廊。
+  // caption 类规则不立项：画廊单机无图注（p01/p05/p09/p14/p26/p28/p45）与 cover-bleed 区内无文字（p26）
+  // 都是合法构图——多机图注归登记卡（C3 退役 L19 复述），出血配文由 L23 管，出血"是否真贴边"已由 R16 覆盖。
   const asLayout = (recipe, layout) => p => { p.pages[0].recipe = recipe; p.pages[0].layout = layout; };
   const phoneW = (id, w) => `<div class="phone" data-component="phone" data-layer="${id}" data-group style="width:${w};height:auto"><img class="phone-shot" data-slot="image" data-layer="${id}-screen" src="assets/iphone-frame.png" alt=""><img class="frame-img" data-slot="image" data-layer="${id}-frame" data-decoration src="assets/iphone-frame.png" alt=""></div>`;
   const bleedPhone = (id, w) => phoneW(id, w).replace('data-group', 'data-group data-bleed');
@@ -348,8 +348,9 @@ try {
   await test('bleed-touching-edge', colPage(text('main-copy'), bleedPhone('bleed-phone', '100%'), { rightClass: 'region cover-bleed', pageno: false }), null, asLayout('R-card-01', 'free'));
   // R18 页脚单行：署名折行破坏向下出血的单行前提。
   await test('footer-wraps-two-lines', baseline.replace('data-layer="footer-signature" data-editable="text">组合实验', `data-layer="footer-signature" data-editable="text">${'组合实验'.repeat(30)}`), '页脚文字折为');
-  // L22 装饰线依赖出处：保 rule 省 source 即报；rule+source 齐全的金句组照常通过（require-serif-present 已覆盖）。
-  await test('quote-rule-without-source', pageIn('R-quote-01', 'full', quoteGroup({ src: false })), '保留了分隔线 .rule 却省了出处', asP08);
+  // C5（2026-11-13）：L22 退役迁卡——"省出处连 rule 一起省"是 R-quote-01 单配方决策（无溢出/碰撞后果），gate 不再强制。
+  // 改登记 passed+目检项：rule+source 齐全的金句组照常通过（require-serif-present 已覆盖）；保 rule 省 source 只剩人审把关（残余风险已裁决接受）。
+  await test('quote-rule-without-source', pageIn('R-quote-01', 'full', quoteGroup({ src: false })), null, asP08);
   // L23 出血区配文：区域挂 .bleed 的出血本身合法（封面手机出血、画面页出血都允许），拦的是"整页只剩图"——
   // head 或 bottom 至少要有一处标题或说明文字；出血区内部的 figcaption 是图的附属，不作数。recipe 用 R-phone-02 + layout free，
   // 让 L23 成为唯一拦截理由（free 不进 L20/R14）。control 证明 head 配文与 bottom 配文都解拦。

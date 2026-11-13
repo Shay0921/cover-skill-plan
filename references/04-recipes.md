@@ -298,7 +298,7 @@
 ├─ 锚点：quote.hero 必有；极简档仅 h1+quote+ghost；降级条款：金句与正文混排 → 并入 R-close-01 serif 档
 ├─ 密度：金句 1 句（≤30 字）；解释段 ≤2 句
 ├─ hl 节奏：1 处，固定在 quote 文本内；禁止落在 h1
-├─ 耦合约束：head 极简；quote 竖直居中
+├─ 耦合约束：head 极简；quote 竖直居中；⚠️ 省出处 .source 时连分隔线 .rule 一起省（不为一根线补假出处）——gate 不再强制（C5 迁卡），装配自查+人审把关
 ├─ 对账：quote←金句文本+source+credit；seal←印章；ghost←主题字
 ├─ 骨架文件：quote01-annotated←11 ｜ quote01-minimal←33
 ├─ 内联净化：无内联项

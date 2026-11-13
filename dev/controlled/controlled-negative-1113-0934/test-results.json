@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-13T01:17:45.449Z",
+  "generatedAt": "2026-11-13T01:34:40.914Z",
   "fontMode": "CDN blocked intentionally: system-font geometric regression, not production font evidence",
   "total": 188,
   "passed": 188,
@@ -639,7 +639,7 @@
         {
           "level": "ERROR",
           "rule": "BATCH",
-          "msg": "输出目录含非本次计划页 99.html；请使用新输出目录，工具不会删除历史产物: /Users/shay/Code/AI/html2png/mine/cover-skill-plan/dev/controlled/controlled-negative-1113-0917/stale-output/out"
+          "msg": "输出目录含非本次计划页 99.html；请使用新输出目录，工具不会删除历史产物: /Users/shay/Code/AI/html2png/mine/cover-skill-plan/dev/controlled/controlled-negative-1113-0934/stale-output/out"
         }
       ]
     },
@@ -665,7 +665,7 @@
         {
           "level": "ERROR",
           "rule": "BATCH",
-          "msg": "缺少计划页源文件: /Users/shay/Code/AI/html2png/mine/cover-skill-plan/dev/controlled/controlled-negative-1113-0917/missing-plan-page/work/src/p02.part.html"
+          "msg": "缺少计划页源文件: /Users/shay/Code/AI/html2png/mine/cover-skill-plan/dev/controlled/controlled-negative-1113-0934/missing-plan-page/work/src/p02.part.html"
         }
       ]
     },
@@ -3100,20 +3100,9 @@
     {
       "name": "quote-rule-without-source",
       "passed": true,
-      "expected": "保留了分隔线 .rule 却省了出处",
-      "status": "failed",
-      "errors": [
-        {
-          "level": "ERROR",
-          "rule": "BATCH",
-          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
-        },
-        {
-          "level": "ERROR",
-          "rule": "L22",
-          "msg": "金句组 quote-a 保留了分隔线 .rule 却省了出处 .source：省出处时连 rule 一起省"
-        }
-      ]
+      "expected": "passed",
+      "status": "passed",
+      "errors": []
     },
     {
       "name": "bleed-region-without-caption",

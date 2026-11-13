@@ -125,10 +125,6 @@ export function inspectFragmentDOM(html, contract) {
   // 落进 main.body 就锚正文区，同一组件 DOM 落点不同视觉位置就不同。
   for (const el of root.querySelectorAll('[data-region="overlay"]'))
     if (el.parentElement !== root) error('L21', 'overlay 区域必须是 .p-page 的直接子级：ghost 的 right/bottom 锚点才唯一，落在正文里会随区域漂移');
-  // 装饰线依赖出处节点：省出处时连 rule 一起省，不留一根无意义的横线（与目录"不为一根线补假出处"互为表里）。
-  for (const el of root.querySelectorAll('[data-component="serif"]'))
-    if (el.querySelector('.rule') && !el.querySelector('.source'))
-      error('L22', `金句组 ${el.getAttribute('data-layer') || '(无 data-layer)'} 保留了分隔线 .rule 却省了出处 .source：省出处时连 rule 一起省`);
   // 出血区配文（L23）：区域挂 .bleed 的出血是合法构图（封面手机、画面页出血都允许），拦的是"整页只剩图"。
   // 配文按目录契约只认 head 或 bottom 区域里的文字叶；出血区内部的图注（figcaption）不算——它是图的附属，不是页面的信息锚点。
   const bleedRegions = [...root.querySelectorAll('[data-region].bleed')];
