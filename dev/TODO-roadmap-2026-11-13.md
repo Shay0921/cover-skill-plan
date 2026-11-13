@@ -1,10 +1,15 @@
 # 后续执行路线图 TODO（2026-11-13）
 
-> **▶ 当前指针（2026-11-13 更新）：阶段 3 收尾 · 下一步 = T6 第三刀（C6：L23 复核收窄）→ 第四刀（拆分类：砍 L11①②③、L20 静态层、R13）**
+> **▶ 当前指针（2026-11-13 更新）：T6 四刀全部落地 · 下一步 = 第五刀（config 独立小批：require/form/counts 字段删除 + LOAD schema 校验随删 + 7 条 loadReject 夹具处置 + 02-constraints 字段段落收尾）→ 阶段闸门 T7（用户确认）**
 >
-> - T1–T5 已收口；T6 已落两刀：**C3**（L19 后果化改写，归档 0917）+ **C5**（L22 迁卡，归档 0934）；当前套件 188/188，基线 scope → `controlled-negative-1113-0934`，对账退出码 0
+> - E2 定性结案（2026-11-13）：duo-labeled h68 溢出 = **骨架实锤**——真实管线（`tools/pipeline.mjs` gate 全链）渲一页 duo-labeled 骨架，R1 ×6（phone/label/frame 双屏全部越出 wall 区），非 harness 预览假象。证据：`dev/e2-duo-h68-1113`（qa-report + 驱动脚本 `dev/e2-duo-labeled.mjs`）。修复决策（h68 降档 or 登记卡加"head 极简"适用条件）不阻塞第五刀，归批次 C / 阶段 4 种子人审；**结论已入 T7 材料**
+> - **批次 C 登记（2026-11-13，骨架修复，gate 阶段 3 范围外）**：① duo-labeled h68 溢出定性单（R1 ×6 实锤）；② 修复决策待批次 C 裁决；③ 修复后 `dev/_sc` 43 号重渲 + 真实管线复验销单
+> - T1–T5 已收口；T6 已落四刀：**C3**（L19 后果化，0917）+ **C5**（L22 迁卡，0934）+ **C6**（L23 复核保留，1028）+ **拆分类**（L11①②③/L20/R13 砍，1103）；当前套件 188/188，基线 scope → `controlled-negative-1113-1131`，对账退出码 0
+> - 账目修正（2026-11-13）：`phone-count-over-cap` 定层 R1→**R10**（同区挤压致声明比例失真 skew>1%；R10=比例失真、R1=越界，实测定性），夹具/归属图/TODO 三处同步，基线重建 1131
+> - 残余裁决已落地（2026-11-13）：R-phone-01 卡新增装配纪律"列序=叙事序（主屏在左）"；T14 预登记"7 页逐页对照登记卡 hl 节奏"（form-shape-invisible 残余保险丝）；`_sc` 整批重渲 + index 列头注明"右=11-11 历史归档（永不改）"
+> - 附属项已清（2026-11-13）：R-phone-02 卡 intent 统一"bottom 必配"（C6 张力裁决）；`dev/_sc` 41 张骨架预览整批重渲（41/41 PASS，32 号不一致与 43 号坏快照已消）
 > - T4 P→R 已全部完成（生产面+dev 副本；新夹具 P 码归零，249 文件携 R 码）
-> - ⚠️ C3/C5 改动待 git 各自单独 commit（用户侧）：`tools/lint-dom.mjs`、`dev/test-controlled.mjs`、`references/04-recipes.md`（R-phone-01/R-quote-01 卡）、归属图/TODO、归档 0917/0934
+> - ⚠️ T6 各刀改动待 git 按刀单独 commit（用户侧）：`tools/lint-dom.mjs`、`tools/validate.mjs`（R13）、`dev/test-controlled.mjs`、`references/04-recipes.md`（R-phone-01/R-quote-01/R-phone-02 卡）、`references/02-constraints.md`（L19/L22/L20/R13/max 口径）、归属图/TODO、归档 0917/0934/1028/1057/1103
 > - 阶段闸门 T7 必须用户确认
 > - 🗑 删除裁决（监工已核，2026-11-13）：`controlled-slim-1113-1/` **可整目录删除**——索引已指向 1113-0853、全仓无脚本/文档依赖、内容为新库子集；删后 git 提交一笔。⚠️ 11-11 两个归档（composition-1111-1148 / library-1111-1046）是受保护历史快照，**永不删改**
 
@@ -68,8 +73,8 @@
 
 - [x] **C3**（✅ 2026-11-13）：L19 后果化改写落地——原"多机 .phone-cell + 界面名"退役归 R-phone-01 卡；gate 改为"带比例（锁高）phone 根内禁文字叶"。实证 4 例：`phone-root-short-text`（短文字，新 L19 唯一守卫）、`phone-auto-height-text`（auto 壳放行对照）、`phone-wall-without-cell`（**R1 后果层接住**）、`phone-wall-without-caption`（真实形态放行归卡人审）。套件 188/188，基线 scope → `controlled-negative-1113-0917`，对账退出码 0
 - [x] **C5**（✅ 2026-11-13）：L22 迁卡落地——gate 删除检查块；`quote-rule-without-source` 改登记 passed+目检项（实证放行，无几何/账目后果）；R-quote-01 卡耦合约束写明"省出处连 rule 一起省，装配自查+人审把关"。套件 188/188，基线 scope → `controlled-negative-1113-0934`，对账退出码 0
-- [ ] **C6**：L23 保留，误伤再收窄（预案：hero 出血且 head 也空）
-- [ ] 拆分类：L6 账目面留 gate、L11 结构契约留 gate；砍 L11①②③、L20 静态层、R13
+- [x] **C6**（✅ 2026-11-13）：L23 复核通过，**保留原样未收窄**——误伤探测不成立：登记卡无"无 head/bottom 文字"的合法出血页（R-wall-01 锚点 h1；R-phone-02 绑定 bottom×1；封面出血必有 issue-line+h1）。夹具矩阵完备（3 例），结论固化夹具注释。⚠️ 顺带发现：R-phone-02 卡"可带底部说明" vs 绑定 bottom×1 口径张力，待用户裁决。套件 188/188，基线 scope → `controlled-negative-1113-1028`，对账退出码 0
+- [x] **拆分类（✅ 2026-11-13 T6 第四刀）**：L6 账目面留 gate、L11④ 结构契约留 gate（实证：disallowed-region 落 L195）；砍 L11①②③、L20 静态层、R13。18 条夹具重登记，实测校准：缺省类→passed+目检（组件选择归卡）、隐藏类→R12 兜底、件数越界→R14/R10、缺区域→R14；显式接受残余 2 项（列序交换渲染等价、组件内隐藏形态）。套件 188/188，基线 scope → `controlled-negative-1113-1103`，对账退出码 0
 - [ ] ⚠️ 纪律：**每刀 git 单独 commit**；每刀后全量负例回归（当前基线 188），被砍规则的坏例必须仍被后果检查拦住；拦不住 → 回炉后果化改写，不许硬删
 - [ ] 判据：三分类处置表全部落地 + 回归全绿
 
@@ -108,6 +113,7 @@
 
 - [ ] HANDOFF §1 锚点句："AI 从组件中选择不同的组件进行排版" → "AI 选配方排版；组件选择收敛进配方设计期"（MILESTONE §5.5 已预授权）
 - [ ] HANDOFF §9 dev 债务核销条目更新（dev/controlled 已还原等）
+- [x] ✅ 已完成（2026-11-13 T6-C3/C5 连锁，提前落地）：`references/02-constraints.md`（L35 新 L19 锁高壳禁文字叶、L155 检查器清单换 L19/L22 为人审项）与 `references/03-components.md`（L14 去"L22 拦截"、L44 重写）L19/L22 口径已同步——阶段 5 通读时**只需复核，勿重复改动**
 
 ### T13. 骨架落位 + 批次 C
 
@@ -117,6 +123,7 @@
 ### T14. 全量回归验收
 
 - [ ] 豆仓真实素材 7 页完整跑新流程
+- [ ] 7 页真实素材逐页对照登记卡 hl 节奏（T14 预登记，2026-11-13：`form-shape-invisible` 残余的保险丝——gate 不拦组件内隐藏形态，hl 节奏靠逐页人审；02-constraints"检查器不保证的事"已预注册此残余）
 - [ ] 对照 MILESTONE §5.4 判据逐条验收
 - [ ] 判据：用户验收 → 配方收敛改造完工
 
