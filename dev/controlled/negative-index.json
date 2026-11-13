@@ -1,23 +1,23 @@
 {
   "purpose": "负例夹具 → 拦截层级 stage → 规则码 索引。索引是生成物：跑完 dev/test-controlled.mjs 归档夹具后执行 node dev/check-negative-index.mjs --write 重建；平时直接运行本脚本对账，任何漂移或套件失败即退出码 1。规则码变更时按此表同步更新对应夹具。",
-  "generatedAt": "2026-11-11",
-  "scope": "dev/controlled/controlled-negative-1111-2251",
+  "generatedAt": "2026-11-13",
+  "scope": "dev/controlled/controlled-negative-1113-0853",
   "suite": {
-    "total": 175,
-    "passed": 175,
+    "total": 183,
+    "passed": 183,
     "failed": 0,
     "fontMode": "CDN blocked intentionally: system-font geometric regression, not production font evidence"
   },
   "stages": {
-    "lint": 74,
+    "lint": 77,
     "geometry": 25,
-    "pass": 35,
-    "load": 32,
+    "pass": 36,
+    "load": 36,
     "pipeline": 5,
     "build": 3,
     "direct-probe": 1
   },
-  "count": 175,
+  "count": 183,
   "legend": {
     "blocked": "gate 必须 failed（夹具报告 status=failed）",
     "passed": "正例对照：gate passed，可带 WARN",
@@ -51,6 +51,32 @@
       "suite_expected": "L0"
     },
     {
+      "dir": "anyof-card02-missing",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L11"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L11: 配方 R-card-02 要求本页至少放一个 fcard/phone（任一）",
+      "suite_expected": "fcard/phone（任一）"
+    },
+    {
+      "dir": "anyof-data01-missing",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L11"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L11: 配方 R-data-01 要求本页至少放一个 bars/ldr/ledger（任一）",
+      "suite_expected": "bars/ldr/ledger（任一）"
+    },
+    {
       "dir": "anyof-group-invisible",
       "outcome": "blocked",
       "stage": "geometry",
@@ -68,7 +94,7 @@
       "suite_expected": "R13"
     },
     {
-      "dir": "anyof-p02-missing",
+      "dir": "anyof-list02-missing",
       "outcome": "blocked",
       "stage": "lint",
       "passed": true,
@@ -77,64 +103,11 @@
         "L11"
       ],
       "warn_rules": [],
-      "first_error": "p01 L11: 配方 P02 要求本页至少放一个 fcard/frow/phone（任一）",
-      "suite_expected": "fcard/frow/phone（任一）"
-    },
-    {
-      "dir": "anyof-p03-missing",
-      "outcome": "blocked",
-      "stage": "lint",
-      "passed": true,
-      "rules": [
-        "BATCH",
-        "L11"
-      ],
-      "warn_rules": [],
-      "first_error": "p01 L11: 配方 P03 要求本页至少放一个 shot/phone（任一）",
-      "suite_expected": "shot/phone（任一）"
-    },
-    {
-      "dir": "anyof-p03-phone-only",
-      "outcome": "passed",
-      "stage": "pass",
-      "passed": true,
-      "rules": [],
-      "warn_rules": [
-        "FONT",
-        "L16",
-        "R7"
-      ],
-      "first_error": null,
-      "suite_expected": "passed"
-    },
-    {
-      "dir": "anyof-p03-shot-only",
-      "outcome": "passed",
-      "stage": "pass",
-      "passed": true,
-      "rules": [],
-      "warn_rules": [
-        "FONT",
-        "R7"
-      ],
-      "first_error": null,
-      "suite_expected": "passed"
-    },
-    {
-      "dir": "anyof-p04-missing",
-      "outcome": "blocked",
-      "stage": "lint",
-      "passed": true,
-      "rules": [
-        "BATCH",
-        "L11"
-      ],
-      "warn_rules": [],
-      "first_error": "p01 L11: 配方 P04 要求本页至少放一个 ck/list（任一）",
+      "first_error": "p01 L11: 配方 R-list-02 要求本页至少放一个 ck/list（任一）",
       "suite_expected": "ck/list（任一）"
     },
     {
-      "dir": "anyof-p07-missing",
+      "dir": "anyof-wall01-missing",
       "outcome": "blocked",
       "stage": "lint",
       "passed": true,
@@ -143,8 +116,21 @@
         "L11"
       ],
       "warn_rules": [],
-      "first_error": "p01 L11: 配方 P07 要求本页至少放一个 bars/ldr/ledger（任一）",
-      "suite_expected": "bars/ldr/ledger（任一）"
+      "first_error": "p01 L11: 配方 R-wall-01 要求本页至少放一个 shot（任一）",
+      "suite_expected": "shot（任一）"
+    },
+    {
+      "dir": "anyof-wall01-shot-only",
+      "outcome": "passed",
+      "stage": "pass",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [
+        "FONT",
+        "R7"
+      ],
+      "first_error": null,
+      "suite_expected": "passed"
     },
     {
       "dir": "appearance-background",
@@ -498,6 +484,45 @@
       "suite_expected": "声明 data-bleed 但没有贴到出血边"
     },
     {
+      "dir": "bleed-region-bottom-caption",
+      "outcome": "passed",
+      "stage": "pass",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [
+        "FONT",
+        "R7"
+      ],
+      "first_error": null,
+      "suite_expected": "passed"
+    },
+    {
+      "dir": "bleed-region-head-caption",
+      "outcome": "passed",
+      "stage": "pass",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [
+        "FONT",
+        "R7"
+      ],
+      "first_error": null,
+      "suite_expected": "passed"
+    },
+    {
+      "dir": "bleed-region-without-caption",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L23"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L23: 出血区域 hero 缺少配文：head 或 bottom 至少要有一处标题或说明文字，不允许整页只剩图",
+      "suite_expected": "L23"
+    },
+    {
       "dir": "bleed-touching-edge",
       "outcome": "passed",
       "stage": "pass",
@@ -789,7 +814,7 @@
         "BATCH"
       ],
       "warn_rules": [],
-      "first_error": "BATCH: 当前 HTML 与已校验源片段/素材/seed 不一致: D:\\AI\\html2png\\mine\\cover-skill-plan\\.tmp-tier6\\neg2\\edited-o",
+      "first_error": "BATCH: 当前 HTML 与已校验源片段/素材/seed 不一致: /Users/shay/Code/AI/html2png/mine/cover-skill-plan/dev/contro",
       "suite_expected": "edited HTML rejected before navigation"
     },
     {
@@ -913,7 +938,7 @@
         "L11"
       ],
       "warn_rules": [],
-      "first_error": "p01 L11: 配方 P08 要求 serif 呈现形态 hero（整页金句用种子的大字档 .quote.hero），本页没有",
+      "first_error": "p01 L11: 配方 R-quote-01 要求 serif 呈现形态 hero（整页金句用种子的大字档 .quote.hero），本页没有",
       "suite_expected": "呈现形态 hero"
     },
     {
@@ -926,7 +951,7 @@
         "L11"
       ],
       "warn_rules": [],
-      "first_error": "p01 L11: 配方 P08 要求 serif 呈现形态 marked（引语内部高亮一处），本页没有",
+      "first_error": "p01 L11: 配方 R-quote-01 要求 serif 呈现形态 marked（引语内部高亮一处），本页没有",
       "suite_expected": "呈现形态 marked"
     },
     {
@@ -949,7 +974,7 @@
         "L11"
       ],
       "warn_rules": [],
-      "first_error": "p01 L11: 配方 P08 要求 serif 呈现形态 hero（整页金句用种子的大字档 .quote.hero），本页没有",
+      "first_error": "p01 L11: 配方 R-quote-01 要求 serif 呈现形态 hero（整页金句用种子的大字档 .quote.hero），本页没有",
       "suite_expected": "呈现形态 hero"
     },
     {
@@ -988,7 +1013,7 @@
         "L11"
       ],
       "warn_rules": [],
-      "first_error": "p01 L11: 配方 P08 要求 serif 呈现形态 split（引语按语义停顿拆分换行），本页没有",
+      "first_error": "p01 L11: 配方 R-quote-01 要求 serif 呈现形态 split（引语按语义停顿拆分换行），本页没有",
       "suite_expected": "呈现形态 split"
     },
     {
@@ -1121,7 +1146,7 @@
         "BATCH"
       ],
       "warn_rules": [],
-      "first_error": "BATCH: 无法读取 JSON D:\\AI\\html2png\\mine\\cover-skill-plan\\.tmp-tier6\\neg2\\input-error-rotation\\work\\0",
+      "first_error": "BATCH: 无法读取 JSON /Users/shay/Code/AI/html2png/mine/cover-skill-plan/dev/controlled/controlled-neg",
       "suite_expected": "输入错误轮转上一轮报告并写出合法 JSON（不因缺少全局 crypto 抛错）"
     },
     {
@@ -1186,7 +1211,7 @@
         "L6"
       ],
       "warn_rules": [],
-      "first_error": "p01 L6: 配方 P05 不是封面系列，页眉不得出现期号",
+      "first_error": "p01 L6: 配方 R-note-01 不是封面系列，页眉不得出现期号",
       "suite_expected": "封面系列"
     },
     {
@@ -1228,6 +1253,16 @@
       "suite_expected": "loadProject 拒绝：anchor\\.carrier 必须是锚点区域允许的组件"
     },
     {
+      "dir": "layout-anchor-content-component",
+      "outcome": "load-rejected",
+      "stage": "load",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [],
+      "first_error": null,
+      "suite_expected": "loadProject 拒绝：anchor\\.carrier 只能锁定几何载体组件"
+    },
+    {
       "dir": "layout-anchor-unknown-region",
       "outcome": "load-rejected",
       "stage": "load",
@@ -1236,6 +1271,16 @@
       "warn_rules": [],
       "first_error": null,
       "suite_expected": "loadProject 拒绝：anchor 引用了未知区域"
+    },
+    {
+      "dir": "layout-carrier-content-component",
+      "outcome": "load-rejected",
+      "stage": "load",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [],
+      "first_error": null,
+      "suite_expected": "loadProject 拒绝：carriers 只能锁定几何载体组件"
     },
     {
       "dir": "layout-carrier-region-disallowed",
@@ -1266,6 +1311,16 @@
       "warn_rules": [],
       "first_error": null,
       "suite_expected": "loadProject 拒绝：carriers\\.width 必须是"
+    },
+    {
+      "dir": "layout-counts-content-component",
+      "outcome": "load-rejected",
+      "stage": "load",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [],
+      "first_error": null,
+      "suite_expected": "loadProject 拒绝：counts 只能锁定几何载体组件"
     },
     {
       "dir": "layout-counts-non-integer",
@@ -1316,6 +1371,16 @@
       "warn_rules": [],
       "first_error": null,
       "suite_expected": "loadProject 拒绝：缺少 name\\/when"
+    },
+    {
+      "dir": "layout-null-value",
+      "outcome": "load-rejected",
+      "stage": "load",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [],
+      "first_error": null,
+      "suite_expected": "loadProject 拒绝：layouts 是空对象"
     },
     {
       "dir": "layout-on-untiered-recipe",
@@ -1446,7 +1511,7 @@
         "BATCH"
       ],
       "warn_rules": [],
-      "first_error": "BATCH: 缺少计划页源文件: D:\\AI\\html2png\\mine\\cover-skill-plan\\.tmp-tier6\\neg2\\missing-plan-page\\work\\src\\",
+      "first_error": "BATCH: 缺少计划页源文件: /Users/shay/Code/AI/html2png/mine/cover-skill-plan/dev/controlled/controlled-neg",
       "suite_expected": "缺少计划页"
     },
     {
@@ -1615,6 +1680,7 @@
       "passed": true,
       "rules": [
         "BATCH",
+        "L10",
         "L19"
       ],
       "warn_rules": [],
@@ -1690,7 +1756,7 @@
         "L11"
       ],
       "warn_rules": [],
-      "first_error": "p01 L11: 配方 P09 要求本页至少放一个 ba",
+      "first_error": "p01 L11: 配方 R-compare-01 要求本页至少放一个 ba",
       "suite_expected": "要求本页至少放一个 ba"
     },
     {
@@ -1727,7 +1793,7 @@
         "L11"
       ],
       "warn_rules": [],
-      "first_error": "p01 L11: 配方 P12 要求本页至少放一个 cta",
+      "first_error": "p01 L11: 配方 R-close-01 要求本页至少放一个 cta",
       "suite_expected": "要求本页至少放一个 cta"
     },
     {
@@ -1811,7 +1877,7 @@
         "L11"
       ],
       "warn_rules": [],
-      "first_error": "p01 L11: 配方 P10 要求本页至少放一个 qa",
+      "first_error": "p01 L11: 配方 R-qa-01 要求本页至少放一个 qa",
       "suite_expected": "要求本页至少放一个 qa"
     },
     {
@@ -1838,7 +1904,7 @@
         "L11"
       ],
       "warn_rules": [],
-      "first_error": "p01 L11: 配方 P08 要求本页至少放一个 serif",
+      "first_error": "p01 L11: 配方 R-quote-01 要求本页至少放一个 serif",
       "suite_expected": "要求本页至少放一个 serif"
     },
     {
@@ -1864,7 +1930,7 @@
         "L11"
       ],
       "warn_rules": [],
-      "first_error": "p01 L11: 配方 P06 要求本页至少放一个 step",
+      "first_error": "p01 L11: 配方 R-step-01 要求本页至少放一个 step",
       "suite_expected": "要求本页至少放一个 step"
     },
     {
@@ -1955,7 +2021,7 @@
         "FONT",
         "R7"
       ],
-      "first_error": "p01 R14: right-phone 宽 30.0cqw 超出骨架档 40–42cqw",
+      "first_error": "p01 R14: right-phone 宽 30.0cqw 超出骨架档 36–42cqw",
       "suite_expected": "宽 30.0cqw 超出骨架档"
     },
     {
@@ -1984,8 +2050,8 @@
       "warn_rules": [
         "L16"
       ],
-      "first_error": "p01 L20: 骨架 D「单机墙」 要求区域 head，本页没有",
-      "suite_expected": "要求 phone 1–1 个，实际 2 个"
+      "first_error": "p01 L20: 骨架 duo-labeled「双机 · 界面名标签」 要求区域 head，本页没有",
+      "suite_expected": "要求 phone 2–2 个，实际 3 个"
     },
     {
       "dir": "skeleton-counts-under",
@@ -1999,7 +2065,7 @@
       "warn_rules": [
         "L16"
       ],
-      "first_error": "p01 L20: 骨架 B「三机墙」 要求区域 head，本页没有",
+      "first_error": "p01 L20: 骨架 trio-labeled「三机 · 界面名标签」 要求区域 head，本页没有",
       "suite_expected": "要求 phone 3–3 个，实际 2 个"
     },
     {
@@ -2022,14 +2088,14 @@
       "passed": true,
       "rules": [
         "BATCH",
+        "R10",
         "R14"
       ],
       "warn_rules": [
-        "FONT",
-        "R7"
+        "FONT"
       ],
-      "first_error": "p01 R14: 主标题实际 3 行，骨架要求 1–2 行",
-      "suite_expected": "主标题实际 3 行，骨架要求 1–2 行"
+      "first_error": "p01 R14: 主标题实际 3 行，骨架要求 1–1 行",
+      "suite_expected": "主标题实际 3 行，骨架要求 1–1 行"
     },
     {
       "dir": "skeleton-order-missing-region",
@@ -2041,7 +2107,7 @@
         "L20"
       ],
       "warn_rules": [],
-      "first_error": "p01 L20: 骨架 A「等分两栏 · 右机满高」 要求区域 left，本页没有",
+      "first_error": "p01 L20: 骨架 frow-phone「编号条目 · 右机」 要求区域 left，本页没有",
       "suite_expected": "要求区域 left，本页没有"
     },
     {
@@ -2054,7 +2120,7 @@
         "L20"
       ],
       "warn_rules": [],
-      "first_error": "p01 L20: 骨架 A「等分两栏 · 右机满高」 要求区域顺序 head → left → right，本页是 head → right → left",
+      "first_error": "p01 L20: 骨架 frow-phone「编号条目 · 右机」 要求区域顺序 head → left → right，本页是 head → right → left",
       "suite_expected": "要求区域顺序"
     },
     {
@@ -2098,7 +2164,7 @@
       "warn_rules": [
         "L16"
       ],
-      "first_error": "p01 L20: 骨架 B「对比 + 双图窗」 要求 shot 2–2 个，实际 1 个",
+      "first_error": "p01 L20: 骨架 shot-ba「双列图窗 + 对比卡」 要求区域 bottom，本页没有",
       "suite_expected": "要求 shot 2–2 个"
     },
     {
@@ -2111,7 +2177,7 @@
         "L20"
       ],
       "warn_rules": [],
-      "first_error": "p01 L20: 骨架 A「等分两栏 · 右机满高」 要求区域 left，本页没有",
+      "first_error": "p01 L20: 骨架 frow-phone「编号条目 · 右机」 要求区域 left，本页没有",
       "suite_expected": "锁了区域 left 的列宽，本页没有该区域"
     },
     {
@@ -2149,7 +2215,7 @@
         "BATCH"
       ],
       "warn_rules": [],
-      "first_error": "BATCH: 输出目录含非本次计划页 99.html；请使用新输出目录，工具不会删除历史产物: D:\\AI\\html2png\\mine\\cover-skill-plan\\.tmp-tier6\\n",
+      "first_error": "BATCH: 输出目录含非本次计划页 99.html；请使用新输出目录，工具不会删除历史产物: /Users/shay/Code/AI/html2png/mine/cover-skill-pla",
       "suite_expected": "非本次计划页"
     },
     {
@@ -2225,7 +2291,7 @@
         "L16",
         "R7"
       ],
-      "first_error": "p01 R15: 时间线步骤 step-1 内部拉伸余量 21.6cqw（>12cqw）：内容撑不满行高",
+      "first_error": "p01 R15: 时间线步骤 step-1 内部拉伸余量 20.6cqw（>12cqw）：内容撑不满行高",
       "suite_expected": "内部拉伸余量"
     },
     {
@@ -2311,6 +2377,34 @@
       "warn_rules": [],
       "first_error": "p01 L10: 资产 h1 不在本页 uses",
       "suite_expected": "L10"
+    },
+    {
+      "dir": "uses-listed-but-unused",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L10"
+      ],
+      "warn_rules": [],
+      "first_error": "p01 L10: uses 列了资产 d1，但本页没有 data-from 引用它",
+      "suite_expected": "uses 列了资产 d1"
+    },
+    {
+      "dir": "wall01-phone-only-rejected",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L11"
+      ],
+      "warn_rules": [
+        "L16"
+      ],
+      "first_error": "p01 L11: 配方 R-wall-01 要求本页至少放一个 shot（任一）",
+      "suite_expected": "shot（任一）"
     },
     {
       "dir": "wrong-style",

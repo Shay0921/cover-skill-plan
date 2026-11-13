@@ -1,12 +1,17 @@
 # 后续执行路线图 TODO（2026-11-13）
 
+> **▶ 当前指针（2026-11-13 更新）：阶段 3 收尾 · 下一步 = T5（gate 补 L24 占位符检查）→ T6（gate 瘦身逐刀）**
+> - T1/T2/T3 已收口（2026-11-13 上午）：T1 第六轮 183/183；T2 lint 轮全绿（全新夹具套件 183/183，lint 全套 0 FAIL）；T3 基线已重建——`negative-index.json` scope → `controlled-negative-1113-0853`，`--write` 重建 count=183（lint77/geometry25/pass36/load36/pipeline5/build3/direct-probe1），裸跑对账退出码 0、drift 0；T4 剩余回归验证项随 T3 覆盖（新夹具 P 码归零，249 文件携 R 码）
+> - T5/T6 解禁前提已满足；T6 起每刀单独 git commit（用户侧操作）；阶段闸门 T7 必须用户确认
+> - 🗑 删除裁决（监工已核，2026-11-13）：`controlled-slim-1113-1/` **可整目录删除**——索引已指向 1113-0853、全仓无脚本/文档依赖、内容为新库子集；删后 git 提交一笔。⚠️ 11-11 两个归档（composition-1111-1148 / library-1111-1046）是受保护历史快照，**永不删改**
+
 > **用途**：会话压缩后的新任务启动文档。按顺序执行，每步有完成判据；完成一项勾一项。
 > **配套文档**（按需查阅，本文档为唯一执行顺序来源）：
 > - `dev/DEVPLAN-recipe-convergence-2026-11-12.md` —— 五阶段总施工图（含全部裁决记录）
 > - `dev/constraint-ownership-map.md` —— 阶段 3 产出物 A（33 规则码三分类 + C1-C6 冲突裁决）
 > - `dev/config-audit-2026-11-13.md` —— 七维审计 + 批次 A/B 修复方案
 > - `references/04-recipes.md` —— 20 张登记卡（规格级配方 require/allow 的唯一锚）
-> - `dev/controlled/negative-index.json` —— 回归基线（实测 175 条，非 183）
+> - `dev/controlled/negative-index.json` —— 回归基线（2026-11-13 已重建：scope → `controlled-negative-1113-0853`，count=183，对账全绿；T5/T6 每刀以此为回归基准）
 > - `dev/MILESTONE-PENDULUM-2026-11-12.md` —— 论证档案（阶段 5 验收看 §5.4）
 
 ## 当前进度快照（勿重做）
@@ -23,24 +28,26 @@
 
 ## 第一部分：阶段 3 收尾（约束归属映射 → gate 瘦身）
 
-### T1. 第六轮回归收口
-- [ ] 等第六轮结果；若全绿 → T2；若仍有 FAIL → 逐条修复（每修一处先对照 config-audit 七维，防再引入残留）
-- 判据：全量回归 0 FAIL
+### T1. 第六轮回归收口（✅ 2026-11-13 01:54）
+- [x] 第六轮全绿：`controlled-slim-1113-1/test-results.json` 183/183 全部符合预期 → 进入 T2
+- 判据达成：全量回归 0 FAIL
 
-### T2. lint 轮
-- [ ] 跑 lint 层全套（审计维度 3 已预检 41 骨架 allow 覆盖，理论零炸）
-- 判据：0 FAIL。若有炸 → 说明骨架/config 有审计漏项，回报用户
+### T2. lint 轮（✅ 2026-11-13）
+- [x] lint 层全套随全新夹具套件全量执行：`node dev/test-controlled.mjs dev/controlled/controlled-negative-1113-0853` → 183/183 passed，lint 维度 0 FAIL（lint 拦截面 77 条夹具全部按预期命中）
+- 判据达成：0 FAIL，无审计漏项
 
-### T3. 重建负例基线
-- [ ] `check-negative-index.mjs --write` 重建索引（实测 175 条口径）
-- 判据：索引与夹具一一对应、全绿；此后任何 gate 改动以此为回归基准
+### T3. 重建负例基线（✅ 2026-11-13）
+- [x] `test-controlled.mjs` 现场生成 `controlled-negative-1113-0853`（183 夹具，自然携带 R 码）→ 索引 scope 指向 → `check-negative-index.mjs --write` 重建 → 裸跑对账退出码 0（missing/stale/unrecorded/unaccounted/drift 全零）
+- 📌 口径落实：基线数以重建后实际数为准 = **183**（lint77/geometry25/pass36/load36/pipeline5/build3/direct-probe1）；旧"175"口径作废
+- ⚠️ 账目差登记：slim-1113-1 内孤儿夹具 `anyof-wall01-phone-only` 不阻塞重建（新库无此差）；删除候选，由用户执行
+- 判据达成：索引与夹具一一对应、全绿；此后任何 gate 改动以此为回归基准
 
 ### T4. 批次 B：41 骨架 P→R 改码（✅ 已完成，2026-11-13）
 - [x] 生产面：`references/recipes/` 41 骨架 + `config/recipes.json` 20 条均已 R 码化（入册时完成）
 - [x] dev 副本：`dev/recipes/` 41 骨架按用户裁决（11-13，git 可追溯历史故迁移而非封存）改为对应 R-id，与生产面逐一一致
 - [x] ⚠️ `dev/controlled/controlled-composition-1111-1148`（11-11 画廊档案）**不改**——历史快照保真
-- [ ] 剩余验证项（并入 T3 重建轮一起做）：夹具/索引重建 + 全量回归（重建后的夹具自然携带 R 码）
-- 判据：grep `data-recipe="P` 在 dev/recipes/ 与 references/recipes/ 均归零 ✅；回归全绿（待 T3）
+- [x] 剩余验证项（已随 T3 重建轮完成，2026-11-13）：夹具/索引重建 + 全量回归 183/183；新夹具 P 码归零（249 文件携 R 码）
+- 判据达成：grep `data-recipe="P` 在 dev/recipes/ 与 references/recipes/ 均归零 ✅；回归全绿 ✅
 
 ### T5. gate 补占位符残留检查（L24）
 - [ ] 成品 HTML 含 `{{` 即 FAIL（DEVPLAN 保留类明文要求）

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-12T17:54:01.772Z",
+  "generatedAt": "2026-11-13T00:53:47.102Z",
   "fontMode": "CDN blocked intentionally: system-font geometric regression, not production font evidence",
   "total": 183,
   "passed": 183,
@@ -639,7 +639,7 @@
         {
           "level": "ERROR",
           "rule": "BATCH",
-          "msg": "输出目录含非本次计划页 99.html；请使用新输出目录，工具不会删除历史产物: D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\controlled-slim-1113-1\\stale-output\\out"
+          "msg": "输出目录含非本次计划页 99.html；请使用新输出目录，工具不会删除历史产物: /Users/shay/Code/AI/html2png/mine/cover-skill-plan/dev/controlled/controlled-negative-1113-0853/stale-output/out"
         }
       ]
     },
@@ -665,7 +665,7 @@
         {
           "level": "ERROR",
           "rule": "BATCH",
-          "msg": "缺少计划页源文件: D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\controlled-slim-1113-1\\missing-plan-page\\work\\src\\p02.part.html"
+          "msg": "缺少计划页源文件: /Users/shay/Code/AI/html2png/mine/cover-skill-plan/dev/controlled/controlled-negative-1113-0853/missing-plan-page/work/src/p02.part.html"
         }
       ]
     },
@@ -1629,8 +1629,8 @@
           "bands": [
             {
               "band": 1,
-              "coveredPx": 185,
-              "emptyPx": 175
+              "coveredPx": 197,
+              "emptyPx": 163
             },
             {
               "band": 2,
@@ -1644,8 +1644,8 @@
             },
             {
               "band": 4,
-              "coveredPx": 23,
-              "emptyPx": 337
+              "coveredPx": 24,
+              "emptyPx": 336
             }
           ]
         },
@@ -1679,8 +1679,8 @@
           "bands": [
             {
               "band": 1,
-              "coveredPx": 185,
-              "emptyPx": 175
+              "coveredPx": 197,
+              "emptyPx": 163
             },
             {
               "band": 2,
@@ -1694,8 +1694,8 @@
             },
             {
               "band": 4,
-              "coveredPx": 23,
-              "emptyPx": 337
+              "coveredPx": 24,
+              "emptyPx": 336
             }
           ]
         },
@@ -2149,8 +2149,8 @@
           "bands": [
             {
               "band": 1,
-              "coveredPx": 185,
-              "emptyPx": 175
+              "coveredPx": 197,
+              "emptyPx": 163
             },
             {
               "band": 2,
@@ -2164,8 +2164,8 @@
             },
             {
               "band": 4,
-              "coveredPx": 23,
-              "emptyPx": 337
+              "coveredPx": 24,
+              "emptyPx": 336
             }
           ]
         },
@@ -2362,8 +2362,8 @@
           "bands": [
             {
               "band": 1,
-              "coveredPx": 213.84375,
-              "emptyPx": 146.15625
+              "coveredPx": 222.84375,
+              "emptyPx": 137.15625
             },
             {
               "band": 2,
@@ -2377,8 +2377,8 @@
             },
             {
               "band": 4,
-              "coveredPx": 23,
-              "emptyPx": 337
+              "coveredPx": 24,
+              "emptyPx": 336
             }
           ]
         },
@@ -2803,25 +2803,25 @@
         {
           "level": "ERROR",
           "rule": "R15",
-          "msg": "时间线步骤 step-1 内部拉伸余量 21.6cqw（>12cqw）：内容撑不满行高",
+          "msg": "时间线步骤 step-1 内部拉伸余量 20.6cqw（>12cqw）：内容撑不满行高",
           "layer": "step-1",
-          "slackCqw": 21.6,
+          "slackCqw": 20.6,
           "hint": "增加步骤，或在同行放 phone/shot 载体锚定行高；不要让时间线独占满高行"
         },
         {
           "level": "ERROR",
           "rule": "R15",
-          "msg": "时间线步骤 step-2 内部拉伸余量 21.6cqw（>12cqw）：内容撑不满行高",
+          "msg": "时间线步骤 step-2 内部拉伸余量 20.6cqw（>12cqw）：内容撑不满行高",
           "layer": "step-2",
-          "slackCqw": 21.6,
+          "slackCqw": 20.6,
           "hint": "增加步骤，或在同行放 phone/shot 载体锚定行高；不要让时间线独占满高行"
         },
         {
           "level": "ERROR",
           "rule": "R15",
-          "msg": "时间线步骤 step-3 内部拉伸余量 21.6cqw（>12cqw）：内容撑不满行高",
+          "msg": "时间线步骤 step-3 内部拉伸余量 20.6cqw（>12cqw）：内容撑不满行高",
           "layer": "step-3",
-          "slackCqw": 21.6,
+          "slackCqw": 20.6,
           "hint": "增加步骤，或在同行放 phone/shot 载体锚定行高；不要让时间线独占满高行"
         }
       ]
@@ -3146,8 +3146,8 @@
           "bands": [
             {
               "band": 1,
-              "coveredPx": 185,
-              "emptyPx": 175
+              "coveredPx": 197,
+              "emptyPx": 163
             },
             {
               "band": 2,
@@ -3161,8 +3161,8 @@
             },
             {
               "band": 4,
-              "coveredPx": 23,
-              "emptyPx": 337
+              "coveredPx": 24,
+              "emptyPx": 336
             }
           ]
         },
