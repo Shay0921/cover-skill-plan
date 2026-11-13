@@ -86,7 +86,7 @@ function validateRecipeLayouts(id, recipe, catalog) {
       if (!Object.hasOwn(catalog, carrier?.component || '')) throw new Error(`${at} 的 carriers 引用了未知组件: ${carrier?.component}`);
       if (!GEOMETRY_DRIVERS.has(carrier.component)) throw new Error(`${at} 的 carriers 只能锁定几何载体组件（phone/shot/step/bars）: ${carrier.component}`);
       if (!regions[carrier.region]?.allow?.includes(carrier.component)) throw new Error(`${at} 的 carriers 组件 ${carrier.component} 不被区域 ${carrier.region} 允许`);
-      if (!interval(carrier.width, 1, 108)) throw new Error(`${at} 的 carriers.width 必须是 [1,108]cqw 内的宽度区间`);
+      if (carrier.width !== undefined && !interval(carrier.width, 1, 108)) throw new Error(`${at} 的 carriers.width 必须是 [1,108]cqw 内的宽度区间`);
     }
     if (layout.anchor) {
       if (!Object.hasOwn(regions, layout.anchor.region || '')) throw new Error(`${at} 的 anchor 引用了未知区域: ${layout.anchor.region}`);

@@ -1,0 +1,194 @@
+[
+  {
+    "id": "B-N1",
+    "phase": "before",
+    "status": "passed",
+    "errors": [],
+    "measure": {
+      "phones": [
+        {
+          "h": 734.4,
+          "wCqw": 34.26,
+          "skew": 1
+        },
+        {
+          "h": 734.4,
+          "wCqw": 34.26,
+          "skew": 1
+        }
+      ],
+      "headH": 179.4
+    }
+  },
+  {
+    "id": "B-N2",
+    "phase": "before",
+    "status": "failed",
+    "errors": [
+      "BATCH: 几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json",
+      "R1: wall-phone-1 越出所属区域 wall",
+      "R1: wall-phone-1-label 越出所属区域 wall",
+      "R1: wall-phone-2 越出所属区域 wall",
+      "R1: wall-phone-2-label 越出所属区域 wall",
+      "R1: wall-phone-1-frame 越出所属区域 wall",
+      "R1: wall-phone-2-frame 越出所属区域 wall"
+    ],
+    "measure": {
+      "phones": [
+        {
+          "h": 685.8,
+          "wCqw": 32,
+          "skew": 1
+        },
+        {
+          "h": 685.8,
+          "wCqw": 32,
+          "skew": 1
+        }
+      ],
+      "headH": 321.2
+    }
+  },
+  {
+    "id": "B-N3",
+    "phase": "before",
+    "status": "failed",
+    "errors": [
+      "BATCH: 几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json",
+      "R14: wall-phone-1 宽 30.0cqw 超出骨架档 32–36cqw",
+      "R14: wall-phone-2 宽 30.0cqw 超出骨架档 32–36cqw"
+    ],
+    "measure": {
+      "phones": [
+        {
+          "h": 643,
+          "wCqw": 30,
+          "skew": 1
+        },
+        {
+          "h": 643,
+          "wCqw": 30,
+          "skew": 1
+        }
+      ],
+      "headH": 179.4
+    }
+  },
+  {
+    "id": "B-N4",
+    "phase": "before",
+    "status": "failed",
+    "errors": [
+      "BATCH: 几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json",
+      "R14: wall-phone-1 宽 38.0cqw 超出骨架档 32–36cqw",
+      "R14: wall-phone-2 宽 38.0cqw 超出骨架档 32–36cqw"
+    ],
+    "measure": {
+      "phones": [
+        {
+          "h": 814.5,
+          "wCqw": 38,
+          "skew": 1
+        },
+        {
+          "h": 814.5,
+          "wCqw": 38,
+          "skew": 1
+        }
+      ],
+      "headH": 179.4
+    }
+  },
+  {
+    "id": "B-N1",
+    "phase": "after",
+    "status": "passed",
+    "errors": [],
+    "measure": {
+      "phones": [
+        {
+          "h": 734.4,
+          "wCqw": 34.26,
+          "skew": 1
+        },
+        {
+          "h": 734.4,
+          "wCqw": 34.26,
+          "skew": 1
+        }
+      ],
+      "headH": 179.4
+    }
+  },
+  {
+    "id": "B-N2",
+    "phase": "after",
+    "status": "failed",
+    "errors": [
+      "BATCH: 几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json",
+      "R1: wall-phone-1 越出所属区域 wall",
+      "R1: wall-phone-1-label 越出所属区域 wall",
+      "R1: wall-phone-2 越出所属区域 wall",
+      "R1: wall-phone-2-label 越出所属区域 wall",
+      "R1: wall-phone-1-frame 越出所属区域 wall",
+      "R1: wall-phone-2-frame 越出所属区域 wall"
+    ],
+    "measure": {
+      "phones": [
+        {
+          "h": 685.8,
+          "wCqw": 32,
+          "skew": 1
+        },
+        {
+          "h": 685.8,
+          "wCqw": 32,
+          "skew": 1
+        }
+      ],
+      "headH": 321.2
+    }
+  },
+  {
+    "id": "B-N3",
+    "phase": "after",
+    "status": "passed",
+    "errors": [],
+    "measure": {
+      "phones": [
+        {
+          "h": 643,
+          "wCqw": 30,
+          "skew": 1
+        },
+        {
+          "h": 643,
+          "wCqw": 30,
+          "skew": 1
+        }
+      ],
+      "headH": 179.4
+    }
+  },
+  {
+    "id": "B-N4",
+    "phase": "after",
+    "status": "passed",
+    "errors": [],
+    "measure": {
+      "phones": [
+        {
+          "h": 814.5,
+          "wCqw": 38,
+          "skew": 1
+        },
+        {
+          "h": 814.5,
+          "wCqw": 38,
+          "skew": 1
+        }
+      ],
+      "headH": 179.4
+    }
+  }
+]

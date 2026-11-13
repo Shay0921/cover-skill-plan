@@ -99,7 +99,7 @@ export function measureDOM(contract) {
       if (!owners.length) { issue('R14', `骨架要求区域 ${carrier.region} 有可见的 ${carrier.component}`, { component: carrier.component, region: carrier.region }); continue; }
       for (const el of owners) {
         const w = rect(el).width / CQ;
-        if (w < carrier.width[0] - 0.5 || w > carrier.width[1] + 0.5)
+        if (carrier.width && (w < carrier.width[0] - 0.5 || w > carrier.width[1] + 0.5))
           issue('R14', `${id(el)} 宽 ${w.toFixed(1)}cqw 超出骨架档 ${carrier.width[0]}–${carrier.width[1]}cqw`,
             { layer: id(el), widthCqw: +w.toFixed(1), want: carrier.width, hint: '先保载体宽度档，再让文字列收缩；不要反过来压主体' });
       }

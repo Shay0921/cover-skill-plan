@@ -1,6 +1,6 @@
 # 后续执行路线图 TODO（2026-11-13）
 
-> **▶ 当前指针（2026-11-13 更新）：阶段 B 进行中（EXEC-PLAN-phaseB-2026-11-13.md）· 刀 S（B-seed 收尾：gap 优先级修复 + SHA `E11C9E1E…` + 41 图重渲 + 基线 2140 全绿 + h75 压测入册 `dev/h75-stress-1113/`）已施工待 commit · 闸门 G（6 项用户确认）待拍板 → 刀 C B-contract。阶段 5 遗留：T13 批次 C / T14 全量回归验收**
+> **▶ 当前指针（2026-11-13 更新）：阶段 B 进行中（EXEC-PLAN-phaseB-2026-11-13.md）· 刀 S 完成（`8eb6d27`）· 闸门 G 六项全按推荐通过（记录 `dev/GATE-B-2026-11-13.md`，DIAGNOSIS §8.5.1 v3 已定稿）→ 刀 C B-contract 施工中（删 duo-labeled 宽度镜像 1 条 + width 缺省放行 + h68 删档前后对照）。阶段 5 遗留：T13 批次 C / T14 全量回归验收**
 >
 > - **T7 收口（2026-11-13）**：闸门材料 [T7-GATE-2026-11-13.md](T7-GATE-2026-11-13.md) 已入库（6b88db4）并获批复；六笔刀 commit 已在链，无提交欠账
 > - **T8 种子只读锁已落地（2026-11-13）**：build.mjs 新增 `verifySeedChecksum`（readSeedCSS 构建全链必校验，基线 = 04-recipes 登记 `5318D18B…`，种子漂移即 gate FAIL）；独立校验 `dev/check-seed-lock.mjs` 4/4 PASS（真实种子过锁 / SHA-256 与登记精确一致 / 样式微改必抛 / 空串必抛）；挂锁后全量回归 **178/178 零涟漪**，基线 scope → `controlled-negative-1113-1312`，对账退出码 0；04-recipes 文首登记行 + 归属图 §6 新增行已同步
