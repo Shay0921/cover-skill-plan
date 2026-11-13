@@ -71,7 +71,8 @@
 ├─ intent：左列行式条目（编号/复选/纯行）、右侧一个内容载体（手机/双局部图/正文段）
 │   反例：条目 >6 → 改 R-list-02；右侧无载体 → 改 R-list-02
 ├─ 来源：{05, 14, 02, 03}
-├─ 绑定：行式列表×3-4(left) + 载体×1 组(right)；head=kicker+h1(+sub)；left flex≤1 / right flex≥1
+├─ 绑定：行式列表×3-4(left|full) + 载体×1 组(right)；head=kicker+h1(+sub)；left flex≤1 / right flex≥1
+├─ 区域：条目区登记 left|full（EXEC-A1fix B，2026-11-13：14 源页 ck 实落在 full 区，regions 原漏登记致 gate L11 误报；config regions.full allow=[ck,list,text-block] 与本行同笔入册）
 ├─ 锚点：kicker、h1、条目×≥3、右载体；降级条款：条目仅 2 且无图 → 改 R-note-01
 ├─ 密度：条目 3-4 条；t≤14/d≤30；frow 带 cno 编号、ck 带复选、list 素行
 ├─ hl 节奏：0-1 处，h1 内（14 实测 0；02/03/05 实测 1）

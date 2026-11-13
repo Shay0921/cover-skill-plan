@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "runId": "8bf5278b-6bd5-4399-9b16-18ff75261938",
+  "runId": "ac73585e-1e4e-4aa5-a0ea-31b40decd14d",
   "units": {
     "rect": "cqw",
     "share": "占正文宽度比例"
@@ -410,7 +410,7 @@
     },
     {
       "nn": "08",
-      "status": "failed",
+      "status": "passed",
       "regions": [
         {
           "id": "head",
@@ -421,13 +421,13 @@
         {
           "id": "full",
           "wCqw": 86.8,
-          "hCqw": 45.6,
+          "hCqw": 76,
           "share": 1
         },
         {
           "id": "bottom",
           "wCqw": 86.8,
-          "hCqw": 38.4,
+          "hCqw": 8,
           "share": 1
         },
         {
@@ -446,23 +446,21 @@
         },
         {
           "band": 2,
-          "coveredPx": 88,
-          "emptyPx": 272
+          "coveredPx": 28.671875,
+          "emptyPx": 331.328125
         },
         {
           "band": 3,
-          "coveredPx": 154.203125,
-          "emptyPx": 205.796875
+          "coveredPx": 59.328125,
+          "emptyPx": 300.671875
         },
         {
           "band": 4,
-          "coveredPx": 213.796875,
-          "emptyPx": 146.203125
+          "coveredPx": 92,
+          "emptyPx": 268
         }
       ],
-      "errors": [
-        "R10: closing-tags-seal 声明比例 1/1 被压成 0.208（相差 380.0%）"
-      ]
+      "errors": []
     },
     {
       "nn": "09",
@@ -520,7 +518,7 @@
     },
     {
       "nn": "10",
-      "status": "failed",
+      "status": "passed",
       "regions": [
         {
           "id": "head",
@@ -531,13 +529,13 @@
         {
           "id": "full",
           "wCqw": 86.8,
-          "hCqw": 45.6,
+          "hCqw": 76,
           "share": 1
         },
         {
           "id": "bottom",
           "wCqw": 86.8,
-          "hCqw": 38.4,
+          "hCqw": 8,
           "share": 1
         }
       ],
@@ -550,23 +548,21 @@
         },
         {
           "band": 2,
-          "coveredPx": 88,
-          "emptyPx": 272
+          "coveredPx": 28.671875,
+          "emptyPx": 331.328125
         },
         {
           "band": 3,
-          "coveredPx": 154.203125,
-          "emptyPx": 205.796875
+          "coveredPx": 59.328125,
+          "emptyPx": 300.671875
         },
         {
           "band": 4,
-          "coveredPx": 213.796875,
-          "emptyPx": 146.203125
+          "coveredPx": 92,
+          "emptyPx": 268
         }
       ],
-      "errors": [
-        "R10: closing-seal 声明比例 1/1 被压成 0.208（相差 380.0%）"
-      ]
+      "errors": []
     },
     {
       "nn": "11",
@@ -1035,6 +1031,64 @@
       ],
       "errors": [
         "R14: detail-crop-evidence 宽 50.2cqw 超出骨架档 41–46cqw"
+      ]
+    },
+    {
+      "nn": "20",
+      "status": "failed",
+      "regions": [
+        {
+          "id": "head",
+          "wCqw": 86.8,
+          "hCqw": 21.4,
+          "share": 1
+        },
+        {
+          "id": "full",
+          "wCqw": 41.9,
+          "hCqw": 82.2,
+          "share": 0.483
+        },
+        {
+          "id": "right",
+          "wCqw": 41.9,
+          "hCqw": 82.2,
+          "share": 0.483
+        }
+      ],
+      "carriers": [
+        {
+          "layer": "overview-evidence",
+          "component": "phone",
+          "region": "right",
+          "wCqw": 41.4,
+          "hCqw": 82.2
+        }
+      ],
+      "bands": [
+        {
+          "band": 1,
+          "coveredPx": 224.25,
+          "emptyPx": 135.75
+        },
+        {
+          "band": 2,
+          "coveredPx": 278.8125,
+          "emptyPx": 81.1875
+        },
+        {
+          "band": 3,
+          "coveredPx": 360,
+          "emptyPx": 0
+        },
+        {
+          "band": 4,
+          "coveredPx": 215.140625,
+          "emptyPx": 144.859375
+        }
+      ],
+      "errors": [
+        "R14: 骨架区域 left 不可见"
       ]
     },
     {
@@ -1804,7 +1858,7 @@
     },
     {
       "nn": "35",
-      "status": "failed",
+      "status": "passed",
       "regions": [
         {
           "id": "head",
@@ -1815,13 +1869,13 @@
         {
           "id": "full",
           "wCqw": 86.8,
-          "hCqw": 45.6,
+          "hCqw": 76,
           "share": 1
         },
         {
           "id": "bottom",
           "wCqw": 86.8,
-          "hCqw": 38.4,
+          "hCqw": 8,
           "share": 1
         },
         {
@@ -1840,23 +1894,21 @@
         },
         {
           "band": 2,
-          "coveredPx": 276.828125,
-          "emptyPx": 83.171875
+          "coveredPx": 154.125,
+          "emptyPx": 205.875
         },
         {
           "band": 3,
-          "coveredPx": 209.375,
-          "emptyPx": 150.625
+          "coveredPx": 177.875,
+          "emptyPx": 182.125
         },
         {
           "band": 4,
-          "coveredPx": 213.796875,
-          "emptyPx": 146.203125
+          "coveredPx": 92,
+          "emptyPx": 268
         }
       ],
-      "errors": [
-        "R10: closing-seal 声明比例 1/1 被压成 0.208（相差 380.0%）"
-      ]
+      "errors": []
     },
     {
       "nn": "36",
@@ -1908,7 +1960,7 @@
     },
     {
       "nn": "37",
-      "status": "failed",
+      "status": "passed",
       "regions": [
         {
           "id": "head",
@@ -1962,13 +2014,11 @@
         },
         {
           "band": 4,
-          "coveredPx": 174.609375,
-          "emptyPx": 185.390625
+          "coveredPx": 220.59375,
+          "emptyPx": 139.40625
         }
       ],
-      "errors": [
-        "R15: 时间线步骤 inspect-material 内部拉伸余量 71.0cqw（>12cqw）：内容撑不满行高"
-      ]
+      "errors": []
     },
     {
       "nn": "38",

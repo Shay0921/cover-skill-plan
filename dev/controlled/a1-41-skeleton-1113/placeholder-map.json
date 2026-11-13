@@ -562,7 +562,7 @@
   {
     "file": "close01-pills-extended.part.html",
     "placeholder": "收束印章字",
-    "value": "收束印章字"
+    "value": "真"
   },
   {
     "file": "close01-pills-extended.part.html",
@@ -717,7 +717,7 @@
   {
     "file": "close01-standard.part.html",
     "placeholder": "收束印章字",
-    "value": "收束印章字"
+    "value": "真"
   },
   {
     "file": "close01-standard.part.html",
@@ -1567,7 +1567,7 @@
   {
     "file": "data04-panel.part.html",
     "placeholder": "图1",
-    "value": "assets/s1.png"
+    "value": "assets/s10.png"
   },
   {
     "file": "data04-panel.part.html",
@@ -2712,7 +2712,7 @@
   {
     "file": "quote01-annotated.part.html",
     "placeholder": "收束印章字",
-    "value": "收束印章字"
+    "value": "真"
   },
   {
     "file": "quote01-annotated.part.html",
@@ -2817,6 +2817,36 @@
   {
     "file": "step01-timeline.part.html",
     "placeholder": "步骤引言",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "step01-timeline.part.html",
+    "placeholder": "步骤标题",
+    "value": "步骤标题"
+  },
+  {
+    "file": "step01-timeline.part.html",
+    "placeholder": "步骤说明",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "step01-timeline.part.html",
+    "placeholder": "步骤标题",
+    "value": "步骤标题"
+  },
+  {
+    "file": "step01-timeline.part.html",
+    "placeholder": "步骤说明",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "step01-timeline.part.html",
+    "placeholder": "步骤标题",
+    "value": "步骤标题"
+  },
+  {
+    "file": "step01-timeline.part.html",
+    "placeholder": "步骤说明",
     "value": "这是一段占位说明，用于核对折行密度"
   },
   {

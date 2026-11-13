@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "runId": "8bf5278b-6bd5-4399-9b16-18ff75261938",
-  "startedAt": "2026-11-13T14:28:30.625Z",
+  "runId": "ac73585e-1e4e-4aa5-a0ea-31b40decd14d",
+  "startedAt": "2026-11-13T15:14:29.841Z",
   "mode": "gate",
   "status": "failed",
-  "inputHash": "7f6ff20f06fe550baea48000b535cde0eda9ccb96c8dbe4206bff0668e5feb6a",
+  "inputHash": "c703caf9c7052588695a802d89feac72e1e6f7e96ee1ae60311efcaccc24b07f",
   "plan": "d:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\work\\03-plan.json",
   "src": "d:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\work\\src",
   "out": "d:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out",
@@ -1257,7 +1257,7 @@
         "warnings": [],
         "loadedFaces": 1
       },
-      "inputKey": "bc72cd0e93d47e5bae1c36e61eb1527fafbe69be5e1783a0ec7482a22c86c75b",
+      "inputKey": "ee124c3b145355f1dbdb47e6ea5451a53f24861c9c7a59ade1901386d45b1714",
       "pngHash": "606110392c6640f8d5307ac0faf45662663eac2ae29c4734fae0ae22c9d0376d",
       "pngBytes": 263535
     },
@@ -2405,7 +2405,7 @@
         "warnings": [],
         "loadedFaces": 1
       },
-      "inputKey": "2eae3f0c914ed3a484aec1b32da4ee86a8885eeebb6302c0d061c146e17a4f2d",
+      "inputKey": "273284fb5066944341d47f024232fcde4be55fabd5fafc27b8274b6c08126d89",
       "pngHash": "3b364e59029c576e7636015fd6e5e5b9cbff3ecfde985b714f910f412168179f",
       "pngBytes": 275116
     },
@@ -3614,7 +3614,7 @@
         "warnings": [],
         "loadedFaces": 1
       },
-      "inputKey": "dad80fd3f90af87af50e803f31015090717e87a699ed0f61681974180f8fec2c",
+      "inputKey": "a507f065a5f266672f8d89db3849d1a8096723161901a7bd519ded526d868ff7",
       "pngHash": "0d45270d1911e088bd6dafd8321df37869d4ec0ad8d01ee66f63b2d36d525ec6",
       "pngBytes": 263955
     },
@@ -4792,7 +4792,7 @@
         "warnings": [],
         "loadedFaces": 2
       },
-      "inputKey": "692a176d8f0f99ce97ffcb068cf8a9a1a4c97481770f3088eb320453b389bc27",
+      "inputKey": "b837a5a09da43bfded6cfe37bacc645387bd173dcadc2b20aa71b3525c25f8f1",
       "pngHash": "d6876c46ebd9325d383cbaaac488fada8208b602eeff21083a972b504fbbf35a",
       "pngBytes": 260464
     },
@@ -6022,7 +6022,7 @@
         "warnings": [],
         "loadedFaces": 2
       },
-      "inputKey": "c1966bcc1d98cfb45c0dda0636fe0365bae88c7e34d59f508ad975ba5653e726",
+      "inputKey": "cbf3d166fc853054214667a12f674b2c275237c90d3b36171e8c5ab3b61baee7",
       "pngHash": "df0443fcdee76cb970448a48c61ac28e99d104b58323051c56ac39b7b1f27de8",
       "pngBytes": 270842
     },
@@ -7422,7 +7422,7 @@
         "warnings": [],
         "loadedFaces": 4
       },
-      "inputKey": "a36c15b07d8f4f7bd4507580a461c1b8d3ba1bbb66af93ec0cd1e8ce17b80386",
+      "inputKey": "efaa2606dc465122324df57464762c5537afd26049f33f9a6032ccdc22ac3d1b",
       "pngHash": "0036755a0debcd0b6c177d25476d4d32a1e123e6fc5eb2ca6cda2856195e9ef1",
       "pngBytes": 294452
     },
@@ -8593,28 +8593,15 @@
         "warnings": [],
         "loadedFaces": 5
       },
-      "inputKey": "a87a472ae363e464942db7a0c65759b2d11c86bb230829e67b0f1cb0c38c608b",
+      "inputKey": "aa4cdfdd15d90cfb84f32d594da5058a9e347a575f1c44079c693de0c9213ae8",
       "pngHash": "763dc42ce0675be83d831fb65ac9dc148c4454ea4893664777483537ca6b79db",
       "pngBytes": 132011
     },
     {
       "nn": "08",
-      "htmlHash": "d90ea0541e3d57853fc6440745ffd9fb0708ffc61f3ccbc59258ede1c2360995",
-      "sourceHash": "b166c36803208ae65e3969e9d6d6bfb8b40b5bf792a3edb37d3d20458057cfab",
+      "htmlHash": "0d29fb7df612b0db9a7cae6e0080c9d08e88821bec0cdaad16a3edc6e07afe54",
+      "sourceHash": "d2d4607c2e6213bdab87023913ac539c7cca3db85ee421e705456ca72347bfb4",
       "issues": [
-        {
-          "level": "ERROR",
-          "rule": "R10",
-          "msg": "closing-tags-seal 声明比例 1/1 被压成 0.208（相差 380.0%）",
-          "layer": "closing-tags-seal",
-          "box": {
-            "x": 922.34375,
-            "y": 891.921875,
-            "w": 86.390625,
-            "h": 414.6875
-          },
-          "hint": "区域过窄或过矮：换更宽/更高的区域或减少同区内容，不要靠拉伸素材"
-        },
         {
           "level": "WARN",
           "rule": "R7",
@@ -8627,23 +8614,23 @@
             },
             {
               "band": 2,
-              "coveredPx": 88,
-              "emptyPx": 272
+              "coveredPx": 28.671875,
+              "emptyPx": 331.328125
             },
             {
               "band": 3,
-              "coveredPx": 154.203125,
-              "emptyPx": 205.796875
+              "coveredPx": 59.328125,
+              "emptyPx": 300.671875
             },
             {
               "band": 4,
-              "coveredPx": 213.796875,
-              "emptyPx": 146.203125
+              "coveredPx": 92,
+              "emptyPx": 268
             }
           ]
         }
       ],
-      "status": "failed",
+      "status": "passed",
       "canvas": {
         "w": 1080,
         "h": 1440
@@ -8671,16 +8658,16 @@
             "x": 71.265625,
             "y": 367.40625,
             "w": 937.46875,
-            "h": 492.125
+            "h": 820.421875
           }
         },
         {
           "id": "bottom",
           "rect": {
             "x": 71.265625,
-            "y": 891.921875,
+            "y": 1220.21875,
             "w": 937.46875,
-            "h": 414.6875
+            "h": 86.390625
           }
         },
         {
@@ -8825,7 +8812,7 @@
           "units": "px",
           "rect": {
             "x": 71.265625,
-            "y": 513.375,
+            "y": 677.53125,
             "w": 937.46875,
             "h": 58.140625
           },
@@ -8845,7 +8832,7 @@
           "units": "px",
           "rect": {
             "x": 71.265625,
-            "y": 513.375,
+            "y": 677.53125,
             "w": 153.1875,
             "h": 58.140625
           },
@@ -8865,7 +8852,7 @@
           "units": "px",
           "rect": {
             "x": 237.40625,
-            "y": 513.375,
+            "y": 677.53125,
             "w": 153.1875,
             "h": 58.140625
           },
@@ -8885,7 +8872,7 @@
           "units": "px",
           "rect": {
             "x": 403.546875,
-            "y": 513.375,
+            "y": 677.53125,
             "w": 153.1875,
             "h": 58.140625
           },
@@ -8905,7 +8892,7 @@
           "units": "px",
           "rect": {
             "x": 569.6875,
-            "y": 513.375,
+            "y": 677.53125,
             "w": 153.1875,
             "h": 58.140625
           },
@@ -8925,7 +8912,7 @@
           "units": "px",
           "rect": {
             "x": 735.828125,
-            "y": 513.375,
+            "y": 677.53125,
             "w": 153.1875,
             "h": 58.140625
           },
@@ -8945,7 +8932,7 @@
           "units": "px",
           "rect": {
             "x": 71.265625,
-            "y": 582.3125,
+            "y": 746.46875,
             "w": 937.46875,
             "h": 131.234375
           },
@@ -8965,7 +8952,7 @@
           "units": "px",
           "rect": {
             "x": 71.265625,
-            "y": 609.3125,
+            "y": 773.46875,
             "w": 129.59375,
             "h": 76.234375
           },
@@ -8985,7 +8972,7 @@
           "units": "px",
           "rect": {
             "x": 71.265625,
-            "y": 663.078125,
+            "y": 827.234375,
             "w": 129.59375,
             "h": 22.46875
           },
@@ -9005,7 +8992,7 @@
           "units": "px",
           "rect": {
             "x": 233.25,
-            "y": 619.3125,
+            "y": 783.46875,
             "w": 376.390625,
             "h": 35.421875
           },
@@ -9025,7 +9012,7 @@
           "units": "px",
           "rect": {
             "x": 71.265625,
-            "y": 891.921875,
+            "y": 1220.21875,
             "w": 176.09375,
             "h": 74.734375
           },
@@ -9045,9 +9032,9 @@
           "units": "px",
           "rect": {
             "x": 922.34375,
-            "y": 891.921875,
+            "y": 1220.21875,
             "w": 86.390625,
-            "h": 414.6875
+            "h": 86.390625
           },
           "visible": true,
           "editable": "text",
@@ -9123,18 +9110,18 @@
         },
         {
           "band": 2,
-          "coveredPx": 88,
-          "emptyPx": 272
+          "coveredPx": 28.671875,
+          "emptyPx": 331.328125
         },
         {
           "band": 3,
-          "coveredPx": 154.203125,
-          "emptyPx": 205.796875
+          "coveredPx": 59.328125,
+          "emptyPx": 300.671875
         },
         {
           "band": 4,
-          "coveredPx": 213.796875,
-          "emptyPx": 146.203125
+          "coveredPx": 92,
+          "emptyPx": 268
         }
       ],
       "counts": {
@@ -9707,7 +9694,7 @@
             "family": "Noto Serif SC",
             "style": "normal",
             "weight": "400",
-            "status": "loaded"
+            "status": "unloaded"
           },
           {
             "family": "Noto Serif SC",
@@ -9957,7 +9944,7 @@
                 "familyName": "Noto Serif SC ExtraLight",
                 "postScriptName": "NotoSerifSCExtraLight-Regular",
                 "isCustomFont": true,
-                "glyphCount": 5
+                "glyphCount": 1
               }
             ]
           },
@@ -9987,9 +9974,11 @@
           }
         ],
         "warnings": [],
-        "loadedFaces": 6
+        "loadedFaces": 5
       },
-      "inputKey": "422ad465624c1c0b9cdf526b0263fda0eaaa64f33d85fa79a906de1f83ec4493"
+      "inputKey": "0df42c4cf6a46b3c5a704f5bfbb44e63f563a41f927f81082fc6bb4390e053ba",
+      "pngHash": "ae0081d898ce49c899e552c50391b6cea6347b5b20be066defa18591533079b3",
+      "pngBytes": 134284
     },
     {
       "nn": "09",
@@ -11226,28 +11215,15 @@
         "warnings": [],
         "loadedFaces": 8
       },
-      "inputKey": "07862b009386f2ed57ebffbedc87c14be646d2f9703993c323d36d2d215fa82b",
+      "inputKey": "8ee8c873359bd6b126eb9473f7ac41cfb3c99d6fcf95b78589fe8d885b57c046",
       "pngHash": "ca87ba7ddaf2b14b2b56ff46769721abe8394022b80b901d491e4d4e9fea9c59",
       "pngBytes": 180867
     },
     {
       "nn": "10",
-      "htmlHash": "4cac99a93f598a4bfae49ce7ab43809093d98f9edb5df7d66bfa3a7e66eb880a",
-      "sourceHash": "a0e1f4bfbe0b1f893122686005a74d6e5b801c95caa60f8f2fbc787a1085aaff",
+      "htmlHash": "f6ad1d33b2a5cd9a459ca487767b0137f25f52b725158f145519cfc3bd3a25a2",
+      "sourceHash": "e73eca22b97201811b1f174c07b054be12462cc2ca15441c78983f26099ccec6",
       "issues": [
-        {
-          "level": "ERROR",
-          "rule": "R10",
-          "msg": "closing-seal 声明比例 1/1 被压成 0.208（相差 380.0%）",
-          "layer": "closing-seal",
-          "box": {
-            "x": 922.34375,
-            "y": 891.921875,
-            "w": 86.390625,
-            "h": 414.6875
-          },
-          "hint": "区域过窄或过矮：换更宽/更高的区域或减少同区内容，不要靠拉伸素材"
-        },
         {
           "level": "WARN",
           "rule": "R7",
@@ -11260,23 +11236,23 @@
             },
             {
               "band": 2,
-              "coveredPx": 88,
-              "emptyPx": 272
+              "coveredPx": 28.671875,
+              "emptyPx": 331.328125
             },
             {
               "band": 3,
-              "coveredPx": 154.203125,
-              "emptyPx": 205.796875
+              "coveredPx": 59.328125,
+              "emptyPx": 300.671875
             },
             {
               "band": 4,
-              "coveredPx": 213.796875,
-              "emptyPx": 146.203125
+              "coveredPx": 92,
+              "emptyPx": 268
             }
           ]
         }
       ],
-      "status": "failed",
+      "status": "passed",
       "canvas": {
         "w": 1080,
         "h": 1440
@@ -11304,16 +11280,16 @@
             "x": 71.265625,
             "y": 367.40625,
             "w": 937.46875,
-            "h": 492.125
+            "h": 820.421875
           }
         },
         {
           "id": "bottom",
           "rect": {
             "x": 71.265625,
-            "y": 891.921875,
+            "y": 1220.21875,
             "w": 937.46875,
-            "h": 414.6875
+            "h": 86.390625
           }
         }
       ],
@@ -11449,7 +11425,7 @@
           "units": "px",
           "rect": {
             "x": 71.265625,
-            "y": 513.375,
+            "y": 677.53125,
             "w": 937.46875,
             "h": 58.140625
           },
@@ -11469,7 +11445,7 @@
           "units": "px",
           "rect": {
             "x": 71.265625,
-            "y": 513.375,
+            "y": 677.53125,
             "w": 153.1875,
             "h": 58.140625
           },
@@ -11489,7 +11465,7 @@
           "units": "px",
           "rect": {
             "x": 237.40625,
-            "y": 513.375,
+            "y": 677.53125,
             "w": 153.1875,
             "h": 58.140625
           },
@@ -11509,7 +11485,7 @@
           "units": "px",
           "rect": {
             "x": 403.546875,
-            "y": 513.375,
+            "y": 677.53125,
             "w": 153.1875,
             "h": 58.140625
           },
@@ -11529,7 +11505,7 @@
           "units": "px",
           "rect": {
             "x": 71.265625,
-            "y": 582.3125,
+            "y": 746.46875,
             "w": 937.46875,
             "h": 131.234375
           },
@@ -11549,7 +11525,7 @@
           "units": "px",
           "rect": {
             "x": 71.265625,
-            "y": 609.3125,
+            "y": 773.46875,
             "w": 129.59375,
             "h": 76.234375
           },
@@ -11569,7 +11545,7 @@
           "units": "px",
           "rect": {
             "x": 71.265625,
-            "y": 663.078125,
+            "y": 827.234375,
             "w": 129.59375,
             "h": 22.46875
           },
@@ -11589,7 +11565,7 @@
           "units": "px",
           "rect": {
             "x": 233.25,
-            "y": 619.3125,
+            "y": 783.46875,
             "w": 376.390625,
             "h": 35.421875
           },
@@ -11609,7 +11585,7 @@
           "units": "px",
           "rect": {
             "x": 71.265625,
-            "y": 891.921875,
+            "y": 1220.21875,
             "w": 176.09375,
             "h": 74.734375
           },
@@ -11629,9 +11605,9 @@
           "units": "px",
           "rect": {
             "x": 922.34375,
-            "y": 891.921875,
+            "y": 1220.21875,
             "w": 86.390625,
-            "h": 414.6875
+            "h": 86.390625
           },
           "visible": true,
           "editable": "text",
@@ -11687,18 +11663,18 @@
         },
         {
           "band": 2,
-          "coveredPx": 88,
-          "emptyPx": 272
+          "coveredPx": 28.671875,
+          "emptyPx": 331.328125
         },
         {
           "band": 3,
-          "coveredPx": 154.203125,
-          "emptyPx": 205.796875
+          "coveredPx": 59.328125,
+          "emptyPx": 300.671875
         },
         {
           "band": 4,
-          "coveredPx": 213.796875,
-          "emptyPx": 146.203125
+          "coveredPx": 92,
+          "emptyPx": 268
         }
       ],
       "counts": {
@@ -12271,7 +12247,13 @@
             "family": "Noto Serif SC",
             "style": "normal",
             "weight": "400",
-            "status": "loaded"
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
           },
           {
             "family": "Noto Serif SC",
@@ -12289,12 +12271,6 @@
             "family": "Noto Serif SC",
             "style": "normal",
             "weight": "400",
-            "status": "loaded"
-          },
-          {
-            "family": "Noto Serif SC",
-            "style": "normal",
-            "weight": "400",
             "status": "unloaded"
           },
           {
@@ -12307,7 +12283,7 @@
             "family": "Noto Serif SC",
             "style": "normal",
             "weight": "400",
-            "status": "loaded"
+            "status": "unloaded"
           },
           {
             "family": "Noto Serif SC",
@@ -12497,7 +12473,7 @@
                 "familyName": "Noto Serif SC ExtraLight",
                 "postScriptName": "NotoSerifSCExtraLight-Regular",
                 "isCustomFont": true,
-                "glyphCount": 5
+                "glyphCount": 1
               }
             ]
           },
@@ -12515,9 +12491,11 @@
           }
         ],
         "warnings": [],
-        "loadedFaces": 5
+        "loadedFaces": 2
       },
-      "inputKey": "308ce3bd5f26239edf06f8d0a4dec0d8c3219ad9f0cd7eff10a7abe1ae49df7e"
+      "inputKey": "abc5f19f5c0fa5b6ef1ca7b8f375c753033370e083dc10f9809b0169725e3f8f",
+      "pngHash": "ef3cc29cf9bbf09a8413996b5ac11b9e3764f6c02f719779fbe3ea0cbdce6602",
+      "pngBytes": 111728
     },
     {
       "nn": "11",
@@ -13721,7 +13699,7 @@
         "warnings": [],
         "loadedFaces": 1
       },
-      "inputKey": "bde73c4b26e655b4675729ef2b049cf85554fe9ed96dccf7a4e3b914bf1c4fea",
+      "inputKey": "7acb3477d1b3491045c6199f96e991fb7d0b4f2a8c007a2d3aa8b0f90bc6b893",
       "pngHash": "10ef741f3595e060547d6f057f94dbafd81f4403f5bf9d0eddcfca3d10db865c",
       "pngBytes": 105108
     },
@@ -14927,7 +14905,7 @@
         "warnings": [],
         "loadedFaces": 1
       },
-      "inputKey": "e40ffaaa2b83497fa8edd60e6b2e907d4db4673e4bb5736df131a8554fa75d58",
+      "inputKey": "7a440ce2e86aec77c7b0fd8caebdf381125a56cb68c8688363e5304edde0859f",
       "pngHash": "466080fa8698dcbff5eb951a766424c3448b69d67953f5a0529bebcccc04af58",
       "pngBytes": 104153
     },
@@ -16325,7 +16303,7 @@
         "warnings": [],
         "loadedFaces": 7
       },
-      "inputKey": "bc2357e5cdebfa113fd16892cf7aea541055d9a3b19722ee9e75691982985886",
+      "inputKey": "e693e52e5ddb76c2d6250c3c98d417bac661922a70b768b129a7b911805f49db",
       "pngHash": "914da34afe8dfaaa7d3beae6d9a1ff1600acccbdd7b89f7202f92adea4750b0e",
       "pngBytes": 216777
     },
@@ -17723,7 +17701,7 @@
         "warnings": [],
         "loadedFaces": 7
       },
-      "inputKey": "13ee18b836d6940add7ad7481f8f09402a12b4391b8ddd9a4de76bf1e32ebe61",
+      "inputKey": "16568a616cc0095622012181ebaba6b443b731d385ef512f7cf8798c26422b31",
       "pngHash": "2017fc86de11e3b734d1fe7855c75ca95e2cd66b0fb98e7aa26d06e2ac743a72",
       "pngBytes": 129522
     },
@@ -19249,7 +19227,7 @@
         "warnings": [],
         "loadedFaces": 1
       },
-      "inputKey": "d735c8231f68003d153b09618e7b49fb3140d336e0cfde138e0483398987306f",
+      "inputKey": "1229f3ebbf6ed04bacb5d1685a62c1c4b3ad31b9a3df6e527105d27257352c18",
       "pngHash": "8dd9eeb5b147e867de8380f51e225e9bc4ac41f9809e11d5af2b135454a9ec96",
       "pngBytes": 198860
     },
@@ -20847,7 +20825,7 @@
         "warnings": [],
         "loadedFaces": 3
       },
-      "inputKey": "d8e5eda9f7c0b65736abb444936a3a312dfd38344181e0c95d01f286a35e7ecc",
+      "inputKey": "2c58b2d7297e97957fa6f3348cbd6ddb167bc62d2477df76dfb6f8e8a6087ce0",
       "pngHash": "91f896dbe8937ebe4503d4c18180cfcfdeb20c8394ccc81fffddb685d18146a0",
       "pngBytes": 104733
     },
@@ -22454,7 +22432,7 @@
         "warnings": [],
         "loadedFaces": 5
       },
-      "inputKey": "e681423f9e3c61b058e68f071770acb6647f5f012eff81f813fc4dd407e6f594",
+      "inputKey": "7a742801adf7ff6641452fac43072c6a4cde74eed72e45152672547ce59f8727",
       "pngHash": "80d01598a4fce68b117a9046b1521499018b63ca89da2f429aedfa78a841c6bf",
       "pngBytes": 125549
     },
@@ -23753,14 +23731,14 @@
         "warnings": [],
         "loadedFaces": 5
       },
-      "inputKey": "f717b4f01bae988c03a45e9e1ebcb46b412f7b2855cc7d02526d7e130a3f68a2",
+      "inputKey": "a55eff225c8292807ff7fde59ad23d2c4e603b78d78b16c0d303c24ca3d9f076",
       "pngHash": "601e74350c26caabd023c350543a346a2d23f7ad509f9892f204db32845f00d6",
       "pngBytes": 130678
     },
     {
       "nn": "19",
-      "htmlHash": "18732a4f08cbc042dbca67f15fa85466498004726ca0906b13076e900e9897ec",
-      "sourceHash": "b53f6b19f396b4cf3b874c7f8265812a9e839cae5ab1f121d0428b009aa992c6",
+      "htmlHash": "9eb4a9e81fcbb6aa1b828e793f212c1246ffb081a294fe877b6cfaa4185817cb",
+      "sourceHash": "721849878304d5cadbc5233fea96a53ebf037e76e99fd27d33c267c81203652c",
       "issues": [
         {
           "level": "ERROR",
@@ -23773,23 +23751,6 @@
             46
           ],
           "hint": "先保载体宽度档，再让文字列收缩；不要反过来压主体"
-        },
-        {
-          "level": "WARN",
-          "rule": "R9",
-          "msg": "整图窗口留白明显：detail-crop-evidence-image 素材 1284×2778，容器比例与素材相差 2.88 倍",
-          "layer": "detail-crop-evidence-image",
-          "box": {
-            "x": 465.890625,
-            "y": 590.828125,
-            "w": 541.84375,
-            "h": 406.375
-          },
-          "natural": {
-            "w": 1284,
-            "h": 2778
-          },
-          "hint": "竖向整屏素材可改带壳载体或减高"
         },
         {
           "level": "WARN",
@@ -25150,19 +25111,1148 @@
         "warnings": [],
         "loadedFaces": 4
       },
-      "inputKey": "cdd1c3c757f8f4ecfe149ba426c4cfdce50640e3a374bdd5c4f377d1ff8ea580"
+      "inputKey": "83647a2c8373c4c05ff912fbc20d259d43954165cad69377a99b92ca9b381d1f"
     },
     {
       "nn": "20",
+      "htmlHash": "6c0cfde786de893598cf217d8a3d7a43de4bce2870b4bd0f0cf7a46a2a32aeec",
       "sourceHash": "b7b5841ddb90b47b5fa92e78df242c18af338a31ac0619f39261f8ec7192996d",
       "issues": [
         {
           "level": "ERROR",
-          "rule": "L11",
-          "msg": "区域 full 不允许组件 ck"
+          "rule": "R14",
+          "msg": "骨架区域 left 不可见",
+          "region": "left"
         }
       ],
-      "status": "failed"
+      "status": "failed",
+      "canvas": {
+        "w": 1080,
+        "h": 1440
+      },
+      "footer": {
+        "x": 71.265625,
+        "y": 1347.640625,
+        "w": 937.46875,
+        "h": 47
+      },
+      "frames": [
+        {
+          "layer": "overview-evidence-image",
+          "fit": "cover",
+          "boxed": false
+        }
+      ],
+      "regions": [
+        {
+          "id": "head",
+          "rect": {
+            "x": 71.265625,
+            "y": 146.953125,
+            "w": 937.46875,
+            "h": 230.828125
+          }
+        },
+        {
+          "id": "full",
+          "rect": {
+            "x": 71.265625,
+            "y": 418.8125,
+            "w": 452.53125,
+            "h": 887.796875
+          }
+        },
+        {
+          "id": "right",
+          "rect": {
+            "x": 556.1875,
+            "y": 418.8125,
+            "w": 452.546875,
+            "h": 887.796875
+          }
+        }
+      ],
+      "layers": [
+        {
+          "id": "brand",
+          "tag": "div",
+          "component": null,
+          "group": true,
+          "parentLayer": null,
+          "region": null,
+          "coordinateReference": "canvas-top-left",
+          "units": "px",
+          "rect": {
+            "x": 71.265625,
+            "y": 49.671875,
+            "w": 347.96875,
+            "h": 56.25
+          },
+          "visible": true,
+          "editable": null,
+          "slot": null,
+          "from": null
+        },
+        {
+          "id": "brand-seal",
+          "tag": "span",
+          "component": null,
+          "group": false,
+          "parentLayer": "brand",
+          "region": null,
+          "coordinateReference": "canvas-top-left",
+          "units": "px",
+          "rect": {
+            "x": 71.265625,
+            "y": 55.109375,
+            "w": 45.359375,
+            "h": 45.359375
+          },
+          "visible": true,
+          "editable": "text",
+          "slot": null,
+          "from": "brand-seal"
+        },
+        {
+          "id": "brand-name",
+          "tag": "div",
+          "component": null,
+          "group": false,
+          "parentLayer": "brand",
+          "region": null,
+          "coordinateReference": "canvas-top-left",
+          "units": "px",
+          "rect": {
+            "x": 132.8125,
+            "y": 49.671875,
+            "w": 286.421875,
+            "h": 31.09375
+          },
+          "visible": true,
+          "editable": "text",
+          "slot": null,
+          "from": "brand-name"
+        },
+        {
+          "id": "brand-tag",
+          "tag": "div",
+          "component": null,
+          "group": false,
+          "parentLayer": "brand",
+          "region": null,
+          "coordinateReference": "canvas-top-left",
+          "units": "px",
+          "rect": {
+            "x": 132.8125,
+            "y": 83.453125,
+            "w": 286.421875,
+            "h": 22.46875
+          },
+          "visible": true,
+          "editable": "text",
+          "slot": null,
+          "from": "brand-tag"
+        },
+        {
+          "id": "topic",
+          "tag": "p",
+          "component": "kicker",
+          "group": true,
+          "parentLayer": null,
+          "region": "head",
+          "coordinateReference": "canvas-top-left",
+          "units": "px",
+          "rect": {
+            "x": 71.265625,
+            "y": 162.0625,
+            "w": 937.46875,
+            "h": 36.296875
+          },
+          "visible": true,
+          "editable": "text",
+          "slot": null,
+          "from": "topic-material"
+        },
+        {
+          "id": "headline",
+          "tag": "h1",
+          "component": "h1",
+          "group": true,
+          "parentLayer": null,
+          "region": "head",
+          "coordinateReference": "canvas-top-left",
+          "units": "px",
+          "rect": {
+            "x": 71.265625,
+            "y": 213.46875,
+            "w": 937.46875,
+            "h": 101.953125
+          },
+          "visible": true,
+          "editable": "text",
+          "slot": null,
+          "from": "phone-checklist-headline"
+        },
+        {
+          "id": "introduction",
+          "tag": "p",
+          "component": "sub",
+          "group": true,
+          "parentLayer": null,
+          "region": "head",
+          "coordinateReference": "canvas-top-left",
+          "units": "px",
+          "rect": {
+            "x": 71.265625,
+            "y": 330.53125,
+            "w": 937.46875,
+            "h": 47.25
+          },
+          "visible": true,
+          "editable": "text",
+          "slot": null,
+          "from": "phone-checklist-intro"
+        },
+        {
+          "id": "identify-screen",
+          "tag": "div",
+          "component": "ck",
+          "group": true,
+          "parentLayer": null,
+          "region": "full",
+          "coordinateReference": "canvas-top-left",
+          "units": "px",
+          "rect": {
+            "x": 71.265625,
+            "y": 798.6875,
+            "w": 452.53125,
+            "h": 128.03125
+          },
+          "visible": true,
+          "editable": null,
+          "slot": null,
+          "from": null
+        },
+        {
+          "id": "identify-screen-title",
+          "tag": "p",
+          "component": null,
+          "group": false,
+          "parentLayer": "identify-screen",
+          "region": "full",
+          "coordinateReference": "canvas-top-left",
+          "units": "px",
+          "rect": {
+            "x": 125.25,
+            "y": 822.4375,
+            "w": 358.03125,
+            "h": 39.296875
+          },
+          "visible": true,
+          "editable": "text",
+          "slot": null,
+          "from": "identify-screen-title"
+        },
+        {
+          "id": "identify-screen-detail",
+          "tag": "p",
+          "component": null,
+          "group": false,
+          "parentLayer": "identify-screen",
+          "region": "full",
+          "coordinateReference": "canvas-top-left",
+          "units": "px",
+          "rect": {
+            "x": 125.25,
+            "y": 869.28125,
+            "w": 358.03125,
+            "h": 33.6875
+          },
+          "visible": true,
+          "editable": "text",
+          "slot": null,
+          "from": "identify-screen-detail"
+        },
+        {
+          "id": "overview-evidence",
+          "tag": "div",
+          "component": "phone",
+          "group": true,
+          "parentLayer": null,
+          "region": "right",
+          "coordinateReference": "canvas-top-left",
+          "units": "px",
+          "rect": {
+            "x": 558.796875,
+            "y": 418.8125,
+            "w": 447.328125,
+            "h": 887.796875
+          },
+          "visible": true,
+          "editable": null,
+          "slot": null,
+          "from": null
+        },
+        {
+          "id": "overview-evidence-image",
+          "tag": "img",
+          "component": null,
+          "group": false,
+          "parentLayer": "overview-evidence",
+          "region": "right",
+          "coordinateReference": "canvas-top-left",
+          "units": "px",
+          "rect": {
+            "x": 592.703125,
+            "y": 452.71875,
+            "w": 379.015625,
+            "h": 819.421875
+          },
+          "visible": true,
+          "editable": null,
+          "slot": "image",
+          "from": "overview-caption"
+        },
+        {
+          "id": "overview-evidence-frame",
+          "tag": "img",
+          "component": null,
+          "group": false,
+          "parentLayer": "overview-evidence",
+          "region": "right",
+          "coordinateReference": "canvas-top-left",
+          "units": "px",
+          "rect": {
+            "x": 558.796875,
+            "y": 418.8125,
+            "w": 447.328125,
+            "h": 887.796875
+          },
+          "visible": true,
+          "editable": null,
+          "slot": "image",
+          "from": null
+        },
+        {
+          "id": "footer-signature",
+          "tag": "span",
+          "component": null,
+          "group": false,
+          "parentLayer": null,
+          "region": null,
+          "coordinateReference": "canvas-top-left",
+          "units": "px",
+          "rect": {
+            "x": 71.265625,
+            "y": 1367,
+            "w": 323.140625,
+            "h": 27.640625
+          },
+          "visible": true,
+          "editable": "text",
+          "slot": null,
+          "from": null
+        },
+        {
+          "id": "page-number",
+          "tag": "span",
+          "component": null,
+          "group": false,
+          "parentLayer": null,
+          "region": null,
+          "coordinateReference": "canvas-top-left",
+          "units": "px",
+          "rect": {
+            "x": 1008.734375,
+            "y": 1387,
+            "w": 0,
+            "h": 0
+          },
+          "visible": false,
+          "editable": "text",
+          "slot": null,
+          "from": null
+        }
+      ],
+      "bands": [
+        {
+          "band": 1,
+          "coveredPx": 224.25,
+          "emptyPx": 135.75
+        },
+        {
+          "band": 2,
+          "coveredPx": 278.8125,
+          "emptyPx": 81.1875
+        },
+        {
+          "band": 3,
+          "coveredPx": 360,
+          "emptyPx": 0
+        },
+        {
+          "band": 4,
+          "coveredPx": 215.140625,
+          "emptyPx": 144.859375
+        }
+      ],
+      "counts": {
+        "components": 5,
+        "texts": 9,
+        "images": 2
+      },
+      "fonts": {
+        "status": "loaded",
+        "faces": [
+          {
+            "family": "Playfair Display",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Playfair Display",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Playfair Display",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Playfair Display",
+            "style": "normal",
+            "weight": "400",
+            "status": "loaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          }
+        ],
+        "requested": [
+          "\"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "\"Playfair Display\", \"Noto Serif SC\", \"Songti SC\", serif"
+        ],
+        "actual": [
+          {
+            "layer": "brand-seal",
+            "tag": "SPAN",
+            "fonts": [
+              {
+                "familyName": "Playfair Display",
+                "postScriptName": "PlayfairDisplay-Regular",
+                "isCustomFont": true,
+                "glyphCount": 2
+              }
+            ]
+          },
+          {
+            "layer": "brand-name",
+            "tag": "DIV",
+            "fonts": [
+              {
+                "familyName": "Microsoft YaHei",
+                "postScriptName": "MicrosoftYaHei-Bold",
+                "isCustomFont": false,
+                "glyphCount": 7
+              }
+            ]
+          },
+          {
+            "layer": "brand-tag",
+            "tag": "DIV",
+            "fonts": [
+              {
+                "familyName": "Microsoft YaHei",
+                "postScriptName": "MicrosoftYaHei",
+                "isCustomFont": false,
+                "glyphCount": 17
+              }
+            ]
+          },
+          {
+            "layer": "topic",
+            "tag": "P",
+            "fonts": [
+              {
+                "familyName": "Microsoft YaHei",
+                "postScriptName": "MicrosoftYaHei-Bold",
+                "isCustomFont": false,
+                "glyphCount": 5
+              }
+            ]
+          },
+          {
+            "layer": "headline",
+            "tag": "H1",
+            "fonts": [
+              {
+                "familyName": "Microsoft YaHei",
+                "postScriptName": "MicrosoftYaHei-Bold",
+                "isCustomFont": false,
+                "glyphCount": 3
+              }
+            ]
+          },
+          {
+            "layer": "introduction",
+            "tag": "P",
+            "fonts": [
+              {
+                "familyName": "Microsoft YaHei",
+                "postScriptName": "MicrosoftYaHei",
+                "isCustomFont": false,
+                "glyphCount": 17
+              }
+            ]
+          },
+          {
+            "layer": "identify-screen-title",
+            "tag": "P",
+            "fonts": [
+              {
+                "familyName": "Microsoft YaHei",
+                "postScriptName": "MicrosoftYaHei-Bold",
+                "isCustomFont": false,
+                "glyphCount": 4
+              }
+            ]
+          },
+          {
+            "layer": "identify-screen-detail",
+            "tag": "P",
+            "fonts": [
+              {
+                "familyName": "Microsoft YaHei",
+                "postScriptName": "MicrosoftYaHei",
+                "isCustomFont": false,
+                "glyphCount": 17
+              }
+            ]
+          },
+          {
+            "layer": "footer-signature",
+            "tag": "SPAN",
+            "fonts": [
+              {
+                "familyName": "Microsoft YaHei",
+                "postScriptName": "MicrosoftYaHei",
+                "isCustomFont": false,
+                "glyphCount": 17
+              }
+            ]
+          }
+        ],
+        "warnings": [],
+        "loadedFaces": 1
+      },
+      "inputKey": "a175fc046203be1d4f9d1e728b0ed2eeabe8fb7b5e8e2b333aa9cf83dfcbbc3c"
     },
     {
       "nn": "21",
@@ -26482,7 +27572,7 @@
         "warnings": [],
         "loadedFaces": 2
       },
-      "inputKey": "b9e6b662fffb7a81d33e3a07b027885c72e0688b2fdfce14b9b276a5063ad571",
+      "inputKey": "bff30ea5da8c9ebf1bb3f62a2d0f96857ccfdbc8afd54fa92abc651598dc47fb",
       "pngHash": "e883382427ba31ad42f550aaf642025337e1677b41b9140150d486772b07b6a9",
       "pngBytes": 156556
     },
@@ -27650,7 +28740,7 @@
         "warnings": [],
         "loadedFaces": 1
       },
-      "inputKey": "4564cd99b9aa6f6987b447972fc783cdd48f4f8afd3ccb950a598526d77e9021",
+      "inputKey": "6cf820251116036c4c2a02f6c59a70895c4f8021e11b604a39e066daf2d7821d",
       "pngHash": "94f6de28917e6c5108cf0190275f215f6f1792798e200e7e72a65a17a7512cab",
       "pngBytes": 271791
     },
@@ -28842,7 +29932,7 @@
         "warnings": [],
         "loadedFaces": 2
       },
-      "inputKey": "5aba66b9022bb4a925920e425052875dc653c10571a8c0b7f0e21141d33f188f",
+      "inputKey": "cb7a45101e2243f03b15ca58cb63fa3a2d7331bbc19ea1b1804fc7f94330676b",
       "pngHash": "09d2728ba363718f53b2cae7cec792d33cfcc297405a20cb335ed7889b55553a",
       "pngBytes": 84489
     },
@@ -30100,7 +31190,7 @@
         "warnings": [],
         "loadedFaces": 5
       },
-      "inputKey": "137fec522dfa43f4fd7a216432e516070cee6d5301b56b25a56306a4d20c88a9",
+      "inputKey": "317dec76062e7afb9692594c8b3f8925602101521600b03969463f569bb87ca9",
       "pngHash": "e49459a934f781830eaeb0d15cfd5d5429e24f00ded3dea9bc6ad15ac5d14745",
       "pngBytes": 103658
     },
@@ -31189,7 +32279,7 @@
         "warnings": [],
         "loadedFaces": 1
       },
-      "inputKey": "fa5b2af0b28076b91fa83cb0140bad1c73e4f84d58e553397313f174dd91b655",
+      "inputKey": "5e779143d67aa5c060455d5602406bf6cf32a6bd519d7ec4542dddbf694ac5e4",
       "pngHash": "e5cf4c5ec91d84297b74cff319cf00edc4a6cb897a7af69d718f32041e16b940",
       "pngBytes": 63155
     },
@@ -32278,7 +33368,7 @@
         "warnings": [],
         "loadedFaces": 1
       },
-      "inputKey": "8df8970330e6d0aaabe4bcba3452d0e100153afc32f6abe6e7abc163612b0822",
+      "inputKey": "60ac4b8cf373a3095c021e9cada6cd2aeccb015443c6ab754d482c0756651c9d",
       "pngHash": "180fdebd5fb7375afd50867bd0ffa32661fb084b66b76f36cb505b7cf2603ea3",
       "pngBytes": 62261
     },
@@ -33483,7 +34573,7 @@
         "warnings": [],
         "loadedFaces": 5
       },
-      "inputKey": "bb4f718c64675672d3b15eba0a5452af01485012038228225ec571c149f593dd",
+      "inputKey": "26337c9ba9c6bd44d5561a69b3d7e85f2aa646b2cbeafd1abf9357b1d00ae74d",
       "pngHash": "b4644e177327f89515d11afc1833174f86d1858aae57c815e09f27d6aad2eee2",
       "pngBytes": 85679
     },
@@ -34688,7 +35778,7 @@
         "warnings": [],
         "loadedFaces": 5
       },
-      "inputKey": "f831179d1e2ffc459e7f7a9930ddd31bd514fe0f415286accf09614c0ba6bac4",
+      "inputKey": "d2328027ec9af6934a07b11768b796a23c05a60c639b765ab1a92396eca0e8c4",
       "pngHash": "3deff8788981acf173f60b2f9ea0a1fbd17a89d4f7fd0909e15ed44120f71155",
       "pngBytes": 84572
     },
@@ -35997,7 +37087,7 @@
         "warnings": [],
         "loadedFaces": 4
       },
-      "inputKey": "f55884d9a5045f642c3d7a38519a4e67b553efe441704265e011bb1ec15bdae8",
+      "inputKey": "336890a8604a414f7b24a7396d6ec62435b818db84b994037120442ebd4079ec",
       "pngHash": "49817c2968e75ea1c24c174761279043681e67be8a47352397ae1ecedc4d90fc",
       "pngBytes": 243932
     },
@@ -37359,7 +38449,7 @@
         "warnings": [],
         "loadedFaces": 4
       },
-      "inputKey": "45ea7b6853ec5fb80367463f7784625add7e899bd1c4a9bfe6b2340bfabbfe1e",
+      "inputKey": "f419da7686867792a9f35d53f9e26190eade72eb827d128eddd3ea93c4fbf92a",
       "pngHash": "aa1ef57fc7d14ca01dc781003199663cac069a37bb92467461ba355e6251b588",
       "pngBytes": 172977
     },
@@ -38612,7 +39702,7 @@
         "warnings": [],
         "loadedFaces": 4
       },
-      "inputKey": "61b911d8bdbd22bb8bd64788598a7f09a7959b781b6f5c6d7b6915013e346ba6",
+      "inputKey": "ebd51bf6fba776cca82b11eb5a0d0797e562c57219bca31e1ee179a6115c9c20",
       "pngHash": "87e91b8e25a7bc6e928b95f47d1deff673aeaeb50deff3442ab3d01456f20a8f",
       "pngBytes": 272047
     },
@@ -39832,7 +40922,7 @@
         "warnings": [],
         "loadedFaces": 2
       },
-      "inputKey": "fbc30a85ca8e71c1b449cec424ebbccb470660c8b1f596864adf8bfba20c7f06",
+      "inputKey": "1d6b4fbadacd55574c555377ca27179f6520fa3d0b5e81a551996559c7edf1cd",
       "pngHash": "099f160d25c707d9fd140e92f38eeae9b48f19efdd0bcf71c430a949bf42b5c8",
       "pngBytes": 418377
     },
@@ -41057,7 +42147,7 @@
         "warnings": [],
         "loadedFaces": 1
       },
-      "inputKey": "b82d85dd19aaeb334e8501431c3596c9f0fa6524764bc1294068be8b0b9ed777",
+      "inputKey": "ee80fba51bdea7813ce674a0cca273a745b7fd7bf1375f6349c167cc84bff6c1",
       "pngHash": "919108f5408f3d6ce990231fd5b736c0ac399259361968d877e2c31629da271b",
       "pngBytes": 388335
     },
@@ -42407,30 +43497,44 @@
         "warnings": [],
         "loadedFaces": 7
       },
-      "inputKey": "c004e9bf4825eb75464347eb6e03d5473451f916c24d7c6c597763598f01107e",
+      "inputKey": "9c23cd70e998831b25192ec0747890f34690baf10d63efbaf883f03a1ed612b0",
       "pngHash": "1dfe70ee2735efa16da460d5f74f5cc96637c831e1e47ec694135c3216f401f4",
       "pngBytes": 388355
     },
     {
       "nn": "35",
-      "htmlHash": "337a5c60d15e0212f53869798993b7160aff57f2c1b9ba1bd2213f62020cce86",
-      "sourceHash": "6db7e8a842094535d37c579118e5b5b82272dc76d1b2d8cee7b71582743512e6",
+      "htmlHash": "06da653dbd91ab9fe5b9d94aa0664182eed8ffbf3383f5fa14ae3656f4dd4c24",
+      "sourceHash": "13326e33ba71f031e8d867abf99572cabe8af7f6b39365af41df82bf78ddd203",
       "issues": [
         {
-          "level": "ERROR",
-          "rule": "R10",
-          "msg": "closing-seal 声明比例 1/1 被压成 0.208（相差 380.0%）",
-          "layer": "closing-seal",
-          "box": {
-            "x": 71.265625,
-            "y": 891.921875,
-            "w": 86.390625,
-            "h": 414.6875
-          },
-          "hint": "区域过窄或过矮：换更宽/更高的区域或减少同区内容，不要靠拉伸素材"
+          "level": "WARN",
+          "rule": "R7",
+          "msg": "留白/密度仅供人工目检，不作为失败条件",
+          "bands": [
+            {
+              "band": 1,
+              "coveredPx": 205.78125,
+              "emptyPx": 154.21875
+            },
+            {
+              "band": 2,
+              "coveredPx": 154.125,
+              "emptyPx": 205.875
+            },
+            {
+              "band": 3,
+              "coveredPx": 177.875,
+              "emptyPx": 182.125
+            },
+            {
+              "band": 4,
+              "coveredPx": 92,
+              "emptyPx": 268
+            }
+          ]
         }
       ],
-      "status": "failed",
+      "status": "passed",
       "canvas": {
         "w": 1080,
         "h": 1440
@@ -42458,16 +43562,16 @@
             "x": 71.265625,
             "y": 367.40625,
             "w": 937.46875,
-            "h": 492.125
+            "h": 820.421875
           }
         },
         {
           "id": "bottom",
           "rect": {
             "x": 71.265625,
-            "y": 891.921875,
+            "y": 1220.21875,
             "w": 937.46875,
-            "h": 414.6875
+            "h": 86.390625
           }
         },
         {
@@ -42612,7 +43716,7 @@
           "units": "px",
           "rect": {
             "x": 71.265625,
-            "y": 380.6875,
+            "y": 544.828125,
             "w": 937.46875,
             "h": 361.03125
           },
@@ -42632,7 +43736,7 @@
           "units": "px",
           "rect": {
             "x": 71.265625,
-            "y": 380.6875,
+            "y": 544.828125,
             "w": 937.46875,
             "h": 294.09375
           },
@@ -42652,7 +43756,7 @@
           "units": "px",
           "rect": {
             "x": 71.265625,
-            "y": 707.171875,
+            "y": 871.3125,
             "w": 937.46875,
             "h": 34.546875
           },
@@ -42672,7 +43776,7 @@
           "units": "px",
           "rect": {
             "x": 71.265625,
-            "y": 795.71875,
+            "y": 959.859375,
             "w": 937.46875,
             "h": 50.53125
           },
@@ -42692,9 +43796,9 @@
           "units": "px",
           "rect": {
             "x": 71.265625,
-            "y": 891.921875,
+            "y": 1220.21875,
             "w": 86.390625,
-            "h": 414.6875
+            "h": 86.390625
           },
           "visible": true,
           "editable": "text",
@@ -42770,18 +43874,18 @@
         },
         {
           "band": 2,
-          "coveredPx": 276.828125,
-          "emptyPx": 83.171875
+          "coveredPx": 154.125,
+          "emptyPx": 205.875
         },
         {
           "band": 3,
-          "coveredPx": 209.375,
-          "emptyPx": 150.625
+          "coveredPx": 177.875,
+          "emptyPx": 182.125
         },
         {
           "band": 4,
-          "coveredPx": 213.796875,
-          "emptyPx": 146.203125
+          "coveredPx": 92,
+          "emptyPx": 268
         }
       ],
       "counts": {
@@ -43354,7 +44458,7 @@
             "family": "Noto Serif SC",
             "style": "normal",
             "weight": "400",
-            "status": "loaded"
+            "status": "unloaded"
           },
           {
             "family": "Noto Serif SC",
@@ -43544,7 +44648,7 @@
                 "familyName": "Noto Serif SC ExtraLight",
                 "postScriptName": "NotoSerifSCExtraLight-Regular",
                 "isCustomFont": true,
-                "glyphCount": 5
+                "glyphCount": 1
               }
             ]
           },
@@ -43574,9 +44678,11 @@
           }
         ],
         "warnings": [],
-        "loadedFaces": 8
+        "loadedFaces": 7
       },
-      "inputKey": "ecccb50493bdafec2b8301a08a4c68cb0acea30df7ca369b2c3c724789d30ddd"
+      "inputKey": "29ed1797a18008136ee98b5deed1691324480665f92f29144f46db33d474b25c",
+      "pngHash": "2b9123df8a20fb195ad57e9c8feb8f2a55e0fe1bbaf688be4ccdfc28b4bba8a5",
+      "pngBytes": 168368
     },
     {
       "nn": "36",
@@ -44704,25 +45810,16 @@
         "warnings": [],
         "loadedFaces": 7
       },
-      "inputKey": "adc2dbef375700725db27834407ae9d920a07c51144e321d63067b01a3e2749b",
+      "inputKey": "03687c42528d4439149b5fee5cefa97bb6d5a1e00696df3b26e82c3628e25a99",
       "pngHash": "fd903021f574c5878b136e57f81b06251af88825a23c0de2ce03147303f2452b",
       "pngBytes": 157219
     },
     {
       "nn": "37",
-      "htmlHash": "2da77668f01197a072cc68c286542b099078c17d645ba29a9db9f12d4c6db67b",
-      "sourceHash": "e452d6b9978d4bade6208e981277b6efddfedcd7f095c352419c4c998eb229e7",
-      "issues": [
-        {
-          "level": "ERROR",
-          "rule": "R15",
-          "msg": "时间线步骤 inspect-material 内部拉伸余量 71.0cqw（>12cqw）：内容撑不满行高",
-          "layer": "inspect-material",
-          "slackCqw": 71,
-          "hint": "增加步骤，或在同行放 phone/shot 载体锚定行高；不要让时间线独占满高行"
-        }
-      ],
-      "status": "failed",
+      "htmlHash": "93c622577d7d09d0fe6397c543e8a4107f42e7da19465242fa3d14b2f74ffc76",
+      "sourceHash": "17f87ad7f93b17f50b1fc9ecd3fa933a801e570ee9b6ee3f5d94e3fba4e1d963",
+      "issues": [],
+      "status": "passed",
       "canvas": {
         "w": 1080,
         "h": 1440
@@ -44920,7 +46017,7 @@
           "from": "steps-intro"
         },
         {
-          "id": "inspect-material",
+          "id": "inspect-material-1",
           "tag": "section",
           "component": "step",
           "group": true,
@@ -44932,7 +46029,7 @@
             "x": 145.78125,
             "y": 418.8125,
             "w": 377.53125,
-            "h": 887.796875
+            "h": 202.515625
           },
           "visible": true,
           "editable": null,
@@ -44940,11 +46037,11 @@
           "from": null
         },
         {
-          "id": "inspect-material-order",
+          "id": "inspect-material-order-1",
           "tag": "span",
           "component": null,
           "group": false,
-          "parentLayer": "inspect-material",
+          "parentLayer": "inspect-material-1",
           "region": "full",
           "coordinateReference": "canvas-top-left",
           "units": "px",
@@ -44960,11 +46057,11 @@
           "from": "inspect-material-order"
         },
         {
-          "id": "inspect-material-title",
+          "id": "inspect-material-title-1",
           "tag": "h2",
           "component": null,
           "group": false,
-          "parentLayer": "inspect-material",
+          "parentLayer": "inspect-material-1",
           "region": "full",
           "coordinateReference": "canvas-top-left",
           "units": "px",
@@ -44980,17 +46077,257 @@
           "from": "inspect-material-title"
         },
         {
-          "id": "inspect-material-detail",
+          "id": "inspect-material-detail-1",
           "tag": "p",
           "component": null,
           "group": false,
-          "parentLayer": "inspect-material",
+          "parentLayer": "inspect-material-1",
           "region": "full",
           "coordinateReference": "canvas-top-left",
           "units": "px",
           "rect": {
             "x": 249.453125,
             "y": 492.234375,
+            "w": 273.859375,
+            "h": 73.0625
+          },
+          "visible": true,
+          "editable": "text",
+          "slot": null,
+          "from": "inspect-material-detail"
+        },
+        {
+          "id": "inspect-material-2",
+          "tag": "section",
+          "component": "step",
+          "group": true,
+          "parentLayer": null,
+          "region": "full",
+          "coordinateReference": "canvas-top-left",
+          "units": "px",
+          "rect": {
+            "x": 145.78125,
+            "y": 647.234375,
+            "w": 377.53125,
+            "h": 202.53125
+          },
+          "visible": true,
+          "editable": null,
+          "slot": null,
+          "from": null
+        },
+        {
+          "id": "inspect-material-order-2",
+          "tag": "span",
+          "component": null,
+          "group": false,
+          "parentLayer": "inspect-material-2",
+          "region": "full",
+          "coordinateReference": "canvas-top-left",
+          "units": "px",
+          "rect": {
+            "x": 145.78125,
+            "y": 666.671875,
+            "w": 75.59375,
+            "h": 0
+          },
+          "visible": false,
+          "editable": "text",
+          "slot": null,
+          "from": "inspect-material-order"
+        },
+        {
+          "id": "inspect-material-title-2",
+          "tag": "h2",
+          "component": null,
+          "group": false,
+          "parentLayer": "inspect-material-2",
+          "region": "full",
+          "coordinateReference": "canvas-top-left",
+          "units": "px",
+          "rect": {
+            "x": 249.453125,
+            "y": 666.671875,
+            "w": 273.859375,
+            "h": 45.359375
+          },
+          "visible": true,
+          "editable": "text",
+          "slot": null,
+          "from": "inspect-material-title"
+        },
+        {
+          "id": "inspect-material-detail-2",
+          "tag": "p",
+          "component": null,
+          "group": false,
+          "parentLayer": "inspect-material-2",
+          "region": "full",
+          "coordinateReference": "canvas-top-left",
+          "units": "px",
+          "rect": {
+            "x": 249.453125,
+            "y": 720.65625,
+            "w": 273.859375,
+            "h": 73.0625
+          },
+          "visible": true,
+          "editable": "text",
+          "slot": null,
+          "from": "inspect-material-detail"
+        },
+        {
+          "id": "inspect-material-3",
+          "tag": "section",
+          "component": "step",
+          "group": true,
+          "parentLayer": null,
+          "region": "full",
+          "coordinateReference": "canvas-top-left",
+          "units": "px",
+          "rect": {
+            "x": 145.78125,
+            "y": 875.671875,
+            "w": 377.53125,
+            "h": 202.515625
+          },
+          "visible": true,
+          "editable": null,
+          "slot": null,
+          "from": null
+        },
+        {
+          "id": "inspect-material-order-3",
+          "tag": "span",
+          "component": null,
+          "group": false,
+          "parentLayer": "inspect-material-3",
+          "region": "full",
+          "coordinateReference": "canvas-top-left",
+          "units": "px",
+          "rect": {
+            "x": 145.78125,
+            "y": 895.109375,
+            "w": 75.59375,
+            "h": 0
+          },
+          "visible": false,
+          "editable": "text",
+          "slot": null,
+          "from": "inspect-material-order"
+        },
+        {
+          "id": "inspect-material-title-3",
+          "tag": "h2",
+          "component": null,
+          "group": false,
+          "parentLayer": "inspect-material-3",
+          "region": "full",
+          "coordinateReference": "canvas-top-left",
+          "units": "px",
+          "rect": {
+            "x": 249.453125,
+            "y": 895.109375,
+            "w": 273.859375,
+            "h": 45.359375
+          },
+          "visible": true,
+          "editable": "text",
+          "slot": null,
+          "from": "inspect-material-title"
+        },
+        {
+          "id": "inspect-material-detail-3",
+          "tag": "p",
+          "component": null,
+          "group": false,
+          "parentLayer": "inspect-material-3",
+          "region": "full",
+          "coordinateReference": "canvas-top-left",
+          "units": "px",
+          "rect": {
+            "x": 249.453125,
+            "y": 949.09375,
+            "w": 273.859375,
+            "h": 73.0625
+          },
+          "visible": true,
+          "editable": "text",
+          "slot": null,
+          "from": "inspect-material-detail"
+        },
+        {
+          "id": "inspect-material-4",
+          "tag": "section",
+          "component": "step",
+          "group": true,
+          "parentLayer": null,
+          "region": "full",
+          "coordinateReference": "canvas-top-left",
+          "units": "px",
+          "rect": {
+            "x": 145.78125,
+            "y": 1104.09375,
+            "w": 377.53125,
+            "h": 202.515625
+          },
+          "visible": true,
+          "editable": null,
+          "slot": null,
+          "from": null
+        },
+        {
+          "id": "inspect-material-order-4",
+          "tag": "span",
+          "component": null,
+          "group": false,
+          "parentLayer": "inspect-material-4",
+          "region": "full",
+          "coordinateReference": "canvas-top-left",
+          "units": "px",
+          "rect": {
+            "x": 145.78125,
+            "y": 1123.53125,
+            "w": 75.59375,
+            "h": 0
+          },
+          "visible": false,
+          "editable": "text",
+          "slot": null,
+          "from": "inspect-material-order"
+        },
+        {
+          "id": "inspect-material-title-4",
+          "tag": "h2",
+          "component": null,
+          "group": false,
+          "parentLayer": "inspect-material-4",
+          "region": "full",
+          "coordinateReference": "canvas-top-left",
+          "units": "px",
+          "rect": {
+            "x": 249.453125,
+            "y": 1123.53125,
+            "w": 273.859375,
+            "h": 45.359375
+          },
+          "visible": true,
+          "editable": "text",
+          "slot": null,
+          "from": "inspect-material-title"
+        },
+        {
+          "id": "inspect-material-detail-4",
+          "tag": "p",
+          "component": null,
+          "group": false,
+          "parentLayer": "inspect-material-4",
+          "region": "full",
+          "coordinateReference": "canvas-top-left",
+          "units": "px",
+          "rect": {
+            "x": 249.453125,
+            "y": 1177.515625,
             "w": 273.859375,
             "h": 73.0625
           },
@@ -45198,13 +46535,13 @@
         },
         {
           "band": 4,
-          "coveredPx": 174.609375,
-          "emptyPx": 185.390625
+          "coveredPx": 220.59375,
+          "emptyPx": 139.40625
         }
       ],
       "counts": {
-        "components": 6,
-        "texts": 11,
+        "components": 9,
+        "texts": 17,
         "images": 2
       },
       "fonts": {
@@ -45931,7 +47268,7 @@
             ]
           },
           {
-            "layer": "inspect-material-title",
+            "layer": "inspect-material-title-1",
             "tag": "H2",
             "fonts": [
               {
@@ -45943,7 +47280,79 @@
             ]
           },
           {
-            "layer": "inspect-material-detail",
+            "layer": "inspect-material-detail-1",
+            "tag": "P",
+            "fonts": [
+              {
+                "familyName": "Microsoft YaHei",
+                "postScriptName": "MicrosoftYaHei",
+                "isCustomFont": false,
+                "glyphCount": 17
+              }
+            ]
+          },
+          {
+            "layer": "inspect-material-title-2",
+            "tag": "H2",
+            "fonts": [
+              {
+                "familyName": "Microsoft YaHei",
+                "postScriptName": "MicrosoftYaHei-Bold",
+                "isCustomFont": false,
+                "glyphCount": 4
+              }
+            ]
+          },
+          {
+            "layer": "inspect-material-detail-2",
+            "tag": "P",
+            "fonts": [
+              {
+                "familyName": "Microsoft YaHei",
+                "postScriptName": "MicrosoftYaHei",
+                "isCustomFont": false,
+                "glyphCount": 17
+              }
+            ]
+          },
+          {
+            "layer": "inspect-material-title-3",
+            "tag": "H2",
+            "fonts": [
+              {
+                "familyName": "Microsoft YaHei",
+                "postScriptName": "MicrosoftYaHei-Bold",
+                "isCustomFont": false,
+                "glyphCount": 4
+              }
+            ]
+          },
+          {
+            "layer": "inspect-material-detail-3",
+            "tag": "P",
+            "fonts": [
+              {
+                "familyName": "Microsoft YaHei",
+                "postScriptName": "MicrosoftYaHei",
+                "isCustomFont": false,
+                "glyphCount": 17
+              }
+            ]
+          },
+          {
+            "layer": "inspect-material-title-4",
+            "tag": "H2",
+            "fonts": [
+              {
+                "familyName": "Microsoft YaHei",
+                "postScriptName": "MicrosoftYaHei-Bold",
+                "isCustomFont": false,
+                "glyphCount": 4
+              }
+            ]
+          },
+          {
+            "layer": "inspect-material-detail-4",
             "tag": "P",
             "fonts": [
               {
@@ -46006,7 +47415,9 @@
         "warnings": [],
         "loadedFaces": 5
       },
-      "inputKey": "210457d497e8215003f519eaf1355f418be7af7b52186d4680b651989c3e4ad6"
+      "inputKey": "bd171d0f9c7bec7e32d3b6839516306a345d1c216d6f453c6cdc8b4416e54f2e",
+      "pngHash": "446b021c979bbb5302094e8211e65a763f202c1f762e689b6404cd888541ff09",
+      "pngBytes": 354962
     },
     {
       "nn": "38",
@@ -47171,7 +48582,7 @@
         "warnings": [],
         "loadedFaces": 1
       },
-      "inputKey": "8b99136bceef45022f8b629cb2fccadd5b6ac48b6e0d2ce3aaf19d3226a6a938",
+      "inputKey": "0c273291b4f7aaa833dcadec56f038086d3bc597b27b4b175776e2df0dacc6e2",
       "pngHash": "0f538193e3efcf17a8fbb0805f1180a52566355bdcda805a3a564be2f5eba93d",
       "pngBytes": 142938
     },
@@ -48365,7 +49776,7 @@
         "warnings": [],
         "loadedFaces": 1
       },
-      "inputKey": "cb38327227fef3d029cae97e3eeca28deddfcdcedd217a80d871f327fce2ecb7",
+      "inputKey": "cbf8d6873644865edad6d27d7f29c68939869fa0f921ba01d3d9226f569165c2",
       "pngHash": "381097217ffaa93ca29d19796ab9261b9a69e791c1ec26f1fbc17e801ba60ea0",
       "pngBytes": 129052
     },
@@ -49501,7 +50912,7 @@
         "warnings": [],
         "loadedFaces": 1
       },
-      "inputKey": "9b2cca0fa2605b739674ea61df070d3d07910deae9fdf21643eef3d63e07ff6d",
+      "inputKey": "9189695eb6eff930803285ce4ed89a2434e724187ab78c2f7ea105af38e8dda1",
       "pngHash": "7a5d6734329b98121ff7debeaa0708c25919151fef6d852c7a1e7ca5b292b119",
       "pngBytes": 109443
     },
@@ -50642,7 +52053,7 @@
         "warnings": [],
         "loadedFaces": 1
       },
-      "inputKey": "a7608561ec22ac473568109f4ee5bd7a175811c8b1f7b9a33828d4186ae52d14",
+      "inputKey": "d2dd15905371af54816812914169b663953e13ca3be191c51335f3576e351528",
       "pngHash": "8cca6b78979bcd28e098acf0b1e1316697bf83ad033ecd5ab34918bc3428b6b2",
       "pngBytes": 110444
     }
@@ -50651,9 +52062,9 @@
     {
       "level": "ERROR",
       "rule": "BATCH",
-      "msg": "几何检查失败页: 08, 10, 19, 20, 35, 37；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+      "msg": "几何检查失败页: 19, 20；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
     }
   ],
   "artifacts": {},
-  "updatedAt": "2026-11-13T14:28:58.840Z"
+  "updatedAt": "2026-11-13T15:15:01.736Z"
 }

@@ -1,0 +1,3142 @@
+[
+  {
+    "file": "card01-body-aligned.part.html",
+    "placeholder": "品牌印章字",
+    "value": "A1"
+  },
+  {
+    "file": "card01-body-aligned.part.html",
+    "placeholder": "品牌名称",
+    "value": "A1 受控回归"
+  },
+  {
+    "file": "card01-body-aligned.part.html",
+    "placeholder": "品牌标语",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "card01-body-aligned.part.html",
+    "placeholder": "栏目引导语",
+    "value": "栏目引导语"
+  },
+  {
+    "file": "card01-body-aligned.part.html",
+    "placeholder": "页标题",
+    "value": "页标题"
+  },
+  {
+    "file": "card01-body-aligned.part.html",
+    "placeholder": "栏目副题",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "card01-body-aligned.part.html",
+    "placeholder": "要点序字",
+    "value": "1"
+  },
+  {
+    "file": "card01-body-aligned.part.html",
+    "placeholder": "要点标题",
+    "value": "要点标题"
+  },
+  {
+    "file": "card01-body-aligned.part.html",
+    "placeholder": "要点说明",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "card01-body-aligned.part.html",
+    "placeholder": "图1",
+    "value": "assets/s1.png"
+  },
+  {
+    "file": "card01-body-aligned.part.html",
+    "placeholder": "图2",
+    "value": "assets/s2.png"
+  },
+  {
+    "file": "card01-body-aligned.part.html",
+    "placeholder": "对齐说明",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "card01-body-aligned.part.html",
+    "placeholder": "页脚署名",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "card01-body-mn.part.html",
+    "placeholder": "品牌印章字",
+    "value": "A1"
+  },
+  {
+    "file": "card01-body-mn.part.html",
+    "placeholder": "品牌名称",
+    "value": "A1 受控回归"
+  },
+  {
+    "file": "card01-body-mn.part.html",
+    "placeholder": "品牌标语",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "card01-body-mn.part.html",
+    "placeholder": "栏目引导语",
+    "value": "栏目引导语"
+  },
+  {
+    "file": "card01-body-mn.part.html",
+    "placeholder": "页标题前段",
+    "value": "页标题前"
+  },
+  {
+    "file": "card01-body-mn.part.html",
+    "placeholder": "高亮词",
+    "value": "高亮词"
+  },
+  {
+    "file": "card01-body-mn.part.html",
+    "placeholder": "栏目副题",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "card01-body-mn.part.html",
+    "placeholder": "旁注标题",
+    "value": "旁注标题"
+  },
+  {
+    "file": "card01-body-mn.part.html",
+    "placeholder": "旁注说明",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "card01-body-mn.part.html",
+    "placeholder": "图1",
+    "value": "assets/s1.png"
+  },
+  {
+    "file": "card01-body-mn.part.html",
+    "placeholder": "图2",
+    "value": "assets/s2.png"
+  },
+  {
+    "file": "card01-body-mn.part.html",
+    "placeholder": "页脚署名",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "card01-body-stagger.part.html",
+    "placeholder": "品牌印章字",
+    "value": "A1"
+  },
+  {
+    "file": "card01-body-stagger.part.html",
+    "placeholder": "品牌名称",
+    "value": "A1 受控回归"
+  },
+  {
+    "file": "card01-body-stagger.part.html",
+    "placeholder": "品牌标语",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "card01-body-stagger.part.html",
+    "placeholder": "栏目引导语",
+    "value": "栏目引导语"
+  },
+  {
+    "file": "card01-body-stagger.part.html",
+    "placeholder": "页标题",
+    "value": "页标题"
+  },
+  {
+    "file": "card01-body-stagger.part.html",
+    "placeholder": "栏目副题",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "card01-body-stagger.part.html",
+    "placeholder": "要点序字",
+    "value": "1"
+  },
+  {
+    "file": "card01-body-stagger.part.html",
+    "placeholder": "要点标题",
+    "value": "要点标题"
+  },
+  {
+    "file": "card01-body-stagger.part.html",
+    "placeholder": "要点说明",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "card01-body-stagger.part.html",
+    "placeholder": "图1",
+    "value": "assets/s1.png"
+  },
+  {
+    "file": "card01-body-stagger.part.html",
+    "placeholder": "图2",
+    "value": "assets/s2.png"
+  },
+  {
+    "file": "card01-body-stagger.part.html",
+    "placeholder": "对齐说明",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "card01-body-stagger.part.html",
+    "placeholder": "页脚署名",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "card01-cover-bleed.part.html",
+    "placeholder": "品牌印章字",
+    "value": "A1"
+  },
+  {
+    "file": "card01-cover-bleed.part.html",
+    "placeholder": "品牌名称",
+    "value": "A1 受控回归"
+  },
+  {
+    "file": "card01-cover-bleed.part.html",
+    "placeholder": "品牌标语",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "card01-cover-bleed.part.html",
+    "placeholder": "刊期年月",
+    "value": "2026-11"
+  },
+  {
+    "file": "card01-cover-bleed.part.html",
+    "placeholder": "刊期号",
+    "value": "第 07 期"
+  },
+  {
+    "file": "card01-cover-bleed.part.html",
+    "placeholder": "栏目引导语",
+    "value": "栏目引导语"
+  },
+  {
+    "file": "card01-cover-bleed.part.html",
+    "placeholder": "封面主标题前段",
+    "value": "一句话"
+  },
+  {
+    "file": "card01-cover-bleed.part.html",
+    "placeholder": "封面高亮词",
+    "value": "高亮"
+  },
+  {
+    "file": "card01-cover-bleed.part.html",
+    "placeholder": "封面主标题后段",
+    "value": "收尾"
+  },
+  {
+    "file": "card01-cover-bleed.part.html",
+    "placeholder": "要点序字",
+    "value": "1"
+  },
+  {
+    "file": "card01-cover-bleed.part.html",
+    "placeholder": "要点标题",
+    "value": "要点标题"
+  },
+  {
+    "file": "card01-cover-bleed.part.html",
+    "placeholder": "要点说明",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "card01-cover-bleed.part.html",
+    "placeholder": "图1",
+    "value": "assets/s1.png"
+  },
+  {
+    "file": "card01-cover-bleed.part.html",
+    "placeholder": "图2",
+    "value": "assets/s2.png"
+  },
+  {
+    "file": "card01-cover-bleed.part.html",
+    "placeholder": "页脚署名",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "card01-cover-standard.part.html",
+    "placeholder": "品牌印章字",
+    "value": "A1"
+  },
+  {
+    "file": "card01-cover-standard.part.html",
+    "placeholder": "品牌名称",
+    "value": "A1 受控回归"
+  },
+  {
+    "file": "card01-cover-standard.part.html",
+    "placeholder": "品牌标语",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "card01-cover-standard.part.html",
+    "placeholder": "刊期年月",
+    "value": "2026-11"
+  },
+  {
+    "file": "card01-cover-standard.part.html",
+    "placeholder": "刊期号",
+    "value": "第 07 期"
+  },
+  {
+    "file": "card01-cover-standard.part.html",
+    "placeholder": "栏目引导语",
+    "value": "栏目引导语"
+  },
+  {
+    "file": "card01-cover-standard.part.html",
+    "placeholder": "封面主标题",
+    "value": "封面主标"
+  },
+  {
+    "file": "card01-cover-standard.part.html",
+    "placeholder": "封面高亮词",
+    "value": "高亮"
+  },
+  {
+    "file": "card01-cover-standard.part.html",
+    "placeholder": "封面副题",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "card01-cover-standard.part.html",
+    "placeholder": "要点序字",
+    "value": "1"
+  },
+  {
+    "file": "card01-cover-standard.part.html",
+    "placeholder": "要点标题",
+    "value": "要点标题"
+  },
+  {
+    "file": "card01-cover-standard.part.html",
+    "placeholder": "要点说明",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "card01-cover-standard.part.html",
+    "placeholder": "图1",
+    "value": "assets/s1.png"
+  },
+  {
+    "file": "card01-cover-standard.part.html",
+    "placeholder": "图2",
+    "value": "assets/s2.png"
+  },
+  {
+    "file": "card01-cover-standard.part.html",
+    "placeholder": "页脚署名",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "card02-centered.part.html",
+    "placeholder": "品牌印章字",
+    "value": "A1"
+  },
+  {
+    "file": "card02-centered.part.html",
+    "placeholder": "品牌名称",
+    "value": "A1 受控回归"
+  },
+  {
+    "file": "card02-centered.part.html",
+    "placeholder": "品牌标语",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "card02-centered.part.html",
+    "placeholder": "栏目引导语",
+    "value": "栏目引导语"
+  },
+  {
+    "file": "card02-centered.part.html",
+    "placeholder": "页标题前段",
+    "value": "页标题前"
+  },
+  {
+    "file": "card02-centered.part.html",
+    "placeholder": "高亮词",
+    "value": "高亮词"
+  },
+  {
+    "file": "card02-centered.part.html",
+    "placeholder": "页标题后段",
+    "value": "页标题后"
+  },
+  {
+    "file": "card02-centered.part.html",
+    "placeholder": "要点标题",
+    "value": "要点标题"
+  },
+  {
+    "file": "card02-centered.part.html",
+    "placeholder": "要点说明",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "card02-centered.part.html",
+    "placeholder": "语境标题",
+    "value": "语境标题"
+  },
+  {
+    "file": "card02-centered.part.html",
+    "placeholder": "语境说明",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "card02-centered.part.html",
+    "placeholder": "图1",
+    "value": "assets/s1.png"
+  },
+  {
+    "file": "card02-centered.part.html",
+    "placeholder": "图2",
+    "value": "assets/s2.png"
+  },
+  {
+    "file": "card02-centered.part.html",
+    "placeholder": "来源标题",
+    "value": "来源标题"
+  },
+  {
+    "file": "card02-centered.part.html",
+    "placeholder": "来源说明",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "card02-centered.part.html",
+    "placeholder": "补充标题",
+    "value": "补充标题"
+  },
+  {
+    "file": "card02-centered.part.html",
+    "placeholder": "补充说明",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "card02-centered.part.html",
+    "placeholder": "底部注释",
+    "value": "底部注释"
+  },
+  {
+    "file": "card02-centered.part.html",
+    "placeholder": "页脚署名",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "close01-minimal.part.html",
+    "placeholder": "品牌印章字",
+    "value": "A1"
+  },
+  {
+    "file": "close01-minimal.part.html",
+    "placeholder": "品牌名称",
+    "value": "A1 受控回归"
+  },
+  {
+    "file": "close01-minimal.part.html",
+    "placeholder": "品牌标语",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "close01-minimal.part.html",
+    "placeholder": "收尾标题",
+    "value": "收尾标题"
+  },
+  {
+    "file": "close01-minimal.part.html",
+    "placeholder": "收尾引言",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "close01-minimal.part.html",
+    "placeholder": "条目标签",
+    "value": "条目标签"
+  },
+  {
+    "file": "close01-minimal.part.html",
+    "placeholder": "条目标签英文",
+    "value": "条目标签英文"
+  },
+  {
+    "file": "close01-minimal.part.html",
+    "placeholder": "条目说明",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "close01-minimal.part.html",
+    "placeholder": "行动指令",
+    "value": "行动指令"
+  },
+  {
+    "file": "close01-minimal.part.html",
+    "placeholder": "页脚签名",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "close01-minimal.part.html",
+    "placeholder": "背景大字",
+    "value": "背景大字"
+  },
+  {
+    "file": "close01-pills-extended.part.html",
+    "placeholder": "品牌印章字",
+    "value": "A1"
+  },
+  {
+    "file": "close01-pills-extended.part.html",
+    "placeholder": "品牌名称",
+    "value": "A1 受控回归"
+  },
+  {
+    "file": "close01-pills-extended.part.html",
+    "placeholder": "品牌标语",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "close01-pills-extended.part.html",
+    "placeholder": "收尾标题",
+    "value": "收尾标题"
+  },
+  {
+    "file": "close01-pills-extended.part.html",
+    "placeholder": "收尾引言",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "close01-pills-extended.part.html",
+    "placeholder": "收尾标签一",
+    "value": "收尾标签一"
+  },
+  {
+    "file": "close01-pills-extended.part.html",
+    "placeholder": "收尾标签二",
+    "value": "收尾标签二"
+  },
+  {
+    "file": "close01-pills-extended.part.html",
+    "placeholder": "收尾标签三",
+    "value": "收尾标签三"
+  },
+  {
+    "file": "close01-pills-extended.part.html",
+    "placeholder": "收尾标签四",
+    "value": "收尾标签四"
+  },
+  {
+    "file": "close01-pills-extended.part.html",
+    "placeholder": "收尾标签五",
+    "value": "收尾标签五"
+  },
+  {
+    "file": "close01-pills-extended.part.html",
+    "placeholder": "条目标签",
+    "value": "条目标签"
+  },
+  {
+    "file": "close01-pills-extended.part.html",
+    "placeholder": "条目标签英文",
+    "value": "条目标签英文"
+  },
+  {
+    "file": "close01-pills-extended.part.html",
+    "placeholder": "条目说明",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "close01-pills-extended.part.html",
+    "placeholder": "行动指令",
+    "value": "行动指令"
+  },
+  {
+    "file": "close01-pills-extended.part.html",
+    "placeholder": "收束印章字",
+    "value": "真"
+  },
+  {
+    "file": "close01-pills-extended.part.html",
+    "placeholder": "页脚签名",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "close01-pills-extended.part.html",
+    "placeholder": "背景大字",
+    "value": "背景大字"
+  },
+  {
+    "file": "close01-quote.part.html",
+    "placeholder": "品牌印章字",
+    "value": "A1"
+  },
+  {
+    "file": "close01-quote.part.html",
+    "placeholder": "品牌名称",
+    "value": "A1 受控回归"
+  },
+  {
+    "file": "close01-quote.part.html",
+    "placeholder": "品牌标语",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "close01-quote.part.html",
+    "placeholder": "收尾标题前段",
+    "value": "收尾标题"
+  },
+  {
+    "file": "close01-quote.part.html",
+    "placeholder": "收尾标题中段",
+    "value": "收尾标题"
+  },
+  {
+    "file": "close01-quote.part.html",
+    "placeholder": "收尾标题重点",
+    "value": "收尾标题"
+  },
+  {
+    "file": "close01-quote.part.html",
+    "placeholder": "收尾引言",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "close01-quote.part.html",
+    "placeholder": "条目标签",
+    "value": "条目标签"
+  },
+  {
+    "file": "close01-quote.part.html",
+    "placeholder": "条目标签英文",
+    "value": "条目标签英文"
+  },
+  {
+    "file": "close01-quote.part.html",
+    "placeholder": "条目说明",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "close01-quote.part.html",
+    "placeholder": "收束金句前段",
+    "value": "收束金句前段"
+  },
+  {
+    "file": "close01-quote.part.html",
+    "placeholder": "收束金句重点",
+    "value": "收束金句重点"
+  },
+  {
+    "file": "close01-quote.part.html",
+    "placeholder": "收束金句后段",
+    "value": "收束金句后段"
+  },
+  {
+    "file": "close01-quote.part.html",
+    "placeholder": "行动指令",
+    "value": "行动指令"
+  },
+  {
+    "file": "close01-quote.part.html",
+    "placeholder": "页脚签名",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "close01-quote.part.html",
+    "placeholder": "背景大字",
+    "value": "背景大字"
+  },
+  {
+    "file": "close01-standard.part.html",
+    "placeholder": "品牌印章字",
+    "value": "A1"
+  },
+  {
+    "file": "close01-standard.part.html",
+    "placeholder": "品牌名称",
+    "value": "A1 受控回归"
+  },
+  {
+    "file": "close01-standard.part.html",
+    "placeholder": "品牌标语",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "close01-standard.part.html",
+    "placeholder": "收尾标题",
+    "value": "收尾标题"
+  },
+  {
+    "file": "close01-standard.part.html",
+    "placeholder": "收尾引言",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "close01-standard.part.html",
+    "placeholder": "收尾标签一",
+    "value": "收尾标签一"
+  },
+  {
+    "file": "close01-standard.part.html",
+    "placeholder": "收尾标签二",
+    "value": "收尾标签二"
+  },
+  {
+    "file": "close01-standard.part.html",
+    "placeholder": "收尾标签三",
+    "value": "收尾标签三"
+  },
+  {
+    "file": "close01-standard.part.html",
+    "placeholder": "条目标签",
+    "value": "条目标签"
+  },
+  {
+    "file": "close01-standard.part.html",
+    "placeholder": "条目标签英文",
+    "value": "条目标签英文"
+  },
+  {
+    "file": "close01-standard.part.html",
+    "placeholder": "条目说明",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "close01-standard.part.html",
+    "placeholder": "行动指令",
+    "value": "行动指令"
+  },
+  {
+    "file": "close01-standard.part.html",
+    "placeholder": "收束印章字",
+    "value": "真"
+  },
+  {
+    "file": "close01-standard.part.html",
+    "placeholder": "页脚签名",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "compare01-grid4.part.html",
+    "placeholder": "品牌印章字",
+    "value": "A1"
+  },
+  {
+    "file": "compare01-grid4.part.html",
+    "placeholder": "品牌名称",
+    "value": "A1 受控回归"
+  },
+  {
+    "file": "compare01-grid4.part.html",
+    "placeholder": "品牌标语",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "compare01-grid4.part.html",
+    "placeholder": "栏目主题",
+    "value": "栏目主题"
+  },
+  {
+    "file": "compare01-grid4.part.html",
+    "placeholder": "对比标题导语",
+    "value": "对比标题"
+  },
+  {
+    "file": "compare01-grid4.part.html",
+    "placeholder": "对比标题重点",
+    "value": "对比标题"
+  },
+  {
+    "file": "compare01-grid4.part.html",
+    "placeholder": "对比引言",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "compare01-grid4.part.html",
+    "placeholder": "对比卡标题",
+    "value": "对比卡标"
+  },
+  {
+    "file": "compare01-grid4.part.html",
+    "placeholder": "对比卡条目一",
+    "value": "对比卡条目一"
+  },
+  {
+    "file": "compare01-grid4.part.html",
+    "placeholder": "对比卡条目二",
+    "value": "对比卡条目二"
+  },
+  {
+    "file": "compare01-grid4.part.html",
+    "placeholder": "对比卡条目三",
+    "value": "对比卡条目三"
+  },
+  {
+    "file": "compare01-grid4.part.html",
+    "placeholder": "对比边界说明",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "compare01-grid4.part.html",
+    "placeholder": "页脚签名",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "compare01-h2.part.html",
+    "placeholder": "品牌印章字",
+    "value": "A1"
+  },
+  {
+    "file": "compare01-h2.part.html",
+    "placeholder": "品牌名称",
+    "value": "A1 受控回归"
+  },
+  {
+    "file": "compare01-h2.part.html",
+    "placeholder": "品牌标语",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "compare01-h2.part.html",
+    "placeholder": "栏目主题",
+    "value": "栏目主题"
+  },
+  {
+    "file": "compare01-h2.part.html",
+    "placeholder": "对比标题导语",
+    "value": "对比标题"
+  },
+  {
+    "file": "compare01-h2.part.html",
+    "placeholder": "对比标题重点",
+    "value": "对比标题"
+  },
+  {
+    "file": "compare01-h2.part.html",
+    "placeholder": "对比引言",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "compare01-h2.part.html",
+    "placeholder": "对比卡标题",
+    "value": "对比卡标"
+  },
+  {
+    "file": "compare01-h2.part.html",
+    "placeholder": "对比卡条目一",
+    "value": "对比卡条目一"
+  },
+  {
+    "file": "compare01-h2.part.html",
+    "placeholder": "对比卡条目二",
+    "value": "对比卡条目二"
+  },
+  {
+    "file": "compare01-h2.part.html",
+    "placeholder": "对比卡条目三",
+    "value": "对比卡条目三"
+  },
+  {
+    "file": "compare01-h2.part.html",
+    "placeholder": "对比边界说明",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "compare01-h2.part.html",
+    "placeholder": "页脚签名",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "compare01-v2-dark.part.html",
+    "placeholder": "品牌印章字",
+    "value": "A1"
+  },
+  {
+    "file": "compare01-v2-dark.part.html",
+    "placeholder": "品牌名称",
+    "value": "A1 受控回归"
+  },
+  {
+    "file": "compare01-v2-dark.part.html",
+    "placeholder": "品牌标语",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "compare01-v2-dark.part.html",
+    "placeholder": "栏目主题",
+    "value": "栏目主题"
+  },
+  {
+    "file": "compare01-v2-dark.part.html",
+    "placeholder": "对比标题导语",
+    "value": "对比标题"
+  },
+  {
+    "file": "compare01-v2-dark.part.html",
+    "placeholder": "对比标题重点",
+    "value": "对比标题"
+  },
+  {
+    "file": "compare01-v2-dark.part.html",
+    "placeholder": "对比引言",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "compare01-v2-dark.part.html",
+    "placeholder": "对比前卡标题",
+    "value": "对比前卡"
+  },
+  {
+    "file": "compare01-v2-dark.part.html",
+    "placeholder": "对比前卡条目一",
+    "value": "对比前卡条目一"
+  },
+  {
+    "file": "compare01-v2-dark.part.html",
+    "placeholder": "对比前卡条目二",
+    "value": "对比前卡条目二"
+  },
+  {
+    "file": "compare01-v2-dark.part.html",
+    "placeholder": "对比前卡条目三",
+    "value": "对比前卡条目三"
+  },
+  {
+    "file": "compare01-v2-dark.part.html",
+    "placeholder": "对比后卡标题",
+    "value": "对比后卡"
+  },
+  {
+    "file": "compare01-v2-dark.part.html",
+    "placeholder": "对比后卡条目一",
+    "value": "对比后卡条目一"
+  },
+  {
+    "file": "compare01-v2-dark.part.html",
+    "placeholder": "对比后卡条目二",
+    "value": "对比后卡条目二"
+  },
+  {
+    "file": "compare01-v2-dark.part.html",
+    "placeholder": "对比后卡条目三",
+    "value": "对比后卡条目三"
+  },
+  {
+    "file": "compare01-v2-dark.part.html",
+    "placeholder": "收束句前段",
+    "value": "收束句前段"
+  },
+  {
+    "file": "compare01-v2-dark.part.html",
+    "placeholder": "收束句重点",
+    "value": "收束句重点"
+  },
+  {
+    "file": "compare01-v2-dark.part.html",
+    "placeholder": "收束句尾",
+    "value": "收束句尾"
+  },
+  {
+    "file": "compare01-v2-dark.part.html",
+    "placeholder": "页脚签名",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "compare01-v2-vs.part.html",
+    "placeholder": "品牌印章字",
+    "value": "A1"
+  },
+  {
+    "file": "compare01-v2-vs.part.html",
+    "placeholder": "品牌名称",
+    "value": "A1 受控回归"
+  },
+  {
+    "file": "compare01-v2-vs.part.html",
+    "placeholder": "品牌标语",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "compare01-v2-vs.part.html",
+    "placeholder": "栏目主题",
+    "value": "栏目主题"
+  },
+  {
+    "file": "compare01-v2-vs.part.html",
+    "placeholder": "对比标题导语",
+    "value": "对比标题"
+  },
+  {
+    "file": "compare01-v2-vs.part.html",
+    "placeholder": "对比标题重点",
+    "value": "对比标题"
+  },
+  {
+    "file": "compare01-v2-vs.part.html",
+    "placeholder": "对比引言",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "compare01-v2-vs.part.html",
+    "placeholder": "对比前卡标题",
+    "value": "对比前卡"
+  },
+  {
+    "file": "compare01-v2-vs.part.html",
+    "placeholder": "对比前卡条目一",
+    "value": "对比前卡条目一"
+  },
+  {
+    "file": "compare01-v2-vs.part.html",
+    "placeholder": "对比前卡条目二",
+    "value": "对比前卡条目二"
+  },
+  {
+    "file": "compare01-v2-vs.part.html",
+    "placeholder": "对比前卡条目三",
+    "value": "对比前卡条目三"
+  },
+  {
+    "file": "compare01-v2-vs.part.html",
+    "placeholder": "对比后卡标题",
+    "value": "对比后卡"
+  },
+  {
+    "file": "compare01-v2-vs.part.html",
+    "placeholder": "对比后卡条目一",
+    "value": "对比后卡条目一"
+  },
+  {
+    "file": "compare01-v2-vs.part.html",
+    "placeholder": "对比后卡条目二",
+    "value": "对比后卡条目二"
+  },
+  {
+    "file": "compare01-v2-vs.part.html",
+    "placeholder": "对比后卡条目三",
+    "value": "对比后卡条目三"
+  },
+  {
+    "file": "compare01-v2-vs.part.html",
+    "placeholder": "收束句前段",
+    "value": "收束句前段"
+  },
+  {
+    "file": "compare01-v2-vs.part.html",
+    "placeholder": "收束句重点",
+    "value": "收束句重点"
+  },
+  {
+    "file": "compare01-v2-vs.part.html",
+    "placeholder": "收束句尾",
+    "value": "收束句尾"
+  },
+  {
+    "file": "compare01-v2-vs.part.html",
+    "placeholder": "页脚签名",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "compare02-shot-ba.part.html",
+    "placeholder": "品牌印章字",
+    "value": "A1"
+  },
+  {
+    "file": "compare02-shot-ba.part.html",
+    "placeholder": "品牌名称",
+    "value": "A1 受控回归"
+  },
+  {
+    "file": "compare02-shot-ba.part.html",
+    "placeholder": "品牌标语",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "compare02-shot-ba.part.html",
+    "placeholder": "主题行",
+    "value": "主题行"
+  },
+  {
+    "file": "compare02-shot-ba.part.html",
+    "placeholder": "标题前段",
+    "value": "标题前段"
+  },
+  {
+    "file": "compare02-shot-ba.part.html",
+    "placeholder": "标题高亮",
+    "value": "高亮"
+  },
+  {
+    "file": "compare02-shot-ba.part.html",
+    "placeholder": "副题",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "compare02-shot-ba.part.html",
+    "placeholder": "图1",
+    "value": "assets/s1.png"
+  },
+  {
+    "file": "compare02-shot-ba.part.html",
+    "placeholder": "图注",
+    "value": "图注"
+  },
+  {
+    "file": "compare02-shot-ba.part.html",
+    "placeholder": "图注",
+    "value": "图注"
+  },
+  {
+    "file": "compare02-shot-ba.part.html",
+    "placeholder": "对照标题",
+    "value": "对照标题"
+  },
+  {
+    "file": "compare02-shot-ba.part.html",
+    "placeholder": "要点行",
+    "value": "要点行"
+  },
+  {
+    "file": "compare02-shot-ba.part.html",
+    "placeholder": "要点行",
+    "value": "要点行"
+  },
+  {
+    "file": "compare02-shot-ba.part.html",
+    "placeholder": "要点行",
+    "value": "要点行"
+  },
+  {
+    "file": "compare02-shot-ba.part.html",
+    "placeholder": "图2",
+    "value": "assets/s2.png"
+  },
+  {
+    "file": "compare02-shot-ba.part.html",
+    "placeholder": "图注",
+    "value": "图注"
+  },
+  {
+    "file": "compare02-shot-ba.part.html",
+    "placeholder": "图注",
+    "value": "图注"
+  },
+  {
+    "file": "compare02-shot-ba.part.html",
+    "placeholder": "对照标题",
+    "value": "对照标题"
+  },
+  {
+    "file": "compare02-shot-ba.part.html",
+    "placeholder": "要点行",
+    "value": "要点行"
+  },
+  {
+    "file": "compare02-shot-ba.part.html",
+    "placeholder": "要点行",
+    "value": "要点行"
+  },
+  {
+    "file": "compare02-shot-ba.part.html",
+    "placeholder": "要点行",
+    "value": "要点行"
+  },
+  {
+    "file": "compare02-shot-ba.part.html",
+    "placeholder": "边界说明",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "compare02-shot-ba.part.html",
+    "placeholder": "页脚署名",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "data01-bars-only.part.html",
+    "placeholder": "品牌印章字",
+    "value": "A1"
+  },
+  {
+    "file": "data01-bars-only.part.html",
+    "placeholder": "品牌名称",
+    "value": "A1 受控回归"
+  },
+  {
+    "file": "data01-bars-only.part.html",
+    "placeholder": "品牌标语",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "data01-bars-only.part.html",
+    "placeholder": "主题行",
+    "value": "主题行"
+  },
+  {
+    "file": "data01-bars-only.part.html",
+    "placeholder": "标题",
+    "value": "标题"
+  },
+  {
+    "file": "data01-bars-only.part.html",
+    "placeholder": "副题",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "data01-bars-only.part.html",
+    "placeholder": "图表标题",
+    "value": "图表标题"
+  },
+  {
+    "file": "data01-bars-only.part.html",
+    "placeholder": "柱高",
+    "value": "50"
+  },
+  {
+    "file": "data01-bars-only.part.html",
+    "placeholder": "柱值",
+    "value": "柱值"
+  },
+  {
+    "file": "data01-bars-only.part.html",
+    "placeholder": "柱高",
+    "value": "100"
+  },
+  {
+    "file": "data01-bars-only.part.html",
+    "placeholder": "柱值",
+    "value": "柱值"
+  },
+  {
+    "file": "data01-bars-only.part.html",
+    "placeholder": "柱高",
+    "value": "75"
+  },
+  {
+    "file": "data01-bars-only.part.html",
+    "placeholder": "柱值",
+    "value": "柱值"
+  },
+  {
+    "file": "data01-bars-only.part.html",
+    "placeholder": "柱高",
+    "value": "25"
+  },
+  {
+    "file": "data01-bars-only.part.html",
+    "placeholder": "柱值",
+    "value": "柱值"
+  },
+  {
+    "file": "data01-bars-only.part.html",
+    "placeholder": "柱标签",
+    "value": "柱标签"
+  },
+  {
+    "file": "data01-bars-only.part.html",
+    "placeholder": "柱标签",
+    "value": "柱标签"
+  },
+  {
+    "file": "data01-bars-only.part.html",
+    "placeholder": "柱标签",
+    "value": "柱标签"
+  },
+  {
+    "file": "data01-bars-only.part.html",
+    "placeholder": "柱标签",
+    "value": "柱标签"
+  },
+  {
+    "file": "data01-bars-only.part.html",
+    "placeholder": "口径标题",
+    "value": "口径标题"
+  },
+  {
+    "file": "data01-bars-only.part.html",
+    "placeholder": "口径键",
+    "value": "口径键"
+  },
+  {
+    "file": "data01-bars-only.part.html",
+    "placeholder": "口径值",
+    "value": "口径值"
+  },
+  {
+    "file": "data01-bars-only.part.html",
+    "placeholder": "口径键",
+    "value": "口径键"
+  },
+  {
+    "file": "data01-bars-only.part.html",
+    "placeholder": "口径值",
+    "value": "口径值"
+  },
+  {
+    "file": "data01-bars-only.part.html",
+    "placeholder": "口径键",
+    "value": "口径键"
+  },
+  {
+    "file": "data01-bars-only.part.html",
+    "placeholder": "口径值",
+    "value": "口径值"
+  },
+  {
+    "file": "data01-bars-only.part.html",
+    "placeholder": "边界说明",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "data01-bars-only.part.html",
+    "placeholder": "页脚署名",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "data01-ldr-bars.part.html",
+    "placeholder": "品牌印章字",
+    "value": "A1"
+  },
+  {
+    "file": "data01-ldr-bars.part.html",
+    "placeholder": "品牌名称",
+    "value": "A1 受控回归"
+  },
+  {
+    "file": "data01-ldr-bars.part.html",
+    "placeholder": "品牌标语",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "data01-ldr-bars.part.html",
+    "placeholder": "主题行",
+    "value": "主题行"
+  },
+  {
+    "file": "data01-ldr-bars.part.html",
+    "placeholder": "标题前段",
+    "value": "标题前段"
+  },
+  {
+    "file": "data01-ldr-bars.part.html",
+    "placeholder": "标题高亮",
+    "value": "高亮"
+  },
+  {
+    "file": "data01-ldr-bars.part.html",
+    "placeholder": "副题",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "data01-ldr-bars.part.html",
+    "placeholder": "样本数值",
+    "value": "样本数值"
+  },
+  {
+    "file": "data01-ldr-bars.part.html",
+    "placeholder": "样本名",
+    "value": "样本名"
+  },
+  {
+    "file": "data01-ldr-bars.part.html",
+    "placeholder": "样本口径行",
+    "value": "样本口径行"
+  },
+  {
+    "file": "data01-ldr-bars.part.html",
+    "placeholder": "图表标题",
+    "value": "图表标题"
+  },
+  {
+    "file": "data01-ldr-bars.part.html",
+    "placeholder": "柱高",
+    "value": "50"
+  },
+  {
+    "file": "data01-ldr-bars.part.html",
+    "placeholder": "柱值",
+    "value": "柱值"
+  },
+  {
+    "file": "data01-ldr-bars.part.html",
+    "placeholder": "柱高",
+    "value": "100"
+  },
+  {
+    "file": "data01-ldr-bars.part.html",
+    "placeholder": "柱值",
+    "value": "柱值"
+  },
+  {
+    "file": "data01-ldr-bars.part.html",
+    "placeholder": "柱标签",
+    "value": "柱标签"
+  },
+  {
+    "file": "data01-ldr-bars.part.html",
+    "placeholder": "柱标签",
+    "value": "柱标签"
+  },
+  {
+    "file": "data01-ldr-bars.part.html",
+    "placeholder": "口径标题",
+    "value": "口径标题"
+  },
+  {
+    "file": "data01-ldr-bars.part.html",
+    "placeholder": "口径键",
+    "value": "口径键"
+  },
+  {
+    "file": "data01-ldr-bars.part.html",
+    "placeholder": "口径值",
+    "value": "口径值"
+  },
+  {
+    "file": "data01-ldr-bars.part.html",
+    "placeholder": "口径键",
+    "value": "口径键"
+  },
+  {
+    "file": "data01-ldr-bars.part.html",
+    "placeholder": "口径值",
+    "value": "口径值"
+  },
+  {
+    "file": "data01-ldr-bars.part.html",
+    "placeholder": "口径键",
+    "value": "口径键"
+  },
+  {
+    "file": "data01-ldr-bars.part.html",
+    "placeholder": "口径值",
+    "value": "口径值"
+  },
+  {
+    "file": "data01-ldr-bars.part.html",
+    "placeholder": "边界说明",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "data01-ldr-bars.part.html",
+    "placeholder": "页脚署名",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "data02-ldr-tailcard.part.html",
+    "placeholder": "品牌印章字",
+    "value": "A1"
+  },
+  {
+    "file": "data02-ldr-tailcard.part.html",
+    "placeholder": "品牌名称",
+    "value": "A1 受控回归"
+  },
+  {
+    "file": "data02-ldr-tailcard.part.html",
+    "placeholder": "品牌标语",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "data02-ldr-tailcard.part.html",
+    "placeholder": "主题导语",
+    "value": "主题导语"
+  },
+  {
+    "file": "data02-ldr-tailcard.part.html",
+    "placeholder": "主标题前段",
+    "value": "一句话"
+  },
+  {
+    "file": "data02-ldr-tailcard.part.html",
+    "placeholder": "高亮词",
+    "value": "高亮词"
+  },
+  {
+    "file": "data02-ldr-tailcard.part.html",
+    "placeholder": "数据页导语",
+    "value": "数据页导语"
+  },
+  {
+    "file": "data02-ldr-tailcard.part.html",
+    "placeholder": "指标数值",
+    "value": "指标数值"
+  },
+  {
+    "file": "data02-ldr-tailcard.part.html",
+    "placeholder": "指标名称",
+    "value": "指标名称"
+  },
+  {
+    "file": "data02-ldr-tailcard.part.html",
+    "placeholder": "指标口径说明",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "data02-ldr-tailcard.part.html",
+    "placeholder": "收底卡标记",
+    "value": "收底卡标记"
+  },
+  {
+    "file": "data02-ldr-tailcard.part.html",
+    "placeholder": "收底卡标题",
+    "value": "收底卡标"
+  },
+  {
+    "file": "data02-ldr-tailcard.part.html",
+    "placeholder": "收底卡说明",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "data02-ldr-tailcard.part.html",
+    "placeholder": "页脚签名",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "data02-ldr-tailcard.part.html",
+    "placeholder": "背景大字",
+    "value": "背景大字"
+  },
+  {
+    "file": "data04-panel.part.html",
+    "placeholder": "品牌印章字",
+    "value": "A1"
+  },
+  {
+    "file": "data04-panel.part.html",
+    "placeholder": "品牌名称",
+    "value": "A1 受控回归"
+  },
+  {
+    "file": "data04-panel.part.html",
+    "placeholder": "品牌标语",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "data04-panel.part.html",
+    "placeholder": "主题导语",
+    "value": "主题导语"
+  },
+  {
+    "file": "data04-panel.part.html",
+    "placeholder": "主标题前段",
+    "value": "一句话"
+  },
+  {
+    "file": "data04-panel.part.html",
+    "placeholder": "高亮词",
+    "value": "高亮词"
+  },
+  {
+    "file": "data04-panel.part.html",
+    "placeholder": "主标题后段",
+    "value": "收尾"
+  },
+  {
+    "file": "data04-panel.part.html",
+    "placeholder": "数据页导语",
+    "value": "数据页导语"
+  },
+  {
+    "file": "data04-panel.part.html",
+    "placeholder": "指标数值",
+    "value": "指标数值"
+  },
+  {
+    "file": "data04-panel.part.html",
+    "placeholder": "指标名称",
+    "value": "指标名称"
+  },
+  {
+    "file": "data04-panel.part.html",
+    "placeholder": "指标口径说明",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "data04-panel.part.html",
+    "placeholder": "面板补充说明",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "data04-panel.part.html",
+    "placeholder": "图1",
+    "value": "assets/s10.png"
+  },
+  {
+    "file": "data04-panel.part.html",
+    "placeholder": "图片描述",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "data04-panel.part.html",
+    "placeholder": "图片图注",
+    "value": "图片图注"
+  },
+  {
+    "file": "data04-panel.part.html",
+    "placeholder": "证据标签一",
+    "value": "证据标签一"
+  },
+  {
+    "file": "data04-panel.part.html",
+    "placeholder": "证据标签二",
+    "value": "证据标签二"
+  },
+  {
+    "file": "data04-panel.part.html",
+    "placeholder": "证据标签三",
+    "value": "证据标签三"
+  },
+  {
+    "file": "data04-panel.part.html",
+    "placeholder": "页脚签名",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "list01-ck-phone.part.html",
+    "placeholder": "品牌印章字",
+    "value": "A1"
+  },
+  {
+    "file": "list01-ck-phone.part.html",
+    "placeholder": "品牌名称",
+    "value": "A1 受控回归"
+  },
+  {
+    "file": "list01-ck-phone.part.html",
+    "placeholder": "品牌标语",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "list01-ck-phone.part.html",
+    "placeholder": "栏目引导语",
+    "value": "栏目引导语"
+  },
+  {
+    "file": "list01-ck-phone.part.html",
+    "placeholder": "页标题",
+    "value": "页标题"
+  },
+  {
+    "file": "list01-ck-phone.part.html",
+    "placeholder": "栏目副题",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "list01-ck-phone.part.html",
+    "placeholder": "清单标题",
+    "value": "清单标题"
+  },
+  {
+    "file": "list01-ck-phone.part.html",
+    "placeholder": "清单说明",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "list01-ck-phone.part.html",
+    "placeholder": "图1",
+    "value": "assets/s1.png"
+  },
+  {
+    "file": "list01-ck-phone.part.html",
+    "placeholder": "图2",
+    "value": "assets/s2.png"
+  },
+  {
+    "file": "list01-ck-phone.part.html",
+    "placeholder": "页脚署名",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "list01-ck-shots-cover.part.html",
+    "placeholder": "品牌印章字",
+    "value": "A1"
+  },
+  {
+    "file": "list01-ck-shots-cover.part.html",
+    "placeholder": "品牌名称",
+    "value": "A1 受控回归"
+  },
+  {
+    "file": "list01-ck-shots-cover.part.html",
+    "placeholder": "品牌标语",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "list01-ck-shots-cover.part.html",
+    "placeholder": "刊期年月",
+    "value": "2026-11"
+  },
+  {
+    "file": "list01-ck-shots-cover.part.html",
+    "placeholder": "刊期号",
+    "value": "第 07 期"
+  },
+  {
+    "file": "list01-ck-shots-cover.part.html",
+    "placeholder": "栏目引导语",
+    "value": "栏目引导语"
+  },
+  {
+    "file": "list01-ck-shots-cover.part.html",
+    "placeholder": "封面主标题",
+    "value": "封面主标"
+  },
+  {
+    "file": "list01-ck-shots-cover.part.html",
+    "placeholder": "封面高亮词",
+    "value": "高亮"
+  },
+  {
+    "file": "list01-ck-shots-cover.part.html",
+    "placeholder": "封面副题",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "list01-ck-shots-cover.part.html",
+    "placeholder": "清单标题",
+    "value": "清单标题"
+  },
+  {
+    "file": "list01-ck-shots-cover.part.html",
+    "placeholder": "清单说明",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "list01-ck-shots-cover.part.html",
+    "placeholder": "图1",
+    "value": "assets/s1.png"
+  },
+  {
+    "file": "list01-ck-shots-cover.part.html",
+    "placeholder": "局部图注一",
+    "value": "局部图注一"
+  },
+  {
+    "file": "list01-ck-shots-cover.part.html",
+    "placeholder": "图2",
+    "value": "assets/s2.png"
+  },
+  {
+    "file": "list01-ck-shots-cover.part.html",
+    "placeholder": "局部图注二",
+    "value": "局部图注二"
+  },
+  {
+    "file": "list01-ck-shots-cover.part.html",
+    "placeholder": "页脚署名",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "list01-frow-phone.part.html",
+    "placeholder": "品牌印章字",
+    "value": "A1"
+  },
+  {
+    "file": "list01-frow-phone.part.html",
+    "placeholder": "品牌名称",
+    "value": "A1 受控回归"
+  },
+  {
+    "file": "list01-frow-phone.part.html",
+    "placeholder": "品牌标语",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "list01-frow-phone.part.html",
+    "placeholder": "栏目引导语",
+    "value": "栏目引导语"
+  },
+  {
+    "file": "list01-frow-phone.part.html",
+    "placeholder": "页标题",
+    "value": "页标题"
+  },
+  {
+    "file": "list01-frow-phone.part.html",
+    "placeholder": "高亮词",
+    "value": "高亮词"
+  },
+  {
+    "file": "list01-frow-phone.part.html",
+    "placeholder": "栏目副题",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "list01-frow-phone.part.html",
+    "placeholder": "条目标题",
+    "value": "条目标题"
+  },
+  {
+    "file": "list01-frow-phone.part.html",
+    "placeholder": "条目说明",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "list01-frow-phone.part.html",
+    "placeholder": "图1",
+    "value": "assets/s1.png"
+  },
+  {
+    "file": "list01-frow-phone.part.html",
+    "placeholder": "图2",
+    "value": "assets/s2.png"
+  },
+  {
+    "file": "list01-frow-phone.part.html",
+    "placeholder": "页脚署名",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "list01-list-text-cover.part.html",
+    "placeholder": "品牌印章字",
+    "value": "A1"
+  },
+  {
+    "file": "list01-list-text-cover.part.html",
+    "placeholder": "品牌名称",
+    "value": "A1 受控回归"
+  },
+  {
+    "file": "list01-list-text-cover.part.html",
+    "placeholder": "品牌标语",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "list01-list-text-cover.part.html",
+    "placeholder": "刊期年月",
+    "value": "2026-11"
+  },
+  {
+    "file": "list01-list-text-cover.part.html",
+    "placeholder": "刊期号",
+    "value": "第 07 期"
+  },
+  {
+    "file": "list01-list-text-cover.part.html",
+    "placeholder": "栏目引导语",
+    "value": "栏目引导语"
+  },
+  {
+    "file": "list01-list-text-cover.part.html",
+    "placeholder": "封面主标题",
+    "value": "封面主标"
+  },
+  {
+    "file": "list01-list-text-cover.part.html",
+    "placeholder": "封面高亮词",
+    "value": "高亮"
+  },
+  {
+    "file": "list01-list-text-cover.part.html",
+    "placeholder": "封面副题",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "list01-list-text-cover.part.html",
+    "placeholder": "条目标题",
+    "value": "条目标题"
+  },
+  {
+    "file": "list01-list-text-cover.part.html",
+    "placeholder": "条目说明",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "list01-list-text-cover.part.html",
+    "placeholder": "正文段落",
+    "value": "正文段落"
+  },
+  {
+    "file": "list01-list-text-cover.part.html",
+    "placeholder": "页脚署名",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "list02-boundary.part.html",
+    "placeholder": "品牌印章字",
+    "value": "A1"
+  },
+  {
+    "file": "list02-boundary.part.html",
+    "placeholder": "品牌名称",
+    "value": "A1 受控回归"
+  },
+  {
+    "file": "list02-boundary.part.html",
+    "placeholder": "品牌标语",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "list02-boundary.part.html",
+    "placeholder": "主题导语",
+    "value": "主题导语"
+  },
+  {
+    "file": "list02-boundary.part.html",
+    "placeholder": "主标题前段",
+    "value": "一句话"
+  },
+  {
+    "file": "list02-boundary.part.html",
+    "placeholder": "高亮词",
+    "value": "高亮词"
+  },
+  {
+    "file": "list02-boundary.part.html",
+    "placeholder": "清单页导语",
+    "value": "清单页导语"
+  },
+  {
+    "file": "list02-boundary.part.html",
+    "placeholder": "复选条目标题",
+    "value": "复选条目"
+  },
+  {
+    "file": "list02-boundary.part.html",
+    "placeholder": "复选条目说明",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "list02-boundary.part.html",
+    "placeholder": "边界说明",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "list02-boundary.part.html",
+    "placeholder": "收底卡标记",
+    "value": "收底卡标记"
+  },
+  {
+    "file": "list02-boundary.part.html",
+    "placeholder": "收底卡标题",
+    "value": "收底卡标"
+  },
+  {
+    "file": "list02-boundary.part.html",
+    "placeholder": "收底卡说明",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "list02-boundary.part.html",
+    "placeholder": "页脚签名",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "list02-full-ck.part.html",
+    "placeholder": "品牌印章字",
+    "value": "A1"
+  },
+  {
+    "file": "list02-full-ck.part.html",
+    "placeholder": "品牌名称",
+    "value": "A1 受控回归"
+  },
+  {
+    "file": "list02-full-ck.part.html",
+    "placeholder": "品牌标语",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "list02-full-ck.part.html",
+    "placeholder": "主题导语",
+    "value": "主题导语"
+  },
+  {
+    "file": "list02-full-ck.part.html",
+    "placeholder": "清单页主标题",
+    "value": "清单页主"
+  },
+  {
+    "file": "list02-full-ck.part.html",
+    "placeholder": "清单页导语",
+    "value": "清单页导语"
+  },
+  {
+    "file": "list02-full-ck.part.html",
+    "placeholder": "复选条目标题",
+    "value": "复选条目"
+  },
+  {
+    "file": "list02-full-ck.part.html",
+    "placeholder": "复选条目说明",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "list02-full-ck.part.html",
+    "placeholder": "页脚签名",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "list02-full-list.part.html",
+    "placeholder": "品牌印章字",
+    "value": "A1"
+  },
+  {
+    "file": "list02-full-list.part.html",
+    "placeholder": "品牌名称",
+    "value": "A1 受控回归"
+  },
+  {
+    "file": "list02-full-list.part.html",
+    "placeholder": "品牌标语",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "list02-full-list.part.html",
+    "placeholder": "主题导语",
+    "value": "主题导语"
+  },
+  {
+    "file": "list02-full-list.part.html",
+    "placeholder": "清单页主标题",
+    "value": "清单页主"
+  },
+  {
+    "file": "list02-full-list.part.html",
+    "placeholder": "清单页导语",
+    "value": "清单页导语"
+  },
+  {
+    "file": "list02-full-list.part.html",
+    "placeholder": "清单条目标题",
+    "value": "清单条目"
+  },
+  {
+    "file": "list02-full-list.part.html",
+    "placeholder": "清单条目说明",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "list02-full-list.part.html",
+    "placeholder": "页脚签名",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "list02-tail-card-ck.part.html",
+    "placeholder": "品牌印章字",
+    "value": "A1"
+  },
+  {
+    "file": "list02-tail-card-ck.part.html",
+    "placeholder": "品牌名称",
+    "value": "A1 受控回归"
+  },
+  {
+    "file": "list02-tail-card-ck.part.html",
+    "placeholder": "品牌标语",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "list02-tail-card-ck.part.html",
+    "placeholder": "主题导语",
+    "value": "主题导语"
+  },
+  {
+    "file": "list02-tail-card-ck.part.html",
+    "placeholder": "清单页主标题",
+    "value": "清单页主"
+  },
+  {
+    "file": "list02-tail-card-ck.part.html",
+    "placeholder": "清单页导语",
+    "value": "清单页导语"
+  },
+  {
+    "file": "list02-tail-card-ck.part.html",
+    "placeholder": "复选条目标题",
+    "value": "复选条目"
+  },
+  {
+    "file": "list02-tail-card-ck.part.html",
+    "placeholder": "复选条目说明",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "list02-tail-card-ck.part.html",
+    "placeholder": "收尾卡标记",
+    "value": "收尾卡标记"
+  },
+  {
+    "file": "list02-tail-card-ck.part.html",
+    "placeholder": "收尾卡标题",
+    "value": "收尾卡标"
+  },
+  {
+    "file": "list02-tail-card-ck.part.html",
+    "placeholder": "收尾卡说明",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "list02-tail-card-ck.part.html",
+    "placeholder": "页脚签名",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "list02-tail-card-list.part.html",
+    "placeholder": "品牌印章字",
+    "value": "A1"
+  },
+  {
+    "file": "list02-tail-card-list.part.html",
+    "placeholder": "品牌名称",
+    "value": "A1 受控回归"
+  },
+  {
+    "file": "list02-tail-card-list.part.html",
+    "placeholder": "品牌标语",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "list02-tail-card-list.part.html",
+    "placeholder": "主题导语",
+    "value": "主题导语"
+  },
+  {
+    "file": "list02-tail-card-list.part.html",
+    "placeholder": "清单页主标题",
+    "value": "清单页主"
+  },
+  {
+    "file": "list02-tail-card-list.part.html",
+    "placeholder": "清单页导语",
+    "value": "清单页导语"
+  },
+  {
+    "file": "list02-tail-card-list.part.html",
+    "placeholder": "清单条目标题",
+    "value": "清单条目"
+  },
+  {
+    "file": "list02-tail-card-list.part.html",
+    "placeholder": "清单条目说明",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "list02-tail-card-list.part.html",
+    "placeholder": "收尾卡标记",
+    "value": "收尾卡标记"
+  },
+  {
+    "file": "list02-tail-card-list.part.html",
+    "placeholder": "收尾卡标题",
+    "value": "收尾卡标"
+  },
+  {
+    "file": "list02-tail-card-list.part.html",
+    "placeholder": "收尾卡说明",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "list02-tail-card-list.part.html",
+    "placeholder": "页脚签名",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "note01-dark.part.html",
+    "placeholder": "品牌印章字",
+    "value": "A1"
+  },
+  {
+    "file": "note01-dark.part.html",
+    "placeholder": "品牌名称",
+    "value": "A1 受控回归"
+  },
+  {
+    "file": "note01-dark.part.html",
+    "placeholder": "品牌标语",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "note01-dark.part.html",
+    "placeholder": "主题导语",
+    "value": "主题导语"
+  },
+  {
+    "file": "note01-dark.part.html",
+    "placeholder": "注解页主标题",
+    "value": "注解页主"
+  },
+  {
+    "file": "note01-dark.part.html",
+    "placeholder": "注解页导语",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "note01-dark.part.html",
+    "placeholder": "旁注标题",
+    "value": "旁注标题"
+  },
+  {
+    "file": "note01-dark.part.html",
+    "placeholder": "旁注说明",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "note01-dark.part.html",
+    "placeholder": "详情卡论断",
+    "value": "详情卡论断"
+  },
+  {
+    "file": "note01-dark.part.html",
+    "placeholder": "详情卡来源",
+    "value": "详情卡来源"
+  },
+  {
+    "file": "note01-dark.part.html",
+    "placeholder": "详情卡解读",
+    "value": "详情卡解读"
+  },
+  {
+    "file": "note01-dark.part.html",
+    "placeholder": "图1",
+    "value": "assets/s1.png"
+  },
+  {
+    "file": "note01-dark.part.html",
+    "placeholder": "图片描述",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "note01-dark.part.html",
+    "placeholder": "图片图注",
+    "value": "图片图注"
+  },
+  {
+    "file": "note01-dark.part.html",
+    "placeholder": "页脚签名",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "note01-light.part.html",
+    "placeholder": "品牌印章字",
+    "value": "A1"
+  },
+  {
+    "file": "note01-light.part.html",
+    "placeholder": "品牌名称",
+    "value": "A1 受控回归"
+  },
+  {
+    "file": "note01-light.part.html",
+    "placeholder": "品牌标语",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "note01-light.part.html",
+    "placeholder": "主题导语",
+    "value": "主题导语"
+  },
+  {
+    "file": "note01-light.part.html",
+    "placeholder": "主标题前段",
+    "value": "一句话"
+  },
+  {
+    "file": "note01-light.part.html",
+    "placeholder": "高亮词",
+    "value": "高亮词"
+  },
+  {
+    "file": "note01-light.part.html",
+    "placeholder": "注解页导语",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "note01-light.part.html",
+    "placeholder": "旁注标题",
+    "value": "旁注标题"
+  },
+  {
+    "file": "note01-light.part.html",
+    "placeholder": "旁注说明",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "note01-light.part.html",
+    "placeholder": "详情卡论断",
+    "value": "详情卡论断"
+  },
+  {
+    "file": "note01-light.part.html",
+    "placeholder": "详情卡来源",
+    "value": "详情卡来源"
+  },
+  {
+    "file": "note01-light.part.html",
+    "placeholder": "详情卡解读",
+    "value": "详情卡解读"
+  },
+  {
+    "file": "note01-light.part.html",
+    "placeholder": "图1",
+    "value": "assets/s1.png"
+  },
+  {
+    "file": "note01-light.part.html",
+    "placeholder": "图片描述",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "note01-light.part.html",
+    "placeholder": "图片图注",
+    "value": "图片图注"
+  },
+  {
+    "file": "note01-light.part.html",
+    "placeholder": "底部边界说明",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "note01-light.part.html",
+    "placeholder": "页脚签名",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "note02-phone-dcards.part.html",
+    "placeholder": "品牌印章字",
+    "value": "A1"
+  },
+  {
+    "file": "note02-phone-dcards.part.html",
+    "placeholder": "品牌名称",
+    "value": "A1 受控回归"
+  },
+  {
+    "file": "note02-phone-dcards.part.html",
+    "placeholder": "品牌标语",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "note02-phone-dcards.part.html",
+    "placeholder": "主题导语",
+    "value": "主题导语"
+  },
+  {
+    "file": "note02-phone-dcards.part.html",
+    "placeholder": "高亮词",
+    "value": "高亮词"
+  },
+  {
+    "file": "note02-phone-dcards.part.html",
+    "placeholder": "主标题后段",
+    "value": "收尾"
+  },
+  {
+    "file": "note02-phone-dcards.part.html",
+    "placeholder": "解读页导语",
+    "value": "解读页导语"
+  },
+  {
+    "file": "note02-phone-dcards.part.html",
+    "placeholder": "图1",
+    "value": "assets/s1.png"
+  },
+  {
+    "file": "note02-phone-dcards.part.html",
+    "placeholder": "图片描述",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "note02-phone-dcards.part.html",
+    "placeholder": "图2",
+    "value": "assets/s2.png"
+  },
+  {
+    "file": "note02-phone-dcards.part.html",
+    "placeholder": "详情区引导语",
+    "value": "详情区引导语"
+  },
+  {
+    "file": "note02-phone-dcards.part.html",
+    "placeholder": "详情卡论断",
+    "value": "详情卡论断"
+  },
+  {
+    "file": "note02-phone-dcards.part.html",
+    "placeholder": "详情卡来源",
+    "value": "详情卡来源"
+  },
+  {
+    "file": "note02-phone-dcards.part.html",
+    "placeholder": "详情卡解读",
+    "value": "详情卡解读"
+  },
+  {
+    "file": "note02-phone-dcards.part.html",
+    "placeholder": "底部边界说明",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "note02-phone-dcards.part.html",
+    "placeholder": "页脚签名",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "phone01-duo-cover.part.html",
+    "placeholder": "品牌印章字",
+    "value": "A1"
+  },
+  {
+    "file": "phone01-duo-cover.part.html",
+    "placeholder": "品牌名称",
+    "value": "A1 受控回归"
+  },
+  {
+    "file": "phone01-duo-cover.part.html",
+    "placeholder": "品牌标语",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "phone01-duo-cover.part.html",
+    "placeholder": "刊期年月",
+    "value": "2026-11"
+  },
+  {
+    "file": "phone01-duo-cover.part.html",
+    "placeholder": "刊期号",
+    "value": "第 07 期"
+  },
+  {
+    "file": "phone01-duo-cover.part.html",
+    "placeholder": "主题行",
+    "value": "主题行"
+  },
+  {
+    "file": "phone01-duo-cover.part.html",
+    "placeholder": "标题前段",
+    "value": "标题前段"
+  },
+  {
+    "file": "phone01-duo-cover.part.html",
+    "placeholder": "标题高亮",
+    "value": "高亮"
+  },
+  {
+    "file": "phone01-duo-cover.part.html",
+    "placeholder": "副题",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "phone01-duo-cover.part.html",
+    "placeholder": "图1",
+    "value": "assets/s1.png"
+  },
+  {
+    "file": "phone01-duo-cover.part.html",
+    "placeholder": "屏注",
+    "value": "屏注"
+  },
+  {
+    "file": "phone01-duo-cover.part.html",
+    "placeholder": "图2",
+    "value": "assets/s2.png"
+  },
+  {
+    "file": "phone01-duo-cover.part.html",
+    "placeholder": "图3",
+    "value": "assets/s3.png"
+  },
+  {
+    "file": "phone01-duo-cover.part.html",
+    "placeholder": "屏注",
+    "value": "屏注"
+  },
+  {
+    "file": "phone01-duo-cover.part.html",
+    "placeholder": "图4",
+    "value": "assets/s4.png"
+  },
+  {
+    "file": "phone01-duo-cover.part.html",
+    "placeholder": "边界说明",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "phone01-duo-cover.part.html",
+    "placeholder": "页脚署名",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "phone01-duo-labeled.part.html",
+    "placeholder": "品牌印章字",
+    "value": "A1"
+  },
+  {
+    "file": "phone01-duo-labeled.part.html",
+    "placeholder": "品牌名称",
+    "value": "A1 受控回归"
+  },
+  {
+    "file": "phone01-duo-labeled.part.html",
+    "placeholder": "品牌标语",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "phone01-duo-labeled.part.html",
+    "placeholder": "主题行",
+    "value": "主题行"
+  },
+  {
+    "file": "phone01-duo-labeled.part.html",
+    "placeholder": "标题前段",
+    "value": "标题前段"
+  },
+  {
+    "file": "phone01-duo-labeled.part.html",
+    "placeholder": "标题高亮",
+    "value": "高亮"
+  },
+  {
+    "file": "phone01-duo-labeled.part.html",
+    "placeholder": "标题后段",
+    "value": "标题后段"
+  },
+  {
+    "file": "phone01-duo-labeled.part.html",
+    "placeholder": "副题",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "phone01-duo-labeled.part.html",
+    "placeholder": "图1",
+    "value": "assets/s1.png"
+  },
+  {
+    "file": "phone01-duo-labeled.part.html",
+    "placeholder": "屏注",
+    "value": "屏注"
+  },
+  {
+    "file": "phone01-duo-labeled.part.html",
+    "placeholder": "图2",
+    "value": "assets/s2.png"
+  },
+  {
+    "file": "phone01-duo-labeled.part.html",
+    "placeholder": "屏注",
+    "value": "屏注"
+  },
+  {
+    "file": "phone01-duo-labeled.part.html",
+    "placeholder": "图3",
+    "value": "assets/s3.png"
+  },
+  {
+    "file": "phone01-duo-labeled.part.html",
+    "placeholder": "屏注",
+    "value": "屏注"
+  },
+  {
+    "file": "phone01-duo-labeled.part.html",
+    "placeholder": "图4",
+    "value": "assets/s4.png"
+  },
+  {
+    "file": "phone01-duo-labeled.part.html",
+    "placeholder": "屏注",
+    "value": "屏注"
+  },
+  {
+    "file": "phone01-duo-labeled.part.html",
+    "placeholder": "边界说明",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "phone01-duo-labeled.part.html",
+    "placeholder": "页脚署名",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "phone01-trio-labeled.part.html",
+    "placeholder": "品牌印章字",
+    "value": "A1"
+  },
+  {
+    "file": "phone01-trio-labeled.part.html",
+    "placeholder": "品牌名称",
+    "value": "A1 受控回归"
+  },
+  {
+    "file": "phone01-trio-labeled.part.html",
+    "placeholder": "品牌标语",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "phone01-trio-labeled.part.html",
+    "placeholder": "主题行",
+    "value": "主题行"
+  },
+  {
+    "file": "phone01-trio-labeled.part.html",
+    "placeholder": "标题高亮",
+    "value": "高亮"
+  },
+  {
+    "file": "phone01-trio-labeled.part.html",
+    "placeholder": "标题后段",
+    "value": "标题后段"
+  },
+  {
+    "file": "phone01-trio-labeled.part.html",
+    "placeholder": "副题",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "phone01-trio-labeled.part.html",
+    "placeholder": "图1",
+    "value": "assets/s1.png"
+  },
+  {
+    "file": "phone01-trio-labeled.part.html",
+    "placeholder": "屏注",
+    "value": "屏注"
+  },
+  {
+    "file": "phone01-trio-labeled.part.html",
+    "placeholder": "图2",
+    "value": "assets/s2.png"
+  },
+  {
+    "file": "phone01-trio-labeled.part.html",
+    "placeholder": "屏注",
+    "value": "屏注"
+  },
+  {
+    "file": "phone01-trio-labeled.part.html",
+    "placeholder": "图3",
+    "value": "assets/s3.png"
+  },
+  {
+    "file": "phone01-trio-labeled.part.html",
+    "placeholder": "屏注",
+    "value": "屏注"
+  },
+  {
+    "file": "phone01-trio-labeled.part.html",
+    "placeholder": "图4",
+    "value": "assets/s4.png"
+  },
+  {
+    "file": "phone01-trio-labeled.part.html",
+    "placeholder": "屏注",
+    "value": "屏注"
+  },
+  {
+    "file": "phone01-trio-labeled.part.html",
+    "placeholder": "图5",
+    "value": "assets/s5.png"
+  },
+  {
+    "file": "phone01-trio-labeled.part.html",
+    "placeholder": "屏注",
+    "value": "屏注"
+  },
+  {
+    "file": "phone01-trio-labeled.part.html",
+    "placeholder": "图6",
+    "value": "assets/s6.png"
+  },
+  {
+    "file": "phone01-trio-labeled.part.html",
+    "placeholder": "屏注",
+    "value": "屏注"
+  },
+  {
+    "file": "phone01-trio-labeled.part.html",
+    "placeholder": "边界说明",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "phone01-trio-labeled.part.html",
+    "placeholder": "页脚署名",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "quote01-annotated.part.html",
+    "placeholder": "品牌印章字",
+    "value": "A1"
+  },
+  {
+    "file": "quote01-annotated.part.html",
+    "placeholder": "品牌名称",
+    "value": "A1 受控回归"
+  },
+  {
+    "file": "quote01-annotated.part.html",
+    "placeholder": "品牌标语",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "quote01-annotated.part.html",
+    "placeholder": "金句标题",
+    "value": "金句标题"
+  },
+  {
+    "file": "quote01-annotated.part.html",
+    "placeholder": "金句引言",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "quote01-annotated.part.html",
+    "placeholder": "金句前半",
+    "value": "金句前半"
+  },
+  {
+    "file": "quote01-annotated.part.html",
+    "placeholder": "金句高亮",
+    "value": "金句高亮"
+  },
+  {
+    "file": "quote01-annotated.part.html",
+    "placeholder": "金句收尾",
+    "value": "金句收尾"
+  },
+  {
+    "file": "quote01-annotated.part.html",
+    "placeholder": "金句出处",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "quote01-annotated.part.html",
+    "placeholder": "金句注解",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "quote01-annotated.part.html",
+    "placeholder": "收束印章字",
+    "value": "真"
+  },
+  {
+    "file": "quote01-annotated.part.html",
+    "placeholder": "页脚签名",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "quote01-annotated.part.html",
+    "placeholder": "背景大字",
+    "value": "背景大字"
+  },
+  {
+    "file": "quote01-minimal.part.html",
+    "placeholder": "品牌印章字",
+    "value": "A1"
+  },
+  {
+    "file": "quote01-minimal.part.html",
+    "placeholder": "品牌名称",
+    "value": "A1 受控回归"
+  },
+  {
+    "file": "quote01-minimal.part.html",
+    "placeholder": "品牌标语",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "quote01-minimal.part.html",
+    "placeholder": "章节标题",
+    "value": "章节标题"
+  },
+  {
+    "file": "quote01-minimal.part.html",
+    "placeholder": "金句前半",
+    "value": "金句前半"
+  },
+  {
+    "file": "quote01-minimal.part.html",
+    "placeholder": "金句引入",
+    "value": "金句引入"
+  },
+  {
+    "file": "quote01-minimal.part.html",
+    "placeholder": "金句高亮",
+    "value": "金句高亮"
+  },
+  {
+    "file": "quote01-minimal.part.html",
+    "placeholder": "金句收尾",
+    "value": "金句收尾"
+  },
+  {
+    "file": "quote01-minimal.part.html",
+    "placeholder": "金句出处",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "quote01-minimal.part.html",
+    "placeholder": "金句注脚",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "quote01-minimal.part.html",
+    "placeholder": "页脚签名",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "quote01-minimal.part.html",
+    "placeholder": "背景大字",
+    "value": "背景大字"
+  },
+  {
+    "file": "step01-timeline.part.html",
+    "placeholder": "品牌印章字",
+    "value": "A1"
+  },
+  {
+    "file": "step01-timeline.part.html",
+    "placeholder": "品牌名称",
+    "value": "A1 受控回归"
+  },
+  {
+    "file": "step01-timeline.part.html",
+    "placeholder": "品牌标语",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "step01-timeline.part.html",
+    "placeholder": "栏目主题",
+    "value": "栏目主题"
+  },
+  {
+    "file": "step01-timeline.part.html",
+    "placeholder": "步骤标题导语",
+    "value": "步骤标题"
+  },
+  {
+    "file": "step01-timeline.part.html",
+    "placeholder": "步骤标题重点",
+    "value": "步骤标题"
+  },
+  {
+    "file": "step01-timeline.part.html",
+    "placeholder": "步骤引言",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "step01-timeline.part.html",
+    "placeholder": "步骤标题",
+    "value": "步骤标题"
+  },
+  {
+    "file": "step01-timeline.part.html",
+    "placeholder": "步骤说明",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "step01-timeline.part.html",
+    "placeholder": "步骤标题",
+    "value": "步骤标题"
+  },
+  {
+    "file": "step01-timeline.part.html",
+    "placeholder": "步骤说明",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "step01-timeline.part.html",
+    "placeholder": "步骤标题",
+    "value": "步骤标题"
+  },
+  {
+    "file": "step01-timeline.part.html",
+    "placeholder": "步骤说明",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "step01-timeline.part.html",
+    "placeholder": "步骤标题",
+    "value": "步骤标题"
+  },
+  {
+    "file": "step01-timeline.part.html",
+    "placeholder": "步骤说明",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "step01-timeline.part.html",
+    "placeholder": "图1",
+    "value": "assets/s1.png"
+  },
+  {
+    "file": "step01-timeline.part.html",
+    "placeholder": "图片替代文本",
+    "value": "图片替代文本"
+  },
+  {
+    "file": "step01-timeline.part.html",
+    "placeholder": "图2",
+    "value": "assets/s2.png"
+  },
+  {
+    "file": "step01-timeline.part.html",
+    "placeholder": "提示标题",
+    "value": "提示标题"
+  },
+  {
+    "file": "step01-timeline.part.html",
+    "placeholder": "提示说明",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "step01-timeline.part.html",
+    "placeholder": "页脚签名",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "step01-timeline.part.html",
+    "placeholder": "背景大字",
+    "value": "背景大字"
+  },
+  {
+    "file": "wall01-duo-col.part.html",
+    "placeholder": "品牌印章字",
+    "value": "A1"
+  },
+  {
+    "file": "wall01-duo-col.part.html",
+    "placeholder": "品牌名称",
+    "value": "A1 受控回归"
+  },
+  {
+    "file": "wall01-duo-col.part.html",
+    "placeholder": "品牌标语",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "wall01-duo-col.part.html",
+    "placeholder": "主题行",
+    "value": "主题行"
+  },
+  {
+    "file": "wall01-duo-col.part.html",
+    "placeholder": "标题",
+    "value": "标题"
+  },
+  {
+    "file": "wall01-duo-col.part.html",
+    "placeholder": "副题",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "wall01-duo-col.part.html",
+    "placeholder": "图1",
+    "value": "assets/s1.png"
+  },
+  {
+    "file": "wall01-duo-col.part.html",
+    "placeholder": "图注",
+    "value": "图注"
+  },
+  {
+    "file": "wall01-duo-col.part.html",
+    "placeholder": "图注",
+    "value": "图注"
+  },
+  {
+    "file": "wall01-duo-col.part.html",
+    "placeholder": "图2",
+    "value": "assets/s2.png"
+  },
+  {
+    "file": "wall01-duo-col.part.html",
+    "placeholder": "图注",
+    "value": "图注"
+  },
+  {
+    "file": "wall01-duo-col.part.html",
+    "placeholder": "图注",
+    "value": "图注"
+  },
+  {
+    "file": "wall01-duo-col.part.html",
+    "placeholder": "页脚署名",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "wall01-duo-row.part.html",
+    "placeholder": "品牌印章字",
+    "value": "A1"
+  },
+  {
+    "file": "wall01-duo-row.part.html",
+    "placeholder": "品牌名称",
+    "value": "A1 受控回归"
+  },
+  {
+    "file": "wall01-duo-row.part.html",
+    "placeholder": "品牌标语",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "wall01-duo-row.part.html",
+    "placeholder": "主题行",
+    "value": "主题行"
+  },
+  {
+    "file": "wall01-duo-row.part.html",
+    "placeholder": "标题",
+    "value": "标题"
+  },
+  {
+    "file": "wall01-duo-row.part.html",
+    "placeholder": "副题",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "wall01-duo-row.part.html",
+    "placeholder": "图1",
+    "value": "assets/s1.png"
+  },
+  {
+    "file": "wall01-duo-row.part.html",
+    "placeholder": "图注",
+    "value": "图注"
+  },
+  {
+    "file": "wall01-duo-row.part.html",
+    "placeholder": "图注",
+    "value": "图注"
+  },
+  {
+    "file": "wall01-duo-row.part.html",
+    "placeholder": "图2",
+    "value": "assets/s2.png"
+  },
+  {
+    "file": "wall01-duo-row.part.html",
+    "placeholder": "图注",
+    "value": "图注"
+  },
+  {
+    "file": "wall01-duo-row.part.html",
+    "placeholder": "图注",
+    "value": "图注"
+  },
+  {
+    "file": "wall01-duo-row.part.html",
+    "placeholder": "页脚署名",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "wall01-quad-fill-bleed.part.html",
+    "placeholder": "品牌印章字",
+    "value": "A1"
+  },
+  {
+    "file": "wall01-quad-fill-bleed.part.html",
+    "placeholder": "品牌名称",
+    "value": "A1 受控回归"
+  },
+  {
+    "file": "wall01-quad-fill-bleed.part.html",
+    "placeholder": "品牌标语",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "wall01-quad-fill-bleed.part.html",
+    "placeholder": "主题行",
+    "value": "主题行"
+  },
+  {
+    "file": "wall01-quad-fill-bleed.part.html",
+    "placeholder": "标题前段",
+    "value": "标题前段"
+  },
+  {
+    "file": "wall01-quad-fill-bleed.part.html",
+    "placeholder": "标题高亮",
+    "value": "高亮"
+  },
+  {
+    "file": "wall01-quad-fill-bleed.part.html",
+    "placeholder": "副题",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "wall01-quad-fill-bleed.part.html",
+    "placeholder": "图1",
+    "value": "assets/s1.png"
+  },
+  {
+    "file": "wall01-quad-fill-bleed.part.html",
+    "placeholder": "图注",
+    "value": "图注"
+  },
+  {
+    "file": "wall01-quad-fill-bleed.part.html",
+    "placeholder": "图注",
+    "value": "图注"
+  },
+  {
+    "file": "wall01-quad-fill-bleed.part.html",
+    "placeholder": "边界说明",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "wall01-quad-fill-bleed.part.html",
+    "placeholder": "页脚署名",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "wall01-quad.part.html",
+    "placeholder": "品牌印章字",
+    "value": "A1"
+  },
+  {
+    "file": "wall01-quad.part.html",
+    "placeholder": "品牌名称",
+    "value": "A1 受控回归"
+  },
+  {
+    "file": "wall01-quad.part.html",
+    "placeholder": "品牌标语",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "wall01-quad.part.html",
+    "placeholder": "主题行",
+    "value": "主题行"
+  },
+  {
+    "file": "wall01-quad.part.html",
+    "placeholder": "标题",
+    "value": "标题"
+  },
+  {
+    "file": "wall01-quad.part.html",
+    "placeholder": "副题",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "wall01-quad.part.html",
+    "placeholder": "图1",
+    "value": "assets/s1.png"
+  },
+  {
+    "file": "wall01-quad.part.html",
+    "placeholder": "图注",
+    "value": "图注"
+  },
+  {
+    "file": "wall01-quad.part.html",
+    "placeholder": "图注",
+    "value": "图注"
+  },
+  {
+    "file": "wall01-quad.part.html",
+    "placeholder": "边界说明",
+    "value": "这是一段占位说明，用于核对折行密度"
+  },
+  {
+    "file": "wall01-quad.part.html",
+    "placeholder": "页脚署名",
+    "value": "这是一段占位说明，用于核对折行密度"
+  }
+]

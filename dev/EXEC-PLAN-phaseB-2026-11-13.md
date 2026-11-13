@@ -36,7 +36,7 @@
 | **G**   | 用户闸门（6 项）       | S         | 逐项答复 + 监工复核，落 `dev/GATE-B-2026-11-13.md`                       | 无（六项全按推荐通过；用户答复 21:21，监工复核签字 22:00 补，记录随刀 C 入库） |
 | **C**   | B-contract      | G 通过      | h68 坏例删档前后对照表 + 全量回归全绿 + v3 修订记录入库                             | 1 笔（`c210241`，2026-11-13 21:31:22；套件 `controlled-negative-1113-2128` 184/184）                               |
 | **A2**  | 池契约拍板（三问）       | C         | 用户授权监工代拍，裁决落 `dev/GATE-A2-2026-11-13.md`                                                         | 无                                                                        |
-| **A1**  | 41 骨架 × 真实 gate | A2        | 41 页 qa-report + 失败清单（只登记不修）                                   | 1 笔                                                                      |
+| **A1**  | 41 骨架 × 真实 gate | A2        | 41 页 qa-report + 失败清单（只登记不修）                                   | 1 笔（`46f6c60`，2026-11-13；35 passed / 6 failed，6 页失败只登记进批次 C 清单，见 `dev/controlled/a1-41-skeleton-1113/A1-summary.md`）                                   |
 | **A3**  | 驱动文档范式同步        | A1        | 四文件旧术语归零、与 SKILL 六步对齐                                          | 1 笔                                                                      |
 | **T14** | 豆仓 7 页验收        | A3 + 用户闸门 | 用户验收                                                           | —                                                                        |
 
@@ -171,7 +171,7 @@ A1 **无法「不接内容池」**：`project.mjs:105-107` 强制读 pool/plan�
 
 | # | 裁决 | 现行执行口径 | 实证依据 |
 |---|---|---|---|
-| 1 | **改**（原推荐失效） | ID 命名空间沿用（骨架 ID 即池 ID），但**不按 ID 反推文案**：先按形状规则填充页面，资产 `text` 由该 ID 在本页实际上版文字反向拼接；`kind` 一律落 `highlights`/`pains`/`hooks`（非 strict，避开 L15 逐字 ERROR） | 197 ID 中 31 个跨骨架对应多占位符、9 页同页同 ID 多文案；`lint-dom.mjs:270` `strictKinds={data,quotes}` |
+| 1 | **改**（原推荐失效） | ID 命名空间沿用（骨架 ID 即池 ID），但**不按 ID 反推文案**：先按形状规则填充页面，资产 `text` 由该 ID 在本页实际上版文字反向拼接；`kind` 一律落 `highlights`/`pains`/`hooks`（非 strict，避开 L15 逐字 ERROR） | 197 ID 中 31 个跨骨架对应多占位符、9 页同页同 ID 多文案；`lint-dom.mjs:270` `strictKinds={data,quotes}`。⚠ 失效注（EXEC-A1fix E2，2026-11-13 监工 22:34 复核）：「31」为编制期静态扫描旧口径，A1 全量实跑实测三种口径 **58**（元素 outerHTML 占位符名去重，含嵌套 span/alt）/ **29**（仅跨 ≥2 骨架文件）/ **23**（填充后文案去重），以 58/29/23 取代；逐 ID 明细 `dev/controlled/a1-41-skeleton-1113/id-stats.json`。三口径下裁决结论不变（同 ID 多形状文案槽成立） |
 | 2 | **改**（原推荐失效） | 不复用 `dev/e2-duo-labeled.mjs:11-35`（`FILLED` 仅 11 key），改复用 `dev/_sc/render-selfcheck.mjs:18-23,109-117` 形状规则；`{{图N}}` → `dev/cases/assets/` s1–s9，`{{柱高}}` → `BAR_HEIGHTS`；未命中即 throw，不许静默留 `{{}}` | 154 唯一占位符 / 622 次出现；`references/assets/` 仅 1 个 png；L24 拦残留、L25 需 0–100 整数 |
 | 3 | **按推荐 + 3 条硬约束** | `uses` 取本页 `data-from` 并集反向生成；断言 `union(uses) === Object.keys(assets) === 197`（零孤儿，`project.mjs:158` 是 throw）；每资产 `id/text/evidence/source` 四字段非空；41/41 layout 精确命中，不许降级写 `"free"` | 实测 0 未匹配；`collectPoolAssets:48` |
 

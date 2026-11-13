@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "runId": "00638598-e3f6-4840-bd1b-8ce361f5e848",
+  "mode": "gate",
+  "status": "failed",
+  "startedAt": "2026-11-13T15:11:26.250Z",
+  "updatedAt": "2026-11-13T15:11:29.457Z",
+  "expectedPages": 1,
+  "measuredPages": 1,
+  "passedPages": 0,
+  "failedPages": 1,
+  "runIssues": [
+    "ERROR BATCH: 几何检查失败页: 19；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+  ],
+  "pages": [
+    {
+      "nn": "19",
+      "recipe": "R-data-04",
+      "status": "failed",
+      "errors": 1,
+      "warnings": 1,
+      "errorMessages": [
+        "R14: detail-crop-evidence 宽 50.2cqw 超出骨架档 41–46cqw"
+      ]
+    }
+  ]
+}

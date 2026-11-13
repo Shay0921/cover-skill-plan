@@ -1,0 +1,86 @@
+{
+  "thesis": {
+    "id": "thesis",
+    "text": "A1 受控回归",
+    "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+    "source": "本试验定义"
+  },
+  "highlights": [
+    {
+      "id": "brand-seal",
+      "text": "A1",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "brand-name",
+      "text": "A1 受控回归",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "brand-tag",
+      "text": "这是一段占位说明，用于核对折行密度",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "topic-boundary",
+      "text": "栏目主题\n主题行\n主题导语",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "shelf-caption",
+      "text": "屏注",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "steps-headline",
+      "text": "步骤标题步骤标题",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "steps-intro",
+      "text": "这是一段占位说明，用于核对折行密度",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "inspect-material-title",
+      "text": "步骤标题",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "inspect-material-detail",
+      "text": "这是一段占位说明，用于核对折行密度",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "steps-note-title",
+      "text": "提示标题",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "steps-note-text",
+      "text": "这是一段占位说明，用于核对折行密度",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "inspect-material-order",
+      "text": "A 受控图像槽位 inspect-material-order",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    }
+  ],
+  "pains": [],
+  "hooks": [],
+  "data": [],
+  "quotes": []
+}

@@ -1,16 +1,16 @@
 {
   "version": 1,
-  "runId": "8bf5278b-6bd5-4399-9b16-18ff75261938",
+  "runId": "ac73585e-1e4e-4aa5-a0ea-31b40decd14d",
   "mode": "gate",
   "status": "failed",
-  "startedAt": "2026-11-13T14:28:30.625Z",
-  "updatedAt": "2026-11-13T14:28:58.840Z",
+  "startedAt": "2026-11-13T15:14:29.841Z",
+  "updatedAt": "2026-11-13T15:15:01.736Z",
   "expectedPages": 41,
   "measuredPages": 41,
-  "passedPages": 35,
-  "failedPages": 6,
+  "passedPages": 39,
+  "failedPages": 2,
   "runIssues": [
-    "ERROR BATCH: 几何检查失败页: 08, 10, 19, 20, 35, 37；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+    "ERROR BATCH: 几何检查失败页: 19, 20；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
   ],
   "pages": [
     {
@@ -72,12 +72,10 @@
     {
       "nn": "08",
       "recipe": "R-close-01",
-      "status": "failed",
-      "errors": 1,
+      "status": "passed",
+      "errors": 0,
       "warnings": 1,
-      "errorMessages": [
-        "R10: closing-tags-seal 声明比例 1/1 被压成 0.208（相差 380.0%）"
-      ]
+      "errorMessages": []
     },
     {
       "nn": "09",
@@ -90,12 +88,10 @@
     {
       "nn": "10",
       "recipe": "R-close-01",
-      "status": "failed",
-      "errors": 1,
+      "status": "passed",
+      "errors": 0,
       "warnings": 1,
-      "errorMessages": [
-        "R10: closing-seal 声明比例 1/1 被压成 0.208（相差 380.0%）"
-      ]
+      "errorMessages": []
     },
     {
       "nn": "11",
@@ -166,7 +162,7 @@
       "recipe": "R-data-04",
       "status": "failed",
       "errors": 1,
-      "warnings": 2,
+      "warnings": 1,
       "errorMessages": [
         "R14: detail-crop-evidence 宽 50.2cqw 超出骨架档 41–46cqw"
       ]
@@ -178,7 +174,7 @@
       "errors": 1,
       "warnings": 0,
       "errorMessages": [
-        "L11: 区域 full 不允许组件 ck"
+        "R14: 骨架区域 left 不可见"
       ]
     },
     {
@@ -296,12 +292,10 @@
     {
       "nn": "35",
       "recipe": "R-quote-01",
-      "status": "failed",
-      "errors": 1,
-      "warnings": 0,
-      "errorMessages": [
-        "R10: closing-seal 声明比例 1/1 被压成 0.208（相差 380.0%）"
-      ]
+      "status": "passed",
+      "errors": 0,
+      "warnings": 1,
+      "errorMessages": []
     },
     {
       "nn": "36",
@@ -314,12 +308,10 @@
     {
       "nn": "37",
       "recipe": "R-step-01",
-      "status": "failed",
-      "errors": 1,
+      "status": "passed",
+      "errors": 0,
       "warnings": 0,
-      "errorMessages": [
-        "R15: 时间线步骤 inspect-material 内部拉伸余量 71.0cqw（>12cqw）：内容撑不满行高"
-      ]
+      "errorMessages": []
     },
     {
       "nn": "38",

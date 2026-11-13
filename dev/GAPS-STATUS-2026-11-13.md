@@ -109,6 +109,7 @@
 - 历史遗留未被收敛覆盖：多来源 `data-from` 稀释 L15 逐字校验、quote.hero 跨配方滥用（诊断 §5.5/5.6），T7 残余清单未列。
 - 阶段 B（镜像债根治）**已定案（v3 现行，2026-11-13 闸门 G 六项全过；v2 为监工终裁底稿）**：B-2 删宽度事实源（B-1 剔除，与 R10 重复）、删除范围**只删 1 条** `R-phone-01.duo-labeled [32,36]`（card02/note02 的 [36,40] 经压测证明守卫价值，保留）、立项形态 = B-seed（§8.6 gap 根因收口）+ B-contract（两刀分 commit）、排程 B → A2 → A1 → A3 → T14。定案全文与施工硬约束见 [DIAGNOSIS §8.5.1-8.5.3](DIAGNOSIS-h68-overflow-2026-11-13.md)，闸门记录 `GATE-B-2026-11-13.md`。A6 维持已完工销单。
 - **h75 镜像债挂账（v3 压测入册，闸门第 3/4 项落地）**：`dev/h75-stress-1113/` 四 case 定性登记——card02-long → 负例证据（R1×2，横排锁高真实溢出，与 width 档无关，**h75 弹性化另立项**）；note02-long → 负例证据（R14，纵排可缩、R14 下限为唯一守卫，width 档保留即据此）；card02-short / note02-short → 基线正例。两 long 作为**已知遗留的守卫证据**挂账，不在 184 受控套件内强行造夹具。
+- **P8 · A1fix 定箱正式修法（EXEC-A1fix 2026-11-13 立项，A3 后开工）**：A1 全量回归 6 页失败中 3 类「假文字形状/构造伪影」待机制化——①素材池按载体形状（ar）映射：s10.png（1280×960 4:3）进 ar43 槽的机制化，取代 `A1-run.mjs` 页级 `assetOverrides`；②fill 形状档按登记卡密度定长：印章 1-2 字（EXEC-A1fix A 临时值「真」）、步骤 t/d 源页真实长度档，取代页级 `textOverrides`；③repeat 展开数据驱动：解析骨架 `repeat ×N` 注释自动展开（EXEC-A1fix D 的 step01-timeline ×4 实验机制化）；④三实验（p19 s10 / p37 ×4 / seal「真」）定箱结论落地后清理 `PAGE_TRANSFORMS` 实验开关。证据：`dev/controlled/a1fix-p19-1113/`、`a1fix-p37-1113/`、`a1-41-skeleton-1113/A1-summary.md` 裁决注记。
 
 ---
 

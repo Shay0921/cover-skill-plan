@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "runId": "e528db4a-88a0-43f9-a532-0aba58e0149c",
+  "mode": "gate",
+  "status": "passed",
+  "startedAt": "2026-11-13T15:13:16.345Z",
+  "updatedAt": "2026-11-13T15:13:19.225Z",
+  "expectedPages": 1,
+  "measuredPages": 1,
+  "passedPages": 1,
+  "failedPages": 0,
+  "runIssues": [
+    "WARN FONT: 同进程不保证整批字体一致；各页 fonts.actual / faces 已记录，请核对实际 face"
+  ],
+  "pages": [
+    {
+      "nn": "37",
+      "recipe": "R-step-01",
+      "status": "passed",
+      "errors": 0,
+      "warnings": 0,
+      "errorMessages": []
+    }
+  ]
+}

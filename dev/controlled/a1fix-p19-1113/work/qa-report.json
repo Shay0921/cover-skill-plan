@@ -1,0 +1,1403 @@
+{
+  "version": 2,
+  "runId": "00638598-e3f6-4840-bd1b-8ce361f5e848",
+  "startedAt": "2026-11-13T15:11:26.250Z",
+  "mode": "gate",
+  "status": "failed",
+  "inputHash": "f2c8715894ef90fde9eb497f0411e239c6ad1dc41f4e0b817732b86036fc689c",
+  "plan": "d:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1fix-p19-1113\\work\\03-plan.json",
+  "src": "d:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1fix-p19-1113\\work\\src",
+  "out": "d:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1fix-p19-1113\\out",
+  "expectedPages": [
+    "19"
+  ],
+  "pages": [
+    {
+      "nn": "19",
+      "htmlHash": "9eb4a9e81fcbb6aa1b828e793f212c1246ffb081a294fe877b6cfaa4185817cb",
+      "sourceHash": "721849878304d5cadbc5233fea96a53ebf037e76e99fd27d33c267c81203652c",
+      "issues": [
+        {
+          "level": "ERROR",
+          "rule": "R14",
+          "msg": "detail-crop-evidence 宽 50.2cqw 超出骨架档 41–46cqw",
+          "layer": "detail-crop-evidence",
+          "widthCqw": 50.2,
+          "want": [
+            41,
+            46
+          ],
+          "hint": "先保载体宽度档，再让文字列收缩；不要反过来压主体"
+        },
+        {
+          "level": "WARN",
+          "rule": "R7",
+          "msg": "留白/密度仅供人工目检，不作为失败条件",
+          "bands": [
+            {
+              "band": 1,
+              "coveredPx": 224.25,
+              "emptyPx": 135.75
+            },
+            {
+              "band": 2,
+              "coveredPx": 140.703125,
+              "emptyPx": 219.296875
+            },
+            {
+              "band": 3,
+              "coveredPx": 322.3125,
+              "emptyPx": 37.6875
+            },
+            {
+              "band": 4,
+              "coveredPx": 52,
+              "emptyPx": 308
+            }
+          ]
+        }
+      ],
+      "status": "failed",
+      "canvas": {
+        "w": 1080,
+        "h": 1440
+      },
+      "footer": {
+        "x": 71.265625,
+        "y": 1347.640625,
+        "w": 937.46875,
+        "h": 47
+      },
+      "frames": [
+        {
+          "layer": "detail-crop-evidence-image",
+          "fit": "contain",
+          "boxed": false
+        }
+      ],
+      "regions": [
+        {
+          "id": "head",
+          "rect": {
+            "x": 71.265625,
+            "y": 146.953125,
+            "w": 937.46875,
+            "h": 230.828125
+          }
+        },
+        {
+          "id": "full",
+          "rect": {
+            "x": 71.265625,
+            "y": 418.8125,
+            "w": 937.46875,
+            "h": 797.265625
+          }
+        },
+        {
+          "id": "bottom",
+          "rect": {
+            "x": 71.265625,
+            "y": 1248.46875,
+            "w": 937.46875,
+            "h": 58.140625
+          }
+        }
+      ],
+      "layers": [
+        {
+          "id": "brand",
+          "tag": "div",
+          "component": null,
+          "group": true,
+          "parentLayer": null,
+          "region": null,
+          "coordinateReference": "canvas-top-left",
+          "units": "px",
+          "rect": {
+            "x": 71.265625,
+            "y": 49.671875,
+            "w": 347.96875,
+            "h": 56.25
+          },
+          "visible": true,
+          "editable": null,
+          "slot": null,
+          "from": null
+        },
+        {
+          "id": "brand-seal",
+          "tag": "span",
+          "component": null,
+          "group": false,
+          "parentLayer": "brand",
+          "region": null,
+          "coordinateReference": "canvas-top-left",
+          "units": "px",
+          "rect": {
+            "x": 71.265625,
+            "y": 55.109375,
+            "w": 45.359375,
+            "h": 45.359375
+          },
+          "visible": true,
+          "editable": "text",
+          "slot": null,
+          "from": "brand-seal"
+        },
+        {
+          "id": "brand-name",
+          "tag": "div",
+          "component": null,
+          "group": false,
+          "parentLayer": "brand",
+          "region": null,
+          "coordinateReference": "canvas-top-left",
+          "units": "px",
+          "rect": {
+            "x": 132.8125,
+            "y": 49.671875,
+            "w": 286.421875,
+            "h": 31.09375
+          },
+          "visible": true,
+          "editable": "text",
+          "slot": null,
+          "from": "brand-name"
+        },
+        {
+          "id": "brand-tag",
+          "tag": "div",
+          "component": null,
+          "group": false,
+          "parentLayer": "brand",
+          "region": null,
+          "coordinateReference": "canvas-top-left",
+          "units": "px",
+          "rect": {
+            "x": 132.8125,
+            "y": 83.453125,
+            "w": 286.421875,
+            "h": 22.46875
+          },
+          "visible": true,
+          "editable": "text",
+          "slot": null,
+          "from": "brand-tag"
+        },
+        {
+          "id": "topic",
+          "tag": "p",
+          "component": "kicker",
+          "group": true,
+          "parentLayer": null,
+          "region": "head",
+          "coordinateReference": "canvas-top-left",
+          "units": "px",
+          "rect": {
+            "x": 71.265625,
+            "y": 162.0625,
+            "w": 937.46875,
+            "h": 36.296875
+          },
+          "visible": true,
+          "editable": "text",
+          "slot": null,
+          "from": "topic-proof"
+        },
+        {
+          "id": "headline",
+          "tag": "h1",
+          "component": "h1",
+          "group": true,
+          "parentLayer": null,
+          "region": "head",
+          "coordinateReference": "canvas-top-left",
+          "units": "px",
+          "rect": {
+            "x": 71.265625,
+            "y": 213.46875,
+            "w": 937.46875,
+            "h": 101.953125
+          },
+          "visible": true,
+          "editable": "text",
+          "slot": null,
+          "from": "full-frame-headline"
+        },
+        {
+          "id": "introduction",
+          "tag": "p",
+          "component": "sub",
+          "group": true,
+          "parentLayer": null,
+          "region": "head",
+          "coordinateReference": "canvas-top-left",
+          "units": "px",
+          "rect": {
+            "x": 71.265625,
+            "y": 330.53125,
+            "w": 937.46875,
+            "h": 47.25
+          },
+          "visible": true,
+          "editable": "text",
+          "slot": null,
+          "from": "full-frame-intro"
+        },
+        {
+          "id": "frame-data",
+          "tag": "section",
+          "component": "ldr",
+          "group": true,
+          "parentLayer": null,
+          "region": "full",
+          "coordinateReference": "canvas-top-left",
+          "units": "px",
+          "rect": {
+            "x": 72.265625,
+            "y": 593.34375,
+            "w": 361.234375,
+            "h": 321.234375
+          },
+          "visible": true,
+          "editable": null,
+          "slot": null,
+          "from": null
+        },
+        {
+          "id": "frame-data-value",
+          "tag": "p",
+          "component": null,
+          "group": false,
+          "parentLayer": "frame-data",
+          "region": "full",
+          "coordinateReference": "canvas-top-left",
+          "units": "px",
+          "rect": {
+            "x": 72.265625,
+            "y": 719.9375,
+            "w": 233.28125,
+            "h": 67.046875
+          },
+          "visible": true,
+          "editable": "text",
+          "slot": null,
+          "from": "sample-beta-count"
+        },
+        {
+          "id": "frame-data-name",
+          "tag": "h2",
+          "component": null,
+          "group": false,
+          "parentLayer": "frame-data",
+          "region": "full",
+          "coordinateReference": "canvas-top-left",
+          "units": "px",
+          "rect": {
+            "x": 337.9375,
+            "y": 617.09375,
+            "w": 95.5625,
+            "h": 96.75
+          },
+          "visible": true,
+          "editable": "text",
+          "slot": null,
+          "from": "sample-beta-name"
+        },
+        {
+          "id": "frame-data-scope",
+          "tag": "p",
+          "component": null,
+          "group": false,
+          "parentLayer": "frame-data",
+          "region": "full",
+          "coordinateReference": "canvas-top-left",
+          "units": "px",
+          "rect": {
+            "x": 337.9375,
+            "y": 721.390625,
+            "w": 95.5625,
+            "h": 168.4375
+          },
+          "visible": true,
+          "editable": "text",
+          "slot": null,
+          "from": "sample-beta-scope"
+        },
+        {
+          "id": "frame-note-text",
+          "tag": "p",
+          "component": "text-block",
+          "group": true,
+          "parentLayer": null,
+          "region": "full",
+          "coordinateReference": "canvas-top-left",
+          "units": "px",
+          "rect": {
+            "x": 72.265625,
+            "y": 940.484375,
+            "w": 361.234375,
+            "h": 101.0625
+          },
+          "visible": true,
+          "editable": "text",
+          "slot": null,
+          "from": "frame-note"
+        },
+        {
+          "id": "detail-crop-evidence",
+          "tag": "figure",
+          "component": "shot",
+          "group": true,
+          "parentLayer": null,
+          "region": "full",
+          "coordinateReference": "canvas-top-left",
+          "units": "px",
+          "rect": {
+            "x": 465.890625,
+            "y": 590.828125,
+            "w": 541.84375,
+            "h": 453.234375
+          },
+          "visible": true,
+          "editable": null,
+          "slot": null,
+          "from": null
+        },
+        {
+          "id": "detail-crop-evidence-image",
+          "tag": "img",
+          "component": null,
+          "group": false,
+          "parentLayer": "detail-crop-evidence",
+          "region": "full",
+          "coordinateReference": "canvas-top-left",
+          "units": "px",
+          "rect": {
+            "x": 465.890625,
+            "y": 590.828125,
+            "w": 541.84375,
+            "h": 406.375
+          },
+          "visible": true,
+          "editable": null,
+          "slot": "image",
+          "from": "detail-crop-caption"
+        },
+        {
+          "id": "detail-crop-evidence-caption",
+          "tag": "figcaption",
+          "component": null,
+          "group": false,
+          "parentLayer": "detail-crop-evidence",
+          "region": "full",
+          "coordinateReference": "canvas-top-left",
+          "units": "px",
+          "rect": {
+            "x": 465.890625,
+            "y": 1012.3125,
+            "w": 541.84375,
+            "h": 31.75
+          },
+          "visible": true,
+          "editable": "text",
+          "slot": null,
+          "from": "detail-crop-caption"
+        },
+        {
+          "id": "frame-tags-group",
+          "tag": "div",
+          "component": "pills",
+          "group": true,
+          "parentLayer": null,
+          "region": "bottom",
+          "coordinateReference": "canvas-top-left",
+          "units": "px",
+          "rect": {
+            "x": 71.265625,
+            "y": 1248.46875,
+            "w": 937.46875,
+            "h": 58.140625
+          },
+          "visible": true,
+          "editable": null,
+          "slot": null,
+          "from": null
+        },
+        {
+          "id": "frame-tag-1",
+          "tag": "span",
+          "component": null,
+          "group": false,
+          "parentLayer": "frame-tags-group",
+          "region": "bottom",
+          "coordinateReference": "canvas-top-left",
+          "units": "px",
+          "rect": {
+            "x": 71.265625,
+            "y": 1248.46875,
+            "w": 153.1875,
+            "h": 58.140625
+          },
+          "visible": true,
+          "editable": "text",
+          "slot": null,
+          "from": "pill-original"
+        },
+        {
+          "id": "frame-tag-2",
+          "tag": "span",
+          "component": null,
+          "group": false,
+          "parentLayer": "frame-tags-group",
+          "region": "bottom",
+          "coordinateReference": "canvas-top-left",
+          "units": "px",
+          "rect": {
+            "x": 237.40625,
+            "y": 1248.46875,
+            "w": 153.1875,
+            "h": 58.140625
+          },
+          "visible": true,
+          "editable": "text",
+          "slot": null,
+          "from": "pill-synthetic"
+        },
+        {
+          "id": "frame-tag-3",
+          "tag": "span",
+          "component": null,
+          "group": false,
+          "parentLayer": "frame-tags-group",
+          "region": "bottom",
+          "coordinateReference": "canvas-top-left",
+          "units": "px",
+          "rect": {
+            "x": 403.546875,
+            "y": 1248.46875,
+            "w": 153.1875,
+            "h": 58.140625
+          },
+          "visible": true,
+          "editable": "text",
+          "slot": null,
+          "from": "pill-traceable"
+        },
+        {
+          "id": "footer-signature",
+          "tag": "span",
+          "component": null,
+          "group": false,
+          "parentLayer": null,
+          "region": null,
+          "coordinateReference": "canvas-top-left",
+          "units": "px",
+          "rect": {
+            "x": 71.265625,
+            "y": 1367,
+            "w": 323.140625,
+            "h": 27.640625
+          },
+          "visible": true,
+          "editable": "text",
+          "slot": null,
+          "from": null
+        },
+        {
+          "id": "page-number",
+          "tag": "span",
+          "component": null,
+          "group": false,
+          "parentLayer": null,
+          "region": null,
+          "coordinateReference": "canvas-top-left",
+          "units": "px",
+          "rect": {
+            "x": 1008.734375,
+            "y": 1387,
+            "w": 0,
+            "h": 0
+          },
+          "visible": false,
+          "editable": "text",
+          "slot": null,
+          "from": null
+        }
+      ],
+      "bands": [
+        {
+          "band": 1,
+          "coveredPx": 224.25,
+          "emptyPx": 135.75
+        },
+        {
+          "band": 2,
+          "coveredPx": 140.703125,
+          "emptyPx": 219.296875
+        },
+        {
+          "band": 3,
+          "coveredPx": 322.3125,
+          "emptyPx": 37.6875
+        },
+        {
+          "band": 4,
+          "coveredPx": 52,
+          "emptyPx": 308
+        }
+      ],
+      "counts": {
+        "components": 7,
+        "texts": 15,
+        "images": 1
+      },
+      "fonts": {
+        "status": "loaded",
+        "faces": [
+          {
+            "family": "Playfair Display",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Playfair Display",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Playfair Display",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Playfair Display",
+            "style": "normal",
+            "weight": "400",
+            "status": "loaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "loaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "loaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "loaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          },
+          {
+            "family": "Noto Serif SC",
+            "style": "normal",
+            "weight": "400",
+            "status": "unloaded"
+          }
+        ],
+        "requested": [
+          "\"PingFang SC\", \"Microsoft YaHei\", sans-serif",
+          "\"Playfair Display\", \"Noto Serif SC\", \"Songti SC\", serif"
+        ],
+        "actual": [
+          {
+            "layer": "brand-seal",
+            "tag": "SPAN",
+            "fonts": [
+              {
+                "familyName": "Playfair Display",
+                "postScriptName": "PlayfairDisplay-Regular",
+                "isCustomFont": true,
+                "glyphCount": 2
+              }
+            ]
+          },
+          {
+            "layer": "brand-name",
+            "tag": "DIV",
+            "fonts": [
+              {
+                "familyName": "Microsoft YaHei",
+                "postScriptName": "MicrosoftYaHei-Bold",
+                "isCustomFont": false,
+                "glyphCount": 7
+              }
+            ]
+          },
+          {
+            "layer": "brand-tag",
+            "tag": "DIV",
+            "fonts": [
+              {
+                "familyName": "Microsoft YaHei",
+                "postScriptName": "MicrosoftYaHei",
+                "isCustomFont": false,
+                "glyphCount": 17
+              }
+            ]
+          },
+          {
+            "layer": "topic",
+            "tag": "P",
+            "fonts": [
+              {
+                "familyName": "Microsoft YaHei",
+                "postScriptName": "MicrosoftYaHei-Bold",
+                "isCustomFont": false,
+                "glyphCount": 4
+              }
+            ]
+          },
+          {
+            "layer": "headline",
+            "tag": "H1",
+            "fonts": [
+              {
+                "familyName": "Microsoft YaHei",
+                "postScriptName": "MicrosoftYaHei-Bold",
+                "isCustomFont": false,
+                "glyphCount": 8
+              }
+            ]
+          },
+          {
+            "layer": null,
+            "tag": "SPAN",
+            "fonts": [
+              {
+                "familyName": "Microsoft YaHei",
+                "postScriptName": "MicrosoftYaHei-Bold",
+                "isCustomFont": false,
+                "glyphCount": 3
+              }
+            ]
+          },
+          {
+            "layer": "introduction",
+            "tag": "P",
+            "fonts": [
+              {
+                "familyName": "Microsoft YaHei",
+                "postScriptName": "MicrosoftYaHei",
+                "isCustomFont": false,
+                "glyphCount": 5
+              }
+            ]
+          },
+          {
+            "layer": "frame-data-value",
+            "tag": "P",
+            "fonts": [
+              {
+                "familyName": "Noto Serif SC ExtraLight",
+                "postScriptName": "NotoSerifSCExtraLight-Regular",
+                "isCustomFont": true,
+                "glyphCount": 4
+              }
+            ]
+          },
+          {
+            "layer": "frame-data-name",
+            "tag": "H2",
+            "fonts": [
+              {
+                "familyName": "Microsoft YaHei",
+                "postScriptName": "MicrosoftYaHei-Bold",
+                "isCustomFont": false,
+                "glyphCount": 4
+              }
+            ]
+          },
+          {
+            "layer": "frame-data-scope",
+            "tag": "P",
+            "fonts": [
+              {
+                "familyName": "Microsoft YaHei",
+                "postScriptName": "MicrosoftYaHei",
+                "isCustomFont": false,
+                "glyphCount": 17
+              }
+            ]
+          },
+          {
+            "layer": "frame-note-text",
+            "tag": "P",
+            "fonts": [
+              {
+                "familyName": "Microsoft YaHei",
+                "postScriptName": "MicrosoftYaHei",
+                "isCustomFont": false,
+                "glyphCount": 17
+              }
+            ]
+          },
+          {
+            "layer": "detail-crop-evidence-caption",
+            "tag": "FIGCAPTION",
+            "fonts": [
+              {
+                "familyName": "Microsoft YaHei",
+                "postScriptName": "MicrosoftYaHei-Bold",
+                "isCustomFont": false,
+                "glyphCount": 4
+              }
+            ]
+          },
+          {
+            "layer": "frame-tag-1",
+            "tag": "SPAN",
+            "fonts": [
+              {
+                "familyName": "Microsoft YaHei",
+                "postScriptName": "MicrosoftYaHei",
+                "isCustomFont": false,
+                "glyphCount": 5
+              }
+            ]
+          },
+          {
+            "layer": "frame-tag-2",
+            "tag": "SPAN",
+            "fonts": [
+              {
+                "familyName": "Microsoft YaHei",
+                "postScriptName": "MicrosoftYaHei",
+                "isCustomFont": false,
+                "glyphCount": 5
+              }
+            ]
+          },
+          {
+            "layer": "frame-tag-3",
+            "tag": "SPAN",
+            "fonts": [
+              {
+                "familyName": "Microsoft YaHei",
+                "postScriptName": "MicrosoftYaHei",
+                "isCustomFont": false,
+                "glyphCount": 5
+              }
+            ]
+          },
+          {
+            "layer": "footer-signature",
+            "tag": "SPAN",
+            "fonts": [
+              {
+                "familyName": "Microsoft YaHei",
+                "postScriptName": "MicrosoftYaHei",
+                "isCustomFont": false,
+                "glyphCount": 17
+              }
+            ]
+          }
+        ],
+        "warnings": [],
+        "loadedFaces": 4
+      },
+      "inputKey": "83647a2c8373c4c05ff912fbc20d259d43954165cad69377a99b92ca9b381d1f"
+    }
+  ],
+  "issues": [
+    {
+      "level": "ERROR",
+      "rule": "BATCH",
+      "msg": "几何检查失败页: 19；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+    }
+  ],
+  "artifacts": {},
+  "updatedAt": "2026-11-13T15:11:29.457Z"
+}

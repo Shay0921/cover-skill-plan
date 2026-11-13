@@ -11,7 +11,7 @@
         "body-mn":{"name":"旁注两栏 · 右机","when":"mn 旁注档（源页 28）：左旁注短评、右整机","order":["head","left","right"],"tracks":[{"region":"left","share":[0.42,0.48]},{"region":"right","share":[0.52,0.58]}],"headline":[1,1],"carriers":[{"component":"phone","region":"right","width":[40,43]}]}
       }},
     "R-cover-02": {"name":"长标题主张页","intent":"标题本身是主张（2-3 行自然折行），左短注右局部图","regions":{"head":{"allow":["h1","sub","kicker"]},"left":{"allow":["text-block","list","ck"]},"right":{"allow":["shot","text-block","phone"]}}},
-    "R-list-01": {"name":"条目+证据页","intent":"左列行式条目（编号/复选/纯行）、右侧一个内容载体","regions":{"head":{"allow":["h1","sub","kicker"]},"left":{"allow":["frow","ck","list","text-block"]},"right":{"allow":["phone","shot","text-block"]},"bottom":{"allow":["text-block","serif","cta","fcard"]}},
+    "R-list-01": {"name":"条目+证据页","intent":"左列行式条目（编号/复选/纯行）、右侧一个内容载体","regions":{"head":{"allow":["h1","sub","kicker"]},"full":{"allow":["ck","list","text-block"]},"left":{"allow":["frow","ck","list","text-block"]},"right":{"allow":["phone","shot","text-block"]},"bottom":{"allow":["text-block","serif","cta","fcard"]}},
       "layouts":{
         "frow-phone":{"name":"编号条目 · 右机","when":"源页 05：左列编号行式条目，右整屏机互证","order":["head","left","right"],"tracks":[{"region":"left","share":[0.46,0.50]},{"region":"right","share":[0.46,0.50]}],"headline":[1,1],"carriers":[{"component":"phone","region":"right","width":[36,42]}]},
         "ck-phone":{"name":"复选条目 · 右机","when":"源页 14：左列复选条目，右整屏机互证","order":["head","left","right"],"tracks":[{"region":"left","share":[0.46,0.50]},{"region":"right","share":[0.46,0.50]}],"headline":[1,1],"carriers":[{"component":"phone","region":"right","width":[39,44]}]},
