@@ -1,0 +1,1196 @@
+{
+  "thesis": {
+    "id": "thesis",
+    "text": "A1 受控回归",
+    "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+    "source": "本试验定义"
+  },
+  "highlights": [
+    {
+      "id": "brand-seal",
+      "text": "A1",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "brand-name",
+      "text": "A1 受控回归",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "brand-tag",
+      "text": "这是一段占位说明，用于核对折行密度",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "topic-material",
+      "text": "栏目引导语\n主题导语",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "alignment-headline",
+      "text": "页标题",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "alignment-intro",
+      "text": "这是一段占位说明，用于核对折行密度",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "reading-title",
+      "text": "1\n要点标题\n条目标题\n清单条目",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "reading-detail",
+      "text": "这是一段占位说明，用于核对折行密度",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "alignment-note",
+      "text": "这是一段占位说明，用于核对折行密度",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "topic-proof",
+      "text": "栏目引导语\n主题行\n主题导语",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "note-phone-headline",
+      "text": "页标题前高亮词",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "note-phone-intro",
+      "text": "这是一段占位说明，用于核对折行密度",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "detail-note-title",
+      "text": "旁注标题",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "detail-note-text",
+      "text": "这是一段占位说明，用于核对折行密度",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "topic",
+      "text": "栏目引导语\n主题行",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "bleed-cover-headline",
+      "text": "一句话高亮收尾",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "cover-title",
+      "text": "封面主标高亮\n标题前段高亮",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "cover-intro",
+      "text": "这是一段占位说明，用于核对折行密度",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "anchor-phone-headline",
+      "text": "页标题前高亮词页标题后",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "context-title",
+      "text": "语境标题",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "context-detail",
+      "text": "这是一段占位说明，用于核对折行密度",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "trace-title",
+      "text": "来源标题",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "trace-detail",
+      "text": "这是一段占位说明，用于核对折行密度",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "supplement-title",
+      "text": "补充标题\n收底卡标记\n收底卡标\n收尾卡标记\n收尾卡标",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "anchor-supplement-detail",
+      "text": "这是一段占位说明，用于核对折行密度",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "anchor-phone-note",
+      "text": "底部注释",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "closing-record-headline",
+      "text": "收尾标题",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "closing-record-intro",
+      "text": "这是一段占位说明，用于核对折行密度",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "closing-origin-key",
+      "text": "条目标签条目标签英文",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "closing-origin-en",
+      "text": "条目标签英文",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "closing-origin-text",
+      "text": "这是一段占位说明，用于核对折行密度",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "next-action",
+      "text": "行动指令",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "closing-tags-headline",
+      "text": "收尾标题",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "closing-tags-intro",
+      "text": "这是一段占位说明，用于核对折行密度",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "pill-original",
+      "text": "收尾标签一\n证据标签一",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "pill-synthetic",
+      "text": "收尾标签二\n证据标签二",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "pill-traceable",
+      "text": "收尾标签三\n证据标签三",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "pill-style",
+      "text": "收尾标签四",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "pill-bleed",
+      "text": "收尾标签五",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "closing-scope-key",
+      "text": "条目标签条目标签英文",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "closing-scope-en",
+      "text": "条目标签英文",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "closing-scope-text",
+      "text": "这是一段占位说明，用于核对折行密度",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "closing-seal",
+      "text": "收束印章字",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "record-closing-headline",
+      "text": "收尾标题收尾标题收尾标题",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "record-closing-intro",
+      "text": "这是一段占位说明，用于核对折行密度",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "record-closing-line",
+      "text": "收束金句前段收束金句重点收束金句后段",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "closing-headline",
+      "text": "收尾标题",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "closing-intro",
+      "text": "这是一段占位说明，用于核对折行密度",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "topic-boundary",
+      "text": "栏目主题\n主题行\n主题导语",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "compare-count-headline",
+      "text": "对比标题对比标题",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "compare-count-intro",
+      "text": "这是一段占位说明，用于核对折行密度",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "compare-carrier-title",
+      "text": "对比卡标",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "compare-carrier-purpose",
+      "text": "对比卡条目一",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "compare-carrier-reading",
+      "text": "对比卡条目二",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "compare-carrier-boundary",
+      "text": "对比卡条目三",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "compare-two-pairs",
+      "text": "这是一段占位说明，用于核对折行密度",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "compare-headline",
+      "text": "对比标题对比标题",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "compare-intro",
+      "text": "这是一段占位说明，用于核对折行密度",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "compare-list-title",
+      "text": "对比卡标\n对比前卡",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "compare-list-purpose",
+      "text": "对比卡条目一\n对比前卡条目一",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "compare-list-reading",
+      "text": "对比卡条目二\n对比前卡条目二",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "compare-list-boundary",
+      "text": "对比卡条目三\n对比前卡条目三",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "compare-note",
+      "text": "这是一段占位说明，用于核对折行密度",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "compare-dark-headline",
+      "text": "对比标题对比标题",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "compare-dark-intro",
+      "text": "这是一段占位说明，用于核对折行密度",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "compare-card-title",
+      "text": "对比后卡",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "compare-card-purpose",
+      "text": "对比后卡条目一",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "compare-card-reading",
+      "text": "对比后卡条目二",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "compare-card-boundary",
+      "text": "对比后卡条目三",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "compare-closing-line",
+      "text": "收束句前段收束句重点收束句尾",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "compare-stacked-headline",
+      "text": "对比标题对比标题",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "compare-stacked-intro",
+      "text": "这是一段占位说明，用于核对折行密度",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "compare-window-headline",
+      "text": "标题前段高亮",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "compare-window-intro",
+      "text": "这是一段占位说明，用于核对折行密度",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "detail-crop-caption",
+      "text": "图注\n图片图注\n局部图注二",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "compare-nat-title",
+      "text": "对照标题",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "compare-nat-purpose",
+      "text": "要点行",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "compare-nat-reading",
+      "text": "要点行",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "compare-nat-boundary",
+      "text": "要点行",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "compare-cut-title",
+      "text": "对照标题",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "compare-cut-purpose",
+      "text": "要点行",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "compare-cut-reading",
+      "text": "要点行",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "compare-cut-boundary",
+      "text": "要点行",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "compare-window-note",
+      "text": "这是一段占位说明，用于核对折行密度",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "chart-stress-headline",
+      "text": "标题",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "chart-stress-intro",
+      "text": "这是一段占位说明，用于核对折行密度",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "four-chart-title",
+      "text": "图表标题",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "four-alpha-count",
+      "text": "柱值",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "four-beta-count",
+      "text": "柱值",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "four-gamma-count",
+      "text": "柱值",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "four-delta-count",
+      "text": "柱值",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "four-alpha-name",
+      "text": "柱标签",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "four-beta-name",
+      "text": "柱标签",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "four-gamma-name",
+      "text": "柱标签",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "four-delta-name",
+      "text": "柱标签",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "sample-method-heading",
+      "text": "口径标题",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "sample-origin-key",
+      "text": "口径键",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "sample-origin-value",
+      "text": "口径值",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "sample-unit-key",
+      "text": "口径键",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "sample-unit-value",
+      "text": "口径值",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "sample-use-key",
+      "text": "口径键",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "sample-use-value",
+      "text": "口径值",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "four-scale-boundary",
+      "text": "这是一段占位说明，用于核对折行密度",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "synthetic-headline",
+      "text": "标题前段高亮",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "synthetic-intro",
+      "text": "这是一段占位说明，用于核对折行密度",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "sample-alpha-count",
+      "text": "样本数值\n柱值",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "sample-alpha-name",
+      "text": "样本名\n柱标签",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "sample-alpha-scope",
+      "text": "样本口径行",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "sample-chart-title",
+      "text": "图表标题",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "sample-beta-count",
+      "text": "柱值\n指标数值",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "sample-beta-name",
+      "text": "柱标签\n指标名称",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "sample-warning",
+      "text": "这是一段占位说明，用于核对折行密度",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "metric-trio-headline",
+      "text": "一句话高亮词",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "metric-trio-intro",
+      "text": "数据页导语",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "trio-alpha-count",
+      "text": "指标数值",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "trio-alpha-name",
+      "text": "指标名称",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "trio-alpha-scope",
+      "text": "这是一段占位说明，用于核对折行密度",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "trio-card-title",
+      "text": "收底卡标记\n收底卡标",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "trio-card-detail",
+      "text": "这是一段占位说明，用于核对折行密度",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "full-frame-headline",
+      "text": "一句话高亮词收尾",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "full-frame-intro",
+      "text": "数据页导语",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "sample-beta-scope",
+      "text": "这是一段占位说明，用于核对折行密度",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "frame-note",
+      "text": "这是一段占位说明，用于核对折行密度",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "phone-checklist-headline",
+      "text": "页标题",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "phone-checklist-intro",
+      "text": "这是一段占位说明，用于核对折行密度",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "identify-screen-title",
+      "text": "清单标题\n复选条目",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "identify-screen-detail",
+      "text": "这是一段占位说明，用于核对折行密度",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "overview-crop-caption",
+      "text": "局部图注一\n图注",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "columns-headline",
+      "text": "页标题高亮词",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "columns-intro",
+      "text": "这是一段占位说明，用于核对折行密度",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "prose-reading",
+      "text": "正文段落",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "checklist-headline",
+      "text": "一句话高亮词",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "checklist-intro",
+      "text": "清单页导语",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "check-note",
+      "text": "这是一段占位说明，用于核对折行密度",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "supplement-detail",
+      "text": "这是一段占位说明，用于核对折行密度",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "check-pair-headline",
+      "text": "清单页主",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "check-pair-intro",
+      "text": "清单页导语",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "list-pair-headline",
+      "text": "清单页主",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "list-pair-intro",
+      "text": "清单页导语",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "avoid-promises-title",
+      "text": "收尾卡标记\n收尾卡标",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "avoid-promises-detail",
+      "text": "这是一段占位说明，用于核对折行密度",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "evidence-notes-headline",
+      "text": "注解页主",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "evidence-notes-intro",
+      "text": "这是一段占位说明，用于核对折行密度",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "calendar-note-title",
+      "text": "旁注标题",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "calendar-note-text",
+      "text": "这是一段占位说明，用于核对折行密度",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "calendar-claim",
+      "text": "详情卡论断",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "calendar-source",
+      "text": "详情卡来源",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "calendar-explanation",
+      "text": "详情卡解读",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "brewlog-crop-caption",
+      "text": "图片图注",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "detail-notes-headline",
+      "text": "一句话高亮词",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "detail-notes-intro",
+      "text": "这是一段占位说明，用于核对折行密度",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "detail-claim",
+      "text": "详情卡论断",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "detail-source",
+      "text": "详情卡来源",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "detail-explanation",
+      "text": "详情卡解读",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "detail-bottom",
+      "text": "这是一段占位说明，用于核对折行密度",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "phone-sidecard-headline",
+      "text": "高亮词收尾",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "phone-sidecard-intro",
+      "text": "解读页导语",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "sidecard-heading",
+      "text": "详情区引导语",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "sidecard-a-claim",
+      "text": "详情卡论断",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "sidecard-a-source",
+      "text": "详情卡来源",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "sidecard-a-explanation",
+      "text": "详情卡解读",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "sidecard-note",
+      "text": "这是一段占位说明，用于核对折行密度",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "pair-context",
+      "text": "这是一段占位说明，用于核对折行密度",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "duo-phone-headline",
+      "text": "标题前段高亮标题后段",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "duo-phone-intro",
+      "text": "这是一段占位说明，用于核对折行密度",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "overview-caption",
+      "text": "屏注",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "shelf-caption",
+      "text": "屏注",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "duo-phone-note",
+      "text": "这是一段占位说明，用于核对折行密度",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "phone-wall-headline",
+      "text": "高亮标题后段",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "phone-wall-intro",
+      "text": "这是一段占位说明，用于核对折行密度",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "detail-caption",
+      "text": "屏注",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "brewlog-caption",
+      "text": "屏注",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "phone-wall-boundary",
+      "text": "这是一段占位说明，用于核对折行密度",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "quote-headline",
+      "text": "金句标题",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "quote-intro",
+      "text": "这是一段占位说明，用于核对折行密度",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "quote-text",
+      "text": "金句前半金句高亮金句收尾",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "quote-source",
+      "text": "这是一段占位说明，用于核对折行密度",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "quote-explanation",
+      "text": "这是一段占位说明，用于核对折行密度",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "divider-headline",
+      "text": "章节标题",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "divider-text",
+      "text": "金句前半金句引入金句高亮金句收尾",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "divider-credit",
+      "text": "这是一段占位说明，用于核对折行密度",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "steps-headline",
+      "text": "步骤标题步骤标题",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "steps-intro",
+      "text": "这是一段占位说明，用于核对折行密度",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "inspect-material-title",
+      "text": "步骤标题",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "inspect-material-detail",
+      "text": "这是一段占位说明，用于核对折行密度",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "steps-note-title",
+      "text": "提示标题",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "steps-note-text",
+      "text": "这是一段占位说明，用于核对折行密度",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "shot-pair-headline",
+      "text": "标题",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "shot-pair-intro",
+      "text": "这是一段占位说明，用于核对折行密度",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "fill-wall-headline",
+      "text": "标题前段高亮",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "fill-wall-intro",
+      "text": "这是一段占位说明，用于核对折行密度",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "fill-note",
+      "text": "这是一段占位说明，用于核对折行密度",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "wall-headline",
+      "text": "标题",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "wall-intro",
+      "text": "这是一段占位说明，用于核对折行密度",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "wall-note",
+      "text": "这是一段占位说明，用于核对折行密度",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "inspect-material-order",
+      "text": "A 受控图像槽位 inspect-material-order",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    },
+    {
+      "id": "reading-purpose-order",
+      "text": "A 受控图像槽位 reading-purpose-order",
+      "evidence": "A1 受控合成文案，用于骨架 gate 回归，不陈述产品事实。",
+      "source": "本试验定义"
+    }
+  ],
+  "pains": [],
+  "hooks": [],
+  "data": [],
+  "quotes": []
+}

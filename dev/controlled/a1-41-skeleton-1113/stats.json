@@ -1,0 +1,18 @@
+{
+  "uniqueIds": 197,
+  "placeholderHits": 622,
+  "uniquePlaceholderNames": 154,
+  "crossFileMultiTextIds": 23,
+  "crossFileMultiPhIds": 58,
+  "samePageMultiTextPages": 9,
+  "expect": {
+    "uniqueIds": 197,
+    "placeholderHits": 622,
+    "uniquePlaceholderNames": 154
+  },
+  "statsNote": {
+    "crossFileTextIdsExpect": 31,
+    "crossFilePhIdsExpect": 31,
+    "samePagePagesExpect": 9
+  }
+}

@@ -10,35 +10,35 @@
 
 ## 0. 实测底账（本方案全部断言的来源）
 
-| 项 | 实测值 | 证据 |
-|---|---|---|
-| git 位置 | HEAD `6f1663a`，44 个 `M`、4 个 `??` | `git status --short` |
-| B-seed 施工 | seed L33 `.heading` → `.p-page .heading`（gap 优先级修复）；SHA `7771E1EA…` → `E11C9E1E…`；`build.mjs` + `04-recipes.md` 三处同步 | `git diff`，3 文件各 1 行 |
-| 41 图重渲 | 已完成，逐图像素差留档 | `dev/_sc/pixdiff-bseed-1113.json` |
-| 2140 回归 | `total 184 / passed 184 / failed 0`（2026-11-13T11:47Z） | `dev/controlled/controlled-negative-1113-2140/test-results.json` |
-| 负例索引 | `scope=…1905`、`count=184` —— **未切 2140** | `dev/controlled/negative-index.json` |
-| 三锁 | 种子 / 资产台账 / 索引对账全绿，新 SHA 已生效 | `dev/check-*.mjs` |
-| h75 压测 | card02-long `failed R1×2`；card02-short `passed`；note02-long `failed R14（宽 33.8 超出 36–40）`、r1Count=0；note02-short `passed` | `dev/h75-stress-tmp/stress-report.json` + 4 份 `work/qa-report.json` |
-| h68 等比可达宽度 | `63.5–68cqw 高 × 910/1806 = 32.0–34.3cqw 宽`；`max-height` 封顶使拉宽不溢出 wall | `seed/paper-journal.html:97/101` |
-| R10 覆盖面 | `validate.mjs:34/211-220` 取全部 `[data-component]`（含 `.phone`），`skew>1.01` 判 ERROR，**只管比例失真，不管等比压缩** | 代码 + note02-long 实测 R10 静默 |
-| 11 条 R14 夹具 | 无一条依赖 `duo-labeled [32,36]`：`skeleton-carrier-width` 用 `frow-phone [36,42]`、`skeleton-shot-counts` 用 `shot-ba [40,45]`、两条 `counts-*` 首错是缺 h1，其余是 tracks/anchor/headline 类 | `negative-index.json` fixtures |
-| 池约束 | `project.mjs:105-107` 强制读 02-pool/03-plan；`:134` 校验 `uses` 必须命中池；`lint-dom.mjs:201-216` 双向对账 `data-from ↔ assets ↔ uses`；`:272-293` 逐字比文案 | 代码 |
-| 骨架体量 | 41 骨架 / 483 处 `data-from` / 197 唯一 ID / 622 次 `{{}}` / 154 唯一占位符名 | 全文扫描 |
-| `.gitignore` | 已存在且 tracked，**不含** `.workbuddy/` 规则 | 文件 |
+| 项            | 实测值                                                                                                                                                                       | 证据                                                                  |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| git 位置       | HEAD `6f1663a`，44 个 `M`、4 个 `??`                                                                                                                                          | `git status --short`                                                |
+| B-seed 施工    | seed L33 `.heading` → `.p-page .heading`（gap 优先级修复）；SHA `7771E1EA…` → `E11C9E1E…`；`build.mjs` + `04-recipes.md` 三处同步                                                      | `git diff`，3 文件各 1 行                                                |
+| 41 图重渲       | 已完成，逐图像素差留档                                                                                                                                                               | `dev/_sc/pixdiff-bseed-1113.json`                                   |
+| 2140 回归      | `total 184 / passed 184 / failed 0`（2026-11-13T11:47Z）                                                                                                                    | `dev/controlled/controlled-negative-1113-2140/test-results.json`    |
+| 负例索引         | `scope=…1905`、`count=184` —— **未切 2140**                                                                                                                                  | `dev/controlled/negative-index.json`                                |
+| 三锁           | 种子 / 资产台账 / 索引对账全绿，新 SHA 已生效                                                                                                                                              | `dev/check-*.mjs`                                                   |
+| h75 压测       | card02-long `failed R1×2`；card02-short `passed`；note02-long `failed R14（宽 33.8 超出 36–40）`、r1Count=0；note02-short `passed`                                                 | `dev/h75-stress-tmp/stress-report.json` + 4 份 `work/qa-report.json` |
+| h68 等比可达宽度   | `63.5–68cqw 高 × 910/1806 = 32.0–34.3cqw 宽`；`max-height` 封顶使拉宽不溢出 wall                                                                                                     | `seed/paper-journal.html:97/101`                                    |
+| R10 覆盖面      | `validate.mjs:34/211-220` 取全部 `[data-component]`（含 `.phone`），`skew>1.01` 判 ERROR，**只管比例失真，不管等比压缩**                                                                        | 代码 + note02-long 实测 R10 静默                                          |
+| 11 条 R14 夹具  | 无一条依赖 `duo-labeled [32,36]`：`skeleton-carrier-width` 用 `frow-phone [36,42]`、`skeleton-shot-counts` 用 `shot-ba [40,45]`、两条 `counts-*` 首错是缺 h1，其余是 tracks/anchor/headline 类 | `negative-index.json` fixtures                                      |
+| 池约束          | `project.mjs:105-107` 强制读 02-pool/03-plan；`:134` 校验 `uses` 必须命中池；`lint-dom.mjs:201-216` 双向对账 `data-from ↔ assets ↔ uses`；`:272-293` 逐字比文案                                 | 代码                                                                  |
+| 骨架体量         | 41 骨架 / 483 处 `data-from` / 197 唯一 ID / 622 次 `{{}}` / 154 唯一占位符名                                                                                                         | 全文扫描                                                                |
+| `.gitignore` | 已存在且 tracked，**不含** `.workbuddy/` 规则                                                                                                                                      | 文件                                                                  |
 
 ---
 
 ## 1. 分刀总表
 
-| 刀 | 内容 | 前置 | 完成判据 | commit |
-|---|---|---|---|---|
-| **S** | B-seed 收尾（主体笔） | — | 索引 2140 对账 exit 0、41 图目检留痕、stress 正名 + gitignore 入册、旧 SHA 标注失效 | 1 笔（`8eb6d27`，2026-11-13 21:35） |
-| **G** | 用户闸门（6 项） | S | 逐项答复 + 监工复核，落 `dev/GATE-B-2026-11-13.md` | 无（✅ 2026-11-13 21:40 六项全按推荐通过，记录已落 `dev/GATE-B-2026-11-13.md`，文件随刀 C 入库） |
-| **C** | B-contract | G 通过 | h68 坏例删档前后对照表 + 全量回归全绿 + v3 修订记录入库 | 1 笔 |
-| **A2** | 池契约拍板（三问） | C | 用户答复三问 | 无 |
-| **A1** | 41 骨架 × 真实 gate | A2 | 41 页 qa-report + 失败清单（只登记不修） | 1 笔 |
-| **A3** | 驱动文档范式同步 | A1 | 四文件旧术语归零、与 SKILL 六步对齐 | 1 笔 |
-| **T14** | 豆仓 7 页验收 | A3 + 用户闸门 | 用户验收 | — |
+| 刀       | 内容              | 前置        | 完成判据                                                           | commit                                                                   |
+| ------- | --------------- | --------- | -------------------------------------------------------------- | ------------------------------------------------------------------------ |
+| **S**   | B-seed 收尾（主体笔）  | —         | 索引 2140 对账 exit 0、41 图目检留痕、stress 正名 + gitignore 入册、旧 SHA 标注失效 | 1 笔（`8eb6d27`，2026-11-13 21:11:33）                                          |
+| **G**   | 用户闸门（6 项）       | S         | 逐项答复 + 监工复核，落 `dev/GATE-B-2026-11-13.md`                       | 无（六项全按推荐通过；用户答复 21:21，监工复核签字 22:00 补，记录随刀 C 入库） |
+| **C**   | B-contract      | G 通过      | h68 坏例删档前后对照表 + 全量回归全绿 + v3 修订记录入库                             | 1 笔（`c210241`，2026-11-13 21:31:22；套件 `controlled-negative-1113-2128` 184/184）                               |
+| **A2**  | 池契约拍板（三问）       | C         | 用户授权监工代拍，裁决落 `dev/GATE-A2-2026-11-13.md`                                                         | 无                                                                        |
+| **A1**  | 41 骨架 × 真实 gate | A2        | 41 页 qa-report + 失败清单（只登记不修）                                   | 1 笔                                                                      |
+| **A3**  | 驱动文档范式同步        | A1        | 四文件旧术语归零、与 SKILL 六步对齐                                          | 1 笔                                                                      |
+| **T14** | 豆仓 7 页验收        | A3 + 用户闸门 | 用户验收                                                           | —                                                                        |
 
 顺序不可倒。闸门 G 未过不得动 `config/` 与 gate 代码。
 
@@ -86,14 +86,14 @@ B-seed：gap 优先级修复 + SHA E11C9E1E + 41 图重渲 + 基线 2140 全绿 
 
 ## 3. 闸门 G · 用户确认 6 项（缺一不进刀 C）
 
-| # | 待确认 | 依据 | 推荐值 |
-|---|---|---|---|
-| 1 | 修订 DIAGNOSIS §8.5.2 **第 1 条** | 「R10 已覆盖」被证伪：note02-long 810→724px 等比压缩、skew≈1、R10 静默、唯一 ERROR 是 R14 | 改为「R10 只覆盖**比例失真**，不覆盖等比压缩；等比压缩下限由 R14 承担（h75 两条），h68 弹性档由 floor/cap 钳制 + R10 共同承担」 |
-| 2 | 修订 §8.5.2 **第 2 条**：删 3 条 → 删 1 条 | 压测证明两条 h75 的 width 仍有守卫价值 | 只删 `R-phone-01.duo-labeled [32,36]`；`card02-centered [36,40]`、`note02-phone-dcards [36,40]` 保留 |
-| 3 | 四组压测用例入册 | 「镜像债挂账」目前无守卫证据 | card02-long → 负例（R1×2）、note02-long → 负例（R14）、两 short → 基线正例 |
-| 4 | h75 两条**分别定性** | 打包挂账会把因果记错 | card02 = 横排锁高致 R1 真实溢出，与 width 档无关，弹性化另立项；note02 = 纵排可缩致 R14 下限是唯一守卫，width 档保留 |
-| 5 | 复测口径写死 | 734.4（68cqw cap）/ 685.8（63.5cqw floor）/ 702.8（§8.3 真实管线）/ 685.8（B-seed 报告）四值冲突 | 统一为 `.phone.h68` 的 `getBoundingClientRect().height`（px），同时记 `phoneW = height × 910/1806`；不预设 `:has` 失效；偏离 >2px 先查 gap 与字体再定性 |
-| 6 | A6 追认 | 曾是「待用户拍板」三件之一 | **用户拍板**「维持已完工销单」+ 监工复核；不由监工单方追认 |
+| # | 待确认                               | 依据                                                                             | 推荐值                                                                                                                          |
+| - | --------------------------------- | ------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------- |
+| 1 | 修订 DIAGNOSIS §8.5.2 **第 1 条**     | 「R10 已覆盖」被证伪：note02-long 810→724px 等比压缩、skew≈1、R10 静默、唯一 ERROR 是 R14           | 改为「R10 只覆盖**比例失真**，不覆盖等比压缩；等比压缩下限由 R14 承担（h75 两条），h68 弹性档由 floor/cap 钳制 + R10 共同承担」                                          |
+| 2 | 修订 §8.5.2 **第 2 条**：删 3 条 → 删 1 条 | 压测证明两条 h75 的 width 仍有守卫价值                                                      | 只删 `R-phone-01.duo-labeled [32,36]`；`card02-centered [36,40]`、`note02-phone-dcards [36,40]` 保留                               |
+| 3 | 四组压测用例入册                          | 「镜像债挂账」目前无守卫证据                                                                 | card02-long → 负例（R1×2）、note02-long → 负例（R14）、两 short → 基线正例                                                                  |
+| 4 | h75 两条**分别定性**                    | 打包挂账会把因果记错                                                                     | card02 = 横排锁高致 R1 真实溢出，与 width 档无关，弹性化另立项；note02 = 纵排可缩致 R14 下限是唯一守卫，width 档保留                                               |
+| 5 | 复测口径写死                            | 734.4（68cqw cap）/ 685.8（63.5cqw floor）/ 702.8（§8.3 真实管线）/ 685.8（B-seed 报告）四值冲突 | 统一为 `.phone.h68` 的 `getBoundingClientRect().height`（px），同时记 `phoneW = height × 910/1806`；不预设 `:has` 失效；偏离 >2px 先查 gap 与字体再定性 |
+| 6 | A6 追认                             | 曾是「待用户拍板」三件之一                                                                  | **用户拍板**「维持已完工销单」+ 监工复核；不由监工单方追认                                                                                             |
 
 **闸门记录**：答复原文、时间、监工复核结论写入 `dev/GATE-B-2026-11-13.md`。v2 的两条修订以「修订记录 v3」**追加**到 DIAGNOSIS §8.5.1，v2 原文不覆盖（归档不回改）。
 
@@ -102,6 +102,9 @@ B-seed：gap 优先级修复 + SHA E11C9E1E + 41 图重渲 + 基线 2140 全绿 
 ## 4. 刀 C · B-contract
 
 ### 4.1 五步（顺序不可倒）
+
+|   |   |   |
+| - | - | - |
 
 1. `tools/validate.mjs:102` → `if (carrier.width && (w < carrier.width[0] - 0.5 || w > carrier.width[1] + 0.5))`。`owners.length` 的「载体缺席」检查（:99）不动；width 存在时的越界判词与 hint 原样保留。
 2. `tools/project.mjs:89` → `if (carrier.width !== undefined && !interval(carrier.width, 1, 108)) throw …`。`interval(undefined,…)` 当前返回 false 会直接 throw，**必须先改**；width 存在时的 `[1,108]` 合法性校验保留。
@@ -115,21 +118,21 @@ B-seed：gap 优先级修复 + SHA E11C9E1E + 41 图重渲 + 基线 2140 全绿 
 
 前提：h68 的 `.phone` 宽度是高度派生量（`aspect-ratio:910/1806; width:auto`），不能靠内联 `width` 造等比场景。因此坏例分**两种手段分开登记**，禁止混用下结论：
 
-| 编号 | 构造手段 | 模拟什么 | 复用点 |
-|---|---|---|---|
-| B-N1 | `h68Duo(短 sub)` | 正常文案基线（phone 顶格 68cqw） | `test-controlled.mjs:333` |
-| B-N2 | `h68Duo(sub ×5~8)` | 长文案撑高 head → phone 触底 floor 63.5cqw | 同上；现有 `h68-duo-long-head` 是**正例**，需另造坏例方向 |
-| B-N3 | `phoneW(id, '30cqw')` | AI 越权写死内联宽度（历史病根，显式标注为「模拟误写」而非等比证据） | `test-controlled.mjs:304` |
-| B-N4 | `phoneW(id, '38cqw')` | 同上，拉宽过 cap | 同上 |
+| 编号   | 构造手段                  | 模拟什么                                | 复用点                                       |
+| ---- | --------------------- | ----------------------------------- | ----------------------------------------- |
+| B-N1 | `h68Duo(短 sub)`       | 正常文案基线（phone 顶格 68cqw）              | `test-controlled.mjs:333`                 |
+| B-N2 | `h68Duo(sub ×5~8)`    | 长文案撑高 head → phone 触底 floor 63.5cqw | 同上；现有 `h68-duo-long-head` 是**正例**，需另造坏例方向 |
+| B-N3 | `phoneW(id, '30cqw')` | AI 越权写死内联宽度（历史病根，显式标注为「模拟误写」而非等比证据） | `test-controlled.mjs:304`                 |
+| B-N4 | `phoneW(id, '38cqw')` | 同上，拉宽过 cap                          | 同上                                        |
 
 每条**删档前、删档后各跑一次**，结果表现场填写（**不预判**）：
 
-| 编号 | 阶段 | phoneW (cqw) | phoneH (px) | skew | status | ERROR 规则码 | 定性 |
-|---|---|---|---|---|---|---|---|
-| B-N1 | 前 / 后 | | | | | | |
-| B-N2 | 前 / 后 | | | | | | |
-| B-N3 | 前 / 后 | | | | | | |
-| B-N4 | 前 / 后 | | | | | | |
+| 编号   | 阶段    | phoneW (cqw) | phoneH (px) | skew | status | ERROR 规则码 | 定性 |
+| ---- | ----- | ------------ | ----------- | ---- | ------ | --------- | -- |
+| B-N1 | 前 / 后 |              |             |      |        |           |    |
+| B-N2 | 前 / 后 |              |             |      |        |           |    |
+| B-N3 | 前 / 后 |              |             |      |        |           |    |
+| B-N4 | 前 / 后 |              |             |      |        |           |    |
 
 定性只允许实测后写：接住（哪条规则）/ 静默（走后果化裁决）/ WARN / 显式接受残余。若 B-N1/B-N2 删档后静默，按 §8.5.3 走残余裁决，**不得改夹具 `expected` 去凑绿**。对照表命名 `dev/controlled/b-contract-h68-matrix-1113.md`。
 
@@ -154,19 +157,33 @@ B-seed：gap 优先级修复 + SHA E11C9E1E + 41 图重渲 + 基线 2140 全绿 
 
 ### 5.1 A2 三问（用户拍板，先于 A1）
 
+> **⚠ 本节表格的「推荐」列已于 2026-11-13 21:45 被 A2 实证复核部分推翻，执行以 §5.1-R 为准。原表原值保留不涂改（归档不回改）。**
+
 A1 **无法「不接内容池」**：`project.mjs:105-107` 强制读 pool/plan，`lint-dom.mjs:201-216` 双向对账，`project.mjs:134` 校验 uses 必须命中池。A1 必须构造**受控池契约**；解耦的只有真实文章内容，不是池本身。
 
-| # | 问题 | 推荐 |
-|---|---|---|
-| 1 | 骨架的 197 个唯一 `data-from` ID 是否即池资产 ID？ | 是，骨架 ID 即池 ID，A1 按 ID 生成假文字资产 |
+| # | 问题                                       | 推荐                                                                                              |
+| - | ---------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| 1 | 骨架的 197 个唯一 `data-from` ID 是否即池资产 ID？    | 是，骨架 ID 即池 ID，A1 按 ID 生成假文字资产                                                                   |
 | 2 | 622 次 / 154 个唯一 `{{占位符}}` → 197 资产的映射规则？ | 沿用 `dev/e2-duo-labeled.mjs:11-35` 范式：`{{图N}}` → 资产文件名，其余按中文占位符名 → 假文字表；映射表逐项落 `dev/A1-BRIEF.md` |
-| 3 | 41 页 `uses` 怎么生成？ | 由每页骨架实际出现的 `data-from` ID 集合反向生成，不手写 |
+| 3 | 41 页 `uses` 怎么生成？                        | 由每页骨架实际出现的 `data-from` ID 集合反向生成，不手写                                                            |
 
-拍板后同步 `SKILL.md §3`、`references/01-content-refinement.md`、`references/02-constraints.md` 的口径说明；**不动 gate 代码逻辑**。
+#### 5.1-R 修订记录（2026-11-13 21:45，监工 A2 实证复核）
+
+| # | 裁决 | 现行执行口径 | 实证依据 |
+|---|---|---|---|
+| 1 | **改**（原推荐失效） | ID 命名空间沿用（骨架 ID 即池 ID），但**不按 ID 反推文案**：先按形状规则填充页面，资产 `text` 由该 ID 在本页实际上版文字反向拼接；`kind` 一律落 `highlights`/`pains`/`hooks`（非 strict，避开 L15 逐字 ERROR） | 197 ID 中 31 个跨骨架对应多占位符、9 页同页同 ID 多文案；`lint-dom.mjs:270` `strictKinds={data,quotes}` |
+| 2 | **改**（原推荐失效） | 不复用 `dev/e2-duo-labeled.mjs:11-35`（`FILLED` 仅 11 key），改复用 `dev/_sc/render-selfcheck.mjs:18-23,109-117` 形状规则；`{{图N}}` → `dev/cases/assets/` s1–s9，`{{柱高}}` → `BAR_HEIGHTS`；未命中即 throw，不许静默留 `{{}}` | 154 唯一占位符 / 622 次出现；`references/assets/` 仅 1 个 png；L24 拦残留、L25 需 0–100 整数 |
+| 3 | **按推荐 + 3 条硬约束** | `uses` 取本页 `data-from` 并集反向生成；断言 `union(uses) === Object.keys(assets) === 197`（零孤儿，`project.mjs:158` 是 throw）；每资产 `id/text/evidence/source` 四字段非空；41/41 layout 精确命中，不许降级写 `"free"` | 实测 0 未匹配；`collectPoolAssets:48` |
+
+**裁决主体**：用户授权监工逐项代拍（非执行方自裁），全文见 `dev/GATE-A2-2026-11-13.md`。原表第 1、2 问的推荐值是我编制本方案时未做代码实证所致，**错在方案，不在照方案施工的执行方**。
+
+拍板后同步 `SKILL.md §3`、`references/01-content-refinement.md`、`references/02-constraints.md` 的口径说明；**不动 gate 代码逻辑**。三份文档已于 21:45 同步，随刀 A1 入库。其中 `SKILL.md`「先按这些 ID 把资产建齐再写页面」描述的是**正常运行期**工作流；A1 受控池是测试特例，按 §5.1-R 的「先填页面 → 再反推资产 text」顺序执行，不得照字面照搬。
 
 ### 5.2 `dev/A1-BRIEF.md` 必备内容
 
-受控池生成脚本入口、197 ID 清单来源、154 占位符→假文字映射表、41 页 uses 生成方式、gate 命令、失败判据（qa-report status / ERROR 规则码）、「只登记不修」纪律。缺任一不得开工。
+受控池生成脚本入口、197 ID 清单来源、154 占位符→假文字映射表（按 §5.1-R 的形状规则，非 e2 `FILLED`）、41 页 uses 生成方式、gate 命令、失败判据（qa-report status / ERROR 规则码）、「只登记不修」纪律。缺任一不得开工。
+
+**当前状态**：`dev/A1-BRIEF.md` 已落盘（89 行，随刀 A1 入库），含单 run 目录、`placeholder-map.json` 全量 622 条、形状规则表、池反向生成算法、四条加载前断言（零残留 / 零孤儿 / 四字段齐备 / `union(uses)=197`）、41/41 layout 命中断言。`dev/A1-run.mjs` 驱动**尚未实现**，A1 未开工。
 
 ### 5.3 命令与判据
 
@@ -207,3 +224,4 @@ A3 完成 + 用户闸门 → 豆仓 7 页真实素材跑新流程 → 逐页对�
 ---
 
 *编制：监工（2026-11-13 20:55）。每刀完成后在本文件第 1 节总表补 commit hash，不改动已完成刀的正文。*
+
