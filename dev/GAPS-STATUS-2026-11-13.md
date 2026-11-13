@@ -6,15 +6,15 @@
 
 ---
 
-## 一、当前快照（2026-11-13 17:50）
+## 一、当前快照（2026-11-13 21:30 · B-seed 刀 S 收尾）
 
 | 项 | 状态 |
 |---|---|
-| git 提交基线 | A5 收口笔（C1 期号资格迁移：config 五删 + lint-dom 声明化 + 加载校验 + 夹具 184 + 基线 1905 + 归属图 C1 销账）；此前 `3fab5be`（A4 收尾账）、`9f8480a`（A4: L25 B7 柱高边界 gate）、`79d9f64`（h68 销单收尾）、`8049afb`（T11-T14 阶段5） |
-| 工作区未提交 | 无（A5 收口笔随本节同步提交） |
-| 负例套件 | 最新基准 = `controlled-negative-1113-1905`：**184/184 全绿**（183 基线 + A5 新增正例钉子 `inner-page-with-declared-issue`）；`1735` 为 A4 基线（183）；`1733` 为首跑失败证据留存 |
-| 负例索引 | scope→1905，count=184，drift 0，裸跑 exit 0 ✅（注意：索引脚本从索引自身 `scope` 字段取套件目录，换套件后必须先改 scope 再 `--write`，否则是对旧套件空转） |
-| 三把只读锁 | 种子锁 / 资产台账 / 负例索引对账 全绿（种子基线 `7771E1EA…`） |
+| git 提交基线 | A5 收口笔 `fbe2cbd`（C1 期号资格迁移）→ 本笔 B-seed 刀 S（gap 优先级修复 + SHA `E11C9E1E…` + 41 图重渲 + 基线切 2140 + h75 压测入册）；此前 `3fab5be`（A4 收尾账）、`9f8480a`（A4: L25 B7 柱高边界 gate）、`79d9f64`（h68 销单收尾）、`8049afb`（T11-T14 阶段5） |
+| 工作区未提交 | B-seed 刀 S 一笔待提交（seed/build.mjs/04-recipes/negative-index/2140 归档/h75-stress-1113/_sc 重渲+目检/pixdiff/账目/.gitignore） |
+| 负例套件 | 最新基准 = `controlled-negative-1113-2140`：**184/184 全绿**（B-seed 重跑，夹具零改动）；`1905` 为 A5 基线（184）；`1735` 为 A4 基线（183）；`1733` 为首跑失败证据留存 |
+| 负例索引 | scope→2140，count=184，drift 0，裸跑 exit 0 ✅（注意：索引脚本从索引自身 `scope` 字段取套件目录，换套件后必须先改 scope 再 `--write`，否则是对旧套件空转） |
+| 三把只读锁 | 种子锁 / 资产台账 / 负例索引对账 全绿（种子基线 `7771E1EA…`——阶段 A 基线，已被 B-seed 的 `E11C9E1E…` 取代，见 EXEC-PLAN-phaseB 刀 S） |
 | 游离文件 | ~~仓库根 `claude-html-master.html`~~ 已在 `79d9f64` 清理 ✅ |
 
 ---
@@ -79,7 +79,7 @@
 
 ### A6 · h68 弹性档修复 ✅ 已完工销单（`8049afb` 修复 + `79d9f64` 验收补证）
 
-- **修复本体**（DIAGNOSIS §7/§8 定案，监工逐字核验）：`.phone.h68` 固定档 → 弹性档 `height:auto;flex:1 1 auto;min-height:63.5cqw;max-height:68cqw` + `:has` 拉伸 cell（含 `justify-content:center` 防正常态上移）；config R14 [33,36]→[32,36]；SHA 三处同步（新基线 `7771E1EA…`）；41 骨架零 diff；h75 一字未动。
+- **修复本体**（DIAGNOSIS §7/§8 定案，监工逐字核验）：`.phone.h68` 固定档 → 弹性档 `height:auto;flex:1 1 auto;min-height:63.5cqw;max-height:68cqw` + `:has` 拉伸 cell（含 `justify-content:center` 防正常态上移）；config R14 [33,36]→[32,36]；SHA 三处同步（新基线 `7771E1EA…`——阶段 A 基线，已被 B-seed 的 `E11C9E1E…` 取代）；41 骨架零 diff；h75 一字未动。
 - **验收补证三项全收口**（commit `79d9f64`，2026-11-13 17:32）：
   1. ✅ e2 h68 场景真实管线重跑：`status: failed`（R1×6）→ `status: passed`（R1=0 零 ERROR），qa-report 新旧双档存档（`qa-report.json` + `qa-report.before-R1x6.json`），手机实测 65.1cqw（703px）；
   2. ✅ p43 短文案实测 = **702.8px（65.1cqw），passed 零溢出**。非 734.4px 顶格的原因见 §8.6（gap 覆盖，预存在问题）；

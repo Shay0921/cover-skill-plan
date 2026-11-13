@@ -1,0 +1,198 @@
+{
+  "version": 3,
+  "style": "paper-journal",
+  "components": {
+    "h1": {
+      "name": "主标题",
+      "description": "允许自然换行；长标题在语义停顿（逗号、顿号、问号之后）用 <br> 显式分行，断行位置是排版决定，不交给画布宽度随机折行。高亮沿用 hl，任何页的标题都可用，按内容选；标题区最多一处，页尾收束金句另计一处。替换示例的语义 ID 与来源。",
+      "html": "<h1 class=\"h1\" data-component=\"h1\" data-layer=\"headline\" data-editable=\"text\" data-from=\"h1\">核心<span class=\"hl\">主张</span></h1>"
+    },
+    "sub": {
+      "name": "副标题",
+      "description": "解释主张的适用场景，不预设行数。",
+      "html": "<p class=\"sub\" data-component=\"sub\" data-layer=\"intro\" data-editable=\"text\" data-from=\"h1\">补充背景与适用条件</p>"
+    },
+    "kicker": {
+      "name": "引题",
+      "description": "简短分类或提示，仍需内容来源。",
+      "html": "<p class=\"kicker\" data-component=\"kicker\" data-layer=\"topic\" data-editable=\"text\" data-from=\"h1\">主题提示</p>"
+    },
+    "fcard": {
+      "name": "浮动卡片",
+      "description": "一组短标题与说明，图标位放一个提炼字；stagger 放在父容器上，不由组件预算坐标。",
+      "html": "<article class=\"fcard\" data-component=\"fcard\" data-layer=\"feature\" data-group><p class=\"ic\" data-layer=\"feature-mark\" data-editable=\"text\" data-from=\"h1\">读</p><div><p class=\"t\" data-layer=\"feature-title\" data-editable=\"text\" data-from=\"h1\">具体能力</p><p class=\"s\" data-layer=\"feature-detail\" data-editable=\"text\" data-from=\"h1\">说明它解决的场景</p></div></article>"
+    },
+    "ck": {
+      "name": "复选条目",
+      "description": "done 表示勾选；不加 done 就是空框，两者都可用。勾选态是语义决策，写进本页 plan intent，让目检可核对是刻意还是遗漏。",
+      "html": "<div class=\"ck done\" data-component=\"ck\" data-layer=\"check-item\" data-group><span class=\"box\" data-decoration></span><div><p class=\"t\" data-layer=\"check-title\" data-editable=\"text\" data-from=\"h1\">一个具体场景</p><p class=\"n\" data-layer=\"check-note\" data-editable=\"text\" data-from=\"h1\">必要的解释</p></div></div>",
+      "shapes": {
+        "done": {
+          "selector": ".ck.done",
+          "desc": "勾选态；不加 done 是空框"
+        }
+      }
+    },
+    "frow": {
+      "name": "编号条目",
+      "description": "结构序号不冒充事实数据；正文仍需来源。",
+      "html": "<div class=\"frow\" data-component=\"frow\" data-layer=\"numbered-item\" data-group><span class=\"cno\" data-numbering>01</span><div><p class=\"t\" data-layer=\"numbered-title\" data-editable=\"text\" data-from=\"h1\">条目标题</p><p class=\"d\" data-layer=\"numbered-detail\" data-editable=\"text\" data-from=\"h1\">条目说明</p></div></div>"
+    },
+    "list": {
+      "name": "列表条目",
+      "description": "一条一组件，由父容器决定数量、间距与排列；视觉沿用 frow 类，语义由 data-component 区分。",
+      "html": "<div class=\"frow\" data-component=\"list\" data-layer=\"list-item\" data-group><div><p class=\"t\" data-layer=\"list-title\" data-editable=\"text\" data-from=\"h1\">列表标题</p><p class=\"d\" data-layer=\"list-detail\" data-editable=\"text\" data-from=\"h1\">列表说明</p></div></div>"
+    },
+    "cr": {
+      "name": "标签条目",
+      "description": "用短标签概括后面的说明。标签下可以另挂一行英文小标签（.en），它是可选项，但同为内容字段，要有自己的来源。",
+      "html": "<div class=\"cr\" data-component=\"cr\" data-layer=\"summary-item\" data-group><span class=\"k\" data-layer=\"summary-label\" data-editable=\"text\" data-from=\"h1\">要点<span class=\"en\" data-layer=\"summary-label-en\" data-editable=\"text\" data-from=\"h1\">TAKEAWAY</span></span><p class=\"d\" data-layer=\"summary-text\" data-editable=\"text\" data-from=\"h1\">保留值得带走的信息</p></div>"
+    },
+    "shot": {
+      "name": "截图",
+      "description": "默认 contain 保留整张且无卡片底与描边；加 fill 铺满裁切，加 inset 才要底与描边。竖长的手机整屏优先用 phone。",
+      "html": "<figure class=\"shot\" data-component=\"shot\" data-layer=\"evidence-shot\" data-group><img data-layer=\"evidence-image\" data-slot=\"image\" src=\"assets/shot.jpg\" alt=\"界面截图\"><figcaption class=\"cap\" data-layer=\"evidence-caption\" data-editable=\"text\" data-from=\"h1\">图中证据的说明</figcaption></figure>",
+      "shapes": {
+        "natural": {
+          "selector": ".shot.natural",
+          "desc": "按原图比例自然高，不裁切"
+        },
+        "fill": {
+          "selector": ".shot.fill",
+          "desc": "铺满窗口裁切"
+        },
+        "inset": {
+          "selector": ".shot.inset",
+          "desc": "带卡片底与描边"
+        }
+      }
+    },
+    "phone": {
+      "name": "手机模型",
+      "description": "真实整屏截图的标准载体；高度由所在区域给满，种子保了最小高度档，区域给不出就是布局问题——换更宽的区域、减少同区内容或减并排数量，不让壳缩到不可读。可加 bleed 区域与 data-bleed 出到画布边。壳由 build 内嵌，不改原始比例。同一区并排多只时每只下方用 .phone-cell 配一行 text-block 界面名，文字写在壳根之外。封面右下出血用区域类 `.cover-bleed`，它的宽、右边留白与出画距离都由种子给出，这里不重复数值；手机根仍须声明 `data-bleed` 并省掉页码。单机下注解尽量省；需要时走 .phone-cell 小字档或 .text-block.muted 弱档，不用全强度正文档抢主体。",
+      "html": "<div class=\"phone\" data-component=\"phone\" data-layer=\"evidence-phone\" data-group><img class=\"phone-shot\" data-layer=\"phone-screen\" data-slot=\"image\" src=\"assets/shot.jpg\" alt=\"手机界面\"><img class=\"frame-img\" data-layer=\"phone-frame\" data-slot=\"image\" data-decoration src=\"assets/iphone-frame.png\" alt=\"\"></div>"
+    },
+    "text-block": {
+      "name": "正文",
+      "description": "自然换行的段落，可以代替不必要的图片或卡片。默认是全强度正文档；次要说明、注解加 .muted 弱档降一级，避免抢主体——L17 封死内联改色改字，弱档是合法的降档通道。",
+      "html": "<p class=\"text-block\" data-component=\"text-block\" data-layer=\"explanation\" data-editable=\"text\" data-from=\"h1\">用完整句子解释这一页的核心信息。</p>",
+      "shapes": {
+        "muted": {
+          "selector": ".text-block.muted",
+          "desc": "次要说明弱档：muted 色，比正文档低一级"
+        }
+      }
+    },
+    "serif": {
+      "name": "衬线观点",
+      "description": "单段用 serif；整页金句用 quote 组：引语、分隔线、出处、落款，缺哪项就省哪个节点，省出处时连分隔线 rule 一起省（L22 拦截），不为一根线补假出处。区域内的收束引语用 quote 组默认档（与正文同档、不放大字号），只有整页一句话的金句页才给 quote 根加 hero 类切到大字档。引语按语义停顿用 <br> 分行。金句组的形态只在本组件的 shapes 里逐条登记（选择器与说明各一份），配方用 form 按名字点名本页要哪几种，缺一项就是金句没立住。",
+      "html": "<blockquote class=\"quote\" data-component=\"serif\" data-layer=\"main-quote\" data-group><p class=\"serif\" data-layer=\"quote-text\" data-editable=\"text\" data-from=\"h1\">值得记住的<br>一句话，<span class=\"hl\">留在这里</span>。</p><span class=\"rule\" data-layer=\"quote-rule\" data-decoration></span><p class=\"source\" data-layer=\"quote-source\" data-editable=\"text\" data-from=\"h1\">观点来源或明确标注的改写</p><p class=\"credit\" data-layer=\"quote-credit\" data-editable=\"text\" data-from=\"h1\">本页想让人带走的那句话</p></blockquote>",
+      "shapes": {
+        "hero": {
+          "selector": ".quote.hero",
+          "desc": "整页金句用种子的大字档 .quote.hero"
+        },
+        "marked": {
+          "selector": "p.serif .hl",
+          "desc": "引语内部高亮一处"
+        },
+        "split": {
+          "selector": "p.serif br",
+          "desc": "引语按语义停顿拆分换行"
+        }
+      }
+    },
+    "cta": {
+      "name": "行动入口",
+      "description": "静态行动提示，不依赖点击行为；不虚构下载入口。",
+      "html": "<p class=\"cta\" data-component=\"cta\" data-layer=\"next-action\" data-editable=\"text\" data-from=\"h1\">从一个小步骤开始</p>"
+    },
+    "ghost": {
+      "name": "背景大字",
+      "description": "只承载装饰字符；正文信息不能藏进装饰例外。字符随页面语义选取，不固定同一字母；两字换 .two 档（字号减半），仍贴同一条右缘，允许与印章等前景元素重叠——底纹在下，不为前景错位让位。放在 overlay 区域（必须是 .p-page 的直接子级，L21 拦截，ghost 的右缘/底边锚点才唯一）；哪些配方开放该区域以配方目录为准。",
+      "html": "<div class=\"ghost\" data-component=\"ghost\" data-layer=\"background-letter\" data-decoration>A</div>"
+    },
+    "bars": {
+      "name": "柱状图",
+      "description": "柱高写在 b 的 height 百分比；由真实数据计算。标题、值、标签均保留来源。",
+      "html": "<figure class=\"bars\" data-component=\"bars\" data-layer=\"evidence-chart\" data-group><figcaption class=\"bl\" data-layer=\"chart-title\" data-editable=\"text\" data-from=\"d1\">比较口径</figcaption><div class=\"row\"><div class=\"b\" style=\"height:50%\"><span data-layer=\"chart-value-a\" data-editable=\"text\" data-from=\"d1\">50</span></div><div class=\"b\" style=\"height:100%\"><span data-layer=\"chart-value-b\" data-editable=\"text\" data-from=\"d1\">100</span></div></div><div class=\"labs\"><span data-layer=\"chart-label-a\" data-editable=\"text\" data-from=\"d1\">甲</span><span data-layer=\"chart-label-b\" data-editable=\"text\" data-from=\"d1\">乙</span></div></figure>"
+    },
+    "ba": {
+      "name": "对比块",
+      "description": "before 与 after 是同一组件的两种视觉变体：before 的标题由种子带上删除线、after 的标题用强调色，读起来就是“被换掉的那种”与“这一种”，但两块都不承诺时间先后。两块可左右并排，也可上下相叠；上下相叠时在两块之间放一个 <span class=\"vs\" data-layer=\"comparison-marker\" data-decoration>VS</span> 骑缝标记，它只是装饰，居中的方向跟着父容器；并排时不放，位置本身就读得出是一组对照。",
+      "html": "<section class=\"ba before\" data-component=\"ba\" data-layer=\"comparison-before\" data-group><h2 class=\"bt\" data-layer=\"comparison-heading\" data-editable=\"text\" data-from=\"h1\">一种选择</h2><ul><li data-layer=\"comparison-point\" data-editable=\"text\" data-from=\"h1\">该选择的具体特点</li></ul></section>",
+      "shapes": {
+        "before": {
+          "selector": ".ba.before",
+          "desc": "被换掉的那种：标题删除线"
+        },
+        "after": {
+          "selector": ".ba.after",
+          "desc": "这一种：标题强调色"
+        }
+      }
+    },
+    "step": {
+      "name": "步骤",
+      "description": "序号属于结构，动作与说明属于内容。",
+      "html": "<section class=\"step\" data-component=\"step\" data-layer=\"first-step\" data-group><span class=\"num\" data-numbering>01</span><div><h2 class=\"t\" data-layer=\"step-action\" data-editable=\"text\" data-from=\"h1\">执行一个动作</h2><p class=\"d\" data-layer=\"step-detail\" data-editable=\"text\" data-from=\"h1\">说明所需条件或结果</p></div></section>"
+    },
+    "ldr": {
+      "name": "数据条目",
+      "description": "重点数字与对应口径绑定同一来源；没有证据时不用。",
+      "html": "<section class=\"ldr\" data-component=\"ldr\" data-layer=\"metric\" data-group><p class=\"n\" data-layer=\"metric-value\" data-editable=\"text\" data-from=\"d1\">50</p><div><h2 class=\"t\" data-layer=\"metric-name\" data-editable=\"text\" data-from=\"d1\">指标名称</h2><p class=\"d\" data-layer=\"metric-scope\" data-editable=\"text\" data-from=\"d1\">指标口径与适用范围</p></div></section>"
+    },
+    "pills": {
+      "name": "标签组",
+      "description": "多个关键词自然折行，on 是强调变体。",
+      "html": "<div class=\"pills\" data-component=\"pills\" data-layer=\"topic-tags\" data-group><span class=\"pill on\" data-layer=\"tag-main\" data-editable=\"text\" data-from=\"h1\">核心</span><span class=\"pill\" data-layer=\"tag-secondary\" data-editable=\"text\" data-from=\"h1\">延伸</span></div>"
+    },
+    "mn": {
+      "name": "旁注",
+      "description": "细线旁注，跟随父区域流动，不固定指向画布坐标。与画面同区并排、要指向它时加 .lead：文字右对齐，右侧由种子预留画引线与端点圆的宽度，引线是装饰，旁注文字仍须来源。",
+      "html": "<aside class=\"mn\" data-component=\"mn\" data-layer=\"margin-note\" data-group><h2 class=\"t\" data-layer=\"note-title\" data-editable=\"text\" data-from=\"h1\">值得注意</h2><p class=\"d\" data-layer=\"note-detail\" data-editable=\"text\" data-from=\"h1\">解释一处不容易看懂的细节</p></aside>",
+      "shapes": {
+        "lead": {
+          "selector": ".mn.lead",
+          "desc": "引线版：右对齐，右侧预留引线宽度，须与同区画面配对"
+        }
+      }
+    },
+    "dcard": {
+      "name": "详情卡",
+      "description": "较完整的观点、来源和解释。",
+      "html": "<article class=\"dcard\" data-component=\"dcard\" data-layer=\"detail-card\" data-group><p class=\"q\" data-layer=\"detail-claim\" data-editable=\"text\" data-from=\"h1\">这处细节为何重要</p><p class=\"src\" data-layer=\"detail-source\" data-editable=\"text\" data-from=\"h1\">材料来源</p><p class=\"note\" data-layer=\"detail-note\" data-editable=\"text\" data-from=\"h1\">补充条件、解释与边界。</p></article>"
+    },
+    "ledger": {
+      "name": "账行",
+      "description": "行式账目档：小标签加一句口径说明，行尾右对齐衬线大数字，数字与单位都要有来源（L14）；逐行对账的场景选它，块状汇总选 darkcard。行数由内容决定，不为一屏凑行。",
+      "html": "<div class=\"ledger\" data-component=\"ledger\" data-layer=\"ledger-row\" data-group><span class=\"k\" data-layer=\"ledger-label\" data-editable=\"text\" data-from=\"d1\">口径标签</span><p class=\"d\" data-layer=\"ledger-scope\" data-editable=\"text\" data-from=\"d1\">一句口径说明</p><p class=\"n\" data-layer=\"ledger-value\" data-editable=\"text\" data-from=\"d1\">180<small class=\"u\" data-layer=\"ledger-unit\" data-editable=\"text\" data-from=\"d1\">分钟 → 30 分钟</small></p></div>"
+    },
+    "darkcard": {
+      "name": "深色证据卡",
+      "description": "强调一组事实或字段，不作为虚构数字装饰。",
+      "html": "<section class=\"darkcard\" data-component=\"darkcard\" data-layer=\"evidence-card\" data-group><h2 class=\"h\" data-layer=\"evidence-heading\" data-editable=\"text\" data-from=\"h1\">证据摘要</h2><div class=\"r\"><span data-layer=\"evidence-key\" data-editable=\"text\" data-from=\"h1\">字段</span><strong data-layer=\"evidence-value\" data-editable=\"text\" data-from=\"h1\">实际内容</strong></div></section>"
+    },
+    "seal-lg": {
+      "name": "大印章",
+      "description": "短字印章；有内容含义时保留来源，纯纹饰才标 decoration。",
+      "html": "<p class=\"seal-lg\" data-component=\"seal-lg\" data-layer=\"closing-seal\" data-editable=\"text\" data-from=\"h1\">记</p>"
+    },
+    "qa": {
+      "name": "问答",
+      "description": "问题和回答各为可编辑字段，不强制回答单行。",
+      "html": "<section class=\"qa\" data-component=\"qa\" data-layer=\"reader-question\" data-group><h2 class=\"question\" data-layer=\"question-text\" data-editable=\"text\" data-from=\"h1\">读者真正关心什么？</h2><p class=\"answer\" data-layer=\"answer-text\" data-editable=\"text\" data-from=\"h1\">给出有依据的回答与必要条件。</p></section>"
+    },
+    "vrt": {
+      "name": "竖排标签",
+      "description": "沿区域边缘竖着读的一行小标签，是文字组件（文案可改写），不是图形。种子只给书写方向（writing-mode），不预写坐标。placement 记为 catalogue：只登记造法，当前没有任何配方在区域里放行它，写进页面会按 L11 报错；要用它，得先在某条配方的区域 allow 里列出它。",
+      "html": "<p class=\"vrt\" data-component=\"vrt\" data-layer=\"vertical-label\" data-editable=\"text\" data-from=\"h1\">第一周</p>",
+      "placement": "catalogue"
+    },
+    "test-callout": {
+      "name": "测试扩展",
+      "description": "复用现有文本外观的新普通组件",
+      "html": "<p class=\"text-block\" data-component=\"text-block\" data-layer=\"main-copy\" data-editable=\"text\" data-from=\"h1\" >清楚表达</p>"
+    }
+  }
+}

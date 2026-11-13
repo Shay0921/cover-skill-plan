@@ -1,0 +1,453 @@
+[
+ {
+  "png": "01-card01-cover-standard.png",
+  "changedPx": 767337,
+  "pct": 49.34,
+  "bbox": [
+   0,
+   0,
+   1080,
+   1440
+  ]
+ },
+ {
+  "png": "02-list01-ck-shots-cover.png",
+  "changedPx": 678808,
+  "pct": 43.65,
+  "bbox": [
+   0,
+   0,
+   1080,
+   1440
+  ]
+ },
+ {
+  "png": "03-list01-list-text-cover.png",
+  "changedPx": 572646,
+  "pct": 36.82,
+  "bbox": [
+   0,
+   0,
+   1080,
+   1440
+  ]
+ },
+ {
+  "png": "04-phone01-duo-cover.png",
+  "changedPx": 843248,
+  "pct": 54.22,
+  "bbox": [
+   0,
+   0,
+   1080,
+   1440
+  ]
+ },
+ {
+  "png": "05-list01-frow-phone.png",
+  "changedPx": 725936,
+  "pct": 46.68,
+  "bbox": [
+   0,
+   0,
+   1080,
+   1440
+  ]
+ },
+ {
+  "png": "06-wall01-quad.png",
+  "changedPx": 656182,
+  "pct": 42.19,
+  "bbox": [
+   0,
+   0,
+   1080,
+   1440
+  ]
+ },
+ {
+  "png": "07-list02-boundary.png",
+  "changedPx": 560459,
+  "pct": 36.04,
+  "bbox": [
+   0,
+   0,
+   1080,
+   1440
+  ]
+ },
+ {
+  "png": "08-note01-light.png",
+  "changedPx": 636892,
+  "pct": 40.95,
+  "bbox": [
+   0,
+   0,
+   1080,
+   1440
+  ]
+ },
+ {
+  "png": "09-step01-timeline.png",
+  "changedPx": 767082,
+  "pct": 49.32,
+  "bbox": [
+   0,
+   0,
+   1080,
+   1440
+  ]
+ },
+ {
+  "png": "10-data01-ldr-bars.png",
+  "changedPx": 537610,
+  "pct": 34.57,
+  "bbox": [
+   0,
+   0,
+   1080,
+   1440
+  ]
+ },
+ {
+  "png": "11-quote01-annotated.png",
+  "changedPx": 591883,
+  "pct": 38.06,
+  "bbox": [
+   0,
+   0,
+   1080,
+   1440
+  ]
+ },
+ {
+  "png": "12-compare01-h2.png",
+  "changedPx": 514414,
+  "pct": 33.08,
+  "bbox": [
+   0,
+   0,
+   1080,
+   1440
+  ]
+ },
+ {
+  "png": "14-list01-ck-phone.png",
+  "changedPx": 744561,
+  "pct": 47.88,
+  "bbox": [
+   0,
+   0,
+   1080,
+   1440
+  ]
+ },
+ {
+  "png": "15-close01-standard.png",
+  "changedPx": 546530,
+  "pct": 35.14,
+  "bbox": [
+   0,
+   0,
+   1080,
+   1440
+  ]
+ },
+ {
+  "png": "16-list02-full-list.png",
+  "changedPx": 569754,
+  "pct": 36.64,
+  "bbox": [
+   0,
+   0,
+   1080,
+   1440
+  ]
+ },
+ {
+  "png": "17-list02-tail-card-list.png",
+  "changedPx": 576945,
+  "pct": 37.1,
+  "bbox": [
+   0,
+   0,
+   1080,
+   1440
+  ]
+ },
+ {
+  "png": "18-list02-full-ck.png",
+  "changedPx": 576817,
+  "pct": 37.09,
+  "bbox": [
+   0,
+   0,
+   1080,
+   1440
+  ]
+ },
+ {
+  "png": "19-list02-tail-card-ck.png",
+  "changedPx": 561957,
+  "pct": 36.13,
+  "bbox": [
+   0,
+   0,
+   1080,
+   1440
+  ]
+ },
+ {
+  "png": "20-card01-body-stagger.png",
+  "changedPx": 753874,
+  "pct": 48.47,
+  "bbox": [
+   0,
+   0,
+   1080,
+   1440
+  ]
+ },
+ {
+  "png": "21-card01-body-aligned.png",
+  "changedPx": 754024,
+  "pct": 48.48,
+  "bbox": [
+   0,
+   0,
+   1080,
+   1440
+  ]
+ },
+ {
+  "png": "24-wall01-duo-row.png",
+  "changedPx": 627542,
+  "pct": 40.35,
+  "bbox": [
+   0,
+   0,
+   1080,
+   1440
+  ]
+ },
+ {
+  "png": "25-wall01-duo-col.png",
+  "changedPx": 631758,
+  "pct": 40.62,
+  "bbox": [
+   0,
+   0,
+   1080,
+   1440
+  ]
+ },
+ {
+  "png": "26-card01-cover-bleed.png",
+  "changedPx": 441869,
+  "pct": 28.41,
+  "bbox": [
+   0,
+   0,
+   1080,
+   1440
+  ]
+ },
+ {
+  "png": "27-wall01-quad-fill-bleed.png",
+  "changedPx": 687923,
+  "pct": 44.23,
+  "bbox": [
+   0,
+   0,
+   1080,
+   1440
+  ]
+ },
+ {
+  "png": "28-card01-body-mn.png",
+  "changedPx": 757995,
+  "pct": 48.74,
+  "bbox": [
+   0,
+   0,
+   1080,
+   1440
+  ]
+ },
+ {
+  "png": "30-data01-bars-only.png",
+  "changedPx": 469553,
+  "pct": 30.19,
+  "bbox": [
+   0,
+   0,
+   1080,
+   1440
+  ]
+ },
+ {
+  "png": "31-close01-pills-extended.png",
+  "changedPx": 567930,
+  "pct": 36.52,
+  "bbox": [
+   0,
+   0,
+   1080,
+   1440
+  ]
+ },
+ {
+  "png": "32-phone01-trio-labeled.png",
+  "changedPx": 872858,
+  "pct": 56.13,
+  "bbox": [
+   0,
+   0,
+   1080,
+   1440
+  ]
+ },
+ {
+  "png": "33-quote01-minimal.png",
+  "changedPx": 580700,
+  "pct": 37.34,
+  "bbox": [
+   0,
+   0,
+   1080,
+   1440
+  ]
+ },
+ {
+  "png": "34-note01-dark.png",
+  "changedPx": 419598,
+  "pct": 26.98,
+  "bbox": [
+   0,
+   0,
+   1080,
+   1440
+  ]
+ },
+ {
+  "png": "35-data02-ldr-tailcard.png",
+  "changedPx": 591155,
+  "pct": 38.01,
+  "bbox": [
+   0,
+   0,
+   1080,
+   1440
+  ]
+ },
+ {
+  "png": "36-close01-minimal.png",
+  "changedPx": 599668,
+  "pct": 38.56,
+  "bbox": [
+   0,
+   0,
+   1080,
+   1440
+  ]
+ },
+ {
+  "png": "37-compare01-grid4.png",
+  "changedPx": 488016,
+  "pct": 31.38,
+  "bbox": [
+   0,
+   0,
+   1080,
+   1440
+  ]
+ },
+ {
+  "png": "38-compare01-v2-vs.png",
+  "changedPx": 465821,
+  "pct": 29.95,
+  "bbox": [
+   0,
+   0,
+   1080,
+   1440
+  ]
+ },
+ {
+  "png": "39-compare01-v2-dark.png",
+  "changedPx": 320841,
+  "pct": 20.63,
+  "bbox": [
+   0,
+   0,
+   1080,
+   1440
+  ]
+ },
+ {
+  "png": "40-compare02-shot-ba.png",
+  "changedPx": 716524,
+  "pct": 46.07,
+  "bbox": [
+   0,
+   0,
+   1080,
+   1440
+  ]
+ },
+ {
+  "png": "43-phone01-duo-labeled.png",
+  "changedPx": 794015,
+  "pct": 51.06,
+  "bbox": [
+   0,
+   0,
+   1080,
+   1440
+  ]
+ },
+ {
+  "png": "44-note02-phone-dcards.png",
+  "changedPx": 715837,
+  "pct": 46.03,
+  "bbox": [
+   0,
+   0,
+   1080,
+   1440
+  ]
+ },
+ {
+  "png": "45-card02-centered.png",
+  "changedPx": 673427,
+  "pct": 43.3,
+  "bbox": [
+   0,
+   0,
+   1080,
+   1440
+  ]
+ },
+ {
+  "png": "46-data04-panel.png",
+  "changedPx": 651076,
+  "pct": 41.86,
+  "bbox": [
+   0,
+   0,
+   1080,
+   1440
+  ]
+ },
+ {
+  "png": "47-close01-quote.png",
+  "changedPx": 593753,
+  "pct": 38.18,
+  "bbox": [
+   0,
+   0,
+   1080,
+   1440
+  ]
+ }
+]

@@ -1,6 +1,6 @@
 # 后续执行路线图 TODO（2026-11-13）
 
-> **▶ 当前指针（2026-11-13 更新）：阶段 5 进行中 · T11（SKILL 改序）+ T12（HANDOFF 同步）+ `--preview` 裁决落账（工具待办区：后置，T14 实测后凭数据立项）✅ · 待 commit → T13 批次 C / T14 全量回归验收**
+> **▶ 当前指针（2026-11-13 更新）：阶段 B 进行中（EXEC-PLAN-phaseB-2026-11-13.md）· 刀 S（B-seed 收尾：gap 优先级修复 + SHA `E11C9E1E…` + 41 图重渲 + 基线 2140 全绿 + h75 压测入册 `dev/h75-stress-1113/`）已施工待 commit · 闸门 G（6 项用户确认）待拍板 → 刀 C B-contract。阶段 5 遗留：T13 批次 C / T14 全量回归验收**
 >
 > - **T7 收口（2026-11-13）**：闸门材料 [T7-GATE-2026-11-13.md](T7-GATE-2026-11-13.md) 已入库（6b88db4）并获批复；六笔刀 commit 已在链，无提交欠账
 > - **T8 种子只读锁已落地（2026-11-13）**：build.mjs 新增 `verifySeedChecksum`（readSeedCSS 构建全链必校验，基线 = 04-recipes 登记 `5318D18B…`，种子漂移即 gate FAIL）；独立校验 `dev/check-seed-lock.mjs` 4/4 PASS（真实种子过锁 / SHA-256 与登记精确一致 / 样式微改必抛 / 空串必抛）；挂锁后全量回归 **178/178 零涟漪**，基线 scope → `controlled-negative-1113-1312`，对账退出码 0；04-recipes 文首登记行 + 归属图 §6 新增行已同步
@@ -131,7 +131,7 @@
 
 - [ ] 确认 `dev/recipes/*.part.html` 是否需迁 `references/recipes/`（DEVPLAN 阶段 2 产出物原计划位置）；若迁，同步登记卡"骨架文件"路径
 - [ ] 批次 C（标注级，config-audit #7/#8）：R-list-02 boundary 档 repeat 收紧 ×3-4 或登记卡补注；allow 宽松项逐条标注"降级路径/自由槽位"，优先复核 R-data-04 bottom 的 kicker/h1/sub、R-quote-01 full.dcard
-- [x] 批次 C h68 骨架病修复（✅ 2026-11-13 阶段A，已施工）：`.phone.h68` 固定档 → 弹性档 `height:auto;flex:1 1 auto;min-height:63.5cqw;max-height:68cqw` + `.phone-cell:has(> .phone.h68){align-self:stretch;justify-content:center}` + config width [33,36]→[32,36] + 三处同步 SHA 重算（`7771E1EA…`）；定案见 DIAGNOSIS-h68-overflow-2026-11-13.md §8，验证闭环五项见 §8.3
+- [x] 批次 C h68 骨架病修复（✅ 2026-11-13 阶段A，已施工）：`.phone.h68` 固定档 → 弹性档 `height:auto;flex:1 1 auto;min-height:63.5cqw;max-height:68cqw` + `.phone-cell:has(> .phone.h68){align-self:stretch;justify-content:center}` + config width [33,36]→[32,36] + 三处同步 SHA 重算（`7771E1EA…`——阶段 A 基线，已被 B-seed 的 `E11C9E1E…` 取代）；定案见 DIAGNOSIS-h68-overflow-2026-11-13.md §8，验证闭环五项见 §8.3
 - [ ] ⚠️ **h75 遗留雷挂账（阶段 B 另立项，勿与 A 混）**：card02-centered/note02-phone-dcards 的 h75=810px 固定档同病（比 h68 更接近翻车，未暴露只因源页 head 短）；config [36,40]=75×0.5039≈37.79 同为镜像债。阶段 B 方向 = R14 宽度档改从 seed 档位自动派生（或直接校验档位高度）+ h75 弹性化，全量重跑 178 负例。**T14 若给 card02/note02 喂长文案触发 R1，属已知遗留非新回归，逃生口 = 换配方/删文案**
 
 ### 工具待办区（登记待立项）
