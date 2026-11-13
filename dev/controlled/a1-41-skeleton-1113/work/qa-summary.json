@@ -1,16 +1,16 @@
 {
   "version": 1,
-  "runId": "ac73585e-1e4e-4aa5-a0ea-31b40decd14d",
+  "runId": "dce62679-c67d-4d57-b959-8040dc2bea61",
   "mode": "gate",
-  "status": "failed",
-  "startedAt": "2026-11-13T15:14:29.841Z",
-  "updatedAt": "2026-11-13T15:15:01.736Z",
+  "status": "passed",
+  "startedAt": "2026-11-13T16:07:51.083Z",
+  "updatedAt": "2026-11-13T16:08:23.917Z",
   "expectedPages": 41,
   "measuredPages": 41,
-  "passedPages": 39,
-  "failedPages": 2,
+  "passedPages": 41,
+  "failedPages": 0,
   "runIssues": [
-    "ERROR BATCH: 几何检查失败页: 19, 20；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+    "WARN FONT: 同进程不保证整批字体一致；各页 fonts.actual / faces 已记录，请核对实际 face"
   ],
   "pages": [
     {
@@ -160,22 +160,18 @@
     {
       "nn": "19",
       "recipe": "R-data-04",
-      "status": "failed",
-      "errors": 1,
+      "status": "passed",
+      "errors": 0,
       "warnings": 1,
-      "errorMessages": [
-        "R14: detail-crop-evidence 宽 50.2cqw 超出骨架档 41–46cqw"
-      ]
+      "errorMessages": []
     },
     {
       "nn": "20",
       "recipe": "R-list-01",
-      "status": "failed",
-      "errors": 1,
+      "status": "passed",
+      "errors": 0,
       "warnings": 0,
-      "errorMessages": [
-        "R14: 骨架区域 left 不可见"
-      ]
+      "errorMessages": []
     },
     {
       "nn": "21",

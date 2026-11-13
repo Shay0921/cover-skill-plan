@@ -1,13 +1,13 @@
 {
   "version": 2,
-  "runId": "ac73585e-1e4e-4aa5-a0ea-31b40decd14d",
-  "startedAt": "2026-11-13T15:14:29.841Z",
+  "runId": "dce62679-c67d-4d57-b959-8040dc2bea61",
+  "startedAt": "2026-11-13T16:07:51.083Z",
   "mode": "gate",
-  "status": "failed",
-  "inputHash": "c703caf9c7052588695a802d89feac72e1e6f7e96ee1ae60311efcaccc24b07f",
-  "plan": "d:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\work\\03-plan.json",
-  "src": "d:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\work\\src",
-  "out": "d:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out",
+  "status": "passed",
+  "inputHash": "1f92cef237ab68d0c8ba6eab87994e24fce0d264f8e226caac4c8516cb420ba8",
+  "plan": "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\work\\03-plan.json",
+  "src": "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\work\\src",
+  "out": "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out",
   "expectedPages": [
     "01",
     "02",
@@ -54,7 +54,7 @@
   "pages": [
     {
       "nn": "01",
-      "htmlHash": "bbb1af0a6597bda9d0947e3edd6010e4333649d24acc53eafe4294cbe655aa52",
+      "htmlHash": "8b0dced624161cbed7502dee4f0683925442eb0a9908e3f3b2d9777b96565f87",
       "sourceHash": "c6fd98734923c97fca165e9a299db609e479f25773534a1e036c1cd8897010be",
       "issues": [],
       "status": "passed",
@@ -1257,13 +1257,13 @@
         "warnings": [],
         "loadedFaces": 1
       },
-      "inputKey": "ee124c3b145355f1dbdb47e6ea5451a53f24861c9c7a59ade1901386d45b1714",
+      "inputKey": "a63807b17a0189db45dd280670ccef441b6248502e57422c8f2f8d8f5f2de4e2",
       "pngHash": "606110392c6640f8d5307ac0faf45662663eac2ae29c4734fae0ae22c9d0376d",
       "pngBytes": 263535
     },
     {
       "nn": "02",
-      "htmlHash": "943f1d060cd4bad71e4273587f96ecc870b3b6cb613f4346227d6821504c1af0",
+      "htmlHash": "b9473267933dab40e814a8fe48680f17abd49a8fec33c24b11be701df5d462d3",
       "sourceHash": "e50605b46a35c2b32d2ad1ff0f5d8591606ce0d9aef7038e6692643f84f75dc3",
       "issues": [],
       "status": "passed",
@@ -2405,13 +2405,13 @@
         "warnings": [],
         "loadedFaces": 1
       },
-      "inputKey": "273284fb5066944341d47f024232fcde4be55fabd5fafc27b8274b6c08126d89",
+      "inputKey": "199dfa694d71a2791eab437ea41f1b99bc78bc3a78ab8941a333143c2e104d4a",
       "pngHash": "3b364e59029c576e7636015fd6e5e5b9cbff3ecfde985b714f910f412168179f",
       "pngBytes": 275116
     },
     {
       "nn": "03",
-      "htmlHash": "d587cfc3df1aa168d6a5f10b56b1af0e01c35bbd21bff04ccccf18d636c31d7a",
+      "htmlHash": "4fa5cf10df7e4260a98b9bd02d223f704cd5f1645573566a96ce6e79c92f9d39",
       "sourceHash": "ba3df0c14f925ea9ca176c9285919b8a1b41fffa62f190191a03b69bf2cdf76f",
       "issues": [],
       "status": "passed",
@@ -3614,13 +3614,13 @@
         "warnings": [],
         "loadedFaces": 1
       },
-      "inputKey": "a507f065a5f266672f8d89db3849d1a8096723161901a7bd519ded526d868ff7",
+      "inputKey": "962023d4f5ec5abd23f70d67713919d4bcb66403be53e9250c77746956490db5",
       "pngHash": "0d45270d1911e088bd6dafd8321df37869d4ec0ad8d01ee66f63b2d36d525ec6",
       "pngBytes": 263955
     },
     {
       "nn": "04",
-      "htmlHash": "947bdda24e4107e6dd4a715ca566471a2055a3f033757c9e30c20af044ff4fa2",
+      "htmlHash": "b1cbc7f08a8d7fc722f68bc94e453c7817c01c9d5eb3d72df9154a0bdcc67ff1",
       "sourceHash": "4c0b833196cc407dcd8a5daea116299577f1df40286693a7dc46dbc51a28e45b",
       "issues": [],
       "status": "passed",
@@ -4792,13 +4792,13 @@
         "warnings": [],
         "loadedFaces": 2
       },
-      "inputKey": "b837a5a09da43bfded6cfe37bacc645387bd173dcadc2b20aa71b3525c25f8f1",
+      "inputKey": "ebf6ea4c3e735611aa0dd63edb0331e8cf08ba9f04dfe760eed405314ab60ea7",
       "pngHash": "d6876c46ebd9325d383cbaaac488fada8208b602eeff21083a972b504fbbf35a",
       "pngBytes": 260464
     },
     {
       "nn": "05",
-      "htmlHash": "58c88b6feab94383a8b58cfa65d1559ee6fc16551f5b29d0f796119fa9a2f6f4",
+      "htmlHash": "cba07c4bea001c11130f9c31eac46bc7699e457425252f4c52210ce4b5631b49",
       "sourceHash": "588193e107b143b584698757930d72efb6d221bbb04b93d51c620255b78ac746",
       "issues": [],
       "status": "passed",
@@ -6022,13 +6022,13 @@
         "warnings": [],
         "loadedFaces": 2
       },
-      "inputKey": "cbf3d166fc853054214667a12f674b2c275237c90d3b36171e8c5ab3b61baee7",
+      "inputKey": "772cb5f2bf610670cdb04b90a012b559ff61f6f8b409f09e288f4900b9b0b3f9",
       "pngHash": "df0443fcdee76cb970448a48c61ac28e99d104b58323051c56ac39b7b1f27de8",
       "pngBytes": 270842
     },
     {
       "nn": "06",
-      "htmlHash": "a78ffe7489951e567de5329ce2d9a4d5e8e379089f7ec288175cc3f15c3b37ec",
+      "htmlHash": "9da8bd890110d673d2a01a524969a5f0d4e6e2ee086dc1a849d5ffd575f1fb6e",
       "sourceHash": "8cdc10c2a00a14c410759ec897d6d7b627cc827ac328672d1d87d25f10ab2818",
       "issues": [],
       "status": "passed",
@@ -7422,13 +7422,13 @@
         "warnings": [],
         "loadedFaces": 4
       },
-      "inputKey": "efaa2606dc465122324df57464762c5537afd26049f33f9a6032ccdc22ac3d1b",
+      "inputKey": "3110985ce4ee6a8e14bb638a84d63d3eab8b0473c85787b3a13f8c542e04d970",
       "pngHash": "0036755a0debcd0b6c177d25476d4d32a1e123e6fc5eb2ca6cda2856195e9ef1",
       "pngBytes": 294452
     },
     {
       "nn": "07",
-      "htmlHash": "1d830e7828ea064562d910368d7a59a1edc831efd48bc0c18ea77799720c7041",
+      "htmlHash": "51d0be000dae56143de48fcfc9b7f26c059f81734a7a8d3e519e415eaa7fca04",
       "sourceHash": "bbb7bd4c04150f9ef56783a03b23506e3a1d23454bb3a6a32f4af6feb114f1e0",
       "issues": [
         {
@@ -8593,13 +8593,13 @@
         "warnings": [],
         "loadedFaces": 5
       },
-      "inputKey": "aa4cdfdd15d90cfb84f32d594da5058a9e347a575f1c44079c693de0c9213ae8",
+      "inputKey": "9d8105ce2afc0413e35125d9b48614e506bdff475be0428aff6d5f4b4c5441e3",
       "pngHash": "763dc42ce0675be83d831fb65ac9dc148c4454ea4893664777483537ca6b79db",
       "pngBytes": 132011
     },
     {
       "nn": "08",
-      "htmlHash": "0d29fb7df612b0db9a7cae6e0080c9d08e88821bec0cdaad16a3edc6e07afe54",
+      "htmlHash": "cec35dab8bba400254364517385727b4f4b4ece70ca3964216ee60470b109421",
       "sourceHash": "d2d4607c2e6213bdab87023913ac539c7cca3db85ee421e705456ca72347bfb4",
       "issues": [
         {
@@ -9976,13 +9976,13 @@
         "warnings": [],
         "loadedFaces": 5
       },
-      "inputKey": "0df42c4cf6a46b3c5a704f5bfbb44e63f563a41f927f81082fc6bb4390e053ba",
+      "inputKey": "d360782db6d3ebb8f71700a9c11a00c1cd2e706de40b2efc727f081f769467ea",
       "pngHash": "ae0081d898ce49c899e552c50391b6cea6347b5b20be066defa18591533079b3",
       "pngBytes": 134284
     },
     {
       "nn": "09",
-      "htmlHash": "c38f0846305c1ace4243c5b4afb7c1a6190f77ab4fb87fa809daa635151ee66d",
+      "htmlHash": "1cfe7cee8fade36f24a9e3cd707bc5f3b4cfcc17ac8d433b3d33f2e2c272eb99",
       "sourceHash": "1c412d8fa272427f93c7c8f37c77c067a21f773338b2801de2f0644754d85bea",
       "issues": [
         {
@@ -11215,13 +11215,13 @@
         "warnings": [],
         "loadedFaces": 8
       },
-      "inputKey": "8ee8c873359bd6b126eb9473f7ac41cfb3c99d6fcf95b78589fe8d885b57c046",
+      "inputKey": "1180452732d6ef8b5e7877856b20175b519f712ae090985ffe3f17e8a66f3431",
       "pngHash": "ca87ba7ddaf2b14b2b56ff46769721abe8394022b80b901d491e4d4e9fea9c59",
       "pngBytes": 180867
     },
     {
       "nn": "10",
-      "htmlHash": "f6ad1d33b2a5cd9a459ca487767b0137f25f52b725158f145519cfc3bd3a25a2",
+      "htmlHash": "bc718ac12b9d7d006ec8daa2c493d344f70413086b9bd193485933bc94b61995",
       "sourceHash": "e73eca22b97201811b1f174c07b054be12462cc2ca15441c78983f26099ccec6",
       "issues": [
         {
@@ -12493,13 +12493,13 @@
         "warnings": [],
         "loadedFaces": 2
       },
-      "inputKey": "abc5f19f5c0fa5b6ef1ca7b8f375c753033370e083dc10f9809b0169725e3f8f",
+      "inputKey": "5ae897ef9490a1c3699693c909c8bd06fc795bb18914b5984bb6f6c2fd7f6aaa",
       "pngHash": "ef3cc29cf9bbf09a8413996b5ac11b9e3764f6c02f719779fbe3ea0cbdce6602",
       "pngBytes": 111728
     },
     {
       "nn": "11",
-      "htmlHash": "2f6f3fb66bc77a51069e71001865e2fbf5510b6cafee70d6b6622dd50d47cbf3",
+      "htmlHash": "d3a96830346307c055a328087422364751743d03150f0cd36372a369a21d4a7c",
       "sourceHash": "ef0d0d859b23389ca62750d413c9d6b71c586bebc730e1272682bd459ecce915",
       "issues": [
         {
@@ -13699,13 +13699,13 @@
         "warnings": [],
         "loadedFaces": 1
       },
-      "inputKey": "7acb3477d1b3491045c6199f96e991fb7d0b4f2a8c007a2d3aa8b0f90bc6b893",
+      "inputKey": "e48b2ca71680d67a030ccc4aa57d6047018eb79b273af2b8e694fc8c5b4964b9",
       "pngHash": "10ef741f3595e060547d6f057f94dbafd81f4403f5bf9d0eddcfca3d10db865c",
       "pngBytes": 105108
     },
     {
       "nn": "12",
-      "htmlHash": "611b83b758f9ad0ee999e152274ca40f7520bd1959b7d7804dc92ed2242c4b75",
+      "htmlHash": "2590b026fc812a5b68aedacb18a2ef8822aa71e488bd20d20019588814f28ab1",
       "sourceHash": "d8b59336f4636cf4e0e7cfbdfe959db26001bde6477b611e1cbdf1979a577398",
       "issues": [
         {
@@ -14905,13 +14905,13 @@
         "warnings": [],
         "loadedFaces": 1
       },
-      "inputKey": "7a440ce2e86aec77c7b0fd8caebdf381125a56cb68c8688363e5304edde0859f",
+      "inputKey": "f1595b00de283d82480ffdf0391ce445010c3384e63125321ade87bb53b2bca2",
       "pngHash": "466080fa8698dcbff5eb951a766424c3448b69d67953f5a0529bebcccc04af58",
       "pngBytes": 104153
     },
     {
       "nn": "13",
-      "htmlHash": "6d05f1734a6394d58860f53493356dbed8524c0c6c50810bbf072eedcf00d0c1",
+      "htmlHash": "a67f02f205a507d053ceb8546e1741b129097eece9a8b55648ffa5eff9399b06",
       "sourceHash": "f2e9bbf2519037be29e90220147b3ece93b71df3887dd7e8612005b86d35aeca",
       "issues": [
         {
@@ -16303,13 +16303,13 @@
         "warnings": [],
         "loadedFaces": 7
       },
-      "inputKey": "e693e52e5ddb76c2d6250c3c98d417bac661922a70b768b129a7b911805f49db",
+      "inputKey": "bd16ba9f551fa561431d98983dbcea3793d82d2a62dc711cf87ad10fde4de4ae",
       "pngHash": "914da34afe8dfaaa7d3beae6d9a1ff1600acccbdd7b89f7202f92adea4750b0e",
       "pngBytes": 216777
     },
     {
       "nn": "14",
-      "htmlHash": "3128616859312e1c6e3babe47073e2d5c1a4c278bcdc8514e4880fe59d390e65",
+      "htmlHash": "cc346e17241b700fa11d76317d967bc938144489ac11efec279fc82df9752725",
       "sourceHash": "46489960f853770b382a6ac6892e6783516050071c48d70f6238e713658376ef",
       "issues": [
         {
@@ -17701,13 +17701,13 @@
         "warnings": [],
         "loadedFaces": 7
       },
-      "inputKey": "16568a616cc0095622012181ebaba6b443b731d385ef512f7cf8798c26422b31",
+      "inputKey": "298aa3025893aec853ce1f563cee22aef175946735d24355ae83a333722bdf14",
       "pngHash": "2017fc86de11e3b734d1fe7855c75ca95e2cd66b0fb98e7aa26d06e2ac743a72",
       "pngBytes": 129522
     },
     {
       "nn": "15",
-      "htmlHash": "691e2bc1993004559601744a13a6a55e0b0263da652bd2b715ba1edb86e3307c",
+      "htmlHash": "161743b009e850ae760269522fca09b863f6b0afc9c028a9220512dcaf7839d1",
       "sourceHash": "759acd346545e139560e97a704b384eec82f9aec05f3116111cd59f1a310cbf9",
       "issues": [
         {
@@ -19227,13 +19227,13 @@
         "warnings": [],
         "loadedFaces": 1
       },
-      "inputKey": "1229f3ebbf6ed04bacb5d1685a62c1c4b3ad31b9a3df6e527105d27257352c18",
+      "inputKey": "4522aa43562eaf7fadb122d063a0144db0bae7d7aa463061840fd0f0be260c90",
       "pngHash": "8dd9eeb5b147e867de8380f51e225e9bc4ac41f9809e11d5af2b135454a9ec96",
       "pngBytes": 198860
     },
     {
       "nn": "16",
-      "htmlHash": "d785cdb676daf76abfca693972a14a1cea1911ba8032d9a6bc0ff19d4d10dccd",
+      "htmlHash": "7deb52f2b6e327dc010cd5536f84122254c13801cb0a43fde1d70becefaa1287",
       "sourceHash": "f2b93b7b9e20b34e938bd226a4d30ea06eaf0d7d318b1148fe327242eaa23dcc",
       "issues": [
         {
@@ -20825,13 +20825,13 @@
         "warnings": [],
         "loadedFaces": 3
       },
-      "inputKey": "2c58b2d7297e97957fa6f3348cbd6ddb167bc62d2477df76dfb6f8e8a6087ce0",
+      "inputKey": "d5baa8501e54d052ff9c9b9c697a1d8696a0718a2935675c895be449cf99a363",
       "pngHash": "91f896dbe8937ebe4503d4c18180cfcfdeb20c8394ccc81fffddb685d18146a0",
       "pngBytes": 104733
     },
     {
       "nn": "17",
-      "htmlHash": "9ce9476ea442a3fcb020fda418e98d29757f6cf2553253d936cf69132afd8cbc",
+      "htmlHash": "b693625caf2bbe86b37f246cb9d67e5aaa24e30fa78ceb981686b926f458bd39",
       "sourceHash": "a2717dd92d18661bd68b092728fe906756f928483d87cdb7d03e43cb12a09c66",
       "issues": [
         {
@@ -22432,13 +22432,13 @@
         "warnings": [],
         "loadedFaces": 5
       },
-      "inputKey": "7a742801adf7ff6641452fac43072c6a4cde74eed72e45152672547ce59f8727",
+      "inputKey": "e4d3bbc2d14c3e92702cab5c73928fda9fdc3816e14dc108d074d30f53a702d2",
       "pngHash": "80d01598a4fce68b117a9046b1521499018b63ca89da2f429aedfa78a841c6bf",
       "pngBytes": 125549
     },
     {
       "nn": "18",
-      "htmlHash": "109557aa6b48386903d8776d078377422013baf1ce4740f6aacbecaa98b74cf0",
+      "htmlHash": "e2dedda2a8ff27230ff976403f0dfc6763525b436d781fe62d77041cfb71273b",
       "sourceHash": "a1210fcb78b8dd2e5ffb442f3db69ac799e7966168b71a61e37c365bba28ff25",
       "issues": [
         {
@@ -23731,27 +23731,15 @@
         "warnings": [],
         "loadedFaces": 5
       },
-      "inputKey": "a55eff225c8292807ff7fde59ad23d2c4e603b78d78b16c0d303c24ca3d9f076",
+      "inputKey": "fcdd59a8e863f10569e824d19f26908988775cd51e4c01338b73e8a853dabd09",
       "pngHash": "601e74350c26caabd023c350543a346a2d23f7ad509f9892f204db32845f00d6",
       "pngBytes": 130678
     },
     {
       "nn": "19",
-      "htmlHash": "9eb4a9e81fcbb6aa1b828e793f212c1246ffb081a294fe877b6cfaa4185817cb",
-      "sourceHash": "721849878304d5cadbc5233fea96a53ebf037e76e99fd27d33c267c81203652c",
+      "htmlHash": "3120935535e55a3bc708b841068560ed86eb6ca66cc2c933c2915d4c47c8c577",
+      "sourceHash": "b5d9e8e99d7611ab4bb5d78e17d4f67093f2f7103cc7bc93e23249fbbf51df83",
       "issues": [
-        {
-          "level": "ERROR",
-          "rule": "R14",
-          "msg": "detail-crop-evidence 宽 50.2cqw 超出骨架档 41–46cqw",
-          "layer": "detail-crop-evidence",
-          "widthCqw": 50.2,
-          "want": [
-            41,
-            46
-          ],
-          "hint": "先保载体宽度档，再让文字列收缩；不要反过来压主体"
-        },
         {
           "level": "WARN",
           "rule": "R7",
@@ -23764,23 +23752,23 @@
             },
             {
               "band": 2,
-              "coveredPx": 140.703125,
-              "emptyPx": 219.296875
+              "coveredPx": 209.4375,
+              "emptyPx": 150.5625
             },
             {
               "band": 3,
-              "coveredPx": 322.3125,
-              "emptyPx": 37.6875
+              "coveredPx": 307.484375,
+              "emptyPx": 52.515625
             },
             {
               "band": 4,
-              "coveredPx": 52,
-              "emptyPx": 308
+              "coveredPx": 108.234375,
+              "emptyPx": 251.765625
             }
           ]
         }
       ],
-      "status": "failed",
+      "status": "passed",
       "canvas": {
         "w": 1080,
         "h": 1440
@@ -23978,10 +23966,10 @@
           "coordinateReference": "canvas-top-left",
           "units": "px",
           "rect": {
-            "x": 72.265625,
-            "y": 593.34375,
-            "w": 361.234375,
-            "h": 321.234375
+            "x": 126.265625,
+            "y": 477.59375,
+            "w": 311.546875,
+            "h": 552.734375
           },
           "visible": true,
           "editable": null,
@@ -23998,7 +23986,7 @@
           "coordinateReference": "canvas-top-left",
           "units": "px",
           "rect": {
-            "x": 72.265625,
+            "x": 126.265625,
             "y": 719.9375,
             "w": 233.28125,
             "h": 67.046875
@@ -24018,10 +24006,10 @@
           "coordinateReference": "canvas-top-left",
           "units": "px",
           "rect": {
-            "x": 337.9375,
-            "y": 617.09375,
-            "w": 95.5625,
-            "h": 96.75
+            "x": 391.9375,
+            "y": 501.34375,
+            "w": 45.875,
+            "h": 193.5
           },
           "visible": true,
           "editable": "text",
@@ -24038,10 +24026,10 @@
           "coordinateReference": "canvas-top-left",
           "units": "px",
           "rect": {
-            "x": 337.9375,
-            "y": 721.390625,
-            "w": 95.5625,
-            "h": 168.4375
+            "x": 391.9375,
+            "y": 702.390625,
+            "w": 45.875,
+            "h": 303.1875
           },
           "visible": true,
           "editable": "text",
@@ -24058,9 +24046,9 @@
           "coordinateReference": "canvas-top-left",
           "units": "px",
           "rect": {
-            "x": 72.265625,
-            "y": 940.484375,
-            "w": 361.234375,
+            "x": 126.265625,
+            "y": 1056.234375,
+            "w": 311.546875,
             "h": 101.0625
           },
           "visible": true,
@@ -24078,10 +24066,10 @@
           "coordinateReference": "canvas-top-left",
           "units": "px",
           "rect": {
-            "x": 465.890625,
-            "y": 590.828125,
-            "w": 541.84375,
-            "h": 453.234375
+            "x": 486.40625,
+            "y": 618.765625,
+            "w": 467.328125,
+            "h": 397.34375
           },
           "visible": true,
           "editable": null,
@@ -24098,10 +24086,10 @@
           "coordinateReference": "canvas-top-left",
           "units": "px",
           "rect": {
-            "x": 465.890625,
-            "y": 590.828125,
-            "w": 541.84375,
-            "h": 406.375
+            "x": 486.40625,
+            "y": 618.765625,
+            "w": 467.328125,
+            "h": 350.484375
           },
           "visible": true,
           "editable": null,
@@ -24118,9 +24106,9 @@
           "coordinateReference": "canvas-top-left",
           "units": "px",
           "rect": {
-            "x": 465.890625,
-            "y": 1012.3125,
-            "w": 541.84375,
+            "x": 486.40625,
+            "y": 984.359375,
+            "w": 467.328125,
             "h": 31.75
           },
           "visible": true,
@@ -24257,18 +24245,18 @@
         },
         {
           "band": 2,
-          "coveredPx": 140.703125,
-          "emptyPx": 219.296875
+          "coveredPx": 209.4375,
+          "emptyPx": 150.5625
         },
         {
           "band": 3,
-          "coveredPx": 322.3125,
-          "emptyPx": 37.6875
+          "coveredPx": 307.484375,
+          "emptyPx": 52.515625
         },
         {
           "band": 4,
-          "coveredPx": 52,
-          "emptyPx": 308
+          "coveredPx": 108.234375,
+          "emptyPx": 251.765625
         }
       ],
       "counts": {
@@ -25111,21 +25099,16 @@
         "warnings": [],
         "loadedFaces": 4
       },
-      "inputKey": "83647a2c8373c4c05ff912fbc20d259d43954165cad69377a99b92ca9b381d1f"
+      "inputKey": "284adac429f42f208342b72ff9e486bb5092abb2fecf81689659f1acc7d8d5c2",
+      "pngHash": "e3a44bffeb729ebf39591554389f0c395a29ca11f5fad6fa45756dbca21eb430",
+      "pngBytes": 127361
     },
     {
       "nn": "20",
-      "htmlHash": "6c0cfde786de893598cf217d8a3d7a43de4bce2870b4bd0f0cf7a46a2a32aeec",
+      "htmlHash": "12eb936d43ad0e26ec7ad0a81f5c3fa1b5c6d28d529f40fc264b76b743f963eb",
       "sourceHash": "b7b5841ddb90b47b5fa92e78df242c18af338a31ac0619f39261f8ec7192996d",
-      "issues": [
-        {
-          "level": "ERROR",
-          "rule": "R14",
-          "msg": "骨架区域 left 不可见",
-          "region": "left"
-        }
-      ],
-      "status": "failed",
+      "issues": [],
+      "status": "passed",
       "canvas": {
         "w": 1080,
         "h": 1440
@@ -26252,11 +26235,13 @@
         "warnings": [],
         "loadedFaces": 1
       },
-      "inputKey": "a175fc046203be1d4f9d1e728b0ed2eeabe8fb7b5e8e2b333aa9cf83dfcbbc3c"
+      "inputKey": "13e44807cabf33fc0de175c184247752fb45f5c4cc01ef160b7a14c2f0e22c1e",
+      "pngHash": "2dfba160dda81a6360b6d34fbf71a4267ca8475902aaf2c1a1bb812bd72d4f37",
+      "pngBytes": 264806
     },
     {
       "nn": "21",
-      "htmlHash": "e582dc154b716233b0f0f3e2661e3fbcc1d5d65ca37d7af9ec7f91fa909c5d21",
+      "htmlHash": "9feac13dedb51b10cb4a81b771a16c507073b15353aa221fca91ebe2b2c9142b",
       "sourceHash": "3603582886d6860fe770a523a6c8661028700c25a958fc2ac6eba3cfc25165aa",
       "issues": [
         {
@@ -27572,13 +27557,13 @@
         "warnings": [],
         "loadedFaces": 2
       },
-      "inputKey": "bff30ea5da8c9ebf1bb3f62a2d0f96857ccfdbc8afd54fa92abc651598dc47fb",
+      "inputKey": "f239c7be3136c6c8f04f6e9f62d97a9ea85eafa17d7560f7cb957a6c36c22ef8",
       "pngHash": "e883382427ba31ad42f550aaf642025337e1677b41b9140150d486772b07b6a9",
       "pngBytes": 156556
     },
     {
       "nn": "22",
-      "htmlHash": "963130909d3cb52de7ac814a8dee8f50c593660d041a5e128e8932e9b299d22b",
+      "htmlHash": "035c075a63e886583e283e5dfa19bdaf5753a3cbb9f84f0233c55d7afbf4b0bf",
       "sourceHash": "4b7baad29358518009d3fe93a715bf63d4750c81e9b3991f3eaace8cf32b8fd6",
       "issues": [],
       "status": "passed",
@@ -28740,13 +28725,13 @@
         "warnings": [],
         "loadedFaces": 1
       },
-      "inputKey": "6cf820251116036c4c2a02f6c59a70895c4f8021e11b604a39e066daf2d7821d",
+      "inputKey": "bf7995c6ab34dd1d2b2d665fdfcd063414df7a438b5a051be564916dd8947530",
       "pngHash": "94f6de28917e6c5108cf0190275f215f6f1792798e200e7e72a65a17a7512cab",
       "pngBytes": 271791
     },
     {
       "nn": "23",
-      "htmlHash": "69312c3e584e7a196f34d1d1e4f2dd691260dd8fecda6969641c0e4954b4aac6",
+      "htmlHash": "b1f48450df3b304e01418a0233ad84f8443eb70be3559454d9dd027892181774",
       "sourceHash": "9da5bf4e93ee67f6f25e3acbe5b98d01ac48b1d376c307168720a0246d5febcb",
       "issues": [
         {
@@ -29932,13 +29917,13 @@
         "warnings": [],
         "loadedFaces": 2
       },
-      "inputKey": "cb7a45101e2243f03b15ca58cb63fa3a2d7331bbc19ea1b1804fc7f94330676b",
+      "inputKey": "80e6e1a1d33a2d1f203b76dfc9593bbd41b82bd4fdcd886cfe2948e4082168bb",
       "pngHash": "09d2728ba363718f53b2cae7cec792d33cfcc297405a20cb335ed7889b55553a",
       "pngBytes": 84489
     },
     {
       "nn": "24",
-      "htmlHash": "353c88c832018de70c23d200caa33bc64aee98f568ac4d70aadaf598ba88948f",
+      "htmlHash": "4444cdaee88bde0a49b3fd30c492208416978a059a0a4587f987e27c3306cc44",
       "sourceHash": "2bfea028f80ea3dd1f9f15978f31430bc06a4d7bc2064f36c00edba884084639",
       "issues": [
         {
@@ -31190,13 +31175,13 @@
         "warnings": [],
         "loadedFaces": 5
       },
-      "inputKey": "317dec76062e7afb9692594c8b3f8925602101521600b03969463f569bb87ca9",
+      "inputKey": "aa7fe91c95ec830bb5c6e8e3fc161d2f53da3c1eebe90b634388974bac4ae6c1",
       "pngHash": "e49459a934f781830eaeb0d15cfd5d5429e24f00ded3dea9bc6ad15ac5d14745",
       "pngBytes": 103658
     },
     {
       "nn": "25",
-      "htmlHash": "57aee84f52d1adf44402482dc04ed1c7e4aedb37b0a1366ed1c5660a69f798dd",
+      "htmlHash": "9936270773b598b627af83abd166ede6c3a7716ab514466e67d44ec224a780fa",
       "sourceHash": "4980a597c77da60563a6903a8462e5b198856321df60e9d996907c253a97bec1",
       "issues": [
         {
@@ -32279,13 +32264,13 @@
         "warnings": [],
         "loadedFaces": 1
       },
-      "inputKey": "5e779143d67aa5c060455d5602406bf6cf32a6bd519d7ec4542dddbf694ac5e4",
+      "inputKey": "f7c50eda96aba8e87efb283c2922ccc725f05dd2250ba31fdece9b9bfe8cf67b",
       "pngHash": "e5cf4c5ec91d84297b74cff319cf00edc4a6cb897a7af69d718f32041e16b940",
       "pngBytes": 63155
     },
     {
       "nn": "26",
-      "htmlHash": "59e46c2b73a02f404b8dd2fc635c2f2a22b4cc6af3df2148d03219ddf2f78dd6",
+      "htmlHash": "8c91d31969c33c5f9e8d3f4ca9369652e6dfec049afa66f8dda4f3159b9a4553",
       "sourceHash": "5ebbb3be0b19412e8ffd58e3c1e0d097c79a80d92770fcc83c0070534c504fc3",
       "issues": [
         {
@@ -33368,13 +33353,13 @@
         "warnings": [],
         "loadedFaces": 1
       },
-      "inputKey": "60ac4b8cf373a3095c021e9cada6cd2aeccb015443c6ab754d482c0756651c9d",
+      "inputKey": "e9d8a35f020865cf5678b8eced7ff045cd3fe13939c309b5608fb55599e94ab0",
       "pngHash": "180fdebd5fb7375afd50867bd0ffa32661fb084b66b76f36cb505b7cf2603ea3",
       "pngBytes": 62261
     },
     {
       "nn": "27",
-      "htmlHash": "10128a3297b1e9aeff0e0167ec43d933f3362a9a5359db81c6a99c9b2e033790",
+      "htmlHash": "324ed1dd44aa7aed13912f346b0e1232fb348d16cac63f35a8487887eac3747b",
       "sourceHash": "74040e5aafd08a30737dfb7f1b12865f33ac9c49a8e7279bb679066fa1bb06a7",
       "issues": [
         {
@@ -34573,13 +34558,13 @@
         "warnings": [],
         "loadedFaces": 5
       },
-      "inputKey": "26337c9ba9c6bd44d5561a69b3d7e85f2aa646b2cbeafd1abf9357b1d00ae74d",
+      "inputKey": "16b06d8c71106db4c6fee888f59061e060a957ce89c0fab3a20132cdec05fb59",
       "pngHash": "b4644e177327f89515d11afc1833174f86d1858aae57c815e09f27d6aad2eee2",
       "pngBytes": 85679
     },
     {
       "nn": "28",
-      "htmlHash": "ae67b71408554bdd908a5fe666259da94bfbbf9ccf8854d1ffcb4de3b1a571bd",
+      "htmlHash": "1e4ec4bac9f818e1a6959a11eb396638c621209f0b041bd523fbc86c57980e38",
       "sourceHash": "c8a364fae13b206db2f4082aa19728191b0594101f8b237d09be15abc78176c2",
       "issues": [
         {
@@ -35778,13 +35763,13 @@
         "warnings": [],
         "loadedFaces": 5
       },
-      "inputKey": "d2328027ec9af6934a07b11768b796a23c05a60c639b765ab1a92396eca0e8c4",
+      "inputKey": "75f204e038f87d72add6717bcf13574e281edbee774bb112a26b8d653df68794",
       "pngHash": "3deff8788981acf173f60b2f9ea0a1fbd17a89d4f7fd0909e15ed44120f71155",
       "pngBytes": 84572
     },
     {
       "nn": "29",
-      "htmlHash": "a4171be6cf1dead45c54bc4f28b174332f7960e3182945cf147cf69f285f73e3",
+      "htmlHash": "dd104b54f917cb2eec88b6d74b8da16f308be3f29094400a4572da1b1dae8ada",
       "sourceHash": "04847d0e5374638de438331858731e523e42ce623ba839c53fe65193c59ebaa8",
       "issues": [
         {
@@ -37087,13 +37072,13 @@
         "warnings": [],
         "loadedFaces": 4
       },
-      "inputKey": "336890a8604a414f7b24a7396d6ec62435b818db84b994037120442ebd4079ec",
+      "inputKey": "2923786682cb6467f19e11cde5ff0ccb564d1b458d191a618c5f46f6c90d17c8",
       "pngHash": "49817c2968e75ea1c24c174761279043681e67be8a47352397ae1ecedc4d90fc",
       "pngBytes": 243932
     },
     {
       "nn": "30",
-      "htmlHash": "541d9d2a9f7f88008cf7818796a65fdcf8e6b690c1b535d12be2b04bcd66feab",
+      "htmlHash": "8747eaf88474b95bc58fee097f458fbee1b7d7fc4118750cce67198d4a08b62c",
       "sourceHash": "7595343e243e2396a7e3518bf11c99e50559f7b19100eb101d9f08ed328a1fce",
       "issues": [
         {
@@ -38449,13 +38434,13 @@
         "warnings": [],
         "loadedFaces": 4
       },
-      "inputKey": "f419da7686867792a9f35d53f9e26190eade72eb827d128eddd3ea93c4fbf92a",
+      "inputKey": "3aea20cde5184c93c2f8bda5bca9af088c8a3c902f93af0894aa7530da4999e8",
       "pngHash": "aa1ef57fc7d14ca01dc781003199663cac069a37bb92467461ba355e6251b588",
       "pngBytes": 172977
     },
     {
       "nn": "31",
-      "htmlHash": "3cd7d8066b7a98be7541178f77c228f9d4ed83032c7953a993c3bf6e07555b99",
+      "htmlHash": "1daf61238814661cdbab6efbed569f336b402018118a09bc1bc9f6c988346de2",
       "sourceHash": "2b2072e0c87235505669ed4e1e5e869f1e050f4ae3f76b25edff6cb3cec04a2a",
       "issues": [],
       "status": "passed",
@@ -39702,13 +39687,13 @@
         "warnings": [],
         "loadedFaces": 4
       },
-      "inputKey": "ebd51bf6fba776cca82b11eb5a0d0797e562c57219bca31e1ee179a6115c9c20",
+      "inputKey": "cabc2c40960ee4031ea3705c8fd311edbd90a731a2d56fb02c69b93be6593308",
       "pngHash": "87e91b8e25a7bc6e928b95f47d1deff673aeaeb50deff3442ab3d01456f20a8f",
       "pngBytes": 272047
     },
     {
       "nn": "32",
-      "htmlHash": "44923dc60b65a52275247edf4c51197aac528e4a2485dbb97975ab8054a527d1",
+      "htmlHash": "750fb4bc1d6187d8bfd1af909a0e57f6ad1e97a5e9fe7465aff71dbfecd5a668",
       "sourceHash": "56c2bd07f6df1750a632019707fe51bfeb2104dc85b593b7b3acc0db4240b420",
       "issues": [],
       "status": "passed",
@@ -40922,13 +40907,13 @@
         "warnings": [],
         "loadedFaces": 2
       },
-      "inputKey": "1d6b4fbadacd55574c555377ca27179f6520fa3d0b5e81a551996559c7edf1cd",
+      "inputKey": "672e24fd1746232315bcaeb80d4149e227a3ac8c570bd3cad9fd89ed9376a42b",
       "pngHash": "099f160d25c707d9fd140e92f38eeae9b48f19efdd0bcf71c430a949bf42b5c8",
       "pngBytes": 418377
     },
     {
       "nn": "33",
-      "htmlHash": "1156924a1e6bd7dc1e49f73b72a4a6ea12190bf33b35197049149d8b446438b4",
+      "htmlHash": "c7a3cb6a5386ec22c70e49ded7c0c22b4a458ac817435ee640c01fa54a9ab729",
       "sourceHash": "18966548265fdfc94f8092e98bd546a38ac39ca9293c4cae0504842b94bfed7f",
       "issues": [],
       "status": "passed",
@@ -42147,13 +42132,13 @@
         "warnings": [],
         "loadedFaces": 1
       },
-      "inputKey": "ee80fba51bdea7813ce674a0cca273a745b7fd7bf1375f6349c167cc84bff6c1",
+      "inputKey": "cb1b5c639ce1eed390a55849d60b45b10e06ea00af86159bad888c94bd495620",
       "pngHash": "919108f5408f3d6ce990231fd5b736c0ac399259361968d877e2c31629da271b",
       "pngBytes": 388335
     },
     {
       "nn": "34",
-      "htmlHash": "c1d1dfd6b4a7340bd994618da3299e7b25a2fb2cc67581af2df884876cac7e7f",
+      "htmlHash": "060db937ddf638b73c9ccd761f024176e332ab182db8b1a5e344cfdd447a351f",
       "sourceHash": "80c316dc11f497468eec6eaa5a3a6aab8c801c1a9ceaec551a6e26963825f10d",
       "issues": [
         {
@@ -43497,13 +43482,13 @@
         "warnings": [],
         "loadedFaces": 7
       },
-      "inputKey": "9c23cd70e998831b25192ec0747890f34690baf10d63efbaf883f03a1ed612b0",
+      "inputKey": "2ea5955113d47deb8cdb4d3c49c858cafce8454f78905d2ec402df1bf422bf7b",
       "pngHash": "1dfe70ee2735efa16da460d5f74f5cc96637c831e1e47ec694135c3216f401f4",
       "pngBytes": 388355
     },
     {
       "nn": "35",
-      "htmlHash": "06da653dbd91ab9fe5b9d94aa0664182eed8ffbf3383f5fa14ae3656f4dd4c24",
+      "htmlHash": "c0ffb8e2c63ca93925003d506bd567ae5af11e9573c74fdbb74c2f1da664b4c3",
       "sourceHash": "13326e33ba71f031e8d867abf99572cabe8af7f6b39365af41df82bf78ddd203",
       "issues": [
         {
@@ -44680,13 +44665,13 @@
         "warnings": [],
         "loadedFaces": 7
       },
-      "inputKey": "29ed1797a18008136ee98b5deed1691324480665f92f29144f46db33d474b25c",
+      "inputKey": "318036ed0c3788f5769a207f96134249b3a1ced1c421cd37e4941796d71f7d42",
       "pngHash": "2b9123df8a20fb195ad57e9c8feb8f2a55e0fe1bbaf688be4ccdfc28b4bba8a5",
       "pngBytes": 168368
     },
     {
       "nn": "36",
-      "htmlHash": "7fd2b310c4e9009ff2c464777587b24cbf761312987f71ffe5fa91ae19efab02",
+      "htmlHash": "ab0ed725b9312836e34ee5023f4e0e37ebd240c9015f73f5d88e6656c5f36777",
       "sourceHash": "aa7486df09efe10d0e7b575cadb58755a382215bd7b5533ca4dc4e8d66c0f839",
       "issues": [
         {
@@ -45810,13 +45795,13 @@
         "warnings": [],
         "loadedFaces": 7
       },
-      "inputKey": "03687c42528d4439149b5fee5cefa97bb6d5a1e00696df3b26e82c3628e25a99",
+      "inputKey": "0594e31580075f245f212983e203ea916bc1d533141fc5a5cfec689608f1b5ad",
       "pngHash": "fd903021f574c5878b136e57f81b06251af88825a23c0de2ce03147303f2452b",
       "pngBytes": 157219
     },
     {
       "nn": "37",
-      "htmlHash": "93c622577d7d09d0fe6397c543e8a4107f42e7da19465242fa3d14b2f74ffc76",
+      "htmlHash": "7b1826a745c9935e4387e4f005fd8df9e0fb8ca17e6ef7afbf9e633de8246a4a",
       "sourceHash": "17f87ad7f93b17f50b1fc9ecd3fa933a801e570ee9b6ee3f5d94e3fba4e1d963",
       "issues": [],
       "status": "passed",
@@ -47415,13 +47400,13 @@
         "warnings": [],
         "loadedFaces": 5
       },
-      "inputKey": "bd171d0f9c7bec7e32d3b6839516306a345d1c216d6f453c6cdc8b4416e54f2e",
+      "inputKey": "92e932b61f28b9cb70c7c50fb2839832526de8446547c329eb93861772b81800",
       "pngHash": "446b021c979bbb5302094e8211e65a763f202c1f762e689b6404cd888541ff09",
       "pngBytes": 354962
     },
     {
       "nn": "38",
-      "htmlHash": "4658eca2acc0d9a10e9548d67cac0b8c9c3d450d039b722f53277f47c3a03639",
+      "htmlHash": "978c471a33eaacfea8c96dc94b1938122ae60a10552907fcd88f405956d1e1db",
       "sourceHash": "7d3915b275aee33249abb1bd3885ec8d38c3c39d3403ee278afbbf73b553c0a8",
       "issues": [
         {
@@ -48582,13 +48567,13 @@
         "warnings": [],
         "loadedFaces": 1
       },
-      "inputKey": "0c273291b4f7aaa833dcadec56f038086d3bc597b27b4b175776e2df0dacc6e2",
+      "inputKey": "6a7efa0525193682af6617b8482f2e30b92b73c86112dc259b6b776b95b5c7e4",
       "pngHash": "0f538193e3efcf17a8fbb0805f1180a52566355bdcda805a3a564be2f5eba93d",
       "pngBytes": 142938
     },
     {
       "nn": "39",
-      "htmlHash": "bbe6408489fc6c1c4589f7d19bf3bd7df92fca4067ce411f3e62eba145496085",
+      "htmlHash": "bb6e864f8cc23be8a6d2bbd63268f1fea02e94953fc8776d835fd507eaf62f9d",
       "sourceHash": "74585cba1e2669b1e773643be986d46b4ad957c43cbc5a91b55fa3609b90db32",
       "issues": [
         {
@@ -49776,13 +49761,13 @@
         "warnings": [],
         "loadedFaces": 1
       },
-      "inputKey": "cbf8d6873644865edad6d27d7f29c68939869fa0f921ba01d3d9226f569165c2",
+      "inputKey": "10c724f098019900828a6b96b8f2dd29d45ddac48e0cc61c396d6e7ebe81b89e",
       "pngHash": "381097217ffaa93ca29d19796ab9261b9a69e791c1ec26f1fbc17e801ba60ea0",
       "pngBytes": 129052
     },
     {
       "nn": "40",
-      "htmlHash": "65d5c2182bd72a5fc049addf2f45892d9ed67b6e6d7edc45c616487c44a94532",
+      "htmlHash": "860f576337c984d0368e1451714251f9e946365886e2ac589fcdd99f26944a28",
       "sourceHash": "0ad2e6416a53976939a74c3f362779fcceb7c1aa27c5c336e7716bbaa1301293",
       "issues": [
         {
@@ -50912,13 +50897,13 @@
         "warnings": [],
         "loadedFaces": 1
       },
-      "inputKey": "9189695eb6eff930803285ce4ed89a2434e724187ab78c2f7ea105af38e8dda1",
+      "inputKey": "2978d283bb135c673e102cedcacf51baec5ba9246996e3f0b6dbf0d7eaf42219",
       "pngHash": "7a5d6734329b98121ff7debeaa0708c25919151fef6d852c7a1e7ca5b292b119",
       "pngBytes": 109443
     },
     {
       "nn": "41",
-      "htmlHash": "f5227d0b709d26cbad7c980b37073267b288009609e7c9ee87b019bfd6e1380a",
+      "htmlHash": "7a95179114816830b95cc5c49cad165cc6409d4aa39a34b745d897a81fc0bf28",
       "sourceHash": "aa686b3271913a506bc7fc164fe2c15b11a90432045467c5516c9a8032258678",
       "issues": [
         {
@@ -52053,18 +52038,117 @@
         "warnings": [],
         "loadedFaces": 1
       },
-      "inputKey": "d2dd15905371af54816812914169b663953e13ca3be191c51335f3576e351528",
+      "inputKey": "7783d937963a3b69443d2432e260b82be02ebc2e33cfd2c3439d183b8c13e8a3",
       "pngHash": "8cca6b78979bcd28e098acf0b1e1316697bf83ad033ecd5ab34918bc3428b6b2",
       "pngBytes": 110444
     }
   ],
   "issues": [
     {
-      "level": "ERROR",
-      "rule": "BATCH",
-      "msg": "几何检查失败页: 19, 20；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+      "level": "WARN",
+      "rule": "FONT",
+      "msg": "同进程不保证整批字体一致；各页 fonts.actual / faces 已记录，请核对实际 face"
     }
   ],
-  "artifacts": {},
-  "updatedAt": "2026-11-13T15:15:01.736Z"
+  "artifacts": {
+    "digest": {
+      "path": "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\work\\geometry-digest.json"
+    },
+    "sheet": {
+      "path": "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\work\\_sheet.png",
+      "sha256": "7bb6c01d9d726dda855ace480029b1bb4d2523c12a10783a01d3f1e7ce08a0b9"
+    },
+    "manifest": {
+      "path": "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\work\\editor.manifest.json",
+      "runId": "dce62679-c67d-4d57-b959-8040dc2bea61"
+    },
+    "html": [
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\01.html",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\02.html",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\03.html",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\04.html",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\05.html",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\06.html",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\07.html",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\08.html",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\09.html",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\10.html",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\11.html",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\12.html",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\13.html",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\14.html",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\15.html",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\16.html",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\17.html",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\18.html",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\19.html",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\20.html",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\21.html",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\22.html",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\23.html",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\24.html",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\25.html",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\26.html",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\27.html",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\28.html",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\29.html",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\30.html",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\31.html",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\32.html",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\33.html",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\34.html",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\35.html",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\36.html",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\37.html",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\38.html",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\39.html",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\40.html",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\41.html"
+    ],
+    "png": [
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\01.png",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\02.png",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\03.png",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\04.png",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\05.png",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\06.png",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\07.png",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\08.png",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\09.png",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\10.png",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\11.png",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\12.png",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\13.png",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\14.png",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\15.png",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\16.png",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\17.png",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\18.png",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\19.png",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\20.png",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\21.png",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\22.png",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\23.png",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\24.png",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\25.png",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\26.png",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\27.png",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\28.png",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\29.png",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\30.png",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\31.png",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\32.png",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\33.png",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\34.png",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\35.png",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\36.png",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\37.png",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\38.png",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\39.png",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\40.png",
+      "D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\a1-41-skeleton-1113\\out\\41.png"
+    ]
+  },
+  "updatedAt": "2026-11-13T16:08:23.917Z",
+  "fontPolicy": "Per-target bounded wait + stopLoading; actual platform faces recorded. No batch fallback guarantee."
 }

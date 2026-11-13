@@ -20,7 +20,7 @@
 | 7 | R-note-02 | 整机解读页 | 骨架级 | body | 44 | 1 |
 | 8 | R-wall-01 | 图墙页 | 骨架级 | body | 06,24,25,27 | 4 |
 | 9 | R-phone-01 | 多屏并陈页 | 骨架级 | cover / body | 04,32,43 | 3 |
-| 10 | R-phone-02 | 独幅大图页 | 规格级 | cover / body（页42 kicker 复用封面 topic，复核中） | 23,42 | 0 |
+| 10 | R-phone-02 | 独幅大图页 | 规格级 | cover / body（页42 实证 kicker←topic 封面槽位复用，批次 C3 证据在案，定案待监工复核） | 23,42 | 0 |
 | 11 | R-data-01 | 口径数据页 | 骨架级 | body | 10,30 | 2 |
 | 12 | R-data-02 | 数字亮点页 | 骨架级 | body | 35 | 1 |
 | 13 | R-data-03 | 账目核对页 | 规格级 | body | 41 | 0 |
@@ -111,7 +111,7 @@
 ├─ 耦合约束：标题 ≤1 行；phone 75cqw 居中，两侧卡列垂直居中
 ├─ 对账：fcard t/s←画面标注 title/detail；serif←金句式收束
 ├─ 骨架文件：card02-centered←45
-├─ 内联净化：⚠️ phone height:75cqw → 骨架改挂修饰类 .phone.h75（种子待入册，见净化处置表）；fcard inline padding:1.7cqw → 丢弃，骨架用种子默认；fcard 无 ic → 结构上不带 ic 节点（头部烘焙同原则：不需要就结构上不存在）
+├─ 内联净化：⚠️ phone height:75cqw → 骨架改挂修饰类 .phone.h75（已入种子）；fcard inline padding:1.7cqw → 维持丢弃（A1 p06 实证 passed 无几何后果，批次 C3 销账）；fcard 无 ic → 结构上不带 ic 节点（头部烘焙同原则：不需要就结构上不存在）
 └─ 头部烘焙：源页 head 无 sub → 骨架无 sub
 ```
 
@@ -143,7 +143,7 @@
 ├─ 耦合约束：标题 ≤1 行；左右 flex 1/1
 ├─ 对账：dcard t/d←详情 title/detail；text-block←语境段/bottom 说明
 ├─ 骨架文件：note02-phone-dcards←44
-├─ 内联净化：⚠️ phone height:75cqw → .phone.h75（待入册）
+├─ 内联净化：⚠️ phone height:75cqw → .phone.h75（已入种子）
 └─ 头部烘焙：按源页实际 head 照抄
 ```
 
@@ -177,7 +177,7 @@
 ├─ 后果红线：界面名/标签与壳同层（.phone-cell 内），禁塞进带比例 phone 根内——gate L19 拦截；⚠️ gate 不再强制"每壳必有标签"（C3 退役），漏标签由人审把关
 ├─ 对账：phone←整屏截图×2-3；标签←界面名；bottom 说明←边界文案（text-block；⚠️ 2026-11-13 设计审计修正：trio 档原误用 serif 金句体，已改回 text-block 与全家族统一——serif 仅属 R-quote-01 金句页，此处不再使用）
 ├─ 骨架文件：phone01-duo-cover←04 ｜ phone01-duo-labeled←43 ｜ phone01-trio-labeled←32
-├─ 内联净化：⚠️ 页43 inline height:68cqw → .phone.h68（已入；2026-11-13 阶段A 由固定档改弹性档 max68/min63.5，触底即内容与配方不匹配→换配方/删文案）；页32 inline width:100%;height:auto → 孤例丢弃，骨架回种子默认锁高，三壳锁宽档降为登记卡变体注记（是否新增 .phone.wide 由阶段 4 种子人审裁决）
+├─ 内联净化：⚠️ 页43 inline height:68cqw → .phone.h68（已入；2026-11-13 阶段A 由固定档改弹性档 max68/min63.5，触底即内容与配方不匹配→换配方/删文案）；页32 inline width:100%;height:auto → 孤例丢弃，骨架回种子默认锁高，三壳锁宽档降为登记卡变体注记（是否新增 .phone.wide 档登记为设计期候选，真实需求出现时再入——阶段 4 已收口无阻塞）
 └─ 头部烘焙：04 为封面档（issue-line+封面槽位）；32/43 为 body 档；均照抄
 ```
 
@@ -287,7 +287,7 @@
 ├─ 耦合约束：标题 ≤1 行；shot 1:1 定高，ba 等宽
 ├─ 对账：shot←局部图×2；ba←各列对比明细
 ├─ 骨架文件：compare02-shot-ba←40
-├─ 内联净化：⚠️ shot inline aspect-ratio:1/flex:none → 孤例丢弃，骨架挂种子默认；1:1 定高档降为登记卡注记（是否入种子由阶段 4 人审）
+├─ 内联净化：⚠️ shot inline aspect-ratio:1/flex:none → 孤例丢弃，骨架挂 `.shot.sq`（✅ 已入种子）
 └─ 头部烘焙：按源页实际 head 照抄
 ```
 
@@ -362,13 +362,13 @@
 | 43 | phone `height:68cqw` | 可复用档位 | `.phone.h68` | ✅ 已入种子（2026-11-13 设计期增补） |
 | 44 | phone `height:75cqw` | 可复用档位 | `.phone.h75` | ✅ 已入种子（2026-11-13 设计期增补） |
 | 45 | phone `height:75cqw` | 可复用档位 | `.phone.h75` | ✅ 同上（与 44 共档） |
-| 45 | fcard `padding:1.7cqw` | 孤例丢弃 | 骨架用种子默认 padding | 是否为无 ic 卡新增紧凑档 |
+| 45 | fcard `padding:1.7cqw` | 孤例丢弃 | 骨架用种子默认 padding | 维持丢弃（A1 p06 实证 passed，批次 C3 销账；紧凑档留待真实需求） |
 | 46 | panel 内联 padding | 可复用档位 | `.inset45`（padding 4.5/5 + gap 4.5） | ✅ 已入种子（2026-11-14 批次 C 甲案，悬置项销账） |
-| 40 | shot `aspect-ratio:1;flex:none` | 孤例丢弃 | 种子默认；1:1 定高档降为注记 | 是否新增 `.shot.sq` 档 |
+| 40 | shot `aspect-ratio:1;flex:none` | 孤例丢弃 | 骨架挂 `.shot.sq` | ✅ 已入种子（p40 改判，闸门复核通过） |
 | 47 | h1 内 inline-block 手动断行 | 保留 | 属标题排版语义非几何数值，随骨架照抄 | 无需 |
 | 15 | sub 内 hl span | 移除 | 错例不入骨架 | 无需 |
 
-### ⚠️ 渲染自检新增发现（2026-11-13，待闸门裁决——一次性内联清洗颗粒度不足）
+### ⚠️ 渲染自检新增发现（2026-11-13，闸门裁决已下达见文末——一次性内联清洗颗粒度不足）
 
 首轮自检（38 PASS / 3 WARN）+ 全量内联审计（47 页逐页比对）证实：一刀切清洗破坏了部分**布局功能性数值**。分类如下：
 
@@ -385,7 +385,7 @@
 | B7 柱高数据 | bars 柱 `height:50/100/75/25%` | 10,30 | ✅ 已参数化 `style="height:{{柱高}}%"`（数据驱动几何豁免通道；gate 阶段 3 补 0-100 整数边界校验） |
 | C1 孤例 | p23 居中、p32 三壳、p40 1:1、p45 卡padding、p46 panel padding | 各 1 页 | p40 改判（见下）；p46 已入种子 `.inset45`（批次 C 甲案）；其余维持登记 |
 
-**p40 1:1 改判（2026-11-13 执行期发现）**：`.shot>img{height:0;flex:1 1 0}` 弹性拉伸依赖容器定高，40 的列高由 ba 卡决定 → 丢弃 1:1 后窗高塌陷为 0（探针实测 img height=0）。该内联是双窗对照档的**结构必需约束**，非可丢弃孤例 → 按裁决 2 保留条目通道转种子 `.shot.sq{aspect-ratio:1/1;flex:none;width:100%}`，骨架挂类。请复核。
+**p40 1:1 改判（2026-11-13 执行期发现）**：`.shot>img{height:0;flex:1 1 0}` 弹性拉伸依赖容器定高，40 的列高由 ba 卡决定 → 丢弃 1:1 后窗高塌陷为 0（探针实测 img height=0）。该内联是双窗对照档的**结构必需约束**，非可丢弃孤例 → 按裁决 2 保留条目通道转种子 `.shot.sq{aspect-ratio:1/1;flex:none;width:100%}`，骨架挂类。（2026-11-13 闸门复核通过，`.shot.sq` 已入种子。）
 
 📌 裁决方式（供闸门参考）：A 类走种子晋升；B 类走种子修饰类（类名随配方语义，与 recipes.json layouts tracks 对齐后 gate 可校验）；C 类维持登记。**B1 必须在目检通过前解决**（已实测溢出），其余 B 类目检可带差异过闸、入册前补齐。
 

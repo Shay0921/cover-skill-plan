@@ -1,8 +1,8 @@
-# A1 · 41 骨架 × 真实 gate 受控池回归（2026-11-13T15:15:01.755Z）
+# A1 · 41 骨架 × 真实 gate 受控池回归（2026-11-13T16:08:23.937Z）
 
-- run: `d:\AI\html2png\mine\cover-skill-plan\dev\controlled\a1-41-skeleton-1113`
-- gate 总状态: **failed**（gateError: 无）
-- 页级: 39 passed / 2 failed / 共 41
+- run: `D:\AI\html2png\mine\cover-skill-plan\dev\controlled\a1-41-skeleton-1113`
+- gate 总状态: **passed**（gateError: 无）
+- 页级: 41 passed / 0 failed / 共 41
 - 统计口径终审: 唯一 ID 197（期望 197）；{{}} 骨架原源 622（期望 622）/ 填充实际 628（repeat 展开会新增槽位）；唯一占位符名 154（期望 154）；跨骨架多占位符名 ID 58（新口径 58）；仅跨文件口径 29（新口径 29）；跨骨架多文案 ID 23（新口径 23）；同页多文案页数 9（期望 9）
 - 构造口径: 监工批复按骨架实际形态（dark×2 / issue×5 + meta.issue='2026-11' / 品牌槽咬合 meta.brand）；印章槽填「真」（EXEC-A1fix A）
 - 页级变换（EXEC-A1fix C/D 定箱实验）: step01-timeline 展开 ×4（P8）；data04-panel 图1→assets/s10.png（4:3 素材进 ar43 槽）
@@ -27,8 +27,8 @@
 | 16 | data01-bars-only.part.html | R-data-01/bars-only | passed | — | — |  |
 | 17 | data01-ldr-bars.part.html | R-data-01/ldr-bars | passed | — | — |  |
 | 18 | data02-ldr-tailcard.part.html | R-data-02/ldr-tailcard | passed | — | — |  |
-| 19 | data04-panel.part.html | R-data-04/panel | failed | R14 | 骨架几何病 | R14: detail-crop-evidence 宽 50.2cqw 超出骨架档 41–46cqw |
-| 20 | list01-ck-phone.part.html | R-list-01/ck-phone | failed | R14 | 骨架几何病 | R14: 骨架区域 left 不可见 |
+| 19 | data04-panel.part.html | R-data-04/panel | passed | — | — |  |
+| 20 | list01-ck-phone.part.html | R-list-01/ck-phone | passed | — | — |  |
 | 21 | list01-ck-shots-cover.part.html | R-list-01/ck-shots-cover | passed | — | — |  |
 | 22 | list01-frow-phone.part.html | R-list-01/frow-phone | passed | — | — |  |
 | 23 | list01-list-text-cover.part.html | R-list-01/list-text-cover | passed | — | — |  |
@@ -61,3 +61,11 @@
 4. **p37 R15 = 构造病实锤（定箱）**：EXEC-A1fix D 手动展开 step ×4（图层 id 加 -N 后缀过 L9，文案用源页长度档）后单页 **PASSED**、R15 消失 → 骨架 `repeat ×4` 注释未被展开是唯一病因，骨架本身无辜；正式修法归 P8（数据驱动 repeat 展开）。实验证据 `dev/controlled/a1fix-p37-1113/`。
 5. **跨骨架多占位符名 ID 口径（EXEC-A1fix E2 定谳）**：三种口径实测 58（元素 outerHTML 占位符名去重）/ 29（仅跨 ≥2 骨架文件）/ 23（填充后文案去重）；「31」为编制期静态扫描旧口径失效。逐 ID 明细 `id-stats.json`。
 6. **WARN 分布**：R7×27、R9×10；全 run 零 L8/L10/L14/L15/L16/L24——受控池构造面干净。
+
+## 批次 C 终态销单（2026-11-14，执行方补记）
+
+- **41/41 passed，gate 总状态 passed，零 ERROR**（本 run 为批次 C1/C2 修复后的 A1 终态；WARN R7/R9 维持只登记）。
+- **p20（原 L11→R14 left 不可见）**：批次 C1 config 纠偏修复——`R-list-01.layouts.ck-phone` order/tracks/when 对齐骨架与源页 14（commit `94b0097`；单页复验 `dev/controlled/a1fix-p20-1113/` passed，share 0.483）。
+- **p19（原 R14 载体档失配）**：批次 C2 甲案种子刀修复——种子新增 `.inset45` panel 内衬档（来源页 46 内联逐字迁移），骨架挂类，SHA 三处同步 `98E29FC0…`（commit `c961760`；单页复验 passed，shot 实测 43.3cqw 落 [41,46] 档）。
+- `PAGE_TRANSFORMS` 两实验开关（step×4 展开 / 图1→s10）**保留**至 P8 机制化（提前清理即 p37 退回 R15 失败）。
+- 失败页收敛链：35/6（刀 A1 `46f6c60`）→ 39/2（A1fix `caaef53`）→ **41/41（批次 C3 终态）**。
