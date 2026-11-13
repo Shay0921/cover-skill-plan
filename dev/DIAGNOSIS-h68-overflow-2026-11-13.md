@@ -178,6 +178,29 @@ A-1 不是"零溢出"，是"**floor 之上零溢出**"。修好后正常文案�
 
 方向：R14 宽度档从"手工写死镜像"改为"从 seed 档位自动派生（高度×0.5039）"或"直接校验档位高度"，消除 seed↔config 高度/宽度两处事实源；h75（card02-centered、note02-phone-dcards 的 [36,40]=75×0.5039≈37.79）溢出隐患一并解决。牵连 R14 校验实现 + config carriers 结构 + 所有带 carrier 配方，需完整重跑 178 负例。
 
+#### 8.5.1 修订记录
+
+- **v1（作废）**：监工初版——B-1/B-2 二选一、影响面 4 行、gap 当搭车项、A1 先行。经外部质疑逐条实证（project.mjs:89 硬阻塞 / R10 重复 / h75 结构差异 / 19 条 carriers 口径），六点全部成立，v1 作废。
+- **v2（现行，监工终裁 2026-11-13）**：定案如下，不再留候选。
+
+#### 8.5.2 B 定案（v2）
+
+1. **技术路线**：B-2（删宽度事实源），B-1 剔除——R10（validate.mjs:213-220）已对声明 `aspect-ratio` 的元素校验比例失真（skew>1.01），`.phone` 在其列，派生宽度校验属重复锁。
+2. **删除范围**：3 条真镜像 `width`——`phone01-duo-labeled [32,36]`、`card02-centered [36,40]`、`note02-phone-dcards [36,40]`。判据：**是否存在需与 seed 手工同步的独立高度事实源**（而非 `component==phone`）。其余 16 条（普通 phone 10 + shot 6）是防压窄后果区间，保留。
+3. **立项形态**：一个定案 + 两刀施工，两刀分 commit：
+   - **第 1 刀 B-seed**：修 §8.6 gap 优先级（`.region{gap:2.4cqw}` 覆盖 `.heading{gap:1.4cqw}`，恢复 1.4cqw 设计值）→ seed + SHA 三处同步 → 41 图重渲 + **监工目检抽验** → 全量负例 + 索引重建。h75 不动。
+   - **第 2 刀 B-contract**：顺序不可倒——① validate.mjs 加「width 缺省跳过」（**width 存在越界的 [1,108] 校验保留**）→ ② project.mjs:89 允许 width 缺省 → ③ config 删 3 条 width → ④ 夹具重登记 → 全量负例 + 索引重建。
+4. **排程**：B-seed → B-contract → A1 → A3+A2 → T14。可选历史断面：B 前存 41 骨架现行 gate 只读报告，**标注证据等级（带病口径，仅作对照，不得当 A1 销单依据）**。
+5. **h75**：不预设弹性化；B-seed 后灌真实感长文案压力测试，按数据决定是否需要（gap 修复使 body 多 21.6px，h75 压力反减）。
+6. **A6 维持「已完工销单」**：其判据（R1 清零 + floor 语义）在现行 seed 下成立；gap 是独立预存在问题，升格为 B-seed 本体，不构成 A6 未完成部分。
+
+#### 8.5.3 施工硬约束（质疑实证补充，缺一必崩）
+
+- project.mjs:89 对 width 缺省直接 throw（LOAD 层拒建）；validate.mjs:102 裸读 `width[0]` 无保护——**必须先改这两处，再动 config**。
+- 11 条 R14 命中负例逐条重登记或显式接受残余；**等比缩放坏例（R10 静默、R1 可能不触发）必须实测后定性**（接住 / WARN / 显式接受残余），不得预判。
+- 回归口径勘误：178 → 现行 184（TODO L135 同步改）。
+- carriers 全量口径：**19 条 = phone 13 + shot 6**，条目数与唯一档位数勿混用。
+
 ### 8.6 新发现（预存在问题，非本次修复引入，另记档）：head gap 被 `.region` 覆盖
 
 `seed/paper-journal.html` 里 `.heading{gap:1.4cqw;padding-top:1.4cqw}`（L33）先定义、`.region{gap:2.4cqw}`（L44）后定义，二者同为单类选择器、后定义胜出，故 `class="region heading"` 的 head 区实际 gap 是 **2.4cqw**（非设计意图的 1.4cqw）。画廊源页 43 因带内联 `style="gap:1.4cqw"` 才是 1.4cqw，P→R 骨架化时该内联 style 丢失 → 骨架 head 比画廊高 2cqw → wall 矮 2cqw → 手机从 68cqw 缩到 65.1cqw。
