@@ -5,7 +5,7 @@
 > 命名：按内容语义（DEVPLAN 阶段 2 补充），R-id 沿用草案。
 > 骨架目录：`references/recipes/`（每骨架档一个 `.part.html`，共 41 个）。
 > 资产位：`references/assets/`（iphone-frame.png 910×1806；骨架/harness 不得引用 dev 路径）。
-> 种子基线：`seed/paper-journal.html`（含布局修饰段）SHA-256 = `5318D18B7DA6C0ED3DB8395858751E5D524137A14CB97F037B0EDC870003D958`——阶段 4 种子只读校验以此版本为基线。（2026-11-13 变更：P→R 迁移把示例页 `data-recipe` 改为 R-quote-01，校验和随之刷新。）（T8 已挂 gate 构建锁：build.mjs `verifySeedChecksum` 每次构建必校验，种子漂移即 FAIL；独立复跑 `node dev/check-seed-lock.mjs`。）（T9 资产入册：`dev/asset-registry.json` 为唯一台账——b64 内嵌源/PNG 交付位/两份字体 CSS（交付渲染字形源，`inlineSeedFonts` 读取处校验，漂移即拒建）/fonts 树目录级 manifest（108 文件，预览资产）；独立复跑 `node dev/check-asset-registry.mjs`，三锁注入取证 `node dev/check-locks-e2e.mjs`。字体演进 = 种子三处同步纪律：改源 → 刷新台账 → 同步锁。）
+> 种子基线：`seed/paper-journal.html`（含布局修饰段）SHA-256 = `7771E1EA40FE859D5BE82AC66FE07631213863207C7C469BB626AD1F04AEE88B`——阶段 4 种子只读校验以此版本为基线。（2026-11-13 变更：P→R 迁移把示例页 `data-recipe` 改为 R-quote-01，校验和随之刷新。）（2026-11-13 阶段A 变更：`.phone.h68` 固定档 → 弹性档 `height:auto;flex:1 1 auto;min-height:63.5cqw;max-height:68cqw` + `.phone-cell:has(> .phone.h68)` 拉伸规则，校验和随之刷新；详见 dev/DIAGNOSIS-h68-overflow-2026-11-13.md §8。）（T8 已挂 gate 构建锁：build.mjs `verifySeedChecksum` 每次构建必校验，种子漂移即 FAIL；独立复跑 `node dev/check-seed-lock.mjs`。）（T9 资产入册：`dev/asset-registry.json` 为唯一台账——b64 内嵌源/PNG 交付位/两份字体 CSS（交付渲染字形源，`inlineSeedFonts` 读取处校验，漂移即拒建）/fonts 树目录级 manifest（108 文件，预览资产）；独立复跑 `node dev/check-asset-registry.mjs`，三锁注入取证 `node dev/check-locks-e2e.mjs`。字体演进 = 种子三处同步纪律：改源 → 刷新台账 → 同步锁。）
 
 ## 配方总表（20 条 · 语义定名 + 角色资格）
 
@@ -171,12 +171,12 @@
 ├─ 锚点：h1、壳×≥2；封面档加 issue-line+封面槽位；降级条款：仅 1 壳 → R-phone-02
 ├─ 密度：壳 2-3；标签每壳 1 条
 ├─ hl 节奏：0-1 处（04/43 实测 1 h1 后段；32 实测 1 h1 前段）
-├─ 耦合约束：标题 ≤1 行；⚠️ 尺寸三档为显式骨架档（封面版锁高 104 上限 / 标签版 h68 / 三壳版见净化处置）
+├─ 耦合约束：标题 ≤1 行；⚠️ 尺寸三档为显式骨架档（封面版锁高 104 上限 / 标签版 h68 弹性档 max68-min63.5 / 三壳版见净化处置）
 ├─ 装配纪律：列序=叙事序（主屏在左），装配自查+人审把关（43 号页"先看主屏再看辅屏"为实证）
 ├─ 后果红线：界面名/标签与壳同层（.phone-cell 内），禁塞进带比例 phone 根内——gate L19 拦截；⚠️ gate 不再强制"每壳必有标签"（C3 退役），漏标签由人审把关
 ├─ 对账：phone←整屏截图×2-3；标签←界面名；bottom 说明←边界文案（text-block；⚠️ 2026-11-13 设计审计修正：trio 档原误用 serif 金句体，已改回 text-block 与全家族统一——serif 仅属 R-quote-01 金句页，此处不再使用）
 ├─ 骨架文件：phone01-duo-cover←04 ｜ phone01-duo-labeled←43 ｜ phone01-trio-labeled←32
-├─ 内联净化：⚠️ 页43 inline height:68cqw → .phone.h68（待入册）；页32 inline width:100%;height:auto → 孤例丢弃，骨架回种子默认锁高，三壳锁宽档降为登记卡变体注记（是否新增 .phone.wide 由阶段 4 种子人审裁决）
+├─ 内联净化：⚠️ 页43 inline height:68cqw → .phone.h68（已入；2026-11-13 阶段A 由固定档改弹性档 max68/min63.5，触底即内容与配方不匹配→换配方/删文案）；页32 inline width:100%;height:auto → 孤例丢弃，骨架回种子默认锁高，三壳锁宽档降为登记卡变体注记（是否新增 .phone.wide 由阶段 4 种子人审裁决）
 └─ 头部烘焙：04 为封面档（issue-line+封面槽位）；32/43 为 body 档；均照抄
 ```
 
@@ -401,7 +401,7 @@
 | R-note-01 | left `w08 gap5` ｜ right `w12`；dark 档 img `ar43` |
 | R-note-02 | phone `h75`（已入） |
 | R-wall-01 | flow-grid `g22`（06/27）、`g2c`（24）、`g1c2r`（25）；img `ar43`（24/25） |
-| R-phone-01 | flow-grid `g3c`（32）；h68（43，已入） |
+| R-phone-01 | flow-grid `g3c`（32）；h68 弹性档（43，已入） |
 | R-card-01 | mn 档 left `w09 gap4` ｜ right `w11` |
 | R-data-01 | full `gap34`（30）；柱 `{{柱高}}`×4/×2（B7 豁免） |
 | R-data-02 | full `gap1`；fcard `w50` |

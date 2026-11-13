@@ -95,8 +95,10 @@ html,body{margin:0;padding:0;background:#171512;}
 .ck.done .box{background:var(--accent);border-color:var(--accent);}
 .ck.done .box::after{content:"";width:1.5cqw;height:.8cqw;border-left:.35cqw solid #FFFDF8;border-bottom:.35cqw solid #FFFDF8;transform:translateY(-.15cqw) rotate(-45deg);}
 .phone{position:relative;aspect-ratio:910/1806;height:100%;max-height:104cqw;width:auto;max-width:100%;align-self:center;flex:0 1 auto;min-height:48cqw;filter:drop-shadow(0 2cqw 3.4cqw rgba(23,21,18,.22));}
-/* 固定高度修饰类（2026-11-13 设计期增补，来源：画廊页43/44/45 实测内联值净化，波及页 43/44/45；骨架配方 phone01-duo-labeled / note02-phone-dcards / card02-centered 使用） */
-.phone.h68{height:68cqw;}
+/* 手机高度修饰类（2026-11-13 设计期增补，来源：画廊页43/44/45 实测内联值净化，波及页 43/44/45；骨架配方 phone01-duo-labeled / note02-phone-dcards / card02-centered 使用）。
+   h68 弹性档（2026-11-13 阶段A h68 溢出修复）：wall 区随 head 文案折行动态浮动，固定高度在长文案时会溢出（R1 双向越界），
+   故 h68 改为随 phone-cell 伸缩（max 68cqw / min 63.5cqw，触底即内容与配方不匹配，换配方或删文案）；h75 仍固定档。 */
+.phone.h68{height:auto;flex:1 1 auto;min-height:63.5cqw;max-height:68cqw;}
 .phone.h75{height:75cqw;}
 /* 最小高度档防止 flex 收缩把壳压到看不出界面；区域给不出这个高度是布局问题，
    换更宽的区域、减少同区内容或减并排数量，而不是让壳缩下去。 */
@@ -105,6 +107,8 @@ html,body{margin:0;padding:0;background:#171512;}
 /* 手机壳自己带 aspect-ratio，图注必须在壳外，否则压进壳内会改变画面比例。 */
 .phone-cell{display:flex;flex-direction:column;gap:1.4cqw;align-items:center;min-width:0;min-height:0;}
 .phone-cell>.text-block{font-size:2.1cqw;line-height:1.4;font-weight:700;text-align:center;flex:none;}
+/* 弹性档 h68：cell 拉伸吃满 flow-row 行高，phone 在标签外空间内伸缩；justify-content:center 保持正常态垂直居中不偏移（否则富余空间会让手机组上移）。 */
+.phone-cell:has(> .phone.h68){align-self:stretch;justify-content:center;}
 .shot{display:flex;flex-direction:column;gap:1.4cqw;min-height:0;min-width:0;flex:1 1 0;}
 .shot>img{display:block;min-height:0;min-width:0;height:0;width:100%;flex:1 1 0;object-fit:contain;border-radius:1.4cqw;}
 .shot.inset>img{background:var(--paper-2);border:1px solid var(--line);}

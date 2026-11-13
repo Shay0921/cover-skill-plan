@@ -49,7 +49,7 @@
     "R-phone-01": {"name":"多屏并陈页","intent":"2-3 只整屏并排，屏与屏对照或演进","issue":true,"regions":{"head":{"allow":["h1","sub","kicker"]},"left":{"allow":["phone","shot","text-block"]},"right":{"allow":["phone","shot","text-block"]},"wall":{"allow":["phone","shot","text-block"]},"bottom":{"allow":["text-block","serif","cta","fcard"]}},
       "layouts":{
         "duo-cover":{"name":"双机 · 封面档","when":"源页 04：两只整屏左右并陈作开篇，锁高上限","order":["head","left","right","bottom?"],"tracks":[{"region":"left","share":[0.40,0.55]},{"region":"right","share":[0.40,0.55]}],"headline":[1,1],"carriers":[{"component":"phone","region":"left","width":[33,40]},{"component":"phone","region":"right","width":[33,40]}]},
-        "duo-labeled":{"name":"双机 · 界面名标签","when":"源页 43：两屏并排，每屏带界面名（h68 档）","order":["head","wall","bottom"],"tracks":[{"region":"wall","share":[0.98,1.0]}],"headline":[1,1],"carriers":[{"component":"phone","region":"wall","width":[33,36]}]},
+        "duo-labeled":{"name":"双机 · 界面名标签","when":"源页 43：两屏并排，每屏带界面名（h68 弹性档 max68/min63.5）","order":["head","wall","bottom"],"tracks":[{"region":"wall","share":[0.98,1.0]}],"headline":[1,1],"carriers":[{"component":"phone","region":"wall","width":[32,36]}]},
         "trio-labeled":{"name":"三机 · 界面名标签","when":"源页 32：三屏并排成墙，每屏带界面名","order":["head","wall","bottom"],"tracks":[{"region":"wall","share":[0.98,1.0]}],"headline":[1,1],"carriers":[{"component":"phone","region":"wall","width":[26,29]}]}
       }},
     "R-phone-02": {"name":"独幅大图页","intent":"单一画面主体独占版心，一图说尽","issue":true,"regions":{"head":{"allow":["h1","sub","kicker"]},"hero":{"allow":["shot","phone"]},"full":{"allow":["shot","phone","text-block","ldr"]},"bottom":{"allow":["kicker","h1","sub","text-block","pills"]},"overlay":{"allow":["ghost"]}},

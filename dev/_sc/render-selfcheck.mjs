@@ -122,7 +122,7 @@ for (const f of files) {
   jobs.push({ file: f, name, nn, label, previewFile, srcCounts });
 }
 
-const opts = createOptions();
+const opts = createOptions({ noSandbox: true });
 const inst = await launchBrowser(opts);
 const results = [];
 for (const job of jobs) {

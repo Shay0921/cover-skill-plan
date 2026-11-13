@@ -12,6 +12,9 @@ import { captureSheet } from './shot-all.mjs';
 
 // 并发锁：同一 work 目录同时只允许一轮运行——两轮并发会互踩 qa-report.json / qa-report.prev.json
 // 的轮转契约。持有进程已死（残锁）时接管；活着的锁直接拒绝，不排队，排队会掩盖调用方的并发 bug。
+// 实现约定：锁是常驻状态文件（释放写 pid:0，不 unlink）。好处有二——① 避免每轮 churn 删文件；
+// ② 连续批量轮次（如负例套件 179 例）不触发环境批量删除防护。原子性由首轮 wx 独占创建保证，
+// 只有「接管残留锁」这一罕见路径用覆盖写，竞态窗口与「上个进程已死」绑定，代价可接受。
 function acquireLock(work) {
   fs.mkdirSync(work, { recursive: true });
   const file = path.join(work, '.qa-lock');
@@ -25,11 +28,12 @@ function acquireLock(work) {
       try { holder = JSON.parse(fs.readFileSync(file, 'utf8')); } catch { /* 空壳或损坏的锁按残锁处理 */ }
       const pid = holder?.pid;
       let alive = false;
-      if (Number.isInteger(pid) && pid > 0) {
+      if (Number.isInteger(pid) && pid > 0 && pid !== process.pid) {
         try { process.kill(pid, 0); alive = true; } catch (e) { alive = e.code === 'EPERM'; }
       }
       if (alive) throw new Error(`work 目录正被另一轮运行占用（pid ${pid}，${holder?.at || '未知时间'}）：并发写会互踩报告轮转，请等它结束；确认无并发后可删除 ${file}`);
-      try { fs.unlinkSync(file); } catch { /* 竞态下对方先接管，下一轮重试 */ }
+      // 残锁（pid=0、无 pid、或上个进程已死）→ 覆盖写接管，不 unlink。
+      try { fs.writeFileSync(file, JSON.stringify({ pid: process.pid, at: new Date().toISOString() })); return file; } catch { /* 竞态下对方先接管，下一轮重试 */ }
     }
   }
 }
@@ -217,7 +221,8 @@ export async function runBatch(options) {
       if (fs.existsSync(work)) saveReport({ work }, report);
     }
     // 锁最后释放：报告写完后才允许下一轮进入，否则存在两轮同写报告的窗口。
-    fs.rmSync(lockFile, { force: true });
+    // 释放写 pid:0 标记而非删文件，规避连续轮次的批量删除防护。
+    try { fs.writeFileSync(lockFile, JSON.stringify({ pid: 0, at: new Date().toISOString() })); } catch { /* work 目录可能已被清理 */ }
   }
   return report;
 }

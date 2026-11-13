@@ -12,7 +12,7 @@ import { validateReadyPage } from '../tools/validate.mjs';
 const base = path.resolve(process.argv[2] || '');
 if (!process.argv[2]) throw new Error('用法: node dev/test-controlled.mjs <新的测试目录>');
 fs.mkdirSync(base, { recursive: true });
-const opts = createOptions({ block: ['*cdn.jsdelivr.net*'], fontTimeout: 500 });
+const opts = createOptions({ noSandbox: true, block: ['*cdn.jsdelivr.net*'], fontTimeout: 500 });
 const pool = {
   thesis: { id: 'h1', text: '受控组件试验。清楚表达。真实素材。保留来源。', evidence: '用于本地组合和检查测试的人工合成文本，不陈述产品事实。', source: '本试验定义' },
   highlights: [], pains: [], hooks: [], data: [], quotes: []
@@ -325,6 +325,10 @@ try {
   // 实测：件数缺/超都会被 R14 载体档接住（缺→网格拉伸越档；超→档外或溢出 R1）。
   await test('skeleton-counts-under', wallPage(2), 'R14', asLayout('R-phone-01', 'trio-labeled'));
   await test('skeleton-counts-over', wallPage(3), 'R14', asLayout('R-phone-01', 'duo-labeled'));
+  // h68 弹性档（2026-11-13 阶段A）：h68 骨架 + 长副题压矮 wall（实测 wall≈762、手机弹性缩到 715），
+  // 改前固定档 734.4+标签溢出 R1、改后弹性收缩零溢出。正例对照锁定本次修复。
+  const h68Duo = sub => `<div class="p-page" data-artwork data-size="1080x1440" data-recipe="R-phone-01"><header class="page-header"><div class="brand" data-layer="brand" data-group><span class="nm" data-layer="brand-name" data-editable="text">组合实验</span></div></header><div class="region heading" data-region="head"><h1 class="h1" data-component="h1" data-layer="headline" data-editable="text" data-from="h1">受控组件试验</h1><p class="sub" data-component="sub" data-layer="introduction" data-editable="text" data-from="h1">${sub}</p></div><main class="body"><div class="region grow justify-center" data-region="wall"><div class="flow-row grow align-center justify-center">${[1,2].map(i=>`<div class="phone-cell"><div class="phone h68" data-component="phone" data-layer="wall-phone-${i}" data-group><img class="phone-shot" data-slot="image" data-layer="wall-phone-${i}-screen" data-from="h1" src="assets/iphone-frame.png" alt=""><img class="frame-img" data-slot="image" data-layer="wall-phone-${i}-frame" data-decoration src="assets/iphone-frame.png" alt=""></div><p class="text-block" data-component="text-block" data-layer="wall-phone-${i}-label" data-editable="text" data-from="h1">界面名</p></div>`).join('')}</div></div><div class="region" data-region="bottom"><p class="text-block" data-component="text-block" data-layer="note" data-editable="text" data-from="h1">清楚表达</p></div></main><footer class="footer"><span data-layer="footer-signature" data-editable="text">组合实验</span><span data-numbering>01 / 01</span></footer></div>`;
+  await test('h68-duo-long-head', h68Duo('清楚表达，真实素材，保留来源。'.repeat(5)), null, asLayout('R-phone-01', 'duo-labeled'));
   // R14 几何骨架：列宽占比、载体宽度档、载体缺席、标题行数、锚点缺席。
   await test('skeleton-share-out-of-range', colPage(text('main-copy'), text('side-copy'), { recipe: 'R-list-01', leftStyle: 'flex:1.4' }), '区域 left 列宽占比', asLayout('R-list-01', 'list-text-cover'));
   await test('skeleton-carrier-width', colPage(text('main-copy'), phoneW('right-phone', '30cqw'), { recipe: 'R-list-01' }), '宽 30.0cqw 超出骨架档', asLayout('R-list-01', 'frow-phone'));
