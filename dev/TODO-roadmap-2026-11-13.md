@@ -1,6 +1,6 @@
 # 后续执行路线图 TODO（2026-11-13）
 
-> **▶ 当前指针（2026-11-13 更新）：阶段 B 进行中（EXEC-PLAN-phaseB-2026-11-13.md）· 刀 S 完成（`8eb6d27`）· 闸门 G 六项全按推荐通过（记录 `dev/GATE-B-2026-11-13.md`，DIAGNOSIS §8.5.1 v3 已定稿）→ 刀 C B-contract 施工中（删 duo-labeled 宽度镜像 1 条 + width 缺省放行 + h68 删档前后对照）。阶段 5 遗留：T13 批次 C / T14 全量回归验收**
+> **▶ 当前指针（2026-11-13 23:25 更新）：阶段 B + A 系全部收口——B-seed `8eb6d27` / 闸门 G 六项全过（`GATE-B-2026-11-13.md`，DIAGNOSIS §8.5.1 v3 现行）/ B-contract `c210241` + 挂账闭合 `d565fb5` / A2 代拍（`GATE-A2-2026-11-13.md`）/ A1 `46f6c60`（35/6 只登记）/ A1fix `caaef53`（定箱复跑 39/2）/ A3 `b7dacf4`（驱动文档范式同步，旧术语 grep 归零）。下一步唯一事项：**T14 豆仓 7 页验收（待用户闸门）**；在案挂账：p19/p20 骨架病修复方向待拍板（批次 C 清单）、批次 C 标注级（config-audit #7/#8）、h75 弹性化另立项、P8 机制化（A3 后已可开工）**
 >
 > - **T7 收口（2026-11-13）**：闸门材料 [T7-GATE-2026-11-13.md](T7-GATE-2026-11-13.md) 已入库（6b88db4）并获批复；六笔刀 commit 已在链，无提交欠账
 > - **T8 种子只读锁已落地（2026-11-13）**：build.mjs 新增 `verifySeedChecksum`（readSeedCSS 构建全链必校验，基线 = 04-recipes 登记 `5318D18B…`，种子漂移即 gate FAIL）；独立校验 `dev/check-seed-lock.mjs` 4/4 PASS（真实种子过锁 / SHA-256 与登记精确一致 / 样式微改必抛 / 空串必抛）；挂锁后全量回归 **178/178 零涟漪**，基线 scope → `controlled-negative-1113-1312`，对账退出码 0；04-recipes 文首登记行 + 归属图 §6 新增行已同步
@@ -30,7 +30,7 @@
 > - `dev/constraint-ownership-map.md` —— 阶段 3 产出物 A（33 规则码三分类 + C1-C6 冲突裁决）
 > - `dev/config-audit-2026-11-13.md` —— 七维审计 + 批次 A/B 修复方案
 > - `references/04-recipes.md` —— 20 张登记卡（规格级配方 require/allow 的唯一锚）
-> - `dev/controlled/negative-index.json` —— 回归基线（2026-11-13 T6-C3 后：scope → `controlled-negative-1113-0917`，count=188，对账全绿；后续每刀以此为回归基准。过期库 1113-0853 / 1113-0902 / 1113-0915（中途失败品）均已被 0917 取代，确认后可删）
+> - `dev/controlled/negative-index.json` —— 回归基线（**现行：scope → `controlled-negative-1113-2128`，count=184**，对账 drift 0 裸跑 exit 0；后续每刀以此为回归基准。历史基线 0917/1028/1103/1220/1312/1316/1327/1659/1735/1905/2140 均已被 2128 取代，仅留作各刀证据链）
 > - `dev/MILESTONE-PENDULUM-2026-11-12.md` —— 论证档案（阶段 5 验收看 §5.4）
 
 ## 当前进度快照（勿重做）
@@ -129,7 +129,7 @@
 
 ### T13. 骨架落位 + 批次 C
 
-- [ ] 确认 `dev/recipes/*.part.html` 是否需迁 `references/recipes/`（DEVPLAN 阶段 2 产出物原计划位置）；若迁，同步登记卡"骨架文件"路径
+- [x] 确认 `dev/recipes/*.part.html` 是否需迁 `references/recipes/`（✅ 2026-11-13 销账：两边 41/41 逐一一致（仅 dev 副本带 BOM 头差异），登记卡"骨架文件"路径即 references/recipes/，无需迁移）
 - [ ] 批次 C（标注级，config-audit #7/#8）：R-list-02 boundary 档 repeat 收紧 ×3-4 或登记卡补注；allow 宽松项逐条标注"降级路径/自由槽位"，优先复核 R-data-04 bottom 的 kicker/h1/sub、R-quote-01 full.dcard
 - [x] 批次 C h68 骨架病修复（✅ 2026-11-13 阶段A，已施工）：`.phone.h68` 固定档 → 弹性档 `height:auto;flex:1 1 auto;min-height:63.5cqw;max-height:68cqw` + `.phone-cell:has(> .phone.h68){align-self:stretch;justify-content:center}` + config width [33,36]→[32,36] + 三处同步 SHA 重算（`7771E1EA…`——阶段 A 基线，已被 B-seed 的 `E11C9E1E…` 取代）；定案见 DIAGNOSIS-h68-overflow-2026-11-13.md §8，验证闭环五项见 §8.3
 - [ ] ⚠️ **h75 遗留雷挂账（阶段 B 另立项，勿与 A 混）**：card02-centered/note02-phone-dcards 的 h75=810px 固定档同病（比 h68 更接近翻车，未暴露只因源页 head 短）；config [36,40]=75×0.5039≈37.79 同为镜像债。阶段 B 方向 = R14 宽度档改从 seed 档位自动派生（或直接校验档位高度）+ h75 弹性化，全量重跑 178 负例。**T14 若给 card02/note02 喂长文案触发 R1，属已知遗留非新回归，逃生口 = 换配方/删文案**
