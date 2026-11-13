@@ -52,17 +52,17 @@
 | **L8** | 来源对账：data-from 非空/pool 存在/uses 在册/文字叶必有来源/数字逐字对账/豁免标记不带文案 | L-gate + DOC | **L-gate** | **保留** | 来源对账核心，DEVPLAN 保留类明文。数字对账、豁免反绕全在此码 |
 | **L9** | 图层契约：data-layer 格式/唯一/必有；data-group；data-editable="text"；data-slot | L-gate + DOC | **L-gate** | **保留** | 机器契约（editor.manifest / geometry-digest 的坐标依据），非配方决策 |
 | **L10** | uses 双向对账（data-from ⊆ uses 且 uses ⊆ data-from） | L-gate + DOC | **L-gate** | **保留** | 账目闭环，防资产暗度陈仓 |
-| **L11** | ① 区域 allow + 区域 max ② require 下限 ③ form 形态 ④ 组件存在性/区域合法性/禁嵌套/必须归组件根 | L-gate + CFG-recipe + CFG-comp + DOC | ①②③ → **CARD**（P→R 迁移后）④ → **L-gate** | **拆分（本次瘦身核心）**：①②③ 是"组件选择+条数+形态"类——骨架级配方已由 SKELETON 锁死、规格级由登记卡绑定字段锁死，gate 检查它们是复述已锁决策。④ 是结构契约保留。⚠️ 冲突项 C2 | ①②③ 迁移的代价与安全网见 §4-C2；R13 随动 |
+| **L11** | ① 区域 allow + 区域 max ② require 下限 ③ form 形态 ④ 组件存在性/区域合法性/禁嵌套/必须归组件根 | L-gate + CFG-recipe + CFG-comp + DOC | ①②③ → **CARD**（P→R 迁移后）④ → **L-gate** | **✅ C2 已落地（2026-11-13 T6 第四刀）：①②③ 砍（gate 退役），④ 原地保留**。实测：disallowed-region 落 ④-L195 接住；max 越额落 R1；require/form 缺省 passed+目检（组件选择归卡人审） | ①②③ 迁移的代价与安全网见 §4-C2；R13 随动（已落地） |
 | **L14** | 数字单位与所引资产一致 | L-gate + DOC | **L-gate** | **保留** | 来源对账细粒度 |
 | **L15** | data/quotes 单来源文案与资产 text 逐字（paraphrase 告警） | L-gate + DOC | **L-gate** | **保留** | 来源对账逐字核心，DEVPLAN 明文 |
 | **L16** | 其余类别无文字重叠 → WARN | L-gate + DOC | **L-gate** | **保留** | WARN 性质，配合目检 |
 | **L17** | 内联 style 禁覆盖外观属性/禁自造 CSS 变量 | L-gate + DOC | **L-gate** | **保留** | 外观唯一来源是种子——即"种子完整性"的页面侧守卫，DEVPLAN 保留类 |
 | **L18** | 布局清单外属性名 → WARN | L-gate | **L-gate** | **保留** | WARN，拼写兜底 |
 | **L19** | ~~同区 ≥2 只 phone 必须各有 .phone-cell + 界面名 text-block~~ → **已改写（2026-11-13 T6-C3）**：带比例（锁高）的 phone 根内禁文字叶 | L-gate + DOC | 候选：**CARD 绑定字段** + 后果化 | **✅ C3 已落地：原规则退役迁卡，gate 改为后果规则** | 原规则复述配方决策；改写后拦真实几何后果（锁高壳内塞字压坏画面，R3 对短文字静默）。实证：without-cell 裸排由 R1 接住、without-caption 真实形态放行归卡人审 |
-| **L20** | 骨架档：order 区域存在与顺序、tracks 区域存在、counts 件数区间 | L-gate + CFG-recipe.layouts + SKELETON | order/tracks 存在性 → **SKELETON**（天然承载，gate 检查属复述）；counts → **CARD** | **砍 + 迁移**：⚠️ 冲突项 C4 | 照抄骨架不可能违反 order/tracks；违反即"手改骨架"——那是 C4 裁决的 R14 渲染层职责，静态层再查一遍是双住。counts 是条数类迁登记卡 |
+| **L20** | 骨架档：order 区域存在与顺序、tracks 区域存在、counts 件数区间 | L-gate + CFG-recipe.layouts + SKELETON | order/tracks 存在性 → **SKELETON**（天然承载，gate 检查属复述）；counts → **CARD** | **✅ C4 已落地（2026-11-13 T6 第四刀）：静态层砍，R14 为唯一守卫**。实测：缺区域/件数越界均被 R14 接住；列序交换渲染等价改 passed+目检 | 照抄骨架不可能违反 order/tracks；违反即"手改骨架"——R14 渲染层量。counts 是条数类迁登记卡 |
 | **L21** | overlay 区域必须是 .p-page 直接子级 | L-gate | **L-gate** | **保留** | ghost 定位锚点唯一性是几何正确性前提（锚错祖先 = 位置漂移），属后果前置 |
 | **L22** | ~~金句组保留 .rule 却省 .source → ERROR~~ → **已迁移（2026-11-13 T6-C5）**：gate 删除，归 R-quote-01 卡耦合约束 | L-gate + DOC | **CARD 绑定字段** | **✅ C5 已落地：gate 删除，迁卡** | 复述"省出处连 rule 一起省"的单配方决策（只管 serif 组件）；无溢出/碰撞后果（夹具实证放行），保留层拦不住也不需要拦。残余风险（只剩人眼把关）已裁决接受 |
-| **L23** | 出血区域缺配文（head/bottom 无文字叶）→ ERROR | L-gate + DOC | 候选：**CARD** | **冲突项 C6，倾向保留** | "整页只剩图"是读者体验后果（无信息锚点），R12 只查 main.body 接不住 hero 出血页；跨多条配方（R-card-01 封面出血/R-phone-02/R-wall-01），非单配方决策。B 负例实证后定 |
+| **L23** | 出血区域缺配文（head/bottom 无文字叶）→ ERROR | L-gate + DOC | 候选：**CARD** | **✅ C6 复核通过，保留原样（2026-11-13）** | "整页只剩图"是读者体验后果（无信息锚点），R12 只查 main.body 接不住 hero 出血页；跨多条配方（R-card-01 封面出血/R-phone-02/R-wall-01），非单配方决策。误伤探测不成立：两条出血系配方都承诺文字锚点（R-wall-01 锚点 h1；R-phone-02 绑定 bottom×1） |
 | **FONT** | @font-face 声明分片全部未加载 → WARN | R-gate(validate) + DOC | **R-gate** | **保留** | 环境如实记录 |
 
 ---
@@ -82,7 +82,7 @@
 | **R10** | 声明 aspect-ratio 被压 | R-gate + SKELETON + CFG-comp | **R-gate** | **保留** | 比例被压是布局错误后果 |
 | **R11** | img 量出 0 宽/高（塌陷） | R-gate + DOC | **R-gate** | **保留** | 可见性过滤盲区兜底 |
 | **R12** | main.body 无可见组件 | R-gate + DOC | **R-gate** | **保留** | 子树隐藏免检的兜底 |
-| **R13** | 配方 require/form 全部不可见 | R-gate + CFG-recipe | 随 L11①②③ → **CARD**（退役） | **冲突项 C2 随动：倾向退役** | 它只服务 require/form 的可见性面。骨架级照抄骨架必有该组件（结构性保证）；规格级无 require。若保留 require 于 CARD 且 gate 不再读，R13 无输入即退役。B 负例实证 |
+| **R13** | 配方 require/form 全部不可见 | R-gate + CFG-recipe | 随 L11①②③ → **CARD**（退役） | **✅ C2 已落地（2026-11-13 T6 第四刀）：退役**。实测：隐藏组件为页内唯一组件 → R12 接住；组件内隐藏形态 → passed+目检（已接受残余） | R12 在可见性过滤之后兜底，B 负例实证充分 |
 | **R14** | 骨架档渲染校验：列宽占比/标题行数/载体宽度档/锚点载体 | R-gate + CFG-recipe.layouts + SKELETON | **R-gate**（改写：渲染层骨架完整性守卫） | **保留但收窄**：⚠️ 冲突项 C4 + B7 落地 | 静态层（L20）砍掉后，"手改骨架数值"只剩这层能拦——保留。收窄与改写：① carriers/counts/anchor 已在 LOAD 层拒绝内容组件（白名单负例 3 条），保持；② **B7 裁决落地：bars 柱高走数据驱动几何豁免 + gate 对柱高参数做 0–100 整数校验**（阶段 2 已参数化 .bars 柱高，本阶段把校验接进 LOAD 层）；③ headline 行数保留（内容×骨架的耦合后果，49 分钟病根 1 的对策） |
 | **R15** | 时间线步内拉伸余量 >12cqw | R-gate + DOC | **R-gate** | **保留** | 构图不变量（空洞后果），DEVPLAN 明文保留 |
 | **R16** | 声明 data-bleed 未贴到出血边 | R-gate + DOC | **R-gate** | **保留** | 声明不实 = 后果（借豁免在画布内飘） |
@@ -98,7 +98,7 @@
 - **裁决**：矩阵是唯一裁决者（DEVPLAN §4.2 已定"AI 全程不做角色判断"）。gate 的 L6 只保留账目面："计划声明了 issue → 必须出现且与 meta.issue 逐字一致；计划没声明 → 不得出现"。P→R 迁移时 issue 资格随登记卡走，CFG-recipe 的 issue 字段迁入 CARD 封面档规格。
 - **验证**：负例 `issue-on-non-cover` 类在新 gate 下仍 FAIL（L6 账目面拦截）。
 
-### C2 条数/形态/组件选择的三重登记（本次瘦身核心）
+### C2 条数/形态/组件选择的三重登记（本次瘦身核心）——✅ 已落地（2026-11-13 T6 第四刀）
 - **现住三处**：CFG-recipe（regions.max / require / form / counts）+ L-gate（L11①②③ + L20 counts）+ R-gate（R13）。
 - **裁决**：收敛到 **CARD 唯一归属**。
   - 骨架级配方（16 条 41 骨架）：组件选择、区域、条数区间已由骨架文件结构性锁死——AI 照抄骨架，gate 检查 allow/max/require/form/counts 是对已锁决策的复述，**全部迁出 gate**。
@@ -106,6 +106,17 @@
   - gate 保留 L11④（组件存在性/区域合法性/禁嵌套/归组件根）——这是组件制度本身，不是任何一条配方的决策。
   - R13 退役（无输入）；若 B 负例实证规格级组装需要最低可见性兜底，R12 已覆盖"整页空"，不回炉 R13。
 - **安全网**：P→R 迁移同批改 recipes.json 后，CFG-recipe 仅保留区域 allow/几何骨架数据（服务 LOAD 层合法性 + R14），require/form/counts 字段删除；对应负例子集（L11/R13 类）改由"后果检查仍拦的"重新登记预期，拦不住的坏例回炉后果化。
+- **落地记录（2026-11-13 T6 第四刀）**：
+  - `tools/lint-dom.mjs`：L11①（区域未登记 + 区域 max）、②（require 下限）、③（form 形态）三块删除；**L11④ 全部原地保留**（未知组件/区域合法性 L195/禁嵌套/归组件根/图归组件根）；L6 账目面零触碰
+  - `tools/validate.mjs`：R13 块删除（R12 兜底）
+  - 夹具实测校准（18 条重登记，套件 188/188，基线 `controlled-negative-1113-1103`）：
+    - `disallowed-region` → **仍 L11**（未知区域内组件被 ④ L195"区域不允许组件"接住——allow 保留在 config 的安全网成立）
+    - `phone-count-over-cap` → **R10**（同区挤压致声明比例失真，skew>1%——max 退役后几何后果层接住；账目修正：R10=比例失真、R1=越界，实测定性，原记 R1 系笔误）
+    - require/anyof/form 缺省 12 条 + `wall01-phone-only-rejected` → **passed+目检项**（组件选择归卡人审）
+    - `anyof-group-invisible`/`require-invisible` → **R12**（隐藏组件是页内唯一组件即整页不可见——R12 兜底比预判更强）
+    - `skeleton-counts-under/over`、`skeleton-shot-counts` → **R14/R1**（件数缺/超表现为载体档越界或溢出——R14 实测接住）
+  - ⚠️ 显式接受残余 2 项：`skeleton-order-wrong-sequence`（列序交换渲染等价、零几何后果，镜像构图归装配/人审）；`form-shape-invisible`（组件内隐藏形态无后果）
+  - config 的 require/form/counts 字段 + LOAD 层 schema 校验 + `02-constraints` 字段段落的最终清理 = **紧随独立小批**（有自己的 loadReject 处置，见 TODO 指针）
 
 ### C3 多机界面名（L19）——✅ 已落地（2026-11-13 T6 第一刀）
 - **现住两处**：L-gate + DOC + 各多机配方登记卡绑定字段（R-wall-01/R-phone-01 隐含）。
@@ -118,10 +129,11 @@
     - `phone-wall-without-cell`：无壳裸排 → **R1 接住**（标签换行溢出区域）——"砍掉结构复述后后果层兜底"成立
     - `phone-wall-without-caption`：3 壳无标签 + head 标题（h1 进账目）→ **gate 放行**，每壳界面名归登记卡人审——与裁决预期一致
 
-### C4 骨架复述的双层检查（L20 + R14）
+### C4 骨架复述的双层检查（L20 + R14）——✅ 已落地（2026-11-13 T6 第四刀）
 - **现住两层**：静态层 L20（order/tracks 存在性/counts）+ 渲染层 R14（列宽/行数/载体档/锚点）检查同一批骨架锁定值。
 - **裁决**：静态层**砍**（照抄骨架不可能违反；违反 = 手改骨架，属渲染结果问题），渲染层 R14 **保留**为唯一守卫（实测才量得出 cqw 偏差）。counts 迁 CARD。R14 按 B7 落地数据驱动柱高豁免。
 - **验证**：`layout-order-*` 类负例改由"手改骨架 → R14 越档"的等价坏例登记，仍 FAIL。
+- **落地记录（2026-11-13 T6 第四刀）**：`tools/lint-dom.mjs` L20 块（order/tracks/counts）整体删除。实测：`skeleton-order-missing-region`/`skeleton-tracks-missing-region` → **R14 接住**；`skeleton-counts-under/over` → **R14**（件数越界=载体档越界）；`skeleton-shot-counts` → **R14+R1**。唯一例外：`skeleton-order-wrong-sequence` 列序交换渲染等价（宽度不变）→ 改登记 passed+目检（镜像构图归装配，C2 落地记录已注）。R14 侧零改动，"渲染层唯一守卫"成立。
 
 ### C5 金句分隔线（L22）——✅ 已落地（2026-11-13 T6 第二刀）
 - **裁决**：**迁移**——单组件单配方决策，无几何后果。迁 R-quote-01 登记卡绑定字段："省出处时连 rule 一起省"。gate 砍。负例 `rule-without-source` 预期改为 passed（目检项），登记卡标注。
@@ -134,6 +146,8 @@
 
 ### C6 出血配文（L23）
 - **裁决**：**保留**——跨配方读者体验后果（整页只剩图），R12 接不住 hero 出血页。若 B 负例发现误伤（合法纯画面页），回炉为"hero 出血且 head 也空"的收窄版。
+- **落地记录（2026-11-13 T6-C6 复核）**：**误伤不成立，保留原样，未收窄**。证据链：登记卡世界里不存在"无 head 且无 bottom 文字"的合法出血页——R-wall-01 锚点 h1（head 文字）；R-phone-02 绑定 bottom text-block×1、锚点 bottom；R-card-01 封面出血页必有 issue-line + h1。夹具矩阵已完备（`bleed-region-without-caption` → L23；head/bottom 配文 → passed），结论固化在夹具注释。回归：套件 188/188，基线 scope → `controlled-negative-1113-1028`，对账退出码 0。
+- ⚠️ 顺带发现待你裁决：R-phone-02 卡 intent 写"**可带**底部说明"，但绑定/锚点写 bottom text-block**×1**——两处口径有张力（规格级就地组装时 LLM 可能读成"可省 bottom"→ 触发 L23 返修）。建议统一为"bottom 必配（对账 text-block←说明）"。
 
 ---
 
@@ -152,11 +166,11 @@
 | 处置 | 规则码 |
 |---|---|
 | **保留**（不动） | L0 L1 L6(主体) L8 L9 L10 L11④ L14 L15 L16 L17 L18 L21 L23* FONT R0 R1 R2 R3 R4 R7 R8 R9 R10 R11 R12 R14(收窄+B7) R15 R16 R18 BUILD/BATCH |
-| **拆分** | L6（资格面→CARD）、L11（①②③→CARD，④留） |
+| **拆分** | L6（资格面→CARD）、L11（①②③→CARD，④留）——**gate 侧 ✅ 已落地（2026-11-13 T6 第四刀）** |
 | **迁移** | L11①②③、L20 counts、~~L22~~ **✅ L22 已落地（2026-11-13）** → CARD |
-| **砍** | L11①②③的 gate 检查、L20（order/tracks 存在性）、R13 |
+| **砍** | ~~L11①②③的 gate 检查、L20（order/tracks 存在性）、R13~~ **✅ 已落地（2026-11-13 T6 第四刀）**：config 字段删除随独立小批 |
 | **后果化改写候选** | ~~L19（C3）~~ **✅ 已落地（2026-11-13）** |
-| **新增** | L24 占位符残留；LOAD 层柱高 0–100 整数校验（B7） |
+| **新增** | L24 占位符残留 **✅ 已落地（T5）**；LOAD 层柱高 0–100 整数校验（B7） |
 | **前置同批** | F1 P→R 全链迁移（41 骨架 + recipes.json + 受控套件 + 索引 + 登记卡残留）；F2/F3 重建夹具库与索引 |
 
 *L23 标注：C6 保留倾向，B 负例实证后可收窄。

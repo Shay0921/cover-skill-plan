@@ -172,8 +172,9 @@
 ├─ 密度：壳 2-3；标签每壳 1 条
 ├─ hl 节奏：0-1 处（04/43 实测 1 h1 后段；32 实测 1 h1 前段）
 ├─ 耦合约束：标题 ≤1 行；⚠️ 尺寸三档为显式骨架档（封面版锁高 104 上限 / 标签版 h68 / 三壳版见净化处置）
+├─ 装配纪律：列序=叙事序（主屏在左），装配自查+人审把关（43 号页"先看主屏再看辅屏"为实证）
 ├─ 后果红线：界面名/标签与壳同层（.phone-cell 内），禁塞进带比例 phone 根内——gate L19 拦截；⚠️ gate 不再强制"每壳必有标签"（C3 退役），漏标签由人审把关
-├─ 对账：phone←整屏截图×2-3；标签←界面名；serif←金句式收束
+├─ 对账：phone←整屏截图×2-3；标签←界面名；bottom 说明←边界文案（text-block；⚠️ 2026-11-13 设计审计修正：trio 档原误用 serif 金句体，已改回 text-block 与全家族统一——serif 仅属 R-quote-01 金句页，此处不再使用）
 ├─ 骨架文件：phone01-duo-cover←04 ｜ phone01-duo-labeled←43 ｜ phone01-trio-labeled←32
 ├─ 内联净化：⚠️ 页43 inline height:68cqw → .phone.h68（待入册）；页32 inline width:100%;height:auto → 孤例丢弃，骨架回种子默认锁高，三壳锁宽档降为登记卡变体注记（是否新增 .phone.wide 由阶段 4 种子人审裁决）
 └─ 头部烘焙：04 为封面档（issue-line+封面槽位）；32/43 为 body 档；均照抄
@@ -181,7 +182,7 @@
 
 ```
 配方 R-phone-02 · 独幅大图页（规格级）
-├─ intent：单一画面主体独占版心，一图说尽；可带底部说明
+├─ intent：单一画面主体独占版心，一图说尽；bottom 必配说明（对账 text-block←说明）
 │   反例：需对照 → 改 R-phone-01 / R-wall-01
 ├─ 来源：{23, 42}
 ├─ 绑定：单主体(phone 锁高 / shot.fill hero bleed) + bottom text-block×1

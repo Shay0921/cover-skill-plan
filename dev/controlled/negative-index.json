@@ -1,7 +1,7 @@
 {
   "purpose": "负例夹具 → 拦截层级 stage → 规则码 索引。索引是生成物：跑完 dev/test-controlled.mjs 归档夹具后执行 node dev/check-negative-index.mjs --write 重建；平时直接运行本脚本对账，任何漂移或套件失败即退出码 1。规则码变更时按此表同步更新对应夹具。",
   "generatedAt": "2026-11-13",
-  "scope": "dev/controlled/controlled-negative-1113-0934",
+  "scope": "dev/controlled/controlled-negative-1113-1131",
   "suite": {
     "total": 188,
     "passed": 188,
@@ -9,9 +9,9 @@
     "fontMode": "CDN blocked intentionally: system-font geometric regression, not production font evidence"
   },
   "stages": {
-    "lint": 77,
-    "geometry": 26,
-    "pass": 40,
+    "lint": 56,
+    "pass": 56,
+    "geometry": 31,
     "load": 36,
     "pipeline": 5,
     "build": 3,
@@ -52,29 +52,29 @@
     },
     {
       "dir": "anyof-card02-missing",
-      "outcome": "blocked",
-      "stage": "lint",
+      "outcome": "passed",
+      "stage": "pass",
       "passed": true,
-      "rules": [
-        "BATCH",
-        "L11"
+      "rules": [],
+      "warn_rules": [
+        "FONT",
+        "R7"
       ],
-      "warn_rules": [],
-      "first_error": "p01 L11: 配方 R-card-02 要求本页至少放一个 fcard/phone（任一）",
-      "suite_expected": "fcard/phone（任一）"
+      "first_error": null,
+      "suite_expected": "passed"
     },
     {
       "dir": "anyof-data01-missing",
-      "outcome": "blocked",
-      "stage": "lint",
+      "outcome": "passed",
+      "stage": "pass",
       "passed": true,
-      "rules": [
-        "BATCH",
-        "L11"
+      "rules": [],
+      "warn_rules": [
+        "FONT",
+        "R7"
       ],
-      "warn_rules": [],
-      "first_error": "p01 L11: 配方 R-data-01 要求本页至少放一个 bars/ldr/ledger（任一）",
-      "suite_expected": "bars/ldr/ledger（任一）"
+      "first_error": null,
+      "suite_expected": "passed"
     },
     {
       "dir": "anyof-group-invisible",
@@ -83,41 +83,40 @@
       "passed": true,
       "rules": [
         "BATCH",
-        "R12",
-        "R13"
+        "R12"
       ],
       "warn_rules": [
         "FONT",
         "R7"
       ],
       "first_error": "p01 R12: 正文为空或不可见：main.body 内没有可见组件",
-      "suite_expected": "R13"
+      "suite_expected": "R12"
     },
     {
       "dir": "anyof-list02-missing",
-      "outcome": "blocked",
-      "stage": "lint",
+      "outcome": "passed",
+      "stage": "pass",
       "passed": true,
-      "rules": [
-        "BATCH",
-        "L11"
+      "rules": [],
+      "warn_rules": [
+        "FONT",
+        "R7"
       ],
-      "warn_rules": [],
-      "first_error": "p01 L11: 配方 R-list-02 要求本页至少放一个 ck/list（任一）",
-      "suite_expected": "ck/list（任一）"
+      "first_error": null,
+      "suite_expected": "passed"
     },
     {
       "dir": "anyof-wall01-missing",
-      "outcome": "blocked",
-      "stage": "lint",
+      "outcome": "passed",
+      "stage": "pass",
       "passed": true,
-      "rules": [
-        "BATCH",
-        "L11"
+      "rules": [],
+      "warn_rules": [
+        "FONT",
+        "R7"
       ],
-      "warn_rules": [],
-      "first_error": "p01 L11: 配方 R-wall-01 要求本页至少放一个 shot（任一）",
-      "suite_expected": "shot（任一）"
+      "first_error": null,
+      "suite_expected": "passed"
     },
     {
       "dir": "anyof-wall01-shot-only",
@@ -777,7 +776,7 @@
         "L11"
       ],
       "warn_rules": [],
-      "first_error": "p01 L11: 配方未允许区域: wall",
+      "first_error": "p01 L11: 区域 wall 不允许组件 text-block",
       "suite_expected": "L11"
     },
     {
@@ -930,29 +929,29 @@
     },
     {
       "dir": "form-hero-missing",
-      "outcome": "blocked",
-      "stage": "lint",
+      "outcome": "passed",
+      "stage": "pass",
       "passed": true,
-      "rules": [
-        "BATCH",
-        "L11"
+      "rules": [],
+      "warn_rules": [
+        "FONT",
+        "R7"
       ],
-      "warn_rules": [],
-      "first_error": "p01 L11: 配方 R-quote-01 要求 serif 呈现形态 hero（整页金句用种子的大字档 .quote.hero），本页没有",
-      "suite_expected": "呈现形态 hero"
+      "first_error": null,
+      "suite_expected": "passed"
     },
     {
       "dir": "form-marked-missing",
-      "outcome": "blocked",
-      "stage": "lint",
+      "outcome": "passed",
+      "stage": "pass",
       "passed": true,
-      "rules": [
-        "BATCH",
-        "L11"
+      "rules": [],
+      "warn_rules": [
+        "FONT",
+        "R7"
       ],
-      "warn_rules": [],
-      "first_error": "p01 L11: 配方 R-quote-01 要求 serif 呈现形态 marked（引语内部高亮一处），本页没有",
-      "suite_expected": "呈现形态 marked"
+      "first_error": null,
+      "suite_expected": "passed"
     },
     {
       "dir": "form-needs-require",
@@ -966,32 +965,29 @@
     },
     {
       "dir": "form-plain-serif",
-      "outcome": "blocked",
-      "stage": "lint",
+      "outcome": "passed",
+      "stage": "pass",
       "passed": true,
-      "rules": [
-        "BATCH",
-        "L11"
-      ],
-      "warn_rules": [],
-      "first_error": "p01 L11: 配方 R-quote-01 要求 serif 呈现形态 hero（整页金句用种子的大字档 .quote.hero），本页没有",
-      "suite_expected": "呈现形态 hero"
-    },
-    {
-      "dir": "form-shape-invisible",
-      "outcome": "blocked",
-      "stage": "geometry",
-      "passed": true,
-      "rules": [
-        "BATCH",
-        "R13"
-      ],
+      "rules": [],
       "warn_rules": [
         "FONT",
         "R7"
       ],
-      "first_error": "p01 R13: 配方要求的 serif 形态 marked 没有可见命中",
-      "suite_expected": "R13"
+      "first_error": null,
+      "suite_expected": "passed"
+    },
+    {
+      "dir": "form-shape-invisible",
+      "outcome": "passed",
+      "stage": "pass",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [
+        "FONT",
+        "R7"
+      ],
+      "first_error": null,
+      "suite_expected": "passed"
     },
     {
       "dir": "form-shape-must-exist",
@@ -1005,16 +1001,16 @@
     },
     {
       "dir": "form-split-missing",
-      "outcome": "blocked",
-      "stage": "lint",
+      "outcome": "passed",
+      "stage": "pass",
       "passed": true,
-      "rules": [
-        "BATCH",
-        "L11"
+      "rules": [],
+      "warn_rules": [
+        "FONT",
+        "R7"
       ],
-      "warn_rules": [],
-      "first_error": "p01 L11: 配方 R-quote-01 要求 serif 呈现形态 split（引语按语义停顿拆分换行），本页没有",
-      "suite_expected": "呈现形态 split"
+      "first_error": null,
+      "suite_expected": "passed"
     },
     {
       "dir": "format-mismatch",
@@ -1038,7 +1034,7 @@
         "L11"
       ],
       "warn_rules": [],
-      "first_error": "p01 L11: 配方未允许区域: overlay",
+      "first_error": "p01 L11: 区域 overlay 不允许组件 ghost",
       "suite_expected": "L11"
     },
     {
@@ -1675,17 +1671,19 @@
     {
       "dir": "phone-count-over-cap",
       "outcome": "blocked",
-      "stage": "lint",
+      "stage": "geometry",
       "passed": true,
       "rules": [
         "BATCH",
-        "L11"
+        "R10"
       ],
       "warn_rules": [
-        "L16"
+        "FONT",
+        "L16",
+        "R7"
       ],
-      "first_error": "p01 L11: 区域 wall 的 phone 最多 3 个，实际 4 个",
-      "suite_expected": "最多 3 个"
+      "first_error": "p01 R10: wall-phone-1 声明比例 910/1806 被压成 0.415（相差 21.5%）",
+      "suite_expected": "R10"
     },
     {
       "dir": "phone-root-short-text",
@@ -1822,16 +1820,16 @@
     },
     {
       "dir": "require-ba-missing",
-      "outcome": "blocked",
-      "stage": "lint",
+      "outcome": "passed",
+      "stage": "pass",
       "passed": true,
-      "rules": [
-        "BATCH",
-        "L11"
+      "rules": [],
+      "warn_rules": [
+        "FONT",
+        "R7"
       ],
-      "warn_rules": [],
-      "first_error": "p01 L11: 配方 R-compare-01 要求本页至少放一个 ba",
-      "suite_expected": "要求本页至少放一个 ba"
+      "first_error": null,
+      "suite_expected": "passed"
     },
     {
       "dir": "require-ba-present",
@@ -1859,16 +1857,16 @@
     },
     {
       "dir": "require-cta-missing",
-      "outcome": "blocked",
-      "stage": "lint",
+      "outcome": "passed",
+      "stage": "pass",
       "passed": true,
-      "rules": [
-        "BATCH",
-        "L11"
+      "rules": [],
+      "warn_rules": [
+        "FONT",
+        "R7"
       ],
-      "warn_rules": [],
-      "first_error": "p01 L11: 配方 R-close-01 要求本页至少放一个 cta",
-      "suite_expected": "要求本页至少放一个 cta"
+      "first_error": null,
+      "suite_expected": "passed"
     },
     {
       "dir": "require-cta-present",
@@ -1921,15 +1919,14 @@
       "passed": true,
       "rules": [
         "BATCH",
-        "R12",
-        "R13"
+        "R12"
       ],
       "warn_rules": [
         "FONT",
         "R7"
       ],
       "first_error": "p01 R12: 正文为空或不可见：main.body 内没有可见组件",
-      "suite_expected": "R13"
+      "suite_expected": "R12"
     },
     {
       "dir": "require-must-be-allowed",
@@ -1943,16 +1940,16 @@
     },
     {
       "dir": "require-qa-missing",
-      "outcome": "blocked",
-      "stage": "lint",
+      "outcome": "passed",
+      "stage": "pass",
       "passed": true,
-      "rules": [
-        "BATCH",
-        "L11"
+      "rules": [],
+      "warn_rules": [
+        "FONT",
+        "R7"
       ],
-      "warn_rules": [],
-      "first_error": "p01 L11: 配方 R-qa-01 要求本页至少放一个 qa",
-      "suite_expected": "要求本页至少放一个 qa"
+      "first_error": null,
+      "suite_expected": "passed"
     },
     {
       "dir": "require-qa-present",
@@ -1970,16 +1967,16 @@
     },
     {
       "dir": "require-serif-missing",
-      "outcome": "blocked",
-      "stage": "lint",
+      "outcome": "passed",
+      "stage": "pass",
       "passed": true,
-      "rules": [
-        "BATCH",
-        "L11"
+      "rules": [],
+      "warn_rules": [
+        "FONT",
+        "R7"
       ],
-      "warn_rules": [],
-      "first_error": "p01 L11: 配方 R-quote-01 要求本页至少放一个 serif",
-      "suite_expected": "要求本页至少放一个 serif"
+      "first_error": null,
+      "suite_expected": "passed"
     },
     {
       "dir": "require-serif-present",
@@ -1996,16 +1993,16 @@
     },
     {
       "dir": "require-step-missing",
-      "outcome": "blocked",
-      "stage": "lint",
+      "outcome": "passed",
+      "stage": "pass",
       "passed": true,
-      "rules": [
-        "BATCH",
-        "L11"
+      "rules": [],
+      "warn_rules": [
+        "FONT",
+        "R7"
       ],
-      "warn_rules": [],
-      "first_error": "p01 L11: 配方 R-step-01 要求本页至少放一个 step",
-      "suite_expected": "要求本页至少放一个 step"
+      "first_error": null,
+      "suite_expected": "passed"
     },
     {
       "dir": "require-step-present",
@@ -2115,32 +2112,36 @@
     {
       "dir": "skeleton-counts-over",
       "outcome": "blocked",
-      "stage": "lint",
+      "stage": "geometry",
       "passed": true,
       "rules": [
         "BATCH",
-        "L20"
+        "R14"
       ],
       "warn_rules": [
-        "L16"
+        "FONT",
+        "L16",
+        "R7"
       ],
-      "first_error": "p01 L20: 骨架 duo-labeled「双机 · 界面名标签」 要求区域 head，本页没有",
-      "suite_expected": "要求 phone 2–2 个，实际 3 个"
+      "first_error": "p01 R14: 骨架要求可见的主标题 h1",
+      "suite_expected": "R14"
     },
     {
       "dir": "skeleton-counts-under",
       "outcome": "blocked",
-      "stage": "lint",
+      "stage": "geometry",
       "passed": true,
       "rules": [
         "BATCH",
-        "L20"
+        "R14"
       ],
       "warn_rules": [
-        "L16"
+        "FONT",
+        "L16",
+        "R7"
       ],
-      "first_error": "p01 L20: 骨架 trio-labeled「三机 · 界面名标签」 要求区域 head，本页没有",
-      "suite_expected": "要求 phone 3–3 个，实际 2 个"
+      "first_error": "p01 R14: 骨架要求可见的主标题 h1",
+      "suite_expected": "R14"
     },
     {
       "dir": "skeleton-headline-at-cap",
@@ -2174,28 +2175,31 @@
     {
       "dir": "skeleton-order-missing-region",
       "outcome": "blocked",
-      "stage": "lint",
+      "stage": "geometry",
       "passed": true,
       "rules": [
         "BATCH",
-        "L20"
+        "R14"
       ],
-      "warn_rules": [],
-      "first_error": "p01 L20: 骨架 frow-phone「编号条目 · 右机」 要求区域 left，本页没有",
-      "suite_expected": "要求区域 left，本页没有"
+      "warn_rules": [
+        "FONT",
+        "R7"
+      ],
+      "first_error": "p01 R14: 骨架区域 left 不可见",
+      "suite_expected": "R14"
     },
     {
       "dir": "skeleton-order-wrong-sequence",
-      "outcome": "blocked",
-      "stage": "lint",
+      "outcome": "passed",
+      "stage": "pass",
       "passed": true,
-      "rules": [
-        "BATCH",
-        "L20"
+      "rules": [],
+      "warn_rules": [
+        "FONT",
+        "R7"
       ],
-      "warn_rules": [],
-      "first_error": "p01 L20: 骨架 frow-phone「编号条目 · 右机」 要求区域顺序 head → left → right，本页是 head → right → left",
-      "suite_expected": "要求区域顺序"
+      "first_error": null,
+      "suite_expected": "passed"
     },
     {
       "dir": "skeleton-quote-tier",
@@ -2229,30 +2233,37 @@
     {
       "dir": "skeleton-shot-counts",
       "outcome": "blocked",
-      "stage": "lint",
+      "stage": "geometry",
       "passed": true,
       "rules": [
         "BATCH",
-        "L20"
+        "R1",
+        "R14",
+        "R2",
+        "R3"
       ],
       "warn_rules": [
+        "FONT",
         "L16"
       ],
-      "first_error": "p01 L20: 骨架 shot-ba「双列图窗 + 对比卡」 要求区域 bottom，本页没有",
-      "suite_expected": "要求 shot 2–2 个"
+      "first_error": "p01 R14: evidence-shot 宽 86.8cqw 超出骨架档 40–45cqw",
+      "suite_expected": "超出骨架档"
     },
     {
       "dir": "skeleton-tracks-missing-region",
       "outcome": "blocked",
-      "stage": "lint",
+      "stage": "geometry",
       "passed": true,
       "rules": [
         "BATCH",
-        "L20"
+        "R14"
       ],
-      "warn_rules": [],
-      "first_error": "p01 L20: 骨架 frow-phone「编号条目 · 右机」 要求区域 left，本页没有",
-      "suite_expected": "锁了区域 left 的列宽，本页没有该区域"
+      "warn_rules": [
+        "FONT",
+        "R7"
+      ],
+      "first_error": "p01 R14: 骨架区域 left 不可见",
+      "suite_expected": "R14"
     },
     {
       "dir": "source-dataurl-image",
@@ -2467,18 +2478,17 @@
     },
     {
       "dir": "wall01-phone-only-rejected",
-      "outcome": "blocked",
-      "stage": "lint",
+      "outcome": "passed",
+      "stage": "pass",
       "passed": true,
-      "rules": [
-        "BATCH",
-        "L11"
-      ],
+      "rules": [],
       "warn_rules": [
-        "L16"
+        "FONT",
+        "L16",
+        "R7"
       ],
-      "first_error": "p01 L11: 配方 R-wall-01 要求本页至少放一个 shot（任一）",
-      "suite_expected": "shot（任一）"
+      "first_error": null,
+      "suite_expected": "passed"
     },
     {
       "dir": "wrong-style",

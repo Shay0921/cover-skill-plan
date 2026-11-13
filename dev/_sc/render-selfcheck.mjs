@@ -161,7 +161,7 @@ const rows = results.map(r => {
 }).join('\n');
 fs.writeFileSync(path.join(OUT, 'index.html'), `<!doctype html><meta charset="utf-8"><title>阶段2骨架自检 v2 · 骨架渲染 vs 源页</title>
 <style>body{font:14px/1.5 system-ui;background:#111;color:#eee}table{border-collapse:collapse}td{border:1px solid #444;padding:6px;vertical-align:top}</style>
-<p>左=骨架渲染（repeat 按源页条数，短假文字，图=画廊资产）；右=源页 PNG。逐行目检结构/几何一致性。</p>
+<p>左=现行骨架自检（render-selfcheck 现渲，repeat 按源页条数、短假文字、图=画廊资产）；右=11-11 历史归档（controlled-composition-1111-1148，<b>永不改</b>）。逐行目检结构/几何一致性。</p>
 <table>${rows}</table>`);
 console.log(results.map(r => `${r.status} ${r.nn} ${r.name}${r.reason ? ' :: ' + r.reason : ''}${r.check?.overflow?.length ? ' :: overflow ' + JSON.stringify(r.check.overflow) : ''}${r.check?.h1Lines ? ' :: h1Lines=' + r.check.h1Lines : ''}`).join('\n'));
 console.log(`done: ${results.length} files, PASS=${results.filter(r => r.status === 'PASS').length} WARN=${results.filter(r => r.status === 'WARN').length} FAIL=${results.filter(r => r.status === 'FAIL').length}`);
