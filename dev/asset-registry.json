@@ -17,6 +17,29 @@
       "height": 1806,
       "ratio": "910:1806",
       "sha256": "72D26A8A3382A6E3D12F54C6A4D9CDA5C7C887CDC93862D6A31AD581D07E0B08"
+    },
+    {
+      "path": "seed/fonts/noto-serif-sc-400.css",
+      "role": "交付渲染字体源（首行 fontsource 头注释锚定 CDN 版本 noto-serif-sc@5.2.5，CSS 内容=分片清单/unicode-range——漂移即交付字形源漂移；build inlineSeedFonts 读取处校验）",
+      "format": "css",
+      "fontsource": "noto-serif-sc@5.2.5",
+      "sha256": "06EB5B8F49EB6CA46E45F849C00AECCE5CE9A542DCC422AE466AB68AF58FBEE4"
+    },
+    {
+      "path": "seed/fonts/playfair-display-400.css",
+      "role": "交付渲染字体源（首行 fontsource 头注释锚定 CDN 版本 playfair-display@5.3.0，CSS 内容=分片清单/unicode-range——漂移即交付字形源漂移；build inlineSeedFonts 读取处校验）",
+      "format": "css",
+      "fontsource": "playfair-display@5.3.0",
+      "sha256": "50DB45C6D88F46A95DE5C63A49058F3FB938588A662339BDF6CE16D126F015C5"
+    }
+  ],
+  "directoryManifests": [
+    {
+      "path": "seed/fonts/",
+      "role": "种子字体树目录级 manifest（108 文件：2 CSS + 106 分片 woff2 等）。woff2 分片只服务种子预览（交付走 local()+CDN），故不逐个登记；按裁决①整树 manifest，演进沿用种子三处同步纪律",
+      "algorithm": "sha256-manifest-v1：遍历目录取 (相对路径 utf8 + b'\\n' + 文件字节)，按路径排序后整体 sha256，大写 hex",
+      "fileCount": 108,
+      "manifestSha256": "5D752EEBFAED1043D2C7E9568D6CF19763255A7309202C674CD15BD4EC03A7A1"
     }
   ],
   "invariants": [

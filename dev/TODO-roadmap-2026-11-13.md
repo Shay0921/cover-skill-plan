@@ -1,11 +1,13 @@
 # 后续执行路线图 TODO（2026-11-13）
 
-> **▶ 当前指针（2026-11-13 更新）：T7 已批复收口 · 阶段 4 进行中 · T8 种子只读锁 ✅ + T9 资产入册 ✅（check 5/5，回归 178/178，基线 1316）· 下一步 = T10 闸门（阶段 4 收口材料待汇总）**
+> **▶ 当前指针（2026-11-13 更新）：阶段 4 闸门材料已提交 · 待用户终审（材料 = [T10-GATE-2026-11-13.md](T10-GATE-2026-11-13.md)；批复后文件入库 + 指针推进阶段 5 → T11 SKILL.md 工作流改序开工）**
 >
 > - **T7 收口（2026-11-13）**：闸门材料 [T7-GATE-2026-11-13.md](T7-GATE-2026-11-13.md) 已入库（6b88db4）并获批复；六笔刀 commit 已在链，无提交欠账
 > - **T8 种子只读锁已落地（2026-11-13）**：build.mjs 新增 `verifySeedChecksum`（readSeedCSS 构建全链必校验，基线 = 04-recipes 登记 `5318D18B…`，种子漂移即 gate FAIL）；独立校验 `dev/check-seed-lock.mjs` 4/4 PASS（真实种子过锁 / SHA-256 与登记精确一致 / 样式微改必抛 / 空串必抛）；挂锁后全量回归 **178/178 零涟漪**，基线 scope → `controlled-negative-1113-1312`，对账退出码 0；04-recipes 文首登记行 + 归属图 §6 新增行已同步
+> - **🟢 T9 补遗已落地（2026-11-13，字体无主旁路封堵）**——机制澄清（裁决②）：交付渲染字体源 = `seed/fonts/*.css`（首行 fontsource 头注释锚定 CDN 版本，CSS 内容=分片清单/unicode-range）；84+ woff2 分片只服务种子预览（交付走 local()+CDN，不携带字体文件）。落地（裁决①）：**CSS 逐份入台账+锁**（build `inlineSeedFonts` 读取处 `verifyAssetChecksum`，漂移即构建期拒建）+ **fonts 树目录级 manifest**（sha256-manifest-v1，108 文件 `5D752EEB…` 入 asset-registry，演进沿用三处同步纪律）；`dev/check-asset-registry.mjs` 8/8（含 manifest 复算）、`dev/check-locks-e2e.mjs` 8/8（新增字体 CSS 漂移拦截取证 109A4766≠50DB45C6，L136 同款表达式）；挂锁后全量回归 **178/178 零涟漪**，基线 scope → `controlled-negative-1113-1327`。取证入口（裁决③）已对齐：三锁均为"构建期拒建"，e2e 复现入口 = prepareBuild 真实消费点（readSeedCSS / embedAsset / applyDeliveryFontPolicy∘readSeedCSS）
+> - **🟢 T9 遗留已了结（2026-11-13）**：① scope 矛盾已按方案 A 修正（1316 真实对账后随字体锁轮推进至 **1327**，勘误在案）② T8/T9/T10 + 字体补遗改动待 commit（台账/校验脚本/build 三处挂钩/索引/归档 1327/TODO）——commit 后清账
 >
-> - T1–T5 已收口；T6 已落五刀：**C3**（L19 后果化，0917）+ **C5**（L22 迁卡，0934）+ **C6**（L23 复核保留，1028）+ **拆分类**（L11①②③/L20/R13 砍，1103）+ **config 独立小批**（四字段 28 处删除 + 加载期校验随删 + 10 条 loadReject 退役，1220）；T8 挂锁后现行基线 → `controlled-negative-1113-1312`，套件 **178/178**，对账退出码 0
+> - T1–T5 已收口；T6 已落五刀：**C3**（L19 后果化，0917）+ **C5**（L22 迁卡，0934）+ **C6**（L23 复核保留，1028）+ **拆分类**（L11①②③/L20/R13 砍，1103）+ **config 独立小批**（四字段 28 处删除 + 加载期校验随删 + 10 条 loadReject 退役，1220）；现行基线 → `controlled-negative-1113-1327`，套件 **178/178**，对账退出码 0
 > - 第五刀账目修正：loadReject 退役实为 **10 条**（批复清单 9 条漏数 `component-shapes-need-directory`——form-shape 校验的目录侧孪生，实测空转后补退）；`require-belongs-to-recipe` 区域绊线保留改 pattern；外科手术式删字段（git diff 证明改动行 100% 四字段，R14 输入面原样）；七维自查：require↔卡/allow↔卡/allow↔骨架/form↔require/order-tracks↔骨架/counts↔条数/码一致性——四字段相关维度随删除 N/A，allow 与骨架零触碰，coverage 机械复核经 178 全绿套件覆盖
 > - pipeline digest 的 counts 为输出标签，已核非消费面（批复条件 2，免复查）
 > - **批次 C 登记（骨架修复，gate 阶段 3 范围外）**：① duo-labeled h68 溢出定性单（E2 实锤：真实管线 R1 ×6，证据 `dev/e2-duo-h68-1113` + 驱动脚本 `dev/e2-duo-labeled.mjs`）；② 修复决策（h68 降档 or 登记卡加"head 极简"适用条件）待批次 C 裁决，归阶段 4 种子人审；③ 修复后 `dev/_sc` 43 号重渲 + 真实管线复验销单
@@ -99,14 +101,15 @@
 
 - [x] `dev/asset-registry.json`：路径/尺寸/比例/校验和（iphone-frame.png 910×1806 等）；gate 校验引用完整性；资产只读引用（✅ 2026-11-13：台账登记 b64 内嵌源 + PNG 交付位两条；build.mjs `verifyAssetChecksum` 挂 seedFrame 构建链——漂移/未入册即拒建；`dev/check-asset-registry.mjs` 5/5 PASS：台账一致/b64↔PNG 字节同一/IHDR 910×1806/零 dev 路径引用扫描 clean；负例实证：漂移必抛 D121BE31≠F27101A4、未入册必抛；harness 收口：render-selfcheck 后备源与 e2 驱动改指 references/assets；回归 178/178 零涟漪，基线 1316）
 - [x] 入册时 `iphone-frame.png` 迁入 references 对应资产位，不留 dev 路径引用（✅ references/assets/iphone-frame.png 实测在位且与 seed/b64 字节级同一；生产面 references/seed/tools 代码产物零 dev 路径引用）
-- [x] 判据：替换/损坏资产 → gate FAIL（✅ 实测：`verifyAssetChecksum` 挂 seedFrame 构建链，b64 漂移/未入册均在构建期抛错拒建；直接调用负例：漂移 D121BE31≠台账 F27101A4 必抛、`assets/unknown.png` 未入册必抛）
+- [x] 判据：替换/损坏资产 → gate FAIL（✅ 实测：`verifyAssetChecksum` 挂 seedFrame 构建链，b64 漂移/未入册均在**构建期拒建**；负例复现入口 = `node -e` 直接调用 `verifyAssetChecksum`——漂移 D121BE31≠台账 F27101A4 必抛、`assets/unknown.png` 未入册必抛；gate 链必然经过 seedFrame→embedAsset，锁无旁路）
+- [x] 勘误（2026-11-13 复核）：首次报告声称"基线 1316 对账退出码 0"失实——实际 `--write` 是对未切换的 1312 重建的（T9 零夹具变化，切 scope 步骤被漏）。已按批复方案 A 修正：scope → 1316 → `--write` 重建 → 裸跑对账**真实退出码 0**（index 178 / suite 178/178 / drift 0）
 
 ### T10. 注入两个负例并补索引
 
-- [ ] "修改种子后运行" → 必须被 T8 拦截
-- [ ] "替换资产后运行" → 必须被 T9 拦截
-- [ ] 两条补入 negative-index
-- [ ] 判据：注入即拦 + 回归全绿 → 用户确认进阶段 5
+- [x] "修改种子后运行" → 必须被 T8 拦截（✅ 2026-11-13 `dev/check-locks-e2e.mjs` 6/6：种子 +`<!--t10-tamper-->` → readSeedCSS 抛"种子被改动 073AE170…≠5318D18B…"）
+- [x] "替换资产后运行" → 必须被 T9 拦截（✅ 同脚本：b64 前缀污染 → embedAsset 抛"资产校验和不符 CBC91FC7…≠F27101A4…"；另含未篡改放行对照 ×2 与还原字节级复原校验 ×2；跑后 T8/T9 独立复核 exit 0 不受扰）
+- [x] 两条补入 negative-index → **裁决：不补**。两条负例需真实篡改生产文件（seed/与 seed 资产），套件并行跑有互踩风险，以独立守卫脚本（可复跑、退出码判据）承载，索引维持 178/scope 1316 不变
+- [x] 判据：注入即拦（✅ 6/6）+ 回归全绿（✅ T9 轮 178/178）→ 待用户确认进阶段 5
 
 ## 第三部分：阶段 5（流程改造 + 全量回归）
 

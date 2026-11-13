@@ -35,6 +35,24 @@ try {
   ok('不变量：PNG IHDR 尺寸 == 台账登记', w === entry.width && h === entry.height, `${w}×${h}`);
 } catch (e) { ok('不变量：b64↔PNG / IHDR 尺寸', false, e.message.slice(0, 90)); }
 
+// 目录级 manifest 复算（T9 补遗：字体树整体漂移防护）
+for (const dir of registry.directoryManifests || []) {
+  try {
+    const base = path.join(ROOT, dir.path);
+    const items = [];
+    const walk = d => { for (const e of fs.readdirSync(d, { withFileTypes: true })) {
+      const p = path.join(d, e.name);
+      if (e.isDirectory()) walk(p);
+      else items.push([path.relative(base, p).split(path.sep).join('/'), fs.readFileSync(p)]);
+    } };
+    walk(base);
+    const h = crypto.createHash('sha256');
+    for (const [rel, data] of items.sort((a, b) => a[0] < b[0] ? -1 : 1)) h.update(Buffer.concat([Buffer.from(rel, 'utf8'), Buffer.from('\n'), data]));
+    const actual = h.digest('hex').toUpperCase();
+    ok(`目录 manifest 一致 ${dir.path}`, actual === dir.manifestSha256 && items.length === dir.fileCount, `${items.length} files, ${actual.slice(0, 8)}…`);
+  } catch (e) { ok(`目录 manifest 一致 ${dir.path}`, false, e.message.slice(0, 90)); }
+}
+
 // 入册产物零 dev 路径引用
 const { scope, extensions, pattern } = registry.forbiddenDevRefScan;
 const re = new RegExp(pattern);

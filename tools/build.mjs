@@ -43,6 +43,7 @@ function fontCdn(header, rel) {
 function inlineSeedFonts(css) {
   return css.replace(/@import url\('\.\/(fonts\/[^']+\.css)'\);/g, (_, rel) => {
     const file = fs.readFileSync(path.join(ROOT, 'seed', rel), 'utf8');
+    verifyAssetChecksum(`seed/fonts/${rel.slice('fonts/'.length)}`, Buffer.from(file, 'utf8')); // T9 补遗：字体 CSS 是交付渲染字形源（锚定 CDN 版本+分片清单），漂移即拒建
     if (/url\(\s*['"]?https?:/i.test(file)) throw new Error(`种子字体 CSS 不允许远程地址: ${rel}`);
     if (!file.includes('./files/')) throw new Error(`种子字体 CSS 缺少本地分片引用: ${rel}`);
     const family = file.match(/font-family:\s*'([^']+)'/)?.[1];
@@ -56,7 +57,8 @@ function inlineSeedFonts(css) {
 }
 // Optional user config: config/fonts.user.json = {"preferredSystemFont": "字体名"}.
 // Prepends the font to --serif-stack (appended last so it wins the cascade).
-function applyDeliveryFontPolicy(css) {
+// 导出供守卫脚本（dev/check-locks-e2e.mjs）在 L136 同款表达式上做注入取证。
+export function applyDeliveryFontPolicy(css) {
   const delivered = inlineSeedFonts(css);
   const file = path.join(ROOT, 'config/fonts.user.json');
   if (!fs.existsSync(file)) return delivered;

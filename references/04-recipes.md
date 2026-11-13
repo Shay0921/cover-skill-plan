@@ -5,7 +5,7 @@
 > 命名：按内容语义（DEVPLAN 阶段 2 补充），R-id 沿用草案。
 > 骨架目录：`references/recipes/`（每骨架档一个 `.part.html`，共 41 个）。
 > 资产位：`references/assets/`（iphone-frame.png 910×1806；骨架/harness 不得引用 dev 路径）。
-> 种子基线：`seed/paper-journal.html`（含布局修饰段）SHA-256 = `5318D18B7DA6C0ED3DB8395858751E5D524137A14CB97F037B0EDC870003D958`——阶段 4 种子只读校验以此版本为基线。（2026-11-13 变更：P→R 迁移把示例页 `data-recipe` 改为 R-quote-01，校验和随之刷新。）（T8 已挂 gate 构建锁：build.mjs `verifySeedChecksum` 每次构建必校验，种子漂移即 FAIL；独立复跑 `node dev/check-seed-lock.mjs`。）
+> 种子基线：`seed/paper-journal.html`（含布局修饰段）SHA-256 = `5318D18B7DA6C0ED3DB8395858751E5D524137A14CB97F037B0EDC870003D958`——阶段 4 种子只读校验以此版本为基线。（2026-11-13 变更：P→R 迁移把示例页 `data-recipe` 改为 R-quote-01，校验和随之刷新。）（T8 已挂 gate 构建锁：build.mjs `verifySeedChecksum` 每次构建必校验，种子漂移即 FAIL；独立复跑 `node dev/check-seed-lock.mjs`。）（T9 资产入册：`dev/asset-registry.json` 为唯一台账——b64 内嵌源/PNG 交付位/两份字体 CSS（交付渲染字形源，`inlineSeedFonts` 读取处校验，漂移即拒建）/fonts 树目录级 manifest（108 文件，预览资产）；独立复跑 `node dev/check-asset-registry.mjs`，三锁注入取证 `node dev/check-locks-e2e.mjs`。字体演进 = 种子三处同步纪律：改源 → 刷新台账 → 同步锁。）
 
 ## 配方总表（20 条 · 语义定名 + 角色资格）
 
