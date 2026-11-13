@@ -1,8 +1,9 @@
 # 后续执行路线图 TODO（2026-11-13）
 
-> **▶ 当前指针（2026-11-13 更新）：阶段 3 收尾 · 下一步 = T5（gate 补 L24 占位符检查）→ T6（gate 瘦身逐刀）**
-> - T1/T2/T3 已收口（2026-11-13 上午）：T1 第六轮 183/183；T2 lint 轮全绿（全新夹具套件 183/183，lint 全套 0 FAIL）；T3 基线已重建——`negative-index.json` scope → `controlled-negative-1113-0853`，`--write` 重建 count=183（lint77/geometry25/pass36/load36/pipeline5/build3/direct-probe1），裸跑对账退出码 0、drift 0；T4 剩余回归验证项随 T3 覆盖（新夹具 P 码归零，249 文件携 R 码）
-> - T5/T6 解禁前提已满足；T6 起每刀单独 git commit（用户侧操作）；阶段闸门 T7 必须用户确认
+> **▶ 当前指针（2026-11-13 更新）：阶段 3 收尾 · 下一步 = T6（gate 瘦身逐刀）**
+> - T1/T2/T3/T5 已收口（2026-11-13）：T1 第六轮 183/183；T2 lint 轮全绿；T3 基线重建（scope → `controlled-negative-1113-0853`，count=183，对账全绿）；**T5 L24 已落地**（lint-dom 新增占位符残留检查，正负例 3 条入套件，全套件 186/186，基线重建 count=186、scope → `controlled-negative-1113-0902`、裸跑对账退出码 0）
+> - T4 P→R 已全部完成（生产面+dev 副本；新夹具 P 码归零，249 文件携 R 码）
+> - T6 起每刀单独 git commit（用户侧操作）；阶段闸门 T7 必须用户确认
 > - 🗑 删除裁决（监工已核，2026-11-13）：`controlled-slim-1113-1/` **可整目录删除**——索引已指向 1113-0853、全仓无脚本/文档依赖、内容为新库子集；删后 git 提交一笔。⚠️ 11-11 两个归档（composition-1111-1148 / library-1111-1046）是受保护历史快照，**永不删改**
 
 > **用途**：会话压缩后的新任务启动文档。按顺序执行，每步有完成判据；完成一项勾一项。
@@ -11,7 +12,7 @@
 > - `dev/constraint-ownership-map.md` —— 阶段 3 产出物 A（33 规则码三分类 + C1-C6 冲突裁决）
 > - `dev/config-audit-2026-11-13.md` —— 七维审计 + 批次 A/B 修复方案
 > - `references/04-recipes.md` —— 20 张登记卡（规格级配方 require/allow 的唯一锚）
-> - `dev/controlled/negative-index.json` —— 回归基线（2026-11-13 已重建：scope → `controlled-negative-1113-0853`，count=183，对账全绿；T5/T6 每刀以此为回归基准）
+> - `dev/controlled/negative-index.json` —— 回归基线（2026-11-13 T5 后定稿：scope → `controlled-negative-1113-0902`，count=186，对账全绿；T6 每刀以此为回归基准。过渡库 1113-0853 已被 0902 严格超集取代，确认零依赖后可删）
 > - `dev/MILESTONE-PENDULUM-2026-11-12.md` —— 论证档案（阶段 5 验收看 §5.4）
 
 ## 当前进度快照（勿重做）
@@ -49,10 +50,11 @@
 - [x] 剩余验证项（已随 T3 重建轮完成，2026-11-13）：夹具/索引重建 + 全量回归 183/183；新夹具 P 码归零（249 文件携 R 码）
 - 判据达成：grep `data-recipe="P` 在 dev/recipes/ 与 references/recipes/ 均归零 ✅；回归全绿 ✅
 
-### T5. gate 补占位符残留检查（L24）
-- [ ] 成品 HTML 含 `{{` 即 FAIL（DEVPLAN 保留类明文要求）
-- [ ] 构造 1 条正负例补入 negative-index
-- 判据：含占位符的页面被拦；干净页通过
+### T5. gate 补占位符残留检查（L24）（✅ 2026-11-13）
+- [x] `tools/lint-dom.mjs` 新增 L24：成品 HTML 任何位置（文本/属性/注释）含 `{{` 即 ERROR（`inspectFragmentDOM` 入口处对原始 html 串检查）
+- [x] 正负例 3 条补入套件：`placeholder-residue-text`（文本残留→L24）、`placeholder-residue-attr`（属性残留→L24）、`placeholder-clean`（干净对照→passed）；全套件重跑 **186/186**，索引重建 count=186、scope → `controlled-negative-1113-0902`，裸跑对账退出码 0
+- [x] 约束归属图 §5 缺口表已同步"已落地"
+- 判据达成：含占位符的页面被拦（文本/属性两个位置均取证）；干净页通过 ✅
 
 ### T6. gate 瘦身逐刀（按 constraint-ownership-map.md §4/§6 顺序）
 - [ ] **C3**：L19 后果化改写为"带比例 phone 根内禁文字叶"——实证时必须构造**短文字**负例（R3 对短文字静默，长文字溢出测不出来）

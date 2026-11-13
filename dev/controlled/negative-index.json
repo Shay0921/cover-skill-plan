@@ -1,23 +1,23 @@
 {
   "purpose": "负例夹具 → 拦截层级 stage → 规则码 索引。索引是生成物：跑完 dev/test-controlled.mjs 归档夹具后执行 node dev/check-negative-index.mjs --write 重建；平时直接运行本脚本对账，任何漂移或套件失败即退出码 1。规则码变更时按此表同步更新对应夹具。",
   "generatedAt": "2026-11-13",
-  "scope": "dev/controlled/controlled-negative-1113-0853",
+  "scope": "dev/controlled/controlled-negative-1113-0902",
   "suite": {
-    "total": 183,
-    "passed": 183,
+    "total": 186,
+    "passed": 186,
     "failed": 0,
     "fontMode": "CDN blocked intentionally: system-font geometric regression, not production font evidence"
   },
   "stages": {
-    "lint": 77,
+    "lint": 79,
     "geometry": 25,
-    "pass": 36,
+    "pass": 37,
     "load": 36,
     "pipeline": 5,
     "build": 3,
     "direct-probe": 1
   },
-  "count": 183,
+  "count": 186,
   "legend": {
     "blocked": "gate 必须 failed（夹具报告 status=failed）",
     "passed": "正例对照：gate passed，可带 WARN",
@@ -1701,6 +1701,50 @@
       ],
       "first_error": "p01 L19: 区域 wall 有 2 只手机，wall-phone-1 必须包在 .phone-cell 内",
       "suite_expected": "L19"
+    },
+    {
+      "dir": "placeholder-clean",
+      "outcome": "passed",
+      "stage": "pass",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [
+        "FONT",
+        "L16",
+        "R7"
+      ],
+      "first_error": null,
+      "suite_expected": "passed"
+    },
+    {
+      "dir": "placeholder-residue-attr",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L24"
+      ],
+      "warn_rules": [
+        "L16"
+      ],
+      "first_error": "p01 L24: 成品页残留占位符 {{…}}：所有槽位必须替换为真实文案或预计算数值，渲染与交付前不允许留空",
+      "suite_expected": "L24"
+    },
+    {
+      "dir": "placeholder-residue-text",
+      "outcome": "blocked",
+      "stage": "lint",
+      "passed": true,
+      "rules": [
+        "BATCH",
+        "L24"
+      ],
+      "warn_rules": [
+        "L16"
+      ],
+      "first_error": "p01 L24: 成品页残留占位符 {{…}}：所有槽位必须替换为真实文案或预计算数值，渲染与交付前不允许留空",
+      "suite_expected": "L24"
     },
     {
       "dir": "quote-rule-without-source",

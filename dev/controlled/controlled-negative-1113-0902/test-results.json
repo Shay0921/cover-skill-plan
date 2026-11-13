@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-13T00:53:47.102Z",
+  "generatedAt": "2026-11-13T01:03:14.272Z",
   "fontMode": "CDN blocked intentionally: system-font geometric regression, not production font evidence",
-  "total": 183,
-  "passed": 183,
+  "total": 186,
+  "passed": 186,
   "failed": 0,
   "results": [
     {
@@ -639,7 +639,7 @@
         {
           "level": "ERROR",
           "rule": "BATCH",
-          "msg": "输出目录含非本次计划页 99.html；请使用新输出目录，工具不会删除历史产物: /Users/shay/Code/AI/html2png/mine/cover-skill-plan/dev/controlled/controlled-negative-1113-0853/stale-output/out"
+          "msg": "输出目录含非本次计划页 99.html；请使用新输出目录，工具不会删除历史产物: /Users/shay/Code/AI/html2png/mine/cover-skill-plan/dev/controlled/controlled-negative-1113-0902/stale-output/out"
         }
       ]
     },
@@ -665,7 +665,7 @@
         {
           "level": "ERROR",
           "rule": "BATCH",
-          "msg": "缺少计划页源文件: /Users/shay/Code/AI/html2png/mine/cover-skill-plan/dev/controlled/controlled-negative-1113-0853/missing-plan-page/work/src/p02.part.html"
+          "msg": "缺少计划页源文件: /Users/shay/Code/AI/html2png/mine/cover-skill-plan/dev/controlled/controlled-negative-1113-0902/missing-plan-page/work/src/p02.part.html"
         }
       ]
     },
@@ -2928,6 +2928,49 @@
     },
     {
       "name": "bleed-region-bottom-caption",
+      "passed": true,
+      "expected": "passed",
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "name": "placeholder-residue-text",
+      "passed": true,
+      "expected": "L24",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L24",
+          "msg": "成品页残留占位符 {{…}}：所有槽位必须替换为真实文案或预计算数值，渲染与交付前不允许留空"
+        }
+      ]
+    },
+    {
+      "name": "placeholder-residue-attr",
+      "passed": true,
+      "expected": "L24",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L24",
+          "msg": "成品页残留占位符 {{…}}：所有槽位必须替换为真实文案或预计算数值，渲染与交付前不允许留空"
+        }
+      ]
+    },
+    {
+      "name": "placeholder-clean",
       "passed": true,
       "expected": "passed",
       "status": "passed",

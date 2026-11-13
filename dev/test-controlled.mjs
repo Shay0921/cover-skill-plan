@@ -351,6 +351,10 @@ try {
   await test('bleed-region-without-caption', bleedPage(false), 'L23', asRecipe('R-phone-02'));
   await test('bleed-region-head-caption', bleedPage(true), null, asRecipe('R-phone-02'));
   await test('bleed-region-bottom-caption', bleedPage(false).replace('</main>', `<div class="region" data-region="bottom">${text('bottom-note')}</div></main>`), null, asRecipe('R-phone-02'));
+  // 占位符残留（L24）：骨架的 {{槽位}} 只活在配方库，成品页任何位置残留即 FAIL；control 证明替换干净即解拦。
+  await test('placeholder-residue-text', wrap(text('h1', '标题{{卖点}}')), 'L24');
+  await test('placeholder-residue-attr', wrap(text('h1', '正常文案', 'data-note="{{预留}}"')), 'L24');
+  await test('placeholder-clean', wrap(text('h1', '全部替换完成')), null);
   // text-block 弱档是 L17 之下的合法降档通道：class 切档不被外观拦截，照常通过。
   await test('text-block-muted-tier', wrap(text('main-copy').replace('class="text-block"', 'class="text-block muted"')), null);
   // 骨架 schema 与 plan 选档的加载期拒绝：契约写错直接中断，不留给页面检查。

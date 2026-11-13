@@ -9,6 +9,8 @@ export function inspectFragmentDOM(html, contract) {
   const issues = [], images = [];
   const error = (rule, msg) => issues.push({ level: 'ERROR', rule, msg });
   const warn = (rule, msg) => issues.push({ level: 'WARN', rule, msg });
+  // 占位符残留（L24）：骨架的 {{槽位}} 只活在配方库；成品页任何位置（文本/属性/注释）残留即 FAIL——渲染与交付前最后一道兜底。
+  if (html.includes('{{')) error('L24', '成品页残留占位符 {{…}}：所有槽位必须替换为真实文案或预计算数值，渲染与交付前不允许留空');
   const allowedTags = new Set('div section article main header footer aside nav h1 h2 h3 h4 h5 h6 p span b strong i em u s del ins mark small sub sup br wbr hr ul ol li dl dt dd figure figcaption blockquote q cite abbr time code pre samp kbd table caption colgroup col thead tbody tfoot tr th td img a'.split(' '));
   const allowedAttrs = new Set('id class style title lang dir role hidden alt width height colspan rowspan scope datetime start reversed value decoding loading draggable'.split(' '));
   const cssForbidden = /url\s*\(|image-set\s*\(|expression\s*\(|(?:java|vb)script\s*:|@|\\|[<>]|\b(?:animation|transition)(?:-[a-z]+)?\s*:|(?:^|[;\s])(?:behavior|-moz-binding|content)\s*:/i;
