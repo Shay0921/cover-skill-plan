@@ -1,8 +1,11 @@
 # 后续执行路线图 TODO（2026-11-13）
 
-> **▶ 当前指针（2026-11-13 更新）：T7 闸门材料已提交 · 待用户终审（材料 = [T7-GATE-2026-11-13.md](T7-GATE-2026-11-13.md)；批复后 git 六笔 commit → 开阶段 4，闸门 T10）**
+> **▶ 当前指针（2026-11-13 更新）：T7 已批复收口 · 阶段 4 进行中 · T8 种子只读锁已落地（check-seed-lock 4/4，套件 178/178 零涟漪，基线 1312）· 下一步 = T9 资产入册 → T10 闸门**
 >
-> - T1–T5 已收口；T6 已落五刀：**C3**（L19 后果化，0917）+ **C5**（L22 迁卡，0934）+ **C6**（L23 复核保留，1028）+ **拆分类**（L11①②③/L20/R13 砍，1103）+ **config 独立小批**（四字段 28 处删除 + 加载期校验随删 + 10 条 loadReject 退役，1220）；当前套件 **178/178**，基线 scope → `controlled-negative-1113-1220`，对账退出码 0
+> - **T7 收口（2026-11-13）**：闸门材料 [T7-GATE-2026-11-13.md](T7-GATE-2026-11-13.md) 已入库（6b88db4）并获批复；六笔刀 commit 已在链，无提交欠账
+> - **T8 种子只读锁已落地（2026-11-13）**：build.mjs 新增 `verifySeedChecksum`（readSeedCSS 构建全链必校验，基线 = 04-recipes 登记 `5318D18B…`，种子漂移即 gate FAIL）；独立校验 `dev/check-seed-lock.mjs` 4/4 PASS（真实种子过锁 / SHA-256 与登记精确一致 / 样式微改必抛 / 空串必抛）；挂锁后全量回归 **178/178 零涟漪**，基线 scope → `controlled-negative-1113-1312`，对账退出码 0；04-recipes 文首登记行 + 归属图 §6 新增行已同步
+>
+> - T1–T5 已收口；T6 已落五刀：**C3**（L19 后果化，0917）+ **C5**（L22 迁卡，0934）+ **C6**（L23 复核保留，1028）+ **拆分类**（L11①②③/L20/R13 砍，1103）+ **config 独立小批**（四字段 28 处删除 + 加载期校验随删 + 10 条 loadReject 退役，1220）；T8 挂锁后现行基线 → `controlled-negative-1113-1312`，套件 **178/178**，对账退出码 0
 > - 第五刀账目修正：loadReject 退役实为 **10 条**（批复清单 9 条漏数 `component-shapes-need-directory`——form-shape 校验的目录侧孪生，实测空转后补退）；`require-belongs-to-recipe` 区域绊线保留改 pattern；外科手术式删字段（git diff 证明改动行 100% 四字段，R14 输入面原样）；七维自查：require↔卡/allow↔卡/allow↔骨架/form↔require/order-tracks↔骨架/counts↔条数/码一致性——四字段相关维度随删除 N/A，allow 与骨架零触碰，coverage 机械复核经 178 全绿套件覆盖
 > - pipeline digest 的 counts 为输出标签，已核非消费面（批复条件 2，免复查）
 > - **批次 C 登记（骨架修复，gate 阶段 3 范围外）**：① duo-labeled h68 溢出定性单（E2 实锤：真实管线 R1 ×6，证据 `dev/e2-duo-h68-1113` + 驱动脚本 `dev/e2-duo-labeled.mjs`）；② 修复决策（h68 降档 or 登记卡加"head 极简"适用条件）待批次 C 裁决，归阶段 4 种子人审；③ 修复后 `dev/_sc` 43 号重渲 + 真实管线复验销单
@@ -10,6 +13,7 @@
 > - 账目修正（2026-11-13）：`phone-count-over-cap` 定层 R1→**R10**（同区挤压致声明比例失真 skew>1%；R10=比例失真、R1=越界，实测定性），夹具/归属图/TODO 三处同步，基线重建 1131
 > - 残余裁决已落地（2026-11-13）：R-phone-01 卡新增装配纪律"列序=叙事序（主屏在左）"；T14 预登记"7 页逐页对照登记卡 hl 节奏"（form-shape-invisible 残余保险丝）；`_sc` 整批重渲 + index 列头注明"右=11-11 历史归档（永不改）"
 > - 附属项已清（2026-11-13）：R-phone-02 卡 intent 统一"bottom 必配"（C6 张力裁决）；`dev/_sc` 41 张骨架预览整批重渲（41/41 PASS，32 号不一致与 43 号坏快照已消）
+> - **📋 生产结合缺口表（2026-11-13 监工结合复核，阶段 4/5 账目锚）**——阶段 3 改动 vs 生产 skill 运行面对账：**已落地** `tools/lint-dom.mjs`/`validate.mjs`（唯一"残留"是退役注释非检查块）/`project.mjs`/`gate.mjs`（实测零退役规则引用）/config 两文件/references 四文档+41 骨架/seed 未动。**未结合缺口 4 个（全在计划内）**：① SKILL.md 流程仍旧口径（"写三件套→跑 gate→返修→交付"，校验前置批查驱动=38 分钟病根流程）→ T11 换仪表盘；现状推论：现在接真实单 agent 会走旧流程，不会坏（新 gate 更严）但成本白烧 ② 种子无只读锁（SHA-256 基线已登记）→ T8 ③ 真实资产未入册 → T9 ④ h68 骨架病 → 批次 C。**渲染验证顺序纪律**：T8 锁种子 → T9 入真实资产 → 批次 C h68 修复+e2 脚本真实管线复验（第一次生产渲染验证，单页）→ T11 改 SKILL.md → T14 七页真实素材全量（正式验收，对照 30 分钟基线计时）；不得跳步（跳 T8/T9=占位或裸奔验证，跳 T11=新引擎跑旧流程成本失真）
 > - T4 P→R 已全部完成（生产面+dev 副本；新夹具 P 码归零，249 文件携 R 码）
 > - ⚠️ T6 各刀改动待 git 按刀单独 commit（用户侧）：`tools/lint-dom.mjs`、`tools/validate.mjs`（R13）、`dev/test-controlled.mjs`、`references/04-recipes.md`（R-phone-01/R-quote-01/R-phone-02 卡）、`references/02-constraints.md`（L19/L22/L20/R13/max 口径）、归属图/TODO、归档 0917/0934/1028/1057/1103
 > - 阶段闸门 T7 必须用户确认
@@ -86,10 +90,10 @@
 
 ## 第二部分：阶段 4（种子只读 + 资产入册）
 
-### T8. 种子只读校验
+### T8. 种子只读校验 ✅
 
-- [ ] gate 新增种子文件校验和比对；基线 = `references/04-recipes.md` 文首已登记的校验和（`5318D18B…D958`，2026-11-13 随 P→R 迁移刷新后的现行版）；✅ 已实测当前 `seed/paper-journal.html` 与该校验和精确一致，无需更新登记
-- [ ] 判据：任何种子改动 → gate FAIL
+- [x] gate 新增种子文件校验和比对；基线 = `references/04-recipes.md` 文首已登记的校验和（`5318D18B…D958`，2026-11-13 随 P→R 迁移刷新后的现行版）；✅ 已实测当前 `seed/paper-journal.html` 与该校验和精确一致，无需更新登记
+- [x] 判据：任何种子改动 → gate FAIL（✅ 实测：build.mjs `verifySeedChecksum` 挂 readSeedCSS 构建全链；`dev/check-seed-lock.mjs` 4/4——真实种子过锁/SHA 一致/样式微改必抛/空串必抛；挂锁后套件 178/178 零涟漪，基线 1312）
 
 ### T9. 资产入册
 

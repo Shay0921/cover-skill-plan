@@ -5,7 +5,7 @@
 > 命名：按内容语义（DEVPLAN 阶段 2 补充），R-id 沿用草案。
 > 骨架目录：`references/recipes/`（每骨架档一个 `.part.html`，共 41 个）。
 > 资产位：`references/assets/`（iphone-frame.png 910×1806；骨架/harness 不得引用 dev 路径）。
-> 种子基线：`seed/paper-journal.html`（含布局修饰段）SHA-256 = `5318D18B7DA6C0ED3DB8395858751E5D524137A14CB97F037B0EDC870003D958`——阶段 4 种子只读校验以此版本为基线。（2026-11-13 变更：P→R 迁移把示例页 `data-recipe` 改为 R-quote-01，校验和随之刷新。）
+> 种子基线：`seed/paper-journal.html`（含布局修饰段）SHA-256 = `5318D18B7DA6C0ED3DB8395858751E5D524137A14CB97F037B0EDC870003D958`——阶段 4 种子只读校验以此版本为基线。（2026-11-13 变更：P→R 迁移把示例页 `data-recipe` 改为 R-quote-01，校验和随之刷新。）（T8 已挂 gate 构建锁：build.mjs `verifySeedChecksum` 每次构建必校验，种子漂移即 FAIL；独立复跑 `node dev/check-seed-lock.mjs`。）
 
 ## 配方总表（20 条 · 语义定名 + 角色资格）
 

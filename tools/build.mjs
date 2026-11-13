@@ -7,8 +7,22 @@ import { createOptions, launchBrowser, closeBrowser, withBlank, evaluate } from 
 import { lintProject } from './lint-dom.mjs';
 import { ROOT, sha256, loadProject, assertOutputPages, isMain, cli, parseArgs, newReport, saveReport, saveFailureReport, printReport } from './project.mjs';
 
+// T8 种子只读锁（2026-11-13）：种子是只读基线，任何改动都会改变派生产物的样式与几何前提。
+// 基线 = references/04-recipes.md 文首登记值（P→R 迁移后刷新版）。有意演进种子时三处同步：
+// 改种子 → 刷新 04-recipes.md 登记校验和 → 更新本常量，缺一 gate 即 FAIL。
+export const SEED_SHA256 = '5318D18B7DA6C0ED3DB8395858751E5D524137A14CB97F037B0EDC870003D958';
+
+/** 校验种子内容是否与登记基线一致；不一致即抛错（gate 拒绝构建）。 */
+export function verifySeedChecksum(html) {
+  const actual = sha256(html).toUpperCase();
+  if (actual !== SEED_SHA256)
+    throw new Error(`种子被改动：SHA-256 ${actual.slice(0, 8)}… ≠ 登记基线 ${SEED_SHA256.slice(0, 8)}…，gate 拒绝构建（T8 种子只读锁）。如为有意演进：改种子 → 刷新 04-recipes.md 登记 → 同步 build.mjs 常量，三处一致。`);
+  return actual;
+}
+
 export function readSeedCSS() {
   const seed = fs.readFileSync(path.join(ROOT, 'seed/paper-journal.html'), 'utf8');
+  verifySeedChecksum(seed);
   const match = seed.match(/<style(?:\s[^>]*)?>([\s\S]*?)<\/style\s*>/i);
   if (!match) throw new Error('seed 中缺少 CSS');
   return match[1];
