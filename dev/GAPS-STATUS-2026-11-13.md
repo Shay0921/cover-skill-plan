@@ -10,10 +10,10 @@
 
 | 项 | 状态 |
 |---|---|
-| git 提交基线 | `9f8480a`（A4: L25 B7 柱高边界 gate 落地 + 4 夹具 + 基线1735 + GAPS-STATUS 入库；⚠️ commit 信息写"A4/A5"实为仅 A4，A5 未开工）；上一笔 `79d9f64`（h68 销单收尾）、`8049afb`（T11-T14 阶段5 + h68 弹性档修复） |
-| 工作区未提交 | 本笔 A4 收尾：GAPS-STATUS 快照段同步（本节）+ TODO-roadmap L25 销账行 |
-| 负例套件 | 最新基准 = `controlled-negative-1113-1735`：**183/183 全绿**（179 基线 + A4 新增 4 夹具）；`1733` 为首跑留存的失败证据目录（182/183，夹具预期串写法问题，规则本体无问题） |
-| 负例索引 | scope→1735，count=183，drift 0，裸跑 exit 0 ✅（注意：索引脚本从索引自身 `scope` 字段取套件目录，换套件后必须先改 scope 再 `--write`，否则是对旧套件空转） |
+| git 提交基线 | A5 收口笔（C1 期号资格迁移：config 五删 + lint-dom 声明化 + 加载校验 + 夹具 184 + 基线 1905 + 归属图 C1 销账）；此前 `3fab5be`（A4 收尾账）、`9f8480a`（A4: L25 B7 柱高边界 gate）、`79d9f64`（h68 销单收尾）、`8049afb`（T11-T14 阶段5） |
+| 工作区未提交 | 无（A5 收口笔随本节同步提交） |
+| 负例套件 | 最新基准 = `controlled-negative-1113-1905`：**184/184 全绿**（183 基线 + A5 新增正例钉子 `inner-page-with-declared-issue`）；`1735` 为 A4 基线（183）；`1733` 为首跑失败证据留存 |
+| 负例索引 | scope→1905，count=184，drift 0，裸跑 exit 0 ✅（注意：索引脚本从索引自身 `scope` 字段取套件目录，换套件后必须先改 scope 再 `--write`，否则是对旧套件空转） |
 | 三把只读锁 | 种子锁 / 资产台账 / 负例索引对账 全绿（种子基线 `7771E1EA…`） |
 | 游离文件 | ~~仓库根 `claude-html-master.html`~~ 已在 `79d9f64` 清理 ✅ |
 
@@ -27,7 +27,7 @@
 | **A2** | 骨架预置 197 个唯一 `data-from` ID 与内容池契约未对齐 | ★★★★ | ❌ 未开工，**需用户先拍板契约** | 二选一：参数化占位符 / 明确可改+同步池；同步 SKILL §3、01 文档、pool/uses |
 | **A3** | 驱动文档仍是旧「自由组装」范式，与 SKILL 冲突 | ★★★★（量大零风险） | ❌ 未开工 | 01/02/03/components.json 全量范式同步；**必须赶在 T14 前**，否则 T14 数据作废 |
 | **A4** | B7 柱高 0–100 整数校验无执行器 | ★★ | ✅ **已完工销单**（`9f8480a`：L25 本体 + 4 夹具 + 基线 1735 + 归属图 B7 销账；收尾账随本笔 commit） | 无 |
-| **A5** | C1 期号资格迁移未落地（config 双源） | ★★★ | ❌ 未开工 | config 删 5 条 `issue:true` → lint-dom 改读登记卡矩阵 → 同步受影响夹具 → 全量回归 → 单独 commit |
+| **A5** | C1 期号资格迁移未落地（config 双源） | ★★★ | ✅ **已完工销单**（2026-11-13：config 五删 + lint-dom 改读计划声明 `pages[].issue` + 加载校验 + 夹具同步与正例钉子，184/184 基线 1905，三锁零涟漪） | 无 |
 | **A6** | h68 骨架病（批次 C） | ★（残余部分） | ✅ **已完工销单**（`8049afb` 修复 + `79d9f64` 验收补证） | 无——新发现 §8.6 head gap 覆盖问题归阶段 B |
 
 **推荐执行顺序**：A4 收尾 commit → A5 → A1（捎带在 A5 回归同轮）→ A3+A2（纯文档，T14 前必须完成）。
@@ -66,13 +66,17 @@
   - 归属图 B7 销账 4 处编辑 ✅
 - **剩余收尾**：✅ 已完成——TODO-roadmap L25 销账行 + 快照段同步随 A4 收尾 commit 落账。
 
-### A5 · C1 期号资格迁移（未开工）
+### A5 · C1 期号资格迁移 ✅ 已完工销单（2026-11-13）
 
 - **裁决原文**：归属图 §2-C1「矩阵唯一、config.issue 迁登记卡」。
-- **现状（双源）**：`config/recipes.json` 5 条仍带 `issue:true`（cover 系：card01/cover02/list01/phone01/phone02）；`lint-dom.mjs:98-103` 期号块的资格判断与账目面开关都挂在 `contract.recipe.issue` 上。
-- **一致性已核**：登记卡资格矩阵（04-recipes）cover 资格 5 配方与 config 的 5 条 `issue:true` **完全一致、无漂移** → 收口干净，不会引入行为变化。
-- **受影响夹具**：`issue-on-inner-page`（预期的是旧资格判断报错文案「封面系列」，必须同步更新）及 `issue-mismatch/fabricated/outside-skeleton` 相关预期。
-- **动作**：config 删 5 条 issue → lint-dom 资格判断改读矩阵（契约页对象需补 issue 透传，组装处在 lint-dom L291 附近）→ 同步夹具预期 → 全量回归 → 归属图 C1 销账 → 单独 commit。
+- **迁移前现状（已消）**：`config/recipes.json` 5 条带 `issue:true`（cover 系：card01/cover02/list01/phone01/phone02）；`lint-dom.mjs` 期号块的资格判断与账目面开关都挂在 `contract.recipe.issue` 上。登记卡矩阵与 config 5 条完全一致、无漂移 → 收口干净。
+- **落地记录（2026-11-13）**：
+  - config/recipes.json 删 5 条 `issue:true`（双源消除，矩阵唯一）✅
+  - lint-dom 资格判断改读计划声明：`contract.page.issue`（lintFragment 组装处透传 `page.issue === true`），gate 只保留账目面（声明→必须出现且与 meta.issue 一致；未声明→不得出现），判词换「计划未声明 issue…」✅
+  - project.mjs 加载期新增校验：`pages[].issue` 只能 true 或缺省（与 dark 同纪律）✅
+  - 夹具同步：`needIssue` 补页级声明；`issue-on-inner-page` 预期换新判词（拦截层不变）；新增正例钉子 `inner-page-with-declared-issue`（内页声明即放行，实证资格不再由 gate 复述）✅
+  - 全量回归 **184/184**，基线 scope → `controlled-negative-1113-1905`，索引重建 drift 0 裸跑 exit 0；种子锁/资产锁零涟漪 ✅
+  - 文档同步：归属图 §2-L6 行 + §4-C1 销账；02-constraints L21/L28 期号口径换声明制 ✅
 
 ### A6 · h68 弹性档修复 ✅ 已完工销单（`8049afb` 修复 + `79d9f64` 验收补证）
 

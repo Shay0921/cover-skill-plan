@@ -2,7 +2,7 @@
   "version": 3,
   "style": "paper-journal",
   "recipes": {
-    "R-card-01": {"name":"要点逐张页","intent":"左列 3-4 张要点卡纵列、右一只整机；封面档开篇、body 档逐张看点","issue":true,"regions":{"head":{"allow":["h1","sub","kicker"]},"left":{"allow":["fcard","ck","frow","list","text-block","mn"]},"right":{"allow":["phone","shot","text-block"]},"bottom":{"allow":["text-block","serif","cta","fcard"]}},
+    "R-card-01": {"name":"要点逐张页","intent":"左列 3-4 张要点卡纵列、右一只整机；封面档开篇、body 档逐张看点","regions":{"head":{"allow":["h1","sub","kicker"]},"left":{"allow":["fcard","ck","frow","list","text-block","mn"]},"right":{"allow":["phone","shot","text-block"]},"bottom":{"allow":["text-block","serif","cta","fcard"]}},
       "layouts":{
         "cover-standard":{"name":"等分两栏 · 右机满高","when":"封面标准档（源页 01）：标题一行，右栏整屏机撑满行高","order":["head","left","right"],"tracks":[{"region":"left","share":[0.46,0.50]},{"region":"right","share":[0.46,0.50]}],"headline":[1,1],"carriers":[{"component":"phone","region":"right","width":[40,42]}]},
         "cover-bleed":{"name":"右下出血 · 单行标题","when":"封面出血档（源页 26）：标题只有一行，整屏机右下出血","order":["head","left","right"],"tracks":[{"region":"left","share":[0.35,0.40]},{"region":"right","share":[0.60,0.64]}],"headline":[1,1],"carriers":[{"component":"phone","region":"right","width":[52,54]}]},
@@ -10,8 +10,8 @@
         "body-aligned":{"name":"齐列两栏 · 右机","when":"body 齐列档（源页 21）：左卡等高齐列，右机互证","order":["head","left","right","bottom?"],"tracks":[{"region":"left","share":[0.46,0.50]},{"region":"right","share":[0.46,0.50]}],"headline":[1,1],"carriers":[{"component":"phone","region":"right","width":[36,42]}]},
         "body-mn":{"name":"旁注两栏 · 右机","when":"mn 旁注档（源页 28）：左旁注短评、右整机","order":["head","left","right"],"tracks":[{"region":"left","share":[0.42,0.48]},{"region":"right","share":[0.52,0.58]}],"headline":[1,1],"carriers":[{"component":"phone","region":"right","width":[40,43]}]}
       }},
-    "R-cover-02": {"name":"长标题主张页","intent":"标题本身是主张（2-3 行自然折行），左短注右局部图","issue":true,"regions":{"head":{"allow":["h1","sub","kicker"]},"left":{"allow":["text-block","list","ck"]},"right":{"allow":["shot","text-block","phone"]}}},
-    "R-list-01": {"name":"条目+证据页","intent":"左列行式条目（编号/复选/纯行）、右侧一个内容载体","issue":true,"regions":{"head":{"allow":["h1","sub","kicker"]},"left":{"allow":["frow","ck","list","text-block"]},"right":{"allow":["phone","shot","text-block"]},"bottom":{"allow":["text-block","serif","cta","fcard"]}},
+    "R-cover-02": {"name":"长标题主张页","intent":"标题本身是主张（2-3 行自然折行），左短注右局部图","regions":{"head":{"allow":["h1","sub","kicker"]},"left":{"allow":["text-block","list","ck"]},"right":{"allow":["shot","text-block","phone"]}}},
+    "R-list-01": {"name":"条目+证据页","intent":"左列行式条目（编号/复选/纯行）、右侧一个内容载体","regions":{"head":{"allow":["h1","sub","kicker"]},"left":{"allow":["frow","ck","list","text-block"]},"right":{"allow":["phone","shot","text-block"]},"bottom":{"allow":["text-block","serif","cta","fcard"]}},
       "layouts":{
         "frow-phone":{"name":"编号条目 · 右机","when":"源页 05：左列编号行式条目，右整屏机互证","order":["head","left","right"],"tracks":[{"region":"left","share":[0.46,0.50]},{"region":"right","share":[0.46,0.50]}],"headline":[1,1],"carriers":[{"component":"phone","region":"right","width":[36,42]}]},
         "ck-phone":{"name":"复选条目 · 右机","when":"源页 14：左列复选条目，右整屏机互证","order":["head","left","right"],"tracks":[{"region":"left","share":[0.46,0.50]},{"region":"right","share":[0.46,0.50]}],"headline":[1,1],"carriers":[{"component":"phone","region":"right","width":[39,44]}]},
@@ -46,13 +46,13 @@
         "duo-row":{"name":"双图横排","when":"源页 24：两窗并排居中","order":["head","wall","bottom?"],"tracks":[{"region":"wall","share":[0.98,1.0]}],"headline":[1,1]},
         "duo-col":{"name":"双图竖排","when":"源页 25：两窗上下叠排","order":["head","wall","bottom?"],"tracks":[{"region":"wall","share":[0.98,1.0]}],"headline":[1,1]}
       }},
-    "R-phone-01": {"name":"多屏并陈页","intent":"2-3 只整屏并排，屏与屏对照或演进","issue":true,"regions":{"head":{"allow":["h1","sub","kicker"]},"left":{"allow":["phone","shot","text-block"]},"right":{"allow":["phone","shot","text-block"]},"wall":{"allow":["phone","shot","text-block"]},"bottom":{"allow":["text-block","serif","cta","fcard"]}},
+    "R-phone-01": {"name":"多屏并陈页","intent":"2-3 只整屏并排，屏与屏对照或演进","regions":{"head":{"allow":["h1","sub","kicker"]},"left":{"allow":["phone","shot","text-block"]},"right":{"allow":["phone","shot","text-block"]},"wall":{"allow":["phone","shot","text-block"]},"bottom":{"allow":["text-block","serif","cta","fcard"]}},
       "layouts":{
         "duo-cover":{"name":"双机 · 封面档","when":"源页 04：两只整屏左右并陈作开篇，锁高上限","order":["head","left","right","bottom?"],"tracks":[{"region":"left","share":[0.40,0.55]},{"region":"right","share":[0.40,0.55]}],"headline":[1,1],"carriers":[{"component":"phone","region":"left","width":[33,40]},{"component":"phone","region":"right","width":[33,40]}]},
         "duo-labeled":{"name":"双机 · 界面名标签","when":"源页 43：两屏并排，每屏带界面名（h68 弹性档 max68/min63.5）","order":["head","wall","bottom"],"tracks":[{"region":"wall","share":[0.98,1.0]}],"headline":[1,1],"carriers":[{"component":"phone","region":"wall","width":[32,36]}]},
         "trio-labeled":{"name":"三机 · 界面名标签","when":"源页 32：三屏并排成墙，每屏带界面名","order":["head","wall","bottom"],"tracks":[{"region":"wall","share":[0.98,1.0]}],"headline":[1,1],"carriers":[{"component":"phone","region":"wall","width":[26,29]}]}
       }},
-    "R-phone-02": {"name":"独幅大图页","intent":"单一画面主体独占版心，一图说尽","issue":true,"regions":{"head":{"allow":["h1","sub","kicker"]},"hero":{"allow":["shot","phone"]},"full":{"allow":["shot","phone","text-block","ldr"]},"bottom":{"allow":["kicker","h1","sub","text-block","pills"]},"overlay":{"allow":["ghost"]}},
+    "R-phone-02": {"name":"独幅大图页","intent":"单一画面主体独占版心，一图说尽","regions":{"head":{"allow":["h1","sub","kicker"]},"hero":{"allow":["shot","phone"]},"full":{"allow":["shot","phone","text-block","ldr"]},"bottom":{"allow":["kicker","h1","sub","text-block","pills"]},"overlay":{"allow":["ghost"]}},
       "layouts":{
         "hero-bleed":{"name":"出血画面","when":"hero 出血档（源页 42）：整幅画面左右出血作唯一主角；带壳档（phone 锁高）走 free","order":["head","hero","bottom?","overlay?"],"tracks":[{"region":"hero","share":[1.10,1.18]}],"headline":[1,1],"carriers":[{"component":"shot","region":"hero","width":[96,104]}]}
       }},

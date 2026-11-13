@@ -1,23 +1,23 @@
 {
   "purpose": "负例夹具 → 拦截层级 stage → 规则码 索引。索引是生成物：跑完 dev/test-controlled.mjs 归档夹具后执行 node dev/check-negative-index.mjs --write 重建；平时直接运行本脚本对账，任何漂移或套件失败即退出码 1。规则码变更时按此表同步更新对应夹具。",
   "generatedAt": "2026-11-13",
-  "scope": "dev/controlled/controlled-negative-1113-1735",
+  "scope": "dev/controlled/controlled-negative-1113-1905",
   "suite": {
-    "total": 183,
-    "passed": 183,
+    "total": 184,
+    "passed": 184,
     "failed": 0,
     "fontMode": "CDN blocked intentionally: system-font geometric regression, not production font evidence"
   },
   "stages": {
     "lint": 59,
-    "pass": 58,
+    "pass": 59,
     "geometry": 31,
     "load": 26,
     "pipeline": 5,
     "build": 3,
     "direct-probe": 1
   },
-  "count": 183,
+  "count": 184,
   "legend": {
     "blocked": "gate 必须 failed（夹具报告 status=failed）",
     "passed": "正例对照：gate passed，可带 WARN",
@@ -855,7 +855,7 @@
         "BATCH"
       ],
       "warn_rules": [],
-      "first_error": "BATCH: 当前 HTML 与已校验源片段/素材/seed 不一致: /Users/shay/Code/AI/html2png/mine/cover-skill-plan/dev/contro",
+      "first_error": "BATCH: 当前 HTML 与已校验源片段/素材/seed 不一致: D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\controlle",
       "suite_expected": "edited HTML rejected before navigation"
     },
     {
@@ -1156,6 +1156,19 @@
       "suite_expected": "WARN L18"
     },
     {
+      "dir": "inner-page-with-declared-issue",
+      "outcome": "passed",
+      "stage": "pass",
+      "passed": true,
+      "rules": [],
+      "warn_rules": [
+        "FONT",
+        "R7"
+      ],
+      "first_error": null,
+      "suite_expected": "passed"
+    },
+    {
       "dir": "inner-page-without-issue",
       "outcome": "passed",
       "stage": "pass",
@@ -1177,7 +1190,7 @@
         "BATCH"
       ],
       "warn_rules": [],
-      "first_error": "BATCH: 无法读取 JSON /Users/shay/Code/AI/html2png/mine/cover-skill-plan/dev/controlled/controlled-neg",
+      "first_error": "BATCH: 无法读取 JSON D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\controlled-negative-1113-190",
       "suite_expected": "输入错误轮转上一轮报告并写出合法 JSON（不因缺少全局 crypto 抛错）"
     },
     {
@@ -1203,7 +1216,7 @@
         "L6"
       ],
       "warn_rules": [],
-      "first_error": "p01 L6: 计划未提供 meta.issue，期号骨架不得自行编造文字",
+      "first_error": "p01 L6: 计划未声明 issue，页眉不得出现期号（期号资格归登记卡矩阵，封面档在计划 pages[].issue 声明）",
       "suite_expected": "L6"
     },
     {
@@ -1242,8 +1255,8 @@
         "L6"
       ],
       "warn_rules": [],
-      "first_error": "p01 L6: 配方 R-note-01 不是封面系列，页眉不得出现期号",
-      "suite_expected": "封面系列"
+      "first_error": "p01 L6: 计划未声明 issue，页眉不得出现期号（期号资格归登记卡矩阵，封面档在计划 pages[].issue 声明）",
+      "suite_expected": "计划未声明 issue"
     },
     {
       "dir": "issue-outside-skeleton",
@@ -1512,7 +1525,7 @@
         "BATCH"
       ],
       "warn_rules": [],
-      "first_error": "BATCH: 缺少计划页源文件: /Users/shay/Code/AI/html2png/mine/cover-skill-plan/dev/controlled/controlled-neg",
+      "first_error": "BATCH: 缺少计划页源文件: D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\controlled-negative-1113-190",
       "suite_expected": "缺少计划页"
     },
     {
@@ -2265,7 +2278,7 @@
         "BATCH"
       ],
       "warn_rules": [],
-      "first_error": "BATCH: 输出目录含非本次计划页 99.html；请使用新输出目录，工具不会删除历史产物: /Users/shay/Code/AI/html2png/mine/cover-skill-pla",
+      "first_error": "BATCH: 输出目录含非本次计划页 99.html；请使用新输出目录，工具不会删除历史产物: D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controll",
       "suite_expected": "非本次计划页"
     },
     {
@@ -2341,7 +2354,7 @@
         "L16",
         "R7"
       ],
-      "first_error": "p01 R15: 时间线步骤 step-1 内部拉伸余量 20.6cqw（>12cqw）：内容撑不满行高",
+      "first_error": "p01 R15: 时间线步骤 step-1 内部拉伸余量 21.6cqw（>12cqw）：内容撑不满行高",
       "suite_expected": "内部拉伸余量"
     },
     {

@@ -1,0 +1,3398 @@
+{
+  "generatedAt": "2026-11-13T11:06:34.892Z",
+  "fontMode": "CDN blocked intentionally: system-font geometric regression, not production font evidence",
+  "total": 184,
+  "passed": 184,
+  "failed": 0,
+  "results": [
+    {
+      "name": "atomic-component",
+      "passed": true,
+      "expected": "passed",
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "name": "inline-flex-layout",
+      "passed": true,
+      "expected": "passed",
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "name": "natural-wrap",
+      "passed": true,
+      "expected": "passed",
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "name": "no-heading-region",
+      "passed": true,
+      "expected": "passed",
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "name": "script",
+      "passed": true,
+      "expected": "L0",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L0",
+          "msg": "禁止标签/命名空间: <script>"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L9",
+          "msg": "可见业务文字未标记文字叶: throw new Error(\"must not run\")"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L8",
+          "msg": "可见文字没有来源: throw new Error(\"must not run\")"
+        }
+      ]
+    },
+    {
+      "name": "event-attribute",
+      "passed": true,
+      "expected": "L0",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L0",
+          "msg": "<main> 禁止属性 onclick"
+        }
+      ]
+    },
+    {
+      "name": "encoded-url",
+      "passed": true,
+      "expected": "L0",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L0",
+          "msg": "不安全的图片来源: javascript:void(0)"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L11",
+          "msg": "图片必须归属显式组件根：data-decoration 只免来源检查，不豁免几何检查"
+        }
+      ]
+    },
+    {
+      "name": "srcdoc",
+      "passed": true,
+      "expected": "L0",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L0",
+          "msg": "禁止标签/命名空间: <iframe>"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L0",
+          "msg": "<iframe> 禁止属性 srcdoc"
+        }
+      ]
+    },
+    {
+      "name": "css-url",
+      "passed": true,
+      "expected": "L0",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L0",
+          "msg": "内联 style 包含动态代码、CSS URL、转义或动画"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L0",
+          "msg": "非静态 CSS: background-image"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L17",
+          "msg": "<p> 用内联 style 覆盖了外观属性 background-image：颜色、字体、边框与质感只由种子给出，本页只调布局、尺寸、间距、定位、裁切与构图"
+        }
+      ]
+    },
+    {
+      "name": "css-escaped-url",
+      "passed": true,
+      "expected": "L0",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L0",
+          "msg": "内联 style 包含动态代码、CSS URL、转义或动画"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L0",
+          "msg": "非静态 CSS: background-image"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L17",
+          "msg": "<p> 用内联 style 覆盖了外观属性 background：颜色、字体、边框与质感只由种子给出，本页只调布局、尺寸、间距、定位、裁切与构图"
+        }
+      ]
+    },
+    {
+      "name": "active-svg",
+      "passed": true,
+      "expected": "L0",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L0",
+          "msg": "禁止标签/命名空间: <svg>"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L0",
+          "msg": "禁止标签/命名空间: <script>"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L9",
+          "msg": "可见业务文字未标记文字叶: void(0)"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L8",
+          "msg": "可见文字没有来源: void(0)"
+        }
+      ]
+    },
+    {
+      "name": "traversal",
+      "passed": true,
+      "expected": "L0",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L0",
+          "msg": "不安全的图片来源: assets/../private.png"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L11",
+          "msg": "图片必须归属显式组件根：data-decoration 只免来源检查，不豁免几何检查"
+        }
+      ]
+    },
+    {
+      "name": "fixed-position",
+      "passed": true,
+      "expected": "L0",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L0",
+          "msg": "静态卡片不使用 fixed 定位或视口单位"
+        }
+      ]
+    },
+    {
+      "name": "missing-provenance",
+      "passed": true,
+      "expected": "L8",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L8",
+          "msg": "文字叶缺少 data-from: 清楚表达"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L8",
+          "msg": "可见文字没有来源: 清楚表达"
+        }
+      ]
+    },
+    {
+      "name": "unknown-source",
+      "passed": true,
+      "expected": "L8",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L8",
+          "msg": "pool 不存在资产: missing"
+        }
+      ]
+    },
+    {
+      "name": "unused-source",
+      "passed": true,
+      "expected": "L10",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L10",
+          "msg": "资产 h1 不在本页 uses"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L10",
+          "msg": "资产 h1 不在本页 uses"
+        }
+      ]
+    },
+    {
+      "name": "unsupported-number",
+      "passed": true,
+      "expected": "L8",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L8",
+          "msg": "data-from=\"h1\" 的数字 999 不在所属资产中"
+        }
+      ]
+    },
+    {
+      "name": "duplicate-id",
+      "passed": true,
+      "expected": "L9",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L9",
+          "msg": "重复图层 id: main-copy"
+        }
+      ]
+    },
+    {
+      "name": "disallowed-component",
+      "passed": true,
+      "expected": "L11",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L11",
+          "msg": "区域 right 不允许组件 qa"
+        }
+      ]
+    },
+    {
+      "name": "disallowed-region",
+      "passed": true,
+      "expected": "L11",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L11",
+          "msg": "区域 wall 不允许组件 text-block"
+        }
+      ]
+    },
+    {
+      "name": "nested-components",
+      "passed": true,
+      "expected": "L11",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L11",
+          "msg": "组件 text-block 不得嵌套在另一组件内"
+        }
+      ]
+    },
+    {
+      "name": "two-overlapping-phones",
+      "passed": true,
+      "expected": "R2",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "R2",
+          "msg": "独立组件重叠: phone-a ↔ phone-b",
+          "a": "phone-a",
+          "b": "phone-b",
+          "kind": "component"
+        }
+      ]
+    },
+    {
+      "name": "overlapping-text",
+      "passed": true,
+      "expected": "R2",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "R2",
+          "msg": "独立组件重叠: copy-a ↔ copy-b",
+          "a": "copy-a",
+          "b": "copy-b",
+          "kind": "component"
+        },
+        {
+          "level": "ERROR",
+          "rule": "R2",
+          "msg": "文字互压: copy-a ↔ copy-b",
+          "a": "copy-a",
+          "b": "copy-b",
+          "kind": "text"
+        }
+      ]
+    },
+    {
+      "name": "text-clipped",
+      "passed": true,
+      "expected": "R3",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "R3",
+          "msg": "文字被 main-copy 裁切: main-copy",
+          "layer": "main-copy"
+        }
+      ]
+    },
+    {
+      "name": "oneline-wrap",
+      "passed": true,
+      "expected": "R8",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "R8",
+          "msg": "明确单行文字折为 2 行: main-copy"
+        }
+      ]
+    },
+    {
+      "name": "region-overflow",
+      "passed": true,
+      "expected": "R1",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "R1",
+          "msg": "main-copy 越出所属区域 right",
+          "layer": "main-copy",
+          "sides": {
+            "left": false,
+            "right": false,
+            "top": true,
+            "bottom": false
+          }
+        },
+        {
+          "level": "ERROR",
+          "rule": "R2",
+          "msg": "独立组件重叠: headline ↔ main-copy",
+          "a": "headline",
+          "b": "main-copy",
+          "kind": "component"
+        },
+        {
+          "level": "ERROR",
+          "rule": "R2",
+          "msg": "文字互压: headline ↔ main-copy",
+          "a": "headline",
+          "b": "main-copy",
+          "kind": "text"
+        }
+      ]
+    },
+    {
+      "name": "footer-covered",
+      "passed": true,
+      "expected": "R1",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "R1",
+          "msg": "main-copy 越出所属区域 right",
+          "layer": "main-copy",
+          "sides": {
+            "left": false,
+            "right": false,
+            "top": false,
+            "bottom": true
+          }
+        },
+        {
+          "level": "ERROR",
+          "rule": "R1",
+          "msg": "main-copy 进入实际 footer 保护区",
+          "layer": "main-copy",
+          "footer": {
+            "x": 71.265625,
+            "y": 1347.640625,
+            "w": 937.46875,
+            "h": 47
+          }
+        },
+        {
+          "level": "ERROR",
+          "rule": "R1",
+          "msg": "main-copy 覆盖 footer 文字（data-bleed 不豁免）",
+          "layer": "main-copy"
+        }
+      ]
+    },
+    {
+      "name": "missing-image",
+      "passed": true,
+      "expected": "缺少本地素材",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "01: 缺少本地素材 assets/missing.png；检查 src/assets、work/assets 或 out/assets"
+        }
+      ]
+    },
+    {
+      "name": "corrupt-image",
+      "passed": true,
+      "expected": "R4",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "R4",
+          "msg": "图片未加载/损坏: corrupt-image",
+          "layer": "corrupt-image"
+        }
+      ]
+    },
+    {
+      "name": "format-mismatch",
+      "passed": true,
+      "expected": "扩展名",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "01: 素材扩展名与实际格式不一致: assets/fake.jpg"
+        }
+      ]
+    },
+    {
+      "name": "stale-output",
+      "passed": true,
+      "expected": "非本次计划页",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "输出目录含非本次计划页 99.html；请使用新输出目录，工具不会删除历史产物: D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\controlled-negative-1113-1905\\stale-output\\out"
+        }
+      ]
+    },
+    {
+      "name": "unplanned-source",
+      "passed": true,
+      "expected": "计划外页面",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "源目录含计划外页面: p99.part.html"
+        }
+      ]
+    },
+    {
+      "name": "missing-plan-page",
+      "passed": true,
+      "expected": "缺少计划页",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "缺少计划页源文件: D:\\AI\\html2png\\mine\\cover-skill-plan\\dev\\controlled\\controlled-negative-1113-1905\\missing-plan-page\\work\\src\\p02.part.html"
+        }
+      ]
+    },
+    {
+      "name": "duplicate-plan-page",
+      "passed": true,
+      "expected": "页号重复",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "plan 页号重复: 01"
+        }
+      ]
+    },
+    {
+      "name": "wrong-style",
+      "passed": true,
+      "expected": "meta",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "plan.meta 必须包含匹配的 style 以及 brand / issue 字符串"
+        }
+      ]
+    },
+    {
+      "name": "missing-evidence",
+      "passed": true,
+      "expected": "evidence",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "每个内容资产必须包含非空 id / text / evidence / source"
+        }
+      ]
+    },
+    {
+      "name": "issue-missing-from-skeleton",
+      "passed": true,
+      "expected": "L6",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L6",
+          "msg": "计划 meta.issue 为 第 07 期，封面骨架缺少 .issue"
+        }
+      ]
+    },
+    {
+      "name": "issue-mismatch",
+      "passed": true,
+      "expected": "L6",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L6",
+          "msg": ".issue 与计划 meta.issue 不一致"
+        }
+      ]
+    },
+    {
+      "name": "issue-fabricated",
+      "passed": true,
+      "expected": "L6",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L6",
+          "msg": "计划未声明 issue，页眉不得出现期号（期号资格归登记卡矩阵，封面档在计划 pages[].issue 声明）"
+        }
+      ]
+    },
+    {
+      "name": "issue-outside-skeleton",
+      "passed": true,
+      "expected": "L6",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L6",
+          "msg": ".issue 期号只能放在 .page-header 骨架内"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L6",
+          "msg": "计划 meta.issue 为 第 07 期，封面骨架缺少 .issue"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L9",
+          "msg": "可见业务文字未标记文字叶: 第 07 期"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L8",
+          "msg": "可见文字没有来源: 第 07 期"
+        }
+      ]
+    },
+    {
+      "name": "issue-without-layer",
+      "passed": true,
+      "expected": "L9",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L9",
+          "msg": ".issue 期号缺少 data-layer"
+        }
+      ]
+    },
+    {
+      "name": "issue-on-inner-page",
+      "passed": true,
+      "expected": "计划未声明 issue",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L6",
+          "msg": "计划未声明 issue，页眉不得出现期号（期号资格归登记卡矩阵，封面档在计划 pages[].issue 声明）"
+        }
+      ]
+    },
+    {
+      "name": "inner-page-with-declared-issue",
+      "passed": true,
+      "expected": "passed",
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "name": "inner-page-without-issue",
+      "passed": true,
+      "expected": "passed",
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "name": "ghost-on-cover",
+      "passed": true,
+      "expected": "L11",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L11",
+          "msg": "区域 overlay 不允许组件 ghost"
+        }
+      ]
+    },
+    {
+      "name": "ghost-on-inner-page",
+      "passed": true,
+      "expected": "passed",
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "name": "overlay-inside-body",
+      "passed": true,
+      "expected": "overlay 区域必须是 .p-page 的直接子级",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L21",
+          "msg": "overlay 区域必须是 .p-page 的直接子级：ghost 的 right/bottom 锚点才唯一，落在正文里会随区域漂移"
+        }
+      ]
+    },
+    {
+      "name": "phone-count-over-cap",
+      "passed": true,
+      "expected": "R10",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "R10",
+          "msg": "wall-phone-1 声明比例 910/1806 被压成 0.415（相差 21.5%）",
+          "layer": "wall-phone-1",
+          "box": {
+            "x": 71.265625,
+            "y": 459.21875,
+            "w": 214.9375,
+            "h": 518.390625
+          },
+          "hint": "区域过窄或过矮：换更宽/更高的区域或减少同区内容，不要靠拉伸素材"
+        },
+        {
+          "level": "ERROR",
+          "rule": "R10",
+          "msg": "wall-phone-2 声明比例 910/1806 被压成 0.415（相差 21.5%）",
+          "layer": "wall-phone-2",
+          "box": {
+            "x": 312.109375,
+            "y": 459.21875,
+            "w": 214.9375,
+            "h": 518.390625
+          },
+          "hint": "区域过窄或过矮：换更宽/更高的区域或减少同区内容，不要靠拉伸素材"
+        },
+        {
+          "level": "ERROR",
+          "rule": "R10",
+          "msg": "wall-phone-3 声明比例 910/1806 被压成 0.415（相差 21.5%）",
+          "layer": "wall-phone-3",
+          "box": {
+            "x": 552.953125,
+            "y": 459.21875,
+            "w": 214.9375,
+            "h": 518.390625
+          },
+          "hint": "区域过窄或过矮：换更宽/更高的区域或减少同区内容，不要靠拉伸素材"
+        },
+        {
+          "level": "ERROR",
+          "rule": "R10",
+          "msg": "wall-phone-4 声明比例 910/1806 被压成 0.415（相差 21.5%）",
+          "layer": "wall-phone-4",
+          "box": {
+            "x": 793.796875,
+            "y": 459.21875,
+            "w": 214.9375,
+            "h": 518.390625
+          },
+          "hint": "区域过窄或过矮：换更宽/更高的区域或减少同区内容，不要靠拉伸素材"
+        }
+      ]
+    },
+    {
+      "name": "phone-count-at-cap",
+      "passed": true,
+      "expected": "passed",
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "name": "aspect-ratio-crushed",
+      "passed": true,
+      "expected": "R10",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "R10",
+          "msg": "crushed-phone 声明比例 910/1806 被压成 0.625（相差 24.0%）",
+          "layer": "crushed-phone",
+          "box": {
+            "x": 71.265625,
+            "y": 294.15625,
+            "w": 324,
+            "h": 518.390625
+          },
+          "hint": "区域过窄或过矮：换更宽/更高的区域或减少同区内容，不要靠拉伸素材"
+        }
+      ]
+    },
+    {
+      "name": "require-step-missing",
+      "passed": true,
+      "expected": "passed",
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "name": "require-step-present",
+      "passed": true,
+      "expected": "passed",
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "name": "require-serif-missing",
+      "passed": true,
+      "expected": "passed",
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "name": "require-serif-present",
+      "passed": true,
+      "expected": "passed",
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "name": "require-ba-missing",
+      "passed": true,
+      "expected": "passed",
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "name": "require-ba-present",
+      "passed": true,
+      "expected": "passed",
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "name": "require-qa-missing",
+      "passed": true,
+      "expected": "passed",
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "name": "require-qa-present",
+      "passed": true,
+      "expected": "passed",
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "name": "require-cta-missing",
+      "passed": true,
+      "expected": "passed",
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "name": "require-cta-present",
+      "passed": true,
+      "expected": "passed",
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "name": "require-any-allowed-region",
+      "passed": true,
+      "expected": "passed",
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "name": "anyof-card02-missing",
+      "passed": true,
+      "expected": "passed",
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "name": "anyof-wall01-missing",
+      "passed": true,
+      "expected": "passed",
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "name": "anyof-list02-missing",
+      "passed": true,
+      "expected": "passed",
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "name": "anyof-data01-missing",
+      "passed": true,
+      "expected": "passed",
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "name": "wall01-phone-only-rejected",
+      "passed": true,
+      "expected": "passed",
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "name": "anyof-wall01-shot-only",
+      "passed": true,
+      "expected": "passed",
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "name": "anyof-group-invisible",
+      "passed": true,
+      "expected": "R12",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "R12",
+          "msg": "正文为空或不可见：main.body 内没有可见组件",
+          "body": {
+            "x": 71.265625,
+            "y": 294.15625,
+            "w": 937.46875,
+            "h": 1012.453125
+          }
+        }
+      ]
+    },
+    {
+      "name": "form-hero-missing",
+      "passed": true,
+      "expected": "passed",
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "name": "form-marked-missing",
+      "passed": true,
+      "expected": "passed",
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "name": "form-split-missing",
+      "passed": true,
+      "expected": "passed",
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "name": "form-plain-serif",
+      "passed": true,
+      "expected": "passed",
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "name": "hidden-body",
+      "passed": true,
+      "expected": "R12",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "R12",
+          "msg": "正文为空或不可见：main.body 内没有可见组件",
+          "body": {
+            "x": 0,
+            "y": 0,
+            "w": 0,
+            "h": 0
+          }
+        }
+      ]
+    },
+    {
+      "name": "decoration-with-text-leaf",
+      "passed": true,
+      "expected": "不得携带文字叶",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L8",
+          "msg": "data-decoration 不得携带文字叶 data-editable"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L11",
+          "msg": "业务文字必须归属显式组件根"
+        }
+      ]
+    },
+    {
+      "name": "decoration-long-text",
+      "passed": true,
+      "expected": "data-decoration 文本超过",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L8",
+          "msg": "data-decoration 文本超过 8 字符，业务文案请走组件与 data-from"
+        }
+      ]
+    },
+    {
+      "name": "numbering-long-text",
+      "passed": true,
+      "expected": "data-numbering 只放",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L8",
+          "msg": "data-numbering 只放 8 字符内的短序号，业务文案请走组件与 data-from"
+        }
+      ]
+    },
+    {
+      "name": "hidden-display-override",
+      "passed": true,
+      "expected": "L9",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L9",
+          "msg": "可见业务文字未标记文字叶: 未标记的隐藏文字"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L8",
+          "msg": "可见文字没有来源: 未标记的隐藏文字"
+        }
+      ]
+    },
+    {
+      "name": "hidden-without-override",
+      "passed": true,
+      "expected": "passed",
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "name": "brand-mismatch",
+      "passed": true,
+      "expected": ".brand 与计划 meta.brand 不一致",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L6",
+          "msg": ".brand 与计划 meta.brand 不一致"
+        }
+      ]
+    },
+    {
+      "name": "require-invisible",
+      "passed": true,
+      "expected": "R12",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "R12",
+          "msg": "正文为空或不可见：main.body 内没有可见组件",
+          "body": {
+            "x": 71.265625,
+            "y": 294.15625,
+            "w": 937.46875,
+            "h": 1012.453125
+          }
+        }
+      ]
+    },
+    {
+      "name": "form-shape-invisible",
+      "passed": true,
+      "expected": "passed",
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "name": "dark-class-without-plan",
+      "passed": true,
+      "expected": "L6",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L6",
+          "msg": "计划未标 dark，画布根不得带 .dark 配色"
+        }
+      ]
+    },
+    {
+      "name": "dark-plan-without-class",
+      "passed": true,
+      "expected": "缺少 .dark",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L6",
+          "msg": "计划标了 dark，画布根缺少 .dark 配色"
+        }
+      ]
+    },
+    {
+      "name": "dark-flag-and-class-agree",
+      "passed": true,
+      "expected": "passed",
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "name": "b6-fabricated-unit-and-prose",
+      "passed": true,
+      "expected": "L14",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L14",
+          "msg": "数字 50 的单位 倍 与所引资产不符（资产为 元）：效率提升 50 倍"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L15",
+          "msg": "data-from=\"d1\" 的文案与 data 资产 text 不一致：页面「效率提升 50 倍」／资产「甲功能 50 元，乙功能 100 元」"
+        }
+      ]
+    },
+    {
+      "name": "b6-data-mismatch-reported",
+      "passed": true,
+      "expected": "L15",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L14",
+          "msg": "数字 50 的单位 倍 与所引资产不符（资产为 元）：效率提升 50 倍"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L15",
+          "msg": "data-from=\"d1\" 的文案与 data 资产 text 不一致：页面「效率提升 50 倍」／资产「甲功能 50 元，乙功能 100 元」"
+        }
+      ]
+    },
+    {
+      "name": "b6-data-literal",
+      "passed": true,
+      "expected": "passed",
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "name": "b6-data-substring",
+      "passed": true,
+      "expected": "passed",
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "name": "b6-quote-literal",
+      "passed": true,
+      "expected": "passed",
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "name": "b6-quote-fabricated",
+      "passed": true,
+      "expected": "L15",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L15",
+          "msg": "data-from=\"q1\" 的文案与 quotes 资产 text 不一致：页面「效率提升十倍」／资产「让表达改变，让证据留下。」"
+        }
+      ]
+    },
+    {
+      "name": "b6-quote-paraphrase-marked",
+      "passed": true,
+      "expected": "WARN L15",
+      "status": "passed",
+      "warnings": [
+        {
+          "level": "WARN",
+          "rule": "FONT",
+          "msg": "同进程不保证整批字体一致；各页 fonts.actual / faces 已记录，请核对实际 face"
+        },
+        {
+          "level": "WARN",
+          "rule": "L15",
+          "msg": "data-from=\"q1\" 的文案与 quotes 资产 text 不一致：页面「换一种说法写这句」／资产「让表达改变，让证据留下。」；资产已标注 paraphrase，仅告警"
+        },
+        {
+          "level": "WARN",
+          "rule": "R7",
+          "msg": "留白/密度仅供人工目检，不作为失败条件",
+          "bands": [
+            {
+              "band": 1,
+              "coveredPx": 185,
+              "emptyPx": 175
+            },
+            {
+              "band": 2,
+              "coveredPx": 0,
+              "emptyPx": 360
+            },
+            {
+              "band": 3,
+              "coveredPx": 0,
+              "emptyPx": 360
+            },
+            {
+              "band": 4,
+              "coveredPx": 23,
+              "emptyPx": 337
+            }
+          ]
+        },
+        {
+          "level": "WARN",
+          "rule": "FONT",
+          "msg": "@font-face 声明 105 个分片，加载成功 0 个：文字按系统回退渲染，请按 fonts.actual 核对实际字体"
+        }
+      ]
+    },
+    {
+      "name": "b6-prose-polish-warn",
+      "passed": true,
+      "expected": "WARN L16",
+      "status": "passed",
+      "warnings": [
+        {
+          "level": "WARN",
+          "rule": "FONT",
+          "msg": "同进程不保证整批字体一致；各页 fonts.actual / faces 已记录，请核对实际 face"
+        },
+        {
+          "level": "WARN",
+          "rule": "L16",
+          "msg": "data-from=\"h1\" 的文案与所引资产没有文字重叠，请目检：完全不相干的另一句话"
+        },
+        {
+          "level": "WARN",
+          "rule": "R7",
+          "msg": "留白/密度仅供人工目检，不作为失败条件",
+          "bands": [
+            {
+              "band": 1,
+              "coveredPx": 185,
+              "emptyPx": 175
+            },
+            {
+              "band": 2,
+              "coveredPx": 0,
+              "emptyPx": 360
+            },
+            {
+              "band": 3,
+              "coveredPx": 0,
+              "emptyPx": 360
+            },
+            {
+              "band": 4,
+              "coveredPx": 23,
+              "emptyPx": 337
+            }
+          ]
+        },
+        {
+          "level": "WARN",
+          "rule": "FONT",
+          "msg": "@font-face 声明 105 个分片，加载成功 0 个：文字按系统回退渲染，请按 fonts.actual 核对实际字体"
+        }
+      ]
+    },
+    {
+      "name": "b6-unit-mismatch-on-prose",
+      "passed": true,
+      "expected": "L14",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L14",
+          "msg": "数字 50 的单位 倍 与所引资产不符（资产为 元）：提升 50 倍"
+        }
+      ]
+    },
+    {
+      "name": "b6-unit-match-on-prose",
+      "passed": true,
+      "expected": "passed",
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "name": "b6-multi-source-no-strict",
+      "passed": true,
+      "expected": "passed",
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "name": "uses-listed-but-unused",
+      "passed": true,
+      "expected": "uses 列了资产 d1",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L10",
+          "msg": "uses 列了资产 d1，但本页没有 data-from 引用它"
+        }
+      ]
+    },
+    {
+      "name": "dark-not-boolean",
+      "passed": true,
+      "expected": "loadProject 拒绝：dark 只能是 true 或缺省",
+      "message": "01: pages[].dark 只能是 true 或缺省",
+      "restoredHash": ""
+    },
+    {
+      "name": "require-belongs-to-recipe",
+      "passed": true,
+      "expected": "loadProject 拒绝：仍写着 require：组件下限归登记卡",
+      "message": "配方 R-step-01 区域 full 仍写着 require：组件下限归登记卡，区域只管允许",
+      "restoredHash": "2bcf62635700"
+    },
+    {
+      "name": "orphan-pool-asset",
+      "passed": true,
+      "expected": "loadProject 拒绝：池里存在未被任何页面引用的资产",
+      "message": "池里存在未被任何页面引用的资产: orphan；删掉或给它找到用法",
+      "restoredHash": ""
+    },
+    {
+      "name": "bleed-inside-interior-region",
+      "passed": true,
+      "expected": "R1",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "R1",
+          "msg": "interior-bleed 越出所属区域 right",
+          "layer": "interior-bleed",
+          "sides": {
+            "left": true,
+            "right": false,
+            "top": false,
+            "bottom": false
+          }
+        },
+        {
+          "level": "ERROR",
+          "rule": "R1",
+          "msg": "interior-screen 越出所属区域 right",
+          "layer": "interior-screen",
+          "sides": {
+            "left": true,
+            "right": false,
+            "top": false,
+            "bottom": false
+          }
+        },
+        {
+          "level": "ERROR",
+          "rule": "R1",
+          "msg": "interior-frame 越出所属区域 right",
+          "layer": "interior-frame",
+          "sides": {
+            "left": true,
+            "right": false,
+            "top": false,
+            "bottom": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "footer-slogan-untracked",
+      "passed": true,
+      "expected": "L8",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L8",
+          "msg": "文字叶缺少 data-from: 全网最低价"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L8",
+          "msg": "可见文字没有来源: 全网最低价"
+        }
+      ]
+    },
+    {
+      "name": "footer-slogan-sourced",
+      "passed": true,
+      "expected": "passed",
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "name": "brand-extra-text-untracked",
+      "passed": true,
+      "expected": "L8",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L8",
+          "msg": "文字叶缺少 data-from: 全网最低价"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L8",
+          "msg": "可见文字没有来源: 全网最低价"
+        }
+      ]
+    },
+    {
+      "name": "appearance-color",
+      "passed": true,
+      "expected": "L17",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L17",
+          "msg": "<p> 用内联 style 覆盖了外观属性 color：颜色、字体、边框与质感只由种子给出，本页只调布局、尺寸、间距、定位、裁切与构图"
+        }
+      ]
+    },
+    {
+      "name": "appearance-background",
+      "passed": true,
+      "expected": "L17",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L17",
+          "msg": "<p> 用内联 style 覆盖了外观属性 background：颜色、字体、边框与质感只由种子给出，本页只调布局、尺寸、间距、定位、裁切与构图"
+        }
+      ]
+    },
+    {
+      "name": "appearance-background-color",
+      "passed": true,
+      "expected": "L17",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L17",
+          "msg": "<p> 用内联 style 覆盖了外观属性 background-color：颜色、字体、边框与质感只由种子给出，本页只调布局、尺寸、间距、定位、裁切与构图"
+        }
+      ]
+    },
+    {
+      "name": "appearance-font-family",
+      "passed": true,
+      "expected": "L17",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L17",
+          "msg": "<p> 用内联 style 覆盖了外观属性 font-family：颜色、字体、边框与质感只由种子给出，本页只调布局、尺寸、间距、定位、裁切与构图"
+        }
+      ]
+    },
+    {
+      "name": "appearance-font-size",
+      "passed": true,
+      "expected": "L17",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L17",
+          "msg": "<p> 用内联 style 覆盖了外观属性 font-size：颜色、字体、边框与质感只由种子给出，本页只调布局、尺寸、间距、定位、裁切与构图"
+        }
+      ]
+    },
+    {
+      "name": "appearance-font-weight",
+      "passed": true,
+      "expected": "L17",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L17",
+          "msg": "<p> 用内联 style 覆盖了外观属性 font-weight：颜色、字体、边框与质感只由种子给出，本页只调布局、尺寸、间距、定位、裁切与构图"
+        }
+      ]
+    },
+    {
+      "name": "appearance-border",
+      "passed": true,
+      "expected": "L17",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L17",
+          "msg": "<p> 用内联 style 覆盖了外观属性 border：颜色、字体、边框与质感只由种子给出，本页只调布局、尺寸、间距、定位、裁切与构图"
+        }
+      ]
+    },
+    {
+      "name": "appearance-border-radius",
+      "passed": true,
+      "expected": "L17",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L17",
+          "msg": "<p> 用内联 style 覆盖了外观属性 border-radius：颜色、字体、边框与质感只由种子给出，本页只调布局、尺寸、间距、定位、裁切与构图"
+        }
+      ]
+    },
+    {
+      "name": "appearance-box-shadow",
+      "passed": true,
+      "expected": "L17",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L17",
+          "msg": "<p> 用内联 style 覆盖了外观属性 box-shadow：颜色、字体、边框与质感只由种子给出，本页只调布局、尺寸、间距、定位、裁切与构图"
+        }
+      ]
+    },
+    {
+      "name": "appearance-text-shadow",
+      "passed": true,
+      "expected": "L17",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L17",
+          "msg": "<p> 用内联 style 覆盖了外观属性 text-shadow：颜色、字体、边框与质感只由种子给出，本页只调布局、尺寸、间距、定位、裁切与构图"
+        }
+      ]
+    },
+    {
+      "name": "appearance-seed-variable",
+      "passed": true,
+      "expected": "L17",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L17",
+          "msg": "<p> 用内联 style 声明自定义属性 --paper：外观取值只由种子给出"
+        }
+      ]
+    },
+    {
+      "name": "inline-unknown-property",
+      "passed": true,
+      "expected": "WARN L18",
+      "status": "passed",
+      "warnings": [
+        {
+          "level": "WARN",
+          "rule": "FONT",
+          "msg": "同进程不保证整批字体一致；各页 fonts.actual / faces 已记录，请核对实际 face"
+        },
+        {
+          "level": "WARN",
+          "rule": "L18",
+          "msg": "<p> 内联 style 的属性 mrgin-top 不在本页允许的布局清单里，请确认拼写与用途"
+        },
+        {
+          "level": "WARN",
+          "rule": "R7",
+          "msg": "留白/密度仅供人工目检，不作为失败条件",
+          "bands": [
+            {
+              "band": 1,
+              "coveredPx": 185,
+              "emptyPx": 175
+            },
+            {
+              "band": 2,
+              "coveredPx": 0,
+              "emptyPx": 360
+            },
+            {
+              "band": 3,
+              "coveredPx": 0,
+              "emptyPx": 360
+            },
+            {
+              "band": 4,
+              "coveredPx": 23,
+              "emptyPx": 337
+            }
+          ]
+        },
+        {
+          "level": "WARN",
+          "rule": "FONT",
+          "msg": "@font-face 声明 105 个分片，加载成功 0 个：文字按系统回退渲染，请按 fonts.actual 核对实际字体"
+        }
+      ]
+    },
+    {
+      "name": "phone-wall-without-caption",
+      "passed": true,
+      "expected": "passed",
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "name": "phone-wall-without-cell",
+      "passed": true,
+      "expected": "R1",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "R1",
+          "msg": "wall-phone-1 越出所属区域 wall",
+          "layer": "wall-phone-1",
+          "sides": {
+            "left": false,
+            "right": false,
+            "top": true,
+            "bottom": false
+          }
+        },
+        {
+          "level": "ERROR",
+          "rule": "R1",
+          "msg": "wall-phone-1 覆盖 brand 文字（data-bleed 不豁免）",
+          "layer": "wall-phone-1"
+        },
+        {
+          "level": "ERROR",
+          "rule": "R1",
+          "msg": "wall-phone-2 越出画布",
+          "layer": "wall-phone-2",
+          "bounds": {
+            "x": 71.265625,
+            "y": 578.4375,
+            "w": 455.78125,
+            "h": 904.546875
+          }
+        },
+        {
+          "level": "ERROR",
+          "rule": "R1",
+          "msg": "wall-phone-2 越出所属区域 wall",
+          "layer": "wall-phone-2",
+          "sides": {
+            "left": false,
+            "right": false,
+            "top": false,
+            "bottom": true
+          }
+        },
+        {
+          "level": "ERROR",
+          "rule": "R1",
+          "msg": "wall-phone-2 进入实际 footer 保护区",
+          "layer": "wall-phone-2",
+          "footer": {
+            "x": 71.265625,
+            "y": 1347.640625,
+            "w": 937.46875,
+            "h": 47
+          }
+        },
+        {
+          "level": "ERROR",
+          "rule": "R1",
+          "msg": "wall-phone-2 覆盖 footer 文字（data-bleed 不豁免）",
+          "layer": "wall-phone-2"
+        },
+        {
+          "level": "ERROR",
+          "rule": "R1",
+          "msg": "wall-phone-1-screen 越出所属区域 wall",
+          "layer": "wall-phone-1-screen",
+          "sides": {
+            "left": false,
+            "right": false,
+            "top": true,
+            "bottom": false
+          }
+        },
+        {
+          "level": "ERROR",
+          "rule": "R1",
+          "msg": "wall-phone-1-screen 覆盖 brand 文字（data-bleed 不豁免）",
+          "layer": "wall-phone-1-screen"
+        },
+        {
+          "level": "ERROR",
+          "rule": "R1",
+          "msg": "wall-phone-2-screen 越出画布",
+          "layer": "wall-phone-2-screen",
+          "bounds": {
+            "x": 105.8125,
+            "y": 612.984375,
+            "w": 386.171875,
+            "h": 834.890625
+          }
+        },
+        {
+          "level": "ERROR",
+          "rule": "R1",
+          "msg": "wall-phone-2-screen 越出所属区域 wall",
+          "layer": "wall-phone-2-screen",
+          "sides": {
+            "left": false,
+            "right": false,
+            "top": false,
+            "bottom": true
+          }
+        },
+        {
+          "level": "ERROR",
+          "rule": "R1",
+          "msg": "wall-phone-2-screen 进入实际 footer 保护区",
+          "layer": "wall-phone-2-screen",
+          "footer": {
+            "x": 71.265625,
+            "y": 1347.640625,
+            "w": 937.46875,
+            "h": 47
+          }
+        },
+        {
+          "level": "ERROR",
+          "rule": "R1",
+          "msg": "wall-phone-2-screen 覆盖 footer 文字（data-bleed 不豁免）",
+          "layer": "wall-phone-2-screen"
+        },
+        {
+          "level": "ERROR",
+          "rule": "R1",
+          "msg": "wall-phone-1-frame 越出所属区域 wall",
+          "layer": "wall-phone-1-frame",
+          "sides": {
+            "left": false,
+            "right": false,
+            "top": true,
+            "bottom": false
+          }
+        },
+        {
+          "level": "ERROR",
+          "rule": "R1",
+          "msg": "wall-phone-1-frame 覆盖 brand 文字（data-bleed 不豁免）",
+          "layer": "wall-phone-1-frame"
+        },
+        {
+          "level": "ERROR",
+          "rule": "R1",
+          "msg": "wall-phone-2-frame 越出画布",
+          "layer": "wall-phone-2-frame",
+          "bounds": {
+            "x": 71.265625,
+            "y": 578.4375,
+            "w": 455.78125,
+            "h": 904.546875
+          }
+        },
+        {
+          "level": "ERROR",
+          "rule": "R1",
+          "msg": "wall-phone-2-frame 越出所属区域 wall",
+          "layer": "wall-phone-2-frame",
+          "sides": {
+            "left": false,
+            "right": false,
+            "top": false,
+            "bottom": true
+          }
+        },
+        {
+          "level": "ERROR",
+          "rule": "R1",
+          "msg": "wall-phone-2-frame 进入实际 footer 保护区",
+          "layer": "wall-phone-2-frame",
+          "footer": {
+            "x": 71.265625,
+            "y": 1347.640625,
+            "w": 937.46875,
+            "h": 47
+          }
+        },
+        {
+          "level": "ERROR",
+          "rule": "R1",
+          "msg": "wall-phone-2-frame 覆盖 footer 文字（data-bleed 不豁免）",
+          "layer": "wall-phone-2-frame"
+        },
+        {
+          "level": "ERROR",
+          "rule": "R2",
+          "msg": "独立组件重叠: wall-phone-1 ↔ wall-phone-2",
+          "a": "wall-phone-1",
+          "b": "wall-phone-2",
+          "kind": "component"
+        },
+        {
+          "level": "ERROR",
+          "rule": "R2",
+          "msg": "文字被外部媒体遮挡: brand-name ↔ wall-phone-1-screen",
+          "a": "brand-name",
+          "b": "wall-phone-1-screen",
+          "kind": "text-media"
+        },
+        {
+          "level": "ERROR",
+          "rule": "R2",
+          "msg": "文字被外部媒体遮挡: brand-name ↔ wall-phone-1-frame",
+          "a": "brand-name",
+          "b": "wall-phone-1-frame",
+          "kind": "text-media"
+        },
+        {
+          "level": "ERROR",
+          "rule": "R2",
+          "msg": "文字被外部媒体遮挡: footer-signature ↔ wall-phone-2-screen",
+          "a": "footer-signature",
+          "b": "wall-phone-2-screen",
+          "kind": "text-media"
+        },
+        {
+          "level": "ERROR",
+          "rule": "R2",
+          "msg": "文字被外部媒体遮挡: footer-signature ↔ wall-phone-2-frame",
+          "a": "footer-signature",
+          "b": "wall-phone-2-frame",
+          "kind": "text-media"
+        }
+      ]
+    },
+    {
+      "name": "phone-root-short-text",
+      "passed": true,
+      "expected": "L19",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L19",
+          "msg": "带比例的 phone 根 crush-phone 内不得放文字叶：锁高壳内塞文字会挤压画面，界面名应与壳同层（见配方登记卡绑定字段）"
+        }
+      ]
+    },
+    {
+      "name": "phone-auto-height-text",
+      "passed": true,
+      "expected": "passed",
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "name": "source-dataurl-image",
+      "passed": true,
+      "expected": "L0",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L0",
+          "msg": "不安全的图片来源: data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQ"
+        }
+      ]
+    },
+    {
+      "name": "decoration-image-outside-component",
+      "passed": true,
+      "expected": "L11",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L11",
+          "msg": "图片必须归属显式组件根：data-decoration 只免来源检查，不豁免几何检查"
+        }
+      ]
+    },
+    {
+      "name": "decoration-image-out-of-bounds",
+      "passed": true,
+      "expected": "R1",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "R1",
+          "msg": "oo-image 越出画布",
+          "layer": "oo-image",
+          "bounds": {
+            "x": -36.734375,
+            "y": 1090.609375,
+            "w": 972,
+            "h": 216
+          }
+        },
+        {
+          "level": "ERROR",
+          "rule": "R1",
+          "msg": "oo-image 越出所属区域 right",
+          "layer": "oo-image",
+          "sides": {
+            "left": true,
+            "right": false,
+            "top": false,
+            "bottom": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "missing-image-names-page",
+      "passed": true,
+      "expected": "02: 缺少本地素材",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "02: 缺少本地素材 assets/nope.png；检查 src/assets、work/assets 或 out/assets"
+        }
+      ]
+    },
+    {
+      "name": "brand-empty",
+      "passed": true,
+      "expected": "loadProject 拒绝：brand 不能是空字符串",
+      "message": "plan.meta.brand 不能是空字符串或纯空白：没有品牌就写当期真实署名",
+      "restoredHash": ""
+    },
+    {
+      "name": "dark-false-rejected",
+      "passed": true,
+      "expected": "loadProject 拒绝：dark 只能是 true 或缺省",
+      "message": "01: pages[].dark 只能是 true 或缺省",
+      "restoredHash": ""
+    },
+    {
+      "name": "letterboxed-tall-asset",
+      "passed": true,
+      "expected": "WARN R9",
+      "status": "passed",
+      "warnings": [
+        {
+          "level": "WARN",
+          "rule": "FONT",
+          "msg": "同进程不保证整批字体一致；各页 fonts.actual / faces 已记录，请核对实际 face"
+        },
+        {
+          "level": "WARN",
+          "rule": "R9",
+          "msg": "整图窗口留白明显：wide-image 素材 1280×2769，容器比例与素材相差 5.41 倍",
+          "layer": "wide-image",
+          "box": {
+            "x": 71.265625,
+            "y": 294.15625,
+            "w": 324,
+            "h": 129.59375
+          },
+          "natural": {
+            "w": 1280,
+            "h": 2769
+          },
+          "hint": "竖向整屏素材可改带壳载体或减高"
+        },
+        {
+          "level": "WARN",
+          "rule": "R7",
+          "msg": "留白/密度仅供人工目检，不作为失败条件",
+          "bands": [
+            {
+              "band": 1,
+              "coveredPx": 213.84375,
+              "emptyPx": 146.15625
+            },
+            {
+              "band": 2,
+              "coveredPx": 63.75,
+              "emptyPx": 296.25
+            },
+            {
+              "band": 3,
+              "coveredPx": 0,
+              "emptyPx": 360
+            },
+            {
+              "band": 4,
+              "coveredPx": 23,
+              "emptyPx": 337
+            }
+          ]
+        },
+        {
+          "level": "WARN",
+          "rule": "FONT",
+          "msg": "@font-face 声明 105 个分片，加载成功 0 个：文字按系统回退渲染，请按 fonts.actual 核对实际字体"
+        }
+      ]
+    },
+    {
+      "name": "collapsed-image",
+      "passed": true,
+      "expected": "R11",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "R11",
+          "msg": "画面塌陷为 937×0: flat-image",
+          "layer": "flat-image",
+          "box": {
+            "x": 71.265625,
+            "y": 294.15625,
+            "w": 937.46875,
+            "h": 0
+          },
+          "hint": "比例与 flex 要写在窗口本体上，不要写死 <img> 的某一维为 0"
+        }
+      ]
+    },
+    {
+      "name": "empty-checkbox",
+      "passed": true,
+      "expected": "passed",
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "name": "skeleton-order-missing-region",
+      "passed": true,
+      "expected": "R14",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "R14",
+          "msg": "骨架区域 left 不可见",
+          "region": "left"
+        },
+        {
+          "level": "ERROR",
+          "rule": "R14",
+          "msg": "区域 right 列宽占比 100.0% 超出骨架区间 46–50%",
+          "region": "right",
+          "share": 1,
+          "want": [
+            0.46,
+            0.5
+          ],
+          "hint": "调 flow-row 子列的 flex/宽度，先保载体宽度档再让文字列收缩"
+        },
+        {
+          "level": "ERROR",
+          "rule": "R14",
+          "msg": "骨架要求区域 right 有可见的 phone",
+          "component": "phone",
+          "region": "right"
+        }
+      ]
+    },
+    {
+      "name": "skeleton-tracks-missing-region",
+      "passed": true,
+      "expected": "R14",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "R14",
+          "msg": "骨架区域 left 不可见",
+          "region": "left"
+        },
+        {
+          "level": "ERROR",
+          "rule": "R14",
+          "msg": "区域 right 列宽占比 100.0% 超出骨架区间 46–50%",
+          "region": "right",
+          "share": 1,
+          "want": [
+            0.46,
+            0.5
+          ],
+          "hint": "调 flow-row 子列的 flex/宽度，先保载体宽度档再让文字列收缩"
+        },
+        {
+          "level": "ERROR",
+          "rule": "R14",
+          "msg": "骨架要求区域 right 有可见的 phone",
+          "component": "phone",
+          "region": "right"
+        }
+      ]
+    },
+    {
+      "name": "skeleton-order-wrong-sequence",
+      "passed": true,
+      "expected": "passed",
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "name": "skeleton-counts-under",
+      "passed": true,
+      "expected": "R14",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "R14",
+          "msg": "骨架要求可见的主标题 h1"
+        },
+        {
+          "level": "ERROR",
+          "rule": "R14",
+          "msg": "wall-phone-1 宽 42.2cqw 超出骨架档 26–29cqw",
+          "layer": "wall-phone-1",
+          "widthCqw": 42.2,
+          "want": [
+            26,
+            29
+          ],
+          "hint": "先保载体宽度档，再让文字列收缩；不要反过来压主体"
+        },
+        {
+          "level": "ERROR",
+          "rule": "R14",
+          "msg": "wall-phone-2 宽 42.2cqw 超出骨架档 26–29cqw",
+          "layer": "wall-phone-2",
+          "widthCqw": 42.2,
+          "want": [
+            26,
+            29
+          ],
+          "hint": "先保载体宽度档，再让文字列收缩；不要反过来压主体"
+        }
+      ]
+    },
+    {
+      "name": "skeleton-counts-over",
+      "passed": true,
+      "expected": "R14",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "R14",
+          "msg": "骨架要求可见的主标题 h1"
+        },
+        {
+          "level": "ERROR",
+          "rule": "R14",
+          "msg": "wall-phone-1 宽 27.3cqw 超出骨架档 32–36cqw",
+          "layer": "wall-phone-1",
+          "widthCqw": 27.3,
+          "want": [
+            32,
+            36
+          ],
+          "hint": "先保载体宽度档，再让文字列收缩；不要反过来压主体"
+        },
+        {
+          "level": "ERROR",
+          "rule": "R14",
+          "msg": "wall-phone-2 宽 27.3cqw 超出骨架档 32–36cqw",
+          "layer": "wall-phone-2",
+          "widthCqw": 27.3,
+          "want": [
+            32,
+            36
+          ],
+          "hint": "先保载体宽度档，再让文字列收缩；不要反过来压主体"
+        },
+        {
+          "level": "ERROR",
+          "rule": "R14",
+          "msg": "wall-phone-3 宽 27.3cqw 超出骨架档 32–36cqw",
+          "layer": "wall-phone-3",
+          "widthCqw": 27.3,
+          "want": [
+            32,
+            36
+          ],
+          "hint": "先保载体宽度档，再让文字列收缩；不要反过来压主体"
+        }
+      ]
+    },
+    {
+      "name": "h68-duo-long-head",
+      "passed": true,
+      "expected": "passed",
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "name": "skeleton-share-out-of-range",
+      "passed": true,
+      "expected": "区域 left 列宽占比",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "R14",
+          "msg": "区域 left 列宽占比 56.3% 超出骨架区间 46–50%",
+          "region": "left",
+          "share": 0.563,
+          "want": [
+            0.46,
+            0.5
+          ],
+          "hint": "调 flow-row 子列的 flex/宽度，先保载体宽度档再让文字列收缩"
+        },
+        {
+          "level": "ERROR",
+          "rule": "R14",
+          "msg": "区域 right 列宽占比 40.2% 超出骨架区间 46–50%",
+          "region": "right",
+          "share": 0.402,
+          "want": [
+            0.46,
+            0.5
+          ],
+          "hint": "调 flow-row 子列的 flex/宽度，先保载体宽度档再让文字列收缩"
+        }
+      ]
+    },
+    {
+      "name": "skeleton-carrier-width",
+      "passed": true,
+      "expected": "宽 30.0cqw 超出骨架档",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "R14",
+          "msg": "right-phone 宽 30.0cqw 超出骨架档 36–42cqw",
+          "layer": "right-phone",
+          "widthCqw": 30,
+          "want": [
+            36,
+            42
+          ],
+          "hint": "先保载体宽度档，再让文字列收缩；不要反过来压主体"
+        }
+      ]
+    },
+    {
+      "name": "skeleton-carrier-missing",
+      "passed": true,
+      "expected": "骨架要求区域 right 有可见的 phone",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "R14",
+          "msg": "骨架要求区域 right 有可见的 phone",
+          "component": "phone",
+          "region": "right"
+        }
+      ]
+    },
+    {
+      "name": "skeleton-headline-lines",
+      "passed": true,
+      "expected": "主标题实际 3 行，骨架要求 1–1 行",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "R14",
+          "msg": "主标题实际 3 行，骨架要求 1–1 行",
+          "lines": 3,
+          "want": [
+            1,
+            1
+          ],
+          "hint": "断行是排版决定：用 <br> 在语义停顿显式分行，或换行数预算匹配的骨架档"
+        },
+        {
+          "level": "ERROR",
+          "rule": "R10",
+          "msg": "right-phone 声明比例 910/1806 被压成 0.548（相差 8.7%）",
+          "layer": "right-phone",
+          "box": {
+            "x": 561.0625,
+            "y": 498.0625,
+            "w": 442.796875,
+            "h": 808.546875
+          },
+          "hint": "区域过窄或过矮：换更宽/更高的区域或减少同区内容，不要靠拉伸素材"
+        }
+      ]
+    },
+    {
+      "name": "skeleton-headline-at-cap",
+      "passed": true,
+      "expected": "passed",
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "name": "skeleton-anchor-missing",
+      "passed": true,
+      "expected": "锚点区域 right 没有可见的",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "R14",
+          "msg": "区域 full 列宽占比 52.2% 超出骨架区间 46–50%",
+          "region": "full",
+          "share": 0.522,
+          "want": [
+            0.46,
+            0.5
+          ],
+          "hint": "调 flow-row 子列的 flex/宽度，先保载体宽度档再让文字列收缩"
+        },
+        {
+          "level": "ERROR",
+          "rule": "R14",
+          "msg": "区域 right 列宽占比 44.3% 超出骨架区间 46–50%",
+          "region": "right",
+          "share": 0.443,
+          "want": [
+            0.46,
+            0.5
+          ],
+          "hint": "调 flow-row 子列的 flex/宽度，先保载体宽度档再让文字列收缩"
+        },
+        {
+          "level": "ERROR",
+          "rule": "R14",
+          "msg": "锚点区域 right 没有可见的 phone/shot 载体：行高失去锚点，步骤/文字会被拉成洞",
+          "region": "right",
+          "carriers": [
+            "phone",
+            "shot"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "skeleton-bleed-share",
+      "passed": true,
+      "expected": "列宽占比",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "R14",
+          "msg": "区域 hero 列宽占比 100.0% 超出骨架区间 110–118%",
+          "region": "hero",
+          "share": 1,
+          "want": [
+            1.1,
+            1.18
+          ],
+          "hint": "调 flow-row 子列的 flex/宽度，先保载体宽度档再让文字列收缩"
+        },
+        {
+          "level": "ERROR",
+          "rule": "R14",
+          "msg": "evidence-shot 宽 86.8cqw 超出骨架档 96–104cqw",
+          "layer": "evidence-shot",
+          "widthCqw": 86.8,
+          "want": [
+            96,
+            104
+          ],
+          "hint": "先保载体宽度档，再让文字列收缩；不要反过来压主体"
+        }
+      ]
+    },
+    {
+      "name": "skeleton-shot-counts",
+      "passed": true,
+      "expected": "超出骨架档",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "R14",
+          "msg": "evidence-shot 宽 86.8cqw 超出骨架档 40–45cqw",
+          "layer": "evidence-shot",
+          "widthCqw": 86.8,
+          "want": [
+            40,
+            45
+          ],
+          "hint": "先保载体宽度档，再让文字列收缩；不要反过来压主体"
+        },
+        {
+          "level": "ERROR",
+          "rule": "R1",
+          "msg": "evidence-shot-cap 越出画布",
+          "layer": "evidence-shot-cap",
+          "bounds": {
+            "x": 71.265625,
+            "y": 1582.0625,
+            "w": 937.46875,
+            "h": 31.75
+          }
+        },
+        {
+          "level": "ERROR",
+          "rule": "R1",
+          "msg": "evidence-shot-cap 越出所属区域 full",
+          "layer": "evidence-shot-cap",
+          "sides": {
+            "left": false,
+            "right": false,
+            "top": false,
+            "bottom": true
+          }
+        },
+        {
+          "level": "ERROR",
+          "rule": "R1",
+          "msg": "evidence-shot-img 越出画布",
+          "layer": "evidence-shot-img",
+          "bounds": {
+            "x": 71.265625,
+            "y": 666.75,
+            "w": 453.59375,
+            "h": 900.203125
+          }
+        },
+        {
+          "level": "ERROR",
+          "rule": "R1",
+          "msg": "evidence-shot-img 越出所属区域 full",
+          "layer": "evidence-shot-img",
+          "sides": {
+            "left": false,
+            "right": false,
+            "top": false,
+            "bottom": true
+          }
+        },
+        {
+          "level": "ERROR",
+          "rule": "R1",
+          "msg": "evidence-shot-img 进入实际 footer 保护区",
+          "layer": "evidence-shot-img",
+          "footer": {
+            "x": 71.265625,
+            "y": 1347.640625,
+            "w": 937.46875,
+            "h": 47
+          }
+        },
+        {
+          "level": "ERROR",
+          "rule": "R1",
+          "msg": "evidence-shot-img 覆盖 footer 文字（data-bleed 不豁免）",
+          "layer": "evidence-shot-img"
+        },
+        {
+          "level": "ERROR",
+          "rule": "R3",
+          "msg": "文字被 div 裁切: evidence-shot-cap",
+          "layer": "evidence-shot-cap"
+        },
+        {
+          "level": "ERROR",
+          "rule": "R2",
+          "msg": "文字被外部媒体遮挡: footer-signature ↔ evidence-shot-img",
+          "a": "footer-signature",
+          "b": "evidence-shot-img",
+          "kind": "text-media"
+        }
+      ]
+    },
+    {
+      "name": "skeleton-quote-tier",
+      "passed": true,
+      "expected": "passed",
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "name": "skeleton-closing-tier",
+      "passed": true,
+      "expected": "passed",
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "name": "timeline-stretched-slack",
+      "passed": true,
+      "expected": "内部拉伸余量",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "R15",
+          "msg": "时间线步骤 step-1 内部拉伸余量 21.6cqw（>12cqw）：内容撑不满行高",
+          "layer": "step-1",
+          "slackCqw": 21.6,
+          "hint": "增加步骤，或在同行放 phone/shot 载体锚定行高；不要让时间线独占满高行"
+        },
+        {
+          "level": "ERROR",
+          "rule": "R15",
+          "msg": "时间线步骤 step-2 内部拉伸余量 21.6cqw（>12cqw）：内容撑不满行高",
+          "layer": "step-2",
+          "slackCqw": 21.6,
+          "hint": "增加步骤，或在同行放 phone/shot 载体锚定行高；不要让时间线独占满高行"
+        },
+        {
+          "level": "ERROR",
+          "rule": "R15",
+          "msg": "时间线步骤 step-3 内部拉伸余量 21.6cqw（>12cqw）：内容撑不满行高",
+          "layer": "step-3",
+          "slackCqw": 21.6,
+          "hint": "增加步骤，或在同行放 phone/shot 载体锚定行高；不要让时间线独占满高行"
+        }
+      ]
+    },
+    {
+      "name": "timeline-content-fills",
+      "passed": true,
+      "expected": "passed",
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "name": "bleed-not-touching-edge",
+      "passed": true,
+      "expected": "声明 data-bleed 但没有贴到出血边",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "R16",
+          "msg": "bleed-phone 声明 data-bleed 但没有贴到出血边",
+          "layer": "bleed-phone",
+          "sides": {
+            "right": true,
+            "bottom": false
+          },
+          "region": "right"
+        }
+      ]
+    },
+    {
+      "name": "bleed-touching-edge",
+      "passed": true,
+      "expected": "passed",
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "name": "footer-wraps-two-lines",
+      "passed": true,
+      "expected": "页脚文字折为",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "R18",
+          "msg": "页脚文字折为 3 行：向下出血（--bleed-edge）的单行前提被破坏",
+          "lines": 3
+        }
+      ]
+    },
+    {
+      "name": "quote-rule-without-source",
+      "passed": true,
+      "expected": "passed",
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "name": "bleed-region-without-caption",
+      "passed": true,
+      "expected": "L23",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L23",
+          "msg": "出血区域 hero 缺少配文：head 或 bottom 至少要有一处标题或说明文字，不允许整页只剩图"
+        }
+      ]
+    },
+    {
+      "name": "bleed-region-head-caption",
+      "passed": true,
+      "expected": "passed",
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "name": "bleed-region-bottom-caption",
+      "passed": true,
+      "expected": "passed",
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "name": "placeholder-residue-text",
+      "passed": true,
+      "expected": "L24",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L24",
+          "msg": "成品页残留占位符 {{…}}：所有槽位必须替换为真实文案或预计算数值，渲染与交付前不允许留空"
+        }
+      ]
+    },
+    {
+      "name": "placeholder-residue-attr",
+      "passed": true,
+      "expected": "L24",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L24",
+          "msg": "成品页残留占位符 {{…}}：所有槽位必须替换为真实文案或预计算数值，渲染与交付前不允许留空"
+        }
+      ]
+    },
+    {
+      "name": "placeholder-clean",
+      "passed": true,
+      "expected": "passed",
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "name": "bars-height-clean",
+      "passed": true,
+      "expected": "passed",
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "name": "bars-height-over-range",
+      "passed": true,
+      "expected": "柱高 120% 越界",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L25",
+          "msg": "bars[four-sample-chart] 柱高 120% 越界（B7：0≤v≤100）"
+        }
+      ]
+    },
+    {
+      "name": "bars-height-fractional",
+      "passed": true,
+      "expected": "L25",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L25",
+          "msg": "bars[four-sample-chart] 柱高 \"50.5%\" 不是合法百分比（B7：height:N%，N 为 0-100 整数）"
+        }
+      ]
+    },
+    {
+      "name": "bars-height-missing",
+      "passed": true,
+      "expected": "L25",
+      "status": "failed",
+      "errors": [
+        {
+          "level": "ERROR",
+          "rule": "BATCH",
+          "msg": "几何检查失败页: 01；全部页错误见 qa-summary.json，实测数字见 geometry-digest.json"
+        },
+        {
+          "level": "ERROR",
+          "rule": "L25",
+          "msg": "bars[four-sample-chart] 柱高 \"(缺失)\" 不是合法百分比（B7：height:N%，N 为 0-100 整数）"
+        }
+      ]
+    },
+    {
+      "name": "text-block-muted-tier",
+      "passed": true,
+      "expected": "passed",
+      "status": "passed",
+      "errors": []
+    },
+    {
+      "name": "layout-required-when-tiered",
+      "passed": true,
+      "expected": "loadProject 拒绝：pages\\[\\]\\.layout 必须显式选一档",
+      "message": "01: 配方 R-card-01 有构图骨架 cover-standard/cover-bleed/body-stagger/body-aligned/body-mn，pages[].layout 必须显式选一档或 \"free\"",
+      "restoredHash": ""
+    },
+    {
+      "name": "layout-unknown-tier",
+      "passed": true,
+      "expected": "loadProject 拒绝：pages\\[\\]\\.layout 必须显式选一档",
+      "message": "01: 配方 R-card-01 有构图骨架 cover-standard/cover-bleed/body-stagger/body-aligned/body-mn，pages[].layout 必须显式选一档或 \"free\"",
+      "restoredHash": ""
+    },
+    {
+      "name": "layout-on-untiered-recipe",
+      "passed": true,
+      "expected": "loadProject 拒绝：没有登记骨架",
+      "message": "01: 配方 R-cover-02 没有登记骨架，pages[].layout 只能缺省或 \"free\"",
+      "restoredHash": "2bcf62635700"
+    },
+    {
+      "name": "layout-empty-object",
+      "passed": true,
+      "expected": "loadProject 拒绝：layouts 是空对象",
+      "message": "配方 R-quote-01 的 layouts 是空对象：要么不写，要么至少给一个骨架档",
+      "restoredHash": "2bcf62635700"
+    },
+    {
+      "name": "layout-null-value",
+      "passed": true,
+      "expected": "loadProject 拒绝：layouts 是空对象",
+      "message": "配方 R-quote-01 的 layouts 是空对象：要么不写，要么至少给一个骨架档",
+      "restoredHash": "2bcf62635700"
+    },
+    {
+      "name": "layout-name-missing",
+      "passed": true,
+      "expected": "loadProject 拒绝：缺少 name\\/when",
+      "message": "配方 R-card-01 骨架 cover-standard 缺少 name/when",
+      "restoredHash": "2bcf62635700"
+    },
+    {
+      "name": "layout-order-empty",
+      "passed": true,
+      "expected": "loadProject 拒绝：order 不能为空",
+      "message": "配方 R-card-01 骨架 cover-standard 的 order 不能为空",
+      "restoredHash": "2bcf62635700"
+    },
+    {
+      "name": "layout-order-unknown-region",
+      "passed": true,
+      "expected": "loadProject 拒绝：order 引用了未知区域",
+      "message": "配方 R-card-01 骨架 cover-standard 的 order 引用了未知区域: nowhere",
+      "restoredHash": "2bcf62635700"
+    },
+    {
+      "name": "layout-tracks-empty",
+      "passed": true,
+      "expected": "loadProject 拒绝：tracks 不能为空",
+      "message": "配方 R-card-01 骨架 cover-standard 的 tracks 不能为空",
+      "restoredHash": "2bcf62635700"
+    },
+    {
+      "name": "layout-share-out-of-range",
+      "passed": true,
+      "expected": "loadProject 拒绝：tracks\\.share 必须是",
+      "message": "配方 R-card-01 骨架 cover-standard 的 tracks.share 必须是 [0.05,1.2] 内的比例区间: [0.46,1.5]",
+      "restoredHash": "2bcf62635700"
+    },
+    {
+      "name": "layout-headline-non-integer",
+      "passed": true,
+      "expected": "loadProject 拒绝：headline 必须是整数行数区间",
+      "message": "配方 R-close-01 骨架 quote 的 headline 必须是整数行数区间",
+      "restoredHash": "2bcf62635700"
+    },
+    {
+      "name": "layout-carrier-unknown-component",
+      "passed": true,
+      "expected": "loadProject 拒绝：carriers 引用了未知组件",
+      "message": "配方 R-card-01 骨架 cover-standard 的 carriers 引用了未知组件: zzz",
+      "restoredHash": "2bcf62635700"
+    },
+    {
+      "name": "layout-carrier-region-disallowed",
+      "passed": true,
+      "expected": "loadProject 拒绝：不被区域 head 允许",
+      "message": "配方 R-card-01 骨架 cover-standard 的 carriers 组件 phone 不被区域 head 允许",
+      "restoredHash": "2bcf62635700"
+    },
+    {
+      "name": "layout-carrier-width-out-of-range",
+      "passed": true,
+      "expected": "loadProject 拒绝：carriers\\.width 必须是",
+      "message": "配方 R-card-01 骨架 cover-standard 的 carriers.width 必须是 [1,108]cqw 内的宽度区间",
+      "restoredHash": "2bcf62635700"
+    },
+    {
+      "name": "layout-anchor-unknown-region",
+      "passed": true,
+      "expected": "loadProject 拒绝：anchor 引用了未知区域",
+      "message": "配方 R-step-01 骨架 timeline 的 anchor 引用了未知区域: nowhere",
+      "restoredHash": "2bcf62635700"
+    },
+    {
+      "name": "layout-anchor-carrier-disallowed",
+      "passed": true,
+      "expected": "loadProject 拒绝：anchor\\.carrier 必须是锚点区域允许的组件",
+      "message": "配方 R-step-01 骨架 timeline 的 anchor.carrier 必须是锚点区域允许的组件",
+      "restoredHash": "2bcf62635700"
+    },
+    {
+      "name": "layout-carrier-content-component",
+      "passed": true,
+      "expected": "loadProject 拒绝：carriers 只能锁定几何载体组件",
+      "message": "配方 R-card-01 骨架 cover-standard 的 carriers 只能锁定几何载体组件（phone/shot/step/bars）: fcard",
+      "restoredHash": "2bcf62635700"
+    },
+    {
+      "name": "layout-anchor-content-component",
+      "passed": true,
+      "expected": "loadProject 拒绝：anchor\\.carrier 只能锁定几何载体组件",
+      "message": "配方 R-step-01 骨架 timeline 的 anchor.carrier 只能锁定几何载体组件（phone/shot/step/bars）",
+      "restoredHash": "2bcf62635700"
+    },
+    {
+      "name": "stale-png-protection",
+      "passed": true,
+      "expected": "old PNG retained as historical, failed report has no deliverables",
+      "status": "failed"
+    },
+    {
+      "name": "edited-output",
+      "passed": true,
+      "expected": "edited HTML rejected before navigation",
+      "status": "failed"
+    },
+    {
+      "name": "input-error-rotation",
+      "status": "failed",
+      "passed": true,
+      "expected": "输入错误轮转上一轮报告并写出合法 JSON（不因缺少全局 crypto 抛错）"
+    },
+    {
+      "name": "insert-reorder-remove",
+      "passed": true,
+      "expected": "authored semantic IDs remain attached to the same text across four source variants",
+      "variants": [
+        [
+          "alpha",
+          "beta",
+          "gamma"
+        ],
+        [
+          "alpha",
+          "delta",
+          "beta",
+          "gamma"
+        ],
+        [
+          "gamma",
+          "alpha",
+          "delta",
+          "beta"
+        ],
+        [
+          "gamma",
+          "alpha",
+          "beta"
+        ]
+      ]
+    },
+    {
+      "name": "new-component",
+      "passed": true,
+      "expected": "isolated registry and allow extension; no checker edit",
+      "issues": [
+        {
+          "level": "WARN",
+          "rule": "R7",
+          "msg": "留白/密度仅供人工目检，不作为失败条件",
+          "bands": [
+            {
+              "band": 1,
+              "coveredPx": 185,
+              "emptyPx": 175
+            },
+            {
+              "band": 2,
+              "coveredPx": 0,
+              "emptyPx": 360
+            },
+            {
+              "band": 3,
+              "coveredPx": 0,
+              "emptyPx": 360
+            },
+            {
+              "band": 4,
+              "coveredPx": 23,
+              "emptyPx": 337
+            }
+          ]
+        },
+        {
+          "level": "WARN",
+          "rule": "FONT",
+          "msg": "@font-face 声明 105 个分片，加载成功 0 个：文字按系统回退渲染，请按 fonts.actual 核对实际字体"
+        }
+      ]
+    }
+  ]
+}

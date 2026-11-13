@@ -135,6 +135,8 @@ export function loadProject(srcDir, outDir, options = {}) {
       throw new Error(`${nn}: uses 必须是 pool 中精确的资产 id 数组`);
     // 只认 true 或省略：写 false 与省略在检查器里是两条路径（画布根带不带 .dark），留 `false` 进来等于允许计划自相矛盾。
     if ('dark' in pg && pg.dark !== true) throw new Error(`${nn}: pages[].dark 只能是 true 或缺省`);
+    // 期号声明同一纪律（C1 迁移，2026-11-13）：资格唯一归登记卡矩阵，计划按卡声明；gate 只查账目面。
+    if ('issue' in pg && pg.issue !== true) throw new Error(`${nn}: pages[].issue 只能是 true 或缺省`);
     // 骨架是显式决策：有骨架档的配方必须选档或明确写 free（自由构图仍受通用几何规则约束），
     // 让目检能分辨"刻意自由"与"忘了选档"，与 dark 同一纪律。
     const recipe = recipes.recipes[pg.recipe], layoutIds = Object.keys(recipe.layouts || {});

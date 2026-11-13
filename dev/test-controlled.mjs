@@ -136,7 +136,9 @@ try {
   await test('duplicate-plan-page', baseline, '页号重复', p => p.pages.push({ ...p.pages[0] }));
   await test('wrong-style', baseline, 'meta', p => p.meta.style = 'unknown');
   await test('missing-evidence', baseline, 'evidence', (_p, content) => delete content.thesis.evidence);
-  const needIssue = p => { p.meta.issue = '第 07 期'; };
+  // A5/C1 迁移（2026-11-13）：资格归登记卡矩阵，计划按 pages[].issue 声明；gate 只查账目面。
+  // 声明了就必须有 .issue 且与 meta.issue 一致；没声明（含 fabricated）出现 .issue 即 L6。
+  const needIssue = p => { p.meta.issue = '第 07 期'; p.pages[0].issue = true; };
   await test('issue-missing-from-skeleton', baseline, 'L6', needIssue);
   await test('issue-mismatch', withIssue(baseline, '第 08 期'), 'L6', needIssue);
   await test('issue-fabricated', withIssue(baseline, '第 07 期'), 'L6');
@@ -144,7 +146,8 @@ try {
   await test('issue-without-layer', withIssue(baseline, '第 07 期', ''), 'L9', needIssue);
   const asInner = p => { p.pages[0].recipe = 'R-note-01'; };
   const innerHtml = baseline.replace('data-recipe="R-card-01"', 'data-recipe="R-note-01"');
-  await test('issue-on-inner-page', withIssue(innerHtml, '第 07 期'), '封面系列', p => { asInner(p); p.meta.issue = '第 07 期'; });
+  await test('issue-on-inner-page', withIssue(innerHtml, '第 07 期'), '计划未声明 issue', p => { asInner(p); p.meta.issue = '第 07 期'; });
+  await test('inner-page-with-declared-issue', withIssue(innerHtml, '第 07 期'), null, p => { asInner(p); needIssue(p); });
   await test('inner-page-without-issue', innerHtml, null, asInner);
   const overlayBlock = '<div class="region" data-region="overlay"><div class="ghost" data-component="ghost" data-layer="background-letter" data-decoration>试</div></div>';
   const ghostHtml = html => html.replace('</footer>', `</footer>${overlayBlock}`);

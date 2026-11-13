@@ -95,8 +95,11 @@ export function inspectFragmentDOM(html, contract) {
   }
   const issueEl = root.querySelector('.page-header .issue');
   if (root.querySelectorAll('.page-header .issue').length > 1) error('L6', '期号骨架最多一个');
-  if (issueEl && !contract.recipe.issue) error('L6', `配方 ${contract.page.recipe} 不是封面系列，页眉不得出现期号`);
-  if (contract.recipe.issue) {
+  // C1 期号资格迁移（2026-11-13 阶段A5）：资格唯一归登记卡矩阵（04-recipes），计划按卡在 pages[].issue 声明；
+  // gate 只保留账目面——声明了必须出现且与 meta.issue 逐字一致，没声明不得出现（不再查配方资格）。
+  const declaredIssue = contract.page.issue === true;
+  if (issueEl && !declaredIssue) error('L6', '计划未声明 issue，页眉不得出现期号（期号资格归登记卡矩阵，封面档在计划 pages[].issue 声明）');
+  if (declaredIssue) {
     if (typeof contract.meta?.issue === 'string' && contract.meta.issue.trim()) {
       if (!issueEl) error('L6', `计划 meta.issue 为 ${contract.meta.issue}，封面骨架缺少 .issue`);
       else if (!issueEl.textContent.includes(contract.meta.issue)) error('L6', '.issue 与计划 meta.issue 不一致');
@@ -305,7 +308,7 @@ export function inspectFragmentDOM(html, contract) {
 }
 
 export async function lintFragment(inst, project, page, opts = createOptions()) {
-  const contract = { page: { recipe: page.recipe, uses: page.uses, dark: page.dark === true, layout: page.layout || null }, recipe: project.recipes.recipes[page.recipe],
+  const contract = { page: { recipe: page.recipe, uses: page.uses, dark: page.dark === true, issue: page.issue === true, layout: page.layout || null }, recipe: project.recipes.recipes[page.recipe],
     components: project.components.components, assets: project.assets, meta: project.plan.meta || {}, layout: page.layoutSpec || null };
   return withBlank(inst, opts, async ({ cdp, sessionId }) => evaluate(cdp, sessionId,
     `(${inspectFragmentDOM.toString()})(${JSON.stringify(page.source)},${JSON.stringify(contract)})`, { timeoutMs: opts.timeout }));

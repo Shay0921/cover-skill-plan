@@ -18,14 +18,14 @@
   .grain / .wash        纹理与氛围装饰层，各页固定，带 data-decoration
   .page-header
     .brand              .seal / .nm / .tg，图层 ID：brand-seal / brand-name / brand-tag
-    .issue              图层 ID：issue-line，仅封面系列配方出现
+    .issue              图层 ID：issue-line，仅计划声明 issue 的页面出现（资格归登记卡矩阵）
   .heading[data-region="head"]   （使用标题区时）
   main.body
     布局容器与 .region[data-region]
   .footer               footer-signature 与 .pageno（图层 ID：page-number；右下出血页可省）
 ```
 
-根上的 `data-recipe` 必须等于本页计划 `pages[].recipe` 的配方 ID，不一致就是错误。深浅配色是本页的一个开关：计划写 `dark: true`，画布根就必须带 `.dark`；计划省略该字段，画布根不得带；写 `dark: false` 在计划加载阶段就被拒绝——检查器只认"true 或缺省"两种取值，留 `false` 进来等于允许计划与画布各说一套。两个方向的不匹配都是错误，因为它是同一骨架下的配色变体——只换配色变量和纹理/氛围层的取值，不改结构与标记，也不是配方，更不是另一套风格。`.page-header` 一定放品牌；期号只在封面系列配方出现，即配方带 `issue: true`，其余配方画布上不得有 `.issue`。封面期号取自计划的 `meta.issue`：计划没有给就不写，写了就必须与该字段一致、留在页眉内、最多一个，并带自己的 `data-layer`（骨架示例用 `issue-line`）；缺写、编造、写错、放到骨架外、在内页出现都按错误处理。标题区使用 `.heading`，`main.body` 占去页眉、标题和页脚后的剩余高度，`.footer` 在自然流中收尾，不以固定坐标压在正文上。
+根上的 `data-recipe` 必须等于本页计划 `pages[].recipe` 的配方 ID，不一致就是错误。深浅配色是本页的一个开关：计划写 `dark: true`，画布根就必须带 `.dark`；计划省略该字段，画布根不得带；写 `dark: false` 在计划加载阶段就被拒绝——检查器只认"true 或缺省"两种取值，留 `false` 进来等于允许计划与画布各说一套。两个方向的不匹配都是错误，因为它是同一骨架下的配色变体——只换配色变量和纹理/氛围层的取值，不改结构与标记，也不是配方，更不是另一套风格。`.page-header` 一定放品牌；期号资格唯一归登记卡矩阵（04-recipes 封面档），计划按卡在 `pages[].issue: true` 声明（只认 true 或缺省，写 false 在加载期被拒，与 dark 同纪律），未声明的页面画布上不得有 `.issue`。期号文字取自计划的 `meta.issue`：计划没有给就不写，写了就必须与该字段一致、留在页眉内、最多一个，并带自己的 `data-layer`（骨架示例用 `issue-line`）；缺写、编造、写错、放到骨架外、未声明却出现都按错误处理。标题区使用 `.heading`，`main.body` 占去页眉、标题和页脚后的剩余高度，`.footer` 在自然流中收尾，不以固定坐标压在正文上。
 
 **骨架免检的是"署名身份"，不是整棵子树**：`meta.brand` 禁止空字符串或纯空白（加载期即拒绝，没有品牌就写当期真实署名），`.brand` 的文字必须包含它，L6 双向比对；免 `data-from` 的只有 `.brand` 的三个登记图层 `brand-seal` / `brand-name` / `brand-tag`、页脚的 `footer-signature` 与 `.pageno`（`page-number`、`data-numbering`）、以及 `.page-header .issue`（期号整棵免检是刻意的：期号文案常带宣传话术，静态检查只锁定它与 `meta.issue` 一致、留在页眉内，话术是否得当由目检把关）。写在它们旁边的口号、卖点、网址、"关注公众号"之类仍是内容，缺 `data-from` 按 L8 报错——把这类文字塞进 `.brand` 或 `.footer` 里躲来源检查是检查器明确拒绝的写法。品牌印章支持整体换成 logo 图：`.seal` 内放带 `data-slot="image"` 与自有 `data-layer`（如 `brand-logo`）的 `<img>`，`.seal` 加 `.logo` 类去掉底色与内描边，此时不再有 `brand-seal` 文字层。
 

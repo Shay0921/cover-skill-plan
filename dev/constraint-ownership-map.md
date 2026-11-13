@@ -48,7 +48,7 @@
 |---|---|---|---|---|---|
 | **L0** | 标签/属性白名单、src 安全、禁动态 CSS/视口单位/fixed、禁 head、禁 html/body 属性 | L-gate + DOC | **L-gate** | **保留** | 安全边界与静态卡片前提，与配方决策无关。DOC 同步保留说明 |
 | **L1** | data-bleed 只能声明在组件根 | L-gate + DOC | **L-gate** | **保留** | 豁免机制完整性：放错位置会让 R1/R16 的 bleed 判定失真（后果前置条件） |
-| **L6** | ① `.p-page` 恰一/唯一顶级/data-artwork/data-size ② brand/footer 恰一 ③ data-recipe 与计划一致 ④ dark 类与计划一致 ⑤ issue：位置/data-layer/恰一/封面资格/文字对账 ⑥ brand 文字对账 | L-gate + LOAD(meta.brand 非空) + CFG-recipe(issue 字段) + CARD(角色矩阵) | ①②③④⑥ → **L-gate**；⑤ 的"封面资格" → **CARD**（资格矩阵已收拢），⑤ 的"文字对账" → **L-gate** | **拆分**：主体保留；封面资格判断待 P→R 迁移后随 CFG-recipe 的 issue 字段迁入登记卡。⚠️ 冲突项 C1 | 资格判断现住两处（CFG-recipe.issue 布尔 + 04-recipes 角色矩阵），收敛后矩阵是唯一裁决者；gate 只查"计划里声明了 issue 就必须出现且逐字一致"（账目，不是资格） |
+| **L6** | ① `.p-page` 恰一/唯一顶级/data-artwork/data-size ② brand/footer 恰一 ③ data-recipe 与计划一致 ④ dark 类与计划一致 ⑤ issue：位置/data-layer/恰一/声明账目/文字对账 ⑥ brand 文字对账 | L-gate + LOAD(meta.brand 非空) + CARD(角色矩阵) | ①②③④⑥ → **L-gate**；⑤ 的"封面资格" → **CARD**（✅ C1 已落地：资格矩阵唯一，计划按卡声明 `pages[].issue`），⑤ 的"文字对账" → **L-gate**（账目面） | **拆分**：主体保留；✅ 封面资格已迁登记卡（2026-11-13 阶段A5，CFG-recipe issue 字段删除，gate 只查"计划声明了 issue 就必须出现且逐字一致"） | 资格判断曾住两处（CFG-recipe.issue 布尔 + 04-recipes 角色矩阵），已收敛为矩阵唯一裁决者 + 计划声明透传 |
 | **L8** | 来源对账：data-from 非空/pool 存在/uses 在册/文字叶必有来源/数字逐字对账/豁免标记不带文案 | L-gate + DOC | **L-gate** | **保留** | 来源对账核心，DEVPLAN 保留类明文。数字对账、豁免反绕全在此码 |
 | **L9** | 图层契约：data-layer 格式/唯一/必有；data-group；data-editable="text"；data-slot | L-gate + DOC | **L-gate** | **保留** | 机器契约（editor.manifest / geometry-digest 的坐标依据），非配方决策 |
 | **L10** | uses 双向对账（data-from ⊆ uses 且 uses ⊆ data-from） | L-gate + DOC | **L-gate** | **保留** | 账目闭环，防资产暗度陈仓 |
@@ -94,10 +94,11 @@
 
 ## 4. 冲突项逐条裁决（C1–C6）
 
-### C1 封面期号资格（issue）
+### C1 封面期号资格（issue）——✅ 已落地（2026-11-13 阶段A5）
 - **现住两处**：CFG-recipe `issue:true`（P01）+ 04-recipes 角色资格矩阵（cover/closing 资格封闭枚举）。
 - **裁决**：矩阵是唯一裁决者（DEVPLAN §4.2 已定"AI 全程不做角色判断"）。gate 的 L6 只保留账目面："计划声明了 issue → 必须出现且与 meta.issue 逐字一致；计划没声明 → 不得出现"。P→R 迁移时 issue 资格随登记卡走，CFG-recipe 的 issue 字段迁入 CARD 封面档规格。
-- **验证**：负例 `issue-on-non-cover` 类在新 gate 下仍 FAIL（L6 账目面拦截）。
+- **落地记录（2026-11-13）**：config/recipes.json 5 条 `issue:true` 已删（card01/cover02/list01/phone01/phone02，与登记卡矩阵逐一核对无漂移）；lint-dom 资格判断改为读计划声明 `pages[].issue`（contract.page 补 issue 透传，组装在 lintFragment），gate 只查账目面；加载期新增"issue 只能 true 或缺省"校验（与 dark 同纪律）。夹具同步：`issue-on-inner-page` 预期换新文案"计划未声明 issue"，新增正例钉子 `inner-page-with-declared-issue`（内页声明即放行——实证资格不再由 gate 复述）；全量回归 **184/184**，基线 scope → `controlled-negative-1113-1905`，对账 drift 0 exit 0，三锁零涟漪。
+- **验证**：负例 `issue-on-non-cover` 类在新 gate 下仍 FAIL（L6 账目面拦截）✅（改判词不改拦截层）。
 
 ### C2 条数/形态/组件选择的三重登记（本次瘦身核心）——✅ 已落地（2026-11-13 T6 第四刀）
 - **现住三处**：CFG-recipe（regions.max / require / form / counts）+ L-gate（L11①②③ + L20 counts）+ R-gate（R13）。
