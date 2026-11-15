@@ -1,0 +1,2406 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>tech-blue · 母版仓库画廊（templates.html）</title>
+<link rel="stylesheet" href="style.css">
+<style>
+/* ============================================================
+   画廊家具（仅本文件使用 · 不进母版词汇 · 不随 render 出页）
+   与 style.css 同源约定：看板色值/字体/字号若改，三处同步
+   （style.css tokens / 本看板 / final 文档），render 校验此同步。
+   ============================================================ */
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:var(--sans);background:#DDE1E8;color:var(--ink);}
+a{color:inherit;text-decoration:none;}
+.gal-top{max-width:1180px;margin:0 auto;padding:56px 32px 20px;}
+.gal-top .tag{font-family:var(--mono);font-size:12px;color:var(--accent);font-weight:700;letter-spacing:.3em;margin-bottom:14px;}
+.gal-top h1{font-family:var(--serif);font-weight:900;font-size:44px;letter-spacing:-.02em;margin-bottom:12px;}
+.gal-top p{font-size:15px;color:var(--ink-soft);max-width:720px;line-height:1.7;}
+.gal-nav{position:sticky;top:0;z-index:50;background:rgba(238,240,245,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line-strong);}
+.gal-nav-inner{max-width:1180px;margin:0 auto;padding:0 32px;display:flex;gap:6px;align-items:center;height:52px;overflow-x:auto;scrollbar-width:none;}
+.gal-nav-inner::-webkit-scrollbar{display:none;}
+.gal-nav-inner .brand{font-family:var(--serif);font-weight:900;font-size:14px;margin-right:10px;white-space:nowrap;}
+.gal-nav-inner a{font-family:var(--mono);font-size:12px;font-weight:600;color:var(--muted);padding:6px 11px;border-radius:6px;letter-spacing:.08em;white-space:nowrap;}
+.gal-nav-inner a:hover{color:var(--ink);background:var(--paper-deep);}
+.gal-nav-inner a span{margin-left:4px;color:var(--dim);font-weight:400;}
+.gal-board{max-width:1180px;margin:28px auto 8px;padding:0 32px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.gal-bblock{border:1px solid var(--line-strong);border-radius:10px;background:var(--paper);padding:16px 18px;}
+.gal-bblock h4{font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:.2em;margin-bottom:12px;}
+.gal-swatches{display:flex;flex-wrap:wrap;gap:8px;}
+.gal-sw{width:44px;}
+.gal-sw i{display:block;height:34px;border-radius:6px;background:var(--c);border:1px solid var(--line-strong);}
+.gal-sw span{display:block;font-family:var(--mono);font-size:8.5px;color:var(--muted);margin-top:4px;text-align:center;letter-spacing:0;}
+.gal-frow{display:flex;align-items:baseline;gap:10px;margin-bottom:8px;}
+.gal-frow b{font-size:15px;font-weight:700;min-width:64px;}
+.gal-frow span{font-family:var(--mono);font-size:10.5px;color:var(--muted);}
+.gal-srow{display:flex;align-items:baseline;gap:10px;margin-bottom:6px;}
+.gal-srow .k{font-family:var(--mono);font-size:10px;color:var(--accent);min-width:86px;}
+.gal-srow .v{font-size:12.5px;color:var(--ink-soft);}
+.gal-note{font-size:11.5px;color:var(--muted);line-height:1.65;}
+.gal-note b{color:var(--ink);}
+.gal-group{max-width:1180px;margin:0 auto;padding:36px 32px 4px;}
+.gal-group-head{display:flex;align-items:baseline;gap:14px;border-bottom:2px solid var(--ink);padding-bottom:10px;margin-bottom:6px;}
+.gal-group-head .num{font-family:var(--mono);font-size:12px;color:var(--accent);font-weight:700;letter-spacing:.12em;}
+.gal-group-head h2{font-family:var(--serif);font-weight:900;font-size:24px;letter-spacing:-.02em;}
+.gal-group-head .count{font-family:var(--mono);font-size:11px;color:var(--muted);}
+.gal-item{width:1080px;margin:0 auto;padding:30px 0 54px;}
+.gal-card-head{max-width:1080px;margin:0 auto 14px;border:1px solid var(--line-strong);border-left:4px solid var(--accent);border-radius:8px;background:var(--paper);padding:12px 16px;}
+.gal-card-head .gc-id{font-family:var(--mono);font-size:10.5px;color:var(--accent);font-weight:700;letter-spacing:.1em;}
+.gal-card-head .gc-title{font-family:var(--serif);font-weight:700;font-size:16px;margin:2px 0 4px;}
+.gal-card-head .gc-line{font-family:var(--mono);font-size:11px;color:var(--muted);line-height:1.7;}
+.gal-item section{box-shadow:0 18px 50px rgba(13,17,23,.14);border-radius:2px;}
+.gal-foot{max-width:1180px;margin:0 auto;padding:30px 32px 60px;font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.1em;}
+</style>
+</head>
+<body>
+  <div class="gal-top">
+    <div class="tag">TECH-BLUE · MASTER REPOSITORY</div>
+    <h1>极简科技蓝 · 母版仓库画廊</h1>
+    <p>本文件即母版仓库（templates.html）：顶部为风格看板，下方按语义组平铺 32 张母版。每张母版前的说明头注释由页尾脚本渲染成卡片。改母版直接改对应 section；一切样式进 style.css（双段制）。</p>
+  </div>
+
+  <nav class="gal-nav"><div class="gal-nav-inner">
+    <span class="brand">tech-blue</span>
+      <a href="#g-cover">封面<span>4</span></a>
+      <a href="#g-overview">概览<span>1</span></a>
+      <a href="#g-steps">步骤<span>4</span></a>
+      <a href="#g-lists">清单<span>5</span></a>
+      <a href="#g-showcase">展示<span>5</span></a>
+      <a href="#g-compare">对比<span>2</span></a>
+      <a href="#g-demo">演示<span>3</span></a>
+      <a href="#g-data">数据<span>1</span></a>
+      <a href="#g-convert">转化<span>2</span></a>
+      <a href="#g-ending">结尾<span>5</span></a>
+  </div></nav>
+
+  <section class="gal-board" id="board">
+    <div class="gal-bblock">
+      <h4>COLOR · 色板</h4>
+      <div class="gal-swatches">
+        <span class="gal-sw" style="--c:#FFFFFF"><i></i><span>--paper</span></span>
+        <span class="gal-sw" style="--c:#F4F5F7"><i></i><span>--paper-deep</span></span>
+        <span class="gal-sw" style="--c:#0D1117"><i></i><span>--ink</span></span>
+        <span class="gal-sw" style="--c:#484F58"><i></i><span>--ink-soft</span></span>
+        <span class="gal-sw" style="--c:#8B93A1"><i></i><span>--muted</span></span>
+        <span class="gal-sw" style="--c:#C5CBD6"><i></i><span>--dim</span></span>
+        <span class="gal-sw" style="--c:#2563EB"><i></i><span>--accent</span></span>
+        <span class="gal-sw" style="--c:#1D4ED8"><i></i><span>--accent-deep</span></span>
+        <span class="gal-sw" style="--c:#0D0D12"><i></i><span>--ink-bg</span></span>
+        <span class="gal-sw" style="--c:#ECECF2"><i></i><span>--ink-paper</span></span>
+      </div>
+    </div>
+    <div class="gal-bblock">
+      <h4>TYPE · 字体</h4>
+      <div class="gal-frow"><b style="font-family:var(--serif)">标题 Aa</b><span>var(--serif) · Noto Serif SC / 宋体族</span></div>
+      <div class="gal-frow"><b style="font-family:var(--sans);font-weight:400">正文 Aa</b><span>var(--sans) · Noto Sans SC / 雅黑族</span></div>
+      <div class="gal-frow"><b style="font-family:var(--mono);font-weight:500">标签 Aa</b><span>var(--mono) · JetBrains Mono</span></div>
+      <p class="gal-note">强调色 <b>#2563EB</b>（blue-600）全库唯一；深底变体 --ink-bg / --ink-paper。</p>
+    </div>
+    <div class="gal-bblock">
+      <h4>CANVAS · 画布规格</h4>
+      <div class="gal-srow"><span class="k">1080×1440</span><span class="v">3:4 · .ai-page 根 · container-type:size</span></div>
+      <div class="gal-srow"><span class="k">边距</span><span class="v">6.6cqw ≈ 71px</span></div>
+      <div class="gal-srow"><span class="k">底纹</span><span class="v">.paper-noise 40px 极淡网格</span></div>
+      <div class="gal-srow"><span class="k">圆角</span><span class="v">三级 .4 / .8 / 1.4cqw</span></div>
+      <div class="gal-srow"><span class="k">深底</span><span class="v">.ai-page.dark（N30）</span></div>
+    </div>
+    <div class="gal-bblock">
+      <h4>SCALE · 字号层级</h4>
+      <div class="gal-srow"><span class="k">title-xl</span><span class="v">衬线 700 · 7.2cqw≈78px</span></div>
+      <div class="gal-srow"><span class="k">title-lg</span><span class="v">衬线 700 · 5.2cqw≈56px</span></div>
+      <div class="gal-srow"><span class="k">title-md</span><span class="v">衬线 700 · 3.6cqw≈39px</span></div>
+      <div class="gal-srow"><span class="k">num-large</span><span class="v">衬线 700 · 12cqw≈130px</span></div>
+      <div class="gal-srow"><span class="k">body-text</span><span class="v">黑体 400 · 1.9cqw≈21px</span></div>
+      <div class="gal-srow"><span class="k">label</span><span class="v">黑体 600 · 1.5cqw≈16px · 字距 .28em</span></div>
+      <div class="gal-srow"><span class="k">mono-text</span><span class="v">等宽 400 · 1.4cqw≈15px</span></div>
+    </div>
+    <div class="gal-bblock">
+      <h4>ACCENT · 强调手法</h4>
+      <div class="gal-srow"><span class="k">accent-word</span><span class="v">关键词变色</span></div>
+      <div class="gal-srow"><span class="k">accent-bg</span><span class="v">蓝底白字色块</span></div>
+      <div class="gal-srow"><span class="k">accent-line</span><span class="v">蓝色短横线</span></div>
+      <div class="gal-srow"><span class="k">ink-bg</span><span class="v">墨底白字色块</span></div>
+      <div class="gal-srow"><span class="k">.hl</span><span class="v">标题关键词底部色块（N01 系）</span></div>
+    </div>
+    <div class="gal-bblock">
+      <h4>IMG · 图槽契约</h4>
+      <p class="gal-note">图槽 = <b>.ph-img</b> 占位容器 + data-fit：<b>cover</b> 裁切填满 / <b>contain</b> 完整显示；占位标签 IMG·xx 未配置图时显示。手机框走 .phone__frame 静态件。示例截图不进库，真实图由 render 按 plan.json 注入。</p>
+    </div>
+  </section>
+
+  <main>
+  <div class="gal-group" id="g-cover">
+    <div class="gal-group-head"><span class="num">G01</span><h2>封面</h2><span class="count">4 MASTERS</span></div>
+    <div class="gal-item" id="n01">
+      <!-- ============ N01 · 金句震撼封面 ============
+           用途：单句主张型封面——一句狠话 + 数据点撑场
+           适合：观点/实测类开篇；不适合：多图内容、长标题
+           可以变：数据 0-4 项；标签 0-4 个；高亮词可移位
+           槽位：kicker / title / sub / stats[]（n,u）/ sub-note / tags[]（t）
+           限制：title≤12字(2行)；sub≤24字(1行)；stat n≤6字符 u≤4字；sub-note≤24字(1行)；tag≤8字
+           hl：title 内 1 处
+           图槽：无
+           来源：ai-covers N01
+      -->
+      <section data-layout="N01-shock-cover">
+    <div class="ai-page n01" data-artwork data-size="1080x1440">
+
+  <div class="paper-noise"></div>
+
+  <div class="brand-top">
+    <div class="left dot-only">
+      <span class="brand-name">AI Efficiency Lab</span>
+    </div>
+    <div class="right">ISSUE · 001</div>
+  </div>
+
+  <div class="content">
+    <!-- ✅ 所有视觉主体包在一个紧凑块里，整体居中 -->
+    <div class="n01-center-block" data-layer="n01-block" data-label="主体块" data-type="group">
+      <span class="n01-tag-line" data-layer="kicker" data-label="引题" data-editable="text">{{kicker}}</span>
+      <div class="title" data-layer="title" data-label="主标题" data-editable="text">{{title}}</div>
+      <div class="sub" data-layer="sub" data-label="副题" data-editable="text">{{sub}}</div>
+
+      <div class="n01-data">
+        <!-- repeat ×1-4: 数据项 clone（grid 两列自动排）；数字越短越有冲击力，超过 2×2 时字号不变行数加 -->
+        <div class="item" data-repeat="stats"><span class="n" data-layer="stat-n" data-label="数字" data-editable="text">{{n}}</span><span class="n01-u" data-layer="stat-u" data-label="单位" data-editable="text">{{u}}</span></div>
+      </div>
+
+      <div class="n01-sub-note" data-layer="sub-note" data-label="按语" data-editable="text">{{sub-note}}</div>
+
+      <div class="n01-tags">
+        <!-- repeat ×0-4: 标签 clone（flex 横排）；≤8字，超过 3 个由容器换行 -->
+        <span class="t" data-repeat="tags" data-layer="tag-t" data-label="标签" data-editable="text">{{t}}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="pg-footer">
+    <span>aiefficiencylab.cn</span>
+    <span>N01 · 金句震撼封面</span>
+  </div>
+
+    </div>
+      </section>
+    </div>
+
+    <div class="gal-item" id="n02">
+      <!-- ============ N02 · 对话框封面 ============
+           用途：教程/Prompt 类封面——标题 + 浏览器窗口截图
+           适合：有横版截图的开篇；不适合：无图可用、竖图（裁切严重）
+           可以变：按钮为装饰固定；note 可省略
+           槽位：kicker / title / sub / note / 图×1（窗口 884:497 cover）
+           限制：title≤14字(2行)；sub≤26字(1行)；note≤14字；hl：title 内 1 处
+           图槽：884:497 横图 cover；窗口地址栏为装饰
+           来源：ai-covers N02
+      -->
+      <section data-layout="N02-dialog-cover">
+    <div class="ai-page n02" data-artwork data-size="1080x1440">
+
+  <div class="paper-noise"></div>
+
+  <div class="brand-top">
+    <div class="left dot-only">
+      <span class="brand-name">AI Efficiency Lab</span>
+    </div>
+    <div class="right">THE SHIFT · 07</div>
+  </div>
+
+  <div class="n02-dialog-wrap">
+    <!-- 主标题（窗口上方） -->
+    <div class="n02-main-copy" data-layer="n02-copy" data-label="文案区" data-type="group">
+      <span class="n02-main-copy__tag" data-layer="kicker" data-label="专栏引题" data-editable="text">{{kicker}}</span>
+      <div class="n02-main-copy__title" data-layer="title" data-label="主标题" data-editable="text">{{title}}</div>
+      <div class="n02-main-copy__sub" data-layer="sub" data-label="副题" data-editable="text">{{sub}}</div>
+    </div>
+
+    <!-- 窗口（只放图） -->
+    <div class="n02-window" data-layer="n02-window" data-label="窗口" data-type="group">
+      <div class="n02-window__bar">
+        <div class="n02-window__dots"><span></span><span></span><span></span></div>
+        <div class="n02-window__addr">aiefficiencylab.cn / prompts</div>
+      </div>
+      <div class="n02-window__img ph-img" data-img="N02-01" data-fit="cover"><img class="ph-img__img" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-slot="image" data-layer="n02-img-1" data-label="窗口截图" data-ratio="884:497" alt=""><span class="ph-img__label">IMG · 1280 × 720</span></div>
+    </div>
+
+    <!-- 按钮（窗口下方） -->
+    <div class="n02-action-bar">
+      <span class="note" data-layer="note" data-label="小注" data-editable="text">{{note}}</span>
+      <div class="n02-btns">
+        <span class="n02-btn">看示例</span>
+        <span class="n02-btn n02-btn--p">拿走 Prompt →</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="pg-footer">
+    <span>aiefficiencylab.cn</span>
+    <span>N02 · 对话框封面</span>
+  </div>
+
+    </div>
+      </section>
+    </div>
+
+    <div class="gal-item" id="n03">
+      <!-- ============ N03 · 通知堆叠封面 ============
+           用途：通知/消息流封面——AI 通知卡片堆叠
+           适合：自动化/Agent/日报类主题开篇；不适合：需要大图时
+           可以变：通知 2-4 条；首条强调款（n03-is-accent）需 L2 手工加
+           槽位：kicker / title / sub / notes[]（app,time,note-title,note-msg）
+           限制：title≤15字(3行,每行≤6字)；sub≤26字(1行)；note-title≤12字；note-msg≤20字(1行)；app≤14字符；time≤6字
+           hl：title 内 1 处
+           图槽：无
+           来源：ai-covers N03
+      -->
+      <section data-layout="N03-notification-cover">
+    <div class="ai-page n03" data-artwork data-size="1080x1440">
+
+  <div class="paper-noise"></div>
+
+  <div class="brand-top">
+    <div class="left">
+      <div class="logo"><div class="ph">AI</div></div>
+      <span class="brand-name">AI Efficiency Lab</span>
+    </div>
+    <div class="right">ISSUE · 08</div>
+  </div>
+
+  <div class="after-hero"></div>
+
+  <div class="content">
+    <div class="hero">
+      <div class="hero__tag" data-layer="kicker" data-label="引题" data-editable="text">{{kicker}}</div>
+      <div class="hero__title" data-layer="title" data-label="主标题" data-editable="text">{{title}}</div>
+      <div class="hero__sub" data-layer="sub" data-label="副题" data-editable="text">{{sub}}</div>
+    </div>
+
+    <div class="n03-notes">
+      <div class="n03-notes__floating">AI · PUSH</div>
+
+      <!-- repeat ×2-4: 通知卡 clone（flex 纵向堆叠）；超 3 条时 note-msg 收紧到一行内 -->
+      <div class="note" data-repeat="notes">
+        <div class="n03-note__icon">AI</div>
+        <div class="n03-note__body">
+          <div class="n03-note__meta"><span class="n03-note__app" data-layer="note-app" data-label="应用名" data-editable="text">{{app}}</span><span data-layer="note-time" data-label="时间" data-editable="text">{{time}}</span></div>
+          <div class="n03-note__title" data-layer="note-title" data-label="通知标题" data-editable="text">{{note-title}}</div>
+          <div class="n03-note__msg" data-layer="note-msg" data-label="通知正文" data-editable="text">{{note-msg}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pg-footer">
+    <span>aiefficiencylab.cn</span>
+    <span>N03 · 通知堆叠封面</span>
+  </div>
+
+    </div>
+      </section>
+    </div>
+
+    <div class="gal-item" id="n04">
+      <!-- ============ N04 · 手机叠放封面 ============
+           用途：手机 App 类封面——双手机叠放展示两张竖屏截图
+           适合：竖屏手机截图素材；不适合：横图（裁切严重）
+           可以变：可减为一台手机（L2 删除一台）；框图由 render 兜底
+           槽位：kicker / title / sub / 图×2（手机屏 36:61、13:23 cover）/ caption-t / caption-d
+           限制：title≤14字(2行,每行≤7字)；sub≤22字(1行)；caption-t≤12字；caption-d≤14字
+           hl：title 内 0-1 处
+           图槽：竖屏截图 cover；手机框 = frame-img 装饰槽（render 从 b64 兜底）
+           来源：ai-covers N04
+      -->
+      <section data-layout="N04-phone-stack-cover">
+    <div class="ai-page n04" data-artwork data-size="1080x1440">
+
+  <div class="paper-noise"></div>
+
+  <div class="brand-top">
+    <div class="left">
+      <div class="logo"><div class="ph">AI</div></div>
+      <span class="brand-name">AI Efficiency Lab</span>
+    </div>
+    <div class="right">AI APP · 03</div>
+  </div>
+
+  <div class="after-hero"></div>
+
+  <div class="content">
+    <!-- Hero（居中，和 AI32 封面型对齐）-->
+    <div class="hero">
+      <div class="hero__tag" data-layer="kicker" data-label="引题" data-editable="text">{{kicker}}</div>
+      <div class="hero__title" data-layer="title" data-label="主标题" data-editable="text">{{title}}</div>
+      <div class="hero__sub" data-layer="sub" data-label="副题" data-editable="text">{{sub}}</div>
+    </div>
+
+    <!-- 手机叠放（加 background 遮住网格）-->
+    <div class="n04-phones">
+      <div class="n04-phones__corner-tag">· iOS / Android ·</div>
+
+      <div class="n04-phone n04-phone--back">
+        <img class="n04-phone__frame frame-img" src="assets/iphone-frame.png" alt="" draggable="false">
+        <div class="n04-phone__screen">
+          <div class="ph ph-img" data-img="N04-01" data-fit="cover"><img class="ph-img__img" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-slot="image" data-layer="n04-img-1" data-label="后屏截图" data-ratio="36:61" alt=""><span class="ph-img__label">IMG · Cursor 首页</span></div>
+        </div>
+      </div>
+
+      <div class="n04-phone n04-phone--front">
+        <img class="n04-phone__frame frame-img" src="assets/iphone-frame.png" alt="" draggable="false">
+        <div class="n04-phone__screen">
+          <div class="ph ph-img" data-img="N04-02" data-fit="cover"><img class="ph-img__img" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-slot="image" data-layer="n04-img-2" data-label="前屏截图" data-ratio="13:23" alt=""><span class="ph-img__label">IMG · Notion AI 对话</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="n04-caption-row"><strong data-layer="caption-t" data-label="看板标题" data-editable="text">{{caption-t}}</strong><span data-layer="caption-d" data-label="看板说明" data-editable="text">{{caption-d}}</span></div>
+  </div>
+
+  <div class="pg-footer">
+    <span>aiefficiencylab.cn</span>
+    <span>N04 · 手机叠放封面</span>
+  </div>
+
+    </div>
+      </section>
+    </div>
+  </div>
+
+  <div class="gal-group" id="g-overview">
+    <div class="gal-group-head"><span class="num">G02</span><h2>概览</h2><span class="count">1 MASTERS</span></div>
+    <div class="gal-item" id="n05">
+      <!-- ============ N05 · 时间线概览 ============
+           用途：成长/历程类概览——时间线条目纵向排布
+           适合：Day N 叙事、阶段复盘；不适合：无时间含义的并列内容
+           可以变：条目 3-5 条；末条强调款（is-hot + c-accent）需 L2 手工加；speed 标签可留空
+           槽位：big-num / tag / title / sub / timeline[]（when,head,note,speed）
+           限制：big-num≤3字符；title≤14字(2行,每行≤7字)；sub≤20字(1行)；head≤14字(1行)；note≤22字(1行)；when≤7字符；speed≤8字符
+           hl：无（speed 标签自带强调）
+           图槽：无
+           来源：ai-covers N05
+      -->
+      <section data-layout="N05-timeline-overview">
+    <div class="ai-page n05" data-artwork data-size="1080x1440">
+
+  <div class="paper-noise"></div>
+
+  <div class="brand-top">
+    <div class="left">
+      <div class="logo"><div class="ph">AI</div></div>
+      <span class="brand-name">AI Efficiency Lab</span>
+    </div>
+    <div class="right">ISSUE · 06</div>
+  </div>
+
+  <div class="mega-hero">
+    <div class="mh-row">
+      <div class="big-num" data-layer="big-num" data-label="大数字" data-editable="text">{{big-num}}</div>
+      <div class="hero-text">
+        <span class="tag" data-layer="tag" data-label="标签" data-editable="text">{{tag}}</span>
+        <div class="title" data-layer="title" data-label="标题" data-editable="text">{{title}}</div>
+      </div>
+    </div>
+    <div class="sub" data-layer="sub" data-label="副题" data-editable="text">{{sub}}</div>
+  </div>
+
+  <div class="after-hero"></div>
+
+  <div class="content">
+    <div class="n05-timeline">
+      <!-- repeat ×3-5: 时间线条目 clone（flex 纵向均分）；5 条时 note 收在一行，3 条时行距加大 -->
+      <div class="n05-timeline__item" data-repeat="timeline">
+        <div class="n05-timeline__dot"></div>
+        <div class="n05-timeline__when" data-layer="when" data-label="时间" data-editable="text">{{when}}</div>
+        <div class="n05-timeline__body">
+          <div class="n05-timeline__head" data-layer="head" data-label="条目标题" data-editable="text">{{head}}</div>
+          <div class="n05-timeline__note" data-layer="note" data-label="条目说明" data-editable="text">{{note}}</div>
+          <span class="n05-timeline__tag" data-layer="speed" data-label="提速标注" data-editable="text">{{speed}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pg-footer">
+    <span>aiefficiencylab.cn</span>
+    <span>N05 · 时间线概览</span>
+  </div>
+
+    </div>
+      </section>
+    </div>
+  </div>
+
+  <div class="gal-group" id="g-steps">
+    <div class="gal-group-head"><span class="num">G03</span><h2>步骤</h2><span class="count">4 MASTERS</span></div>
+    <div class="gal-item" id="n06">
+      <!-- ============ N06 · 单步骤深度详情 ============
+           用途：步骤详解页——步骤头 + 图文三段混排 + 代码块 + 总结 + tip
+           适合：有 2-3 张过程截图的单步教学；不适合：无截图纯文字
+           可以变：三段 para 各带 strong 强调；cap 可留空
+           槽位：step-num / step-cat / title / para-1..3 / 图×3（187:57、230:97 cover）+ cap-1..3 / code-name / code / sum-body / tip-body
+           限制：title≤16字(2行)；para≤44字(2行)；cap≤16字(1行)；code≤2行每行≤30字符；sum-body≤44字(2行)；tip-body≤40字(2行)
+           hl：para/sum/tip 内 strong 强调
+           图槽：横长条 cover；标注号 1/2/3 为装饰
+           来源：ai-covers N06
+      -->
+      <section data-layout="N06-step-detail">
+    <div class="ai-page n06" data-artwork data-size="1080x1440">
+
+  <div class="paper-noise"></div>
+
+  <div class="brand-top">
+    <div class="left">
+      <div class="logo"><div class="ph">AI</div></div>
+      <span class="brand-name">AI Efficiency Lab</span>
+    </div>
+    <div class="right">STEP · 03 / 05</div>
+  </div>
+
+  <div class="after-hero"></div>
+
+  <div class="content">
+    <!-- 01 步骤头 -->
+    <div class="step-head" data-layer="n06-head" data-label="步骤头" data-type="group">
+      <div class="step-num" data-layer="step-num" data-label="步骤号" data-editable="text">{{step-num}}</div>
+      <div class="step-title-wrap">
+        <div class="step-cat" data-layer="step-cat" data-label="分类" data-editable="text">{{step-cat}}</div>
+        <div class="step-title" data-layer="title" data-label="步骤标题" data-editable="text">{{title}}</div>
+      </div>
+    </div>
+
+    <!-- 02 段落 1 -->
+    <div class="n06-para" data-layer="para-1" data-label="段落1" data-editable="text">{{para-1}}</div>
+
+    <!-- 03 主截图（1.4fr 弹性）-->
+    <div class="n06-annotated-shot" data-layer="n06-shot-1" data-label="主截图组" data-type="group">
+      <div class="n06-annotated-shot__num">1</div>
+      <div class="n06-annotated-shot__img ph-img" data-img="N06-01" data-fit="cover"><img class="ph-img__img" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-slot="image" data-layer="n06-img-1" data-label="主截图" data-ratio="187:57" alt=""><span class="ph-img__label">IMG · 创建 Agent</span></div>
+      <div class="n06-annotated-shot__caption" data-layer="cap-1" data-label="主截图说明" data-editable="text">{{cap-1}}</div>
+    </div>
+
+    <!-- 04 段落 2 -->
+    <div class="n06-para" data-layer="para-2" data-label="段落2" data-editable="text">{{para-2}}</div>
+
+    <!-- 05 两图并排（1fr 弹性）-->
+    <div class="n06-twin">
+      <div class="n06-annotated-shot" data-layer="n06-shot-2" data-label="左截图组" data-type="group">
+        <div class="n06-annotated-shot__num">2</div>
+        <div class="n06-annotated-shot__img ph-img" data-img="N06-02" data-fit="cover"><img class="ph-img__img" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-slot="image" data-layer="n06-img-2" data-label="左截图" data-ratio="230:97" alt=""><span class="ph-img__label">IMG · 配置 Prompt</span></div>
+        <div class="n06-annotated-shot__caption" data-layer="cap-2" data-label="左截图说明" data-editable="text">{{cap-2}}</div>
+      </div>
+      <div class="n06-annotated-shot" data-layer="n06-shot-3" data-label="右截图组" data-type="group">
+        <div class="n06-annotated-shot__num">3</div>
+        <div class="n06-annotated-shot__img ph-img" data-img="N06-03" data-fit="cover"><img class="ph-img__img" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-slot="image" data-layer="n06-img-3" data-label="右截图" data-ratio="230:97" alt=""><span class="ph-img__label">IMG · 授权工具</span></div>
+        <div class="n06-annotated-shot__caption" data-layer="cap-3" data-label="右截图说明" data-editable="text">{{cap-3}}</div>
+      </div>
+    </div>
+
+    <!-- 06 段落 3 -->
+    <div class="n06-para" data-layer="para-3" data-label="段落3" data-editable="text">{{para-3}}</div>
+
+    <!-- 07 代码块 -->
+    <div class="n06-code-block">
+      <div class="n06-code-block__head" data-layer="code-name" data-label="代码名" data-editable="text">{{code-name}}</div>
+<pre data-layer="code" data-label="代码" data-editable="text">{{code}}</pre>
+    </div>
+
+    <!-- 08 总结钉底 -->
+    <div class="n06-summary">
+      <div class="n06-summary__head">· 做完这步你得到什么 ·</div>
+      <div class="n06-summary__body">
+        <span class="n06-dot"></span>
+        <span data-layer="sum-body" data-label="总结" data-editable="text">{{sum-body}}</span>
+      </div>
+    </div>
+
+    <!-- 09 callout 补充说明 -->
+    <div class="callout">
+      <div class="callout__icon">💡</div>
+      <div class="callout__body">
+        <div class="callout__head">· Pro Tip ·</div>
+        <div class="callout__text" data-layer="tip-body" data-label="Tip" data-editable="text">{{tip-body}}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pg-footer">
+    <span>aiefficiencylab.cn</span>
+    <span>N06 · 单步骤深度详情</span>
+  </div>
+
+    </div>
+      </section>
+    </div>
+
+    <div class="gal-item" id="n07">
+      <!-- ============ N07 · 单步骤概览 ============
+           用途：单步教学页——步骤头 + 大截图 + 三要点 + Pro Tip
+           适合：一张主截图讲一个动作；不适合：多步骤并列
+           可以变：要点 2-4 条；要点强调款（is-hot）需 L2 手工加
+           槽位：step-num / step-cat / title / shot-name / 图×1（17:9 cover）/ points[]（n,point-text）/ tip-1 / tip-2
+           限制：title≤18字(2行)；shot-name≤26字符；point-text≤24字(2行)；tip-1≤40字(2行)；tip-2≤20字(1行)
+           hl：point-text/tip-1 内 strong 或 span.hl 强调
+           图槽：横版 17:9 cover；窗口 path 栏为 chrome
+           来源：ai-covers N07
+      -->
+      <section data-layout="N07-step-single">
+    <div class="ai-page n07" data-artwork data-size="1080x1440">
+
+  <div class="paper-noise"></div>
+
+  <div class="brand-top">
+    <div class="left">
+      <div class="logo"><div class="ph">AI</div></div>
+      <span class="brand-name">AI Efficiency Lab</span>
+    </div>
+    <div class="right">STEP · 02 / 05</div>
+  </div>
+
+  <div class="after-hero"></div>
+
+  <div class="content">
+    <!-- 步骤编号 + 标题 -->
+    <div class="step-head" data-layer="n07-head" data-label="步骤头" data-type="group">
+      <div class="step-num is-hot" data-layer="step-num" data-label="步骤号" data-editable="text">{{step-num}}</div>
+      <div class="step-title-wrap">
+        <div class="step-cat" data-layer="step-cat" data-label="分类" data-editable="text">{{step-cat}}</div>
+        <div class="step-title" data-layer="title" data-label="步骤标题" data-editable="text">{{title}}</div>
+      </div>
+    </div>
+
+    <!-- 主截图 -->
+    <div class="n07-shot-main" data-layer="n07-shot" data-label="截图组" data-type="group">
+      <div class="n07-shot-main__chrome">
+        <div class="dots"><span></span><span></span><span></span></div>
+        <div class="n07-shot-main__chrome__path" data-layer="shot-name" data-label="窗口路径" data-editable="text">{{shot-name}}</div>
+      </div>
+      <div class="n07-shot-main__img ph-img" data-img="N07-01" data-fit="cover"><img class="ph-img__img" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-slot="image" data-layer="n07-img-1" data-label="主截图" data-ratio="17:9" alt=""><span class="ph-img__label">IMG · 1280 × 720</span></div>
+    </div>
+
+    <!-- 要点 + tips -->
+    <div class="n07-body-row">
+      <div class="points">
+        <div class="n07-points__head">· THREE KEY POINTS ·</div>
+        <div class="n07-points__list">
+          <!-- repeat ×2-4: 要点条 clone（flex 纵向均分）；4 条时 point-text 收紧到一行 -->
+          <div class="n07-points__item" data-repeat="points">
+            <div class="n07-points__num" data-layer="point-num" data-label="序号" data-editable="text">{{n}}</div>
+            <div class="n07-points__text" data-layer="point-text" data-label="要点" data-editable="text">{{point-text}}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="n07-tips">
+        <div class="n07-tips__head">· PRO TIP ·</div>
+        <div class="n07-tips__body">
+          <div data-layer="tip-1" data-label="Tip主句" data-editable="text">{{tip-1}}</div>
+          <div data-layer="tip-2" data-label="Tip补句" data-editable="text">{{tip-2}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pg-footer">
+    <span>aiefficiencylab.cn</span>
+    <span>N07 · 单步骤概览</span>
+  </div>
+
+    </div>
+      </section>
+    </div>
+
+    <div class="gal-item" id="n08">
+      <!-- ============ N08 · 双步骤同页 ============
+           用途：双步骤并列页——上下两个步骤卡，第 1 组带截图
+           适合：教程前两步打包讲；不适合：超过 2 步（拆 N06/N07）
+           可以变：每组要点 2-3 条；进度脚注可改
+           槽位：s1-num/s1-cat/s1-title / 图×1（89:50 cover）/ points-1[]（n,point）/ s2-num/s2-cat/s2-title / points-2[]（n,point）/ progress
+           限制：s1/s2 title≤14字(1行)；cat≤18字符；point≤20字(1行)；progress≤10字符
+           hl：point 内 strong 强调
+           图槽：横版 89:50 cover（仅第 1 组）；分隔条与"继续→"为装饰
+           来源：ai-covers N08
+      -->
+      <section data-layout="N08-steps-pair">
+    <div class="ai-page n08" data-artwork data-size="1080x1440">
+
+  <div class="paper-noise"></div>
+
+  <div class="brand-top">
+    <div class="left">
+      <div class="logo"><div class="ph">AI</div></div>
+      <span class="brand-name">AI Efficiency Lab</span>
+    </div>
+    <div class="right">STEP · 01+02 / 05</div>
+  </div>
+
+  <div class="after-hero"></div>
+
+  <div class="content">
+    <!-- 第 1 个步骤 -->
+    <div class="n08-pair">
+      <div class="step" data-layer="n08-step-1" data-label="步骤1" data-type="group">
+        <div class="n08-step__head">
+          <div class="n08-step__num" data-layer="s1-num" data-label="步骤1号" data-editable="text">{{s1-num}}</div>
+          <div class="n08-step__meta">
+            <div class="n08-step__cat" data-layer="s1-cat" data-label="步骤1分类" data-editable="text">{{s1-cat}}</div>
+            <div class="n08-step__title" data-layer="s1-title" data-label="步骤1标题" data-editable="text">{{s1-title}}</div>
+          </div>
+        </div>
+        <div class="n08-step__shot">
+          <div class="dots"><span></span><span></span><span></span></div>
+          <div class="n08-step__shot__img ph-img" data-img="N08-01" data-fit="cover"><img class="ph-img__img" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-slot="image" data-layer="n08-img-1" data-label="步骤1截图" data-ratio="89:50" alt=""><span class="ph-img__label">IMG · 安装界面</span></div>
+        </div>
+        <div class="n08-step__points">
+          <!-- repeat ×2-3: 步骤1要点 clone；每条一行内 -->
+          <div class="n08-step__point" data-repeat="points-1" data-layer="p1-point" data-editable="text">{{point}}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="n08-pair__divider">CONTINUE · 下一个</div>
+
+    <!-- 第 2 个步骤 -->
+    <div class="n08-pair">
+      <div class="step" data-layer="n08-step-2" data-label="步骤2" data-type="group">
+        <div class="n08-step__head">
+          <div class="n08-step__num" data-layer="s2-num" data-label="步骤2号" data-editable="text">{{s2-num}}</div>
+          <div class="n08-step__meta">
+            <div class="n08-step__cat" data-layer="s2-cat" data-label="步骤2分类" data-editable="text">{{s2-cat}}</div>
+            <div class="n08-step__title" data-layer="s2-title" data-label="步骤2标题" data-editable="text">{{s2-title}}</div>
+          </div>
+        </div>
+        <div class="n08-step__points">
+          <!-- repeat ×2-3: 步骤2要点 clone；每条一行内 -->
+          <div class="n08-step__point" data-repeat="points-2" data-layer="p2-point" data-editable="text">{{point}}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 底部进度 -->
+    <div class="n08-pair__foot">
+      <span data-layer="progress" data-label="进度" data-editable="text">{{progress}}</span>
+      <span>继续 →</span>
+    </div>
+  </div>
+
+  <div class="pg-footer">
+    <span>aiefficiencylab.cn</span>
+    <span>N08 · 双步骤同页</span>
+  </div>
+
+    </div>
+      </section>
+    </div>
+
+    <div class="gal-item" id="n09">
+      <!-- ============ N09 · 步骤前后对比 ============
+           用途：步骤前后对比——旧方法 vs 新方法双栏 + 底部收获条
+           适合：改造/自动化前后对照；不适合：三项以上对比
+           可以变：收获条可省（L2 删除）
+           槽位：step-num / step-cat / title / 图×2（227:142 cover）/ before-head/before-t/before-note / after-head/after-t/after-note / gain-num / gain-text
+           限制：title≤16字(2行)；leg head≤14字(1行)；t≤20字(2行)；note≤16字(1行)；gain-num≤4字符；gain-text≤30字(1行)
+           hl：无（VS 与 before/after 自带对比强调）
+           图槽：横版 227:142 cover ×2
+           来源：ai-covers N09
+      -->
+      <section data-layout="N09-step-compare">
+    <div class="ai-page n09" data-artwork data-size="1080x1440">
+
+  <div class="paper-noise"></div>
+
+  <div class="brand-top">
+    <div class="left">
+      <div class="logo"><div class="ph">AI</div></div>
+      <span class="brand-name">AI Efficiency Lab</span>
+    </div>
+    <div class="right">STEP · 03 / 05</div>
+  </div>
+
+  <div class="after-hero"></div>
+
+  <div class="content">
+    <!-- 步骤标题 -->
+    <div class="step-head" data-layer="n09-head" data-label="步骤头" data-type="group">
+      <div class="step-num" data-layer="step-num" data-label="步骤号" data-editable="text">{{step-num}}</div>
+      <div class="step-title-wrap">
+        <div class="step-cat" data-layer="step-cat" data-label="分类" data-editable="text">{{step-cat}}</div>
+        <div class="step-title" data-layer="title" data-label="步骤标题" data-editable="text">{{title}}</div>
+      </div>
+    </div>
+
+    <!-- 对比双栏 -->
+    <div class="compare">
+      <div class="n09-leg n09-leg--before" data-layer="n09-leg-before" data-label="旧方法栏" data-type="group">
+        <div class="n09-leg__head" data-layer="before-head" data-label="旧方法标题" data-editable="text">{{before-head}}</div>
+        <div class="n09-leg__shot ph-img" data-img="N09-01" data-fit="cover"><img class="ph-img__img" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-slot="image" data-layer="n09-img-1" data-label="旧流程截图" data-ratio="227:142" alt=""><span class="ph-img__label">IMG · 手动流程</span></div>
+        <div class="n09-leg__body">
+          <div class="n09-leg__t" data-layer="before-t" data-label="旧方法描述" data-editable="text">{{before-t}}</div>
+          <div class="n09-leg__note" data-layer="before-note" data-label="旧方法代价" data-editable="text">{{before-note}}</div>
+        </div>
+      </div>
+
+      <span class="compare__vs">VS</span>
+
+      <div class="n09-leg n09-leg--after" data-layer="n09-leg-after" data-label="新方法栏" data-type="group">
+        <div class="n09-leg__head" data-layer="after-head" data-label="新方法标题" data-editable="text">{{after-head}}</div>
+        <div class="n09-leg__shot ph-img" data-img="N09-02" data-fit="cover"><img class="ph-img__img" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-slot="image" data-layer="n09-img-2" data-label="新流程截图" data-ratio="227:142" alt=""><span class="ph-img__label">IMG · Agent 流程</span></div>
+        <div class="n09-leg__body">
+          <div class="n09-leg__t" data-layer="after-t" data-label="新方法描述" data-editable="text">{{after-t}}</div>
+          <div class="n09-leg__note" data-layer="after-note" data-label="新方法收益" data-editable="text">{{after-note}}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 底部收获 -->
+    <div class="n09-gain">
+      <span class="n09-gain__label">· 这一步帮你省 ·</span>
+      <span class="n09-gain__num" data-layer="gain-num" data-label="省下量" data-editable="text">{{gain-num}}</span>
+      <span class="n09-gain__text" data-layer="gain-text" data-label="收获描述" data-editable="text">{{gain-text}}</span>
+    </div>
+  </div>
+
+  <div class="pg-footer">
+    <span>aiefficiencylab.cn</span>
+    <span>N09 · 步骤前后对比</span>
+  </div>
+
+    </div>
+      </section>
+    </div>
+  </div>
+
+  <div class="gal-group" id="g-lists">
+    <div class="gal-group-head"><span class="num">G04</span><h2>清单</h2><span class="count">5 MASTERS</span></div>
+    <div class="gal-item" id="n10">
+      <!-- ============ N10 · 工具清单 v2 ============
+           用途：工具/资源推荐——左编号清单 + 右 2×3 图格
+           适合：3-8 条量级推荐 + 有截图素材；不适合：每条需长说明（d 一行）
+           可以变：条目 3-8 条（行距自适应）；右栏图格固定 6 格，可 L2 减格
+           槽位：big-num / tag / title / sub / items[]（num,t,d）/ 图×6（212:291 cover）/ page-no
+           限制：big-num≤2字符且=条数；title≤16字(2行,每行≤8字)；sub≤16字(1行)；t≤12字；d≤16字(1行)；6-8条时 d 更短
+           hl：title 内 0-1 处
+           图槽：竖版 212:291 cover ×6
+           来源：ai-covers N10
+      -->
+      <section data-layout="N10-tool-list">
+    <div class="ai-page n10" data-artwork data-size="1080x1440">
+
+  <div class="paper-noise"></div>
+
+  <div class="brand-top">
+    <div class="left">
+      <div class="logo"><div class="ph">AI</div></div>
+      <span class="brand-name">AI Efficiency Lab</span>
+    </div>
+    <div class="right">ISSUE · 05</div>
+  </div>
+
+  <div class="mega-hero">
+    <div class="mh-row">
+      <div class="big-num" data-layer="big-num" data-label="条数大数字" data-editable="text">{{big-num}}</div>
+      <div class="hero-text">
+        <span class="tag" data-layer="tag" data-label="标签" data-editable="text">{{tag}}</span>
+        <div class="title" data-layer="title" data-label="标题" data-editable="text">{{title}}</div>
+      </div>
+    </div>
+    <div class="sub" data-layer="sub" data-label="副题" data-editable="text">{{sub}}</div>
+  </div>
+
+  <div class="after-hero"></div>
+
+  <div class="content">
+    <div class="num-list">
+      <!-- repeat ×3-8: 编号条目 clone（flex:1 均分行高）；条数-字数联动：5 条时 d 一行内，6-8 条时 t/d 更短 -->
+      <div class="item" data-repeat="items">
+        <div class="num" data-layer="tool-num" data-label="编号" data-editable="text">{{num}}</div>
+        <div>
+          <div class="t" data-layer="tool-t" data-label="条目名" data-editable="text">{{t}}</div>
+          <div class="d" data-layer="tool-d" data-label="条目说明" data-editable="text">{{d}}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="n10-img-grid">
+      <div class="img-card ph-img" data-img="N10-01" data-fit="cover"><img class="ph-img__img" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-slot="image" data-layer="n10-img-1" data-label="图 01" data-ratio="212:291" alt=""><div class="placeholder ph-img__label">IMG · 01</div><div class="corner-num">01</div></div>
+      <div class="img-card ph-img" data-img="N10-02" data-fit="cover"><img class="ph-img__img" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-slot="image" data-layer="n10-img-2" data-label="图 02" data-ratio="212:291" alt=""><div class="placeholder ph-img__label">IMG · 02</div><div class="corner-num">02</div></div>
+      <div class="img-card ph-img" data-img="N10-03" data-fit="cover"><img class="ph-img__img" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-slot="image" data-layer="n10-img-3" data-label="图 03" data-ratio="212:291" alt=""><div class="placeholder ph-img__label">IMG · 03</div><div class="corner-num">03</div></div>
+      <div class="img-card ph-img" data-img="N10-04" data-fit="cover"><img class="ph-img__img" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-slot="image" data-layer="n10-img-4" data-label="图 04" data-ratio="212:291" alt=""><div class="placeholder ph-img__label">IMG · 04</div><div class="corner-num">04</div></div>
+      <div class="img-card ph-img" data-img="N10-05" data-fit="cover"><img class="ph-img__img" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-slot="image" data-layer="n10-img-5" data-label="图 05" data-ratio="212:291" alt=""><div class="placeholder ph-img__label">IMG · 05</div><div class="corner-num">05</div></div>
+      <div class="img-card ph-img" data-img="N10-06" data-fit="cover"><img class="ph-img__img" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-slot="image" data-layer="n10-img-6" data-label="图 06" data-ratio="212:291" alt=""><div class="placeholder ph-img__label">IMG · 06</div><div class="corner-num">06</div></div>
+    </div>
+  </div>
+
+  <div class="pg-footer">
+    <span>aiefficiencylab.cn</span>
+    <span class="page-no" data-layer="page-no" data-label="页码" data-editable="text">{{page-no}}</span>
+  </div>
+
+    </div>
+      </section>
+    </div>
+
+    <div class="gal-item" id="n11">
+      <!-- ============ N11 · 工具清单基础 ============
+           用途：基础工具清单——编号行 + 名称/描述/分类标签，纯文字
+           适合：3-7 条量级推荐；不适合：需配图、每条长说明
+           可以变：条目 3-7 条（行高自适应）；tag 可留空
+           槽位：big-num / tag / title / sub / items[]（num,name,desc,tag）
+           限制：big-num≤2字符且=条数；title≤16字(2行)；sub≤18字(1行)；name≤14字；desc≤20字(1行)；tag≤8字符
+           hl：title 内 1 处（span.hl）
+           图槽：无
+           来源：ai-covers N11
+      -->
+      <section data-layout="N11-tool-list-basic">
+    <div class="ai-page n11" data-artwork data-size="1080x1440">
+
+  <div class="paper-noise"></div>
+
+  <div class="brand-top">
+    <div class="left">
+      <div class="logo"><div class="ph">AI</div></div>
+      <span class="brand-name">AI Efficiency Lab</span>
+    </div>
+    <div class="right">TOOL · KIT</div>
+  </div>
+
+  <div class="mega-hero">
+    <div class="mh-row">
+      <div class="big-num" data-layer="big-num" data-label="条数大数字" data-editable="text">{{big-num}}</div>
+      <div class="hero-text">
+        <span class="tag" data-layer="tag" data-label="标签" data-editable="text">{{tag}}</span>
+        <div class="title" data-layer="title" data-label="标题" data-editable="text">{{title}}</div>
+      </div>
+    </div>
+    <div class="sub" data-layer="sub" data-label="副题" data-editable="text">{{sub}}</div>
+  </div>
+
+  <div class="after-hero"></div>
+
+  <div class="content">
+    <div class="num-list">
+      <!-- repeat ×3-7: 编号条目 clone（flex:1 均分行高）；条目多时 desc 收紧一行 -->
+      <div class="item" data-repeat="items">
+        <div class="num" data-layer="tool-num" data-label="编号" data-editable="text">{{num}}</div>
+        <div class="name" data-layer="tool-name" data-label="名称" data-editable="text">{{name}}</div>
+        <div class="desc" data-layer="tool-desc" data-label="描述" data-editable="text">{{desc}}</div>
+        <div class="tag" data-layer="tool-tag" data-label="分类" data-editable="text">{{tag}}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pg-footer">
+    <span>aiefficiencylab.cn</span>
+    <span>N11 · 工具清单基础</span>
+  </div>
+
+    </div>
+      </section>
+    </div>
+
+    <div class="gal-item" id="n12">
+      <!-- ============ N12 · 待办清单 ============
+           用途：待办/打卡清单——勾选框条目 + 进度头
+           适合：5-8 条行动清单；不适合：无勾选语义的纯列表（用 N11）
+           可以变：条目 5-8 条；勾选态与角标（n12-is-done / n12-checklist__tag）需 L2 手工加
+           槽位：big-num / tag / title / sub / list-title / progress / items[]（t,note）
+           限制：big-num≤2字符且=条数；title≤14字(2行)；sub≤16字(1行)；list-title≤10字；progress≤6字符；t≤14字(1行)；note≤16字(1行)
+           hl：无
+           图槽：无
+           来源：ai-covers N12
+      -->
+      <section data-layout="N12-checklist">
+    <div class="ai-page n12" data-artwork data-size="1080x1440">
+
+  <div class="paper-noise"></div>
+
+  <div class="brand-top">
+    <div class="left">
+      <div class="logo"><div class="ph">AI</div></div>
+      <span class="brand-name">AI Efficiency Lab</span>
+    </div>
+    <div class="right">TODO · WEEK 07</div>
+  </div>
+
+  <div class="mega-hero">
+    <div class="mh-row">
+      <div class="big-num" data-layer="big-num" data-label="条数大数字" data-editable="text">{{big-num}}</div>
+      <div class="hero-text">
+        <span class="tag" data-layer="tag" data-label="标签" data-editable="text">{{tag}}</span>
+        <div class="title" data-layer="title" data-label="标题" data-editable="text">{{title}}</div>
+      </div>
+    </div>
+    <div class="sub" data-layer="sub" data-label="副题" data-editable="text">{{sub}}</div>
+  </div>
+
+  <div class="after-hero"></div>
+
+  <div class="content">
+    <div class="n12-checklist">
+      <div class="n12-checklist__head">
+        <div class="n12-checklist__title" data-layer="list-title" data-label="清单名" data-editable="text">{{list-title}}</div>
+        <div class="n12-checklist__progress" data-layer="progress" data-label="进度" data-editable="text">{{progress}}</div>
+      </div>
+
+      <div class="n12-checklist__list">
+        <!-- repeat ×5-8: 清单条目 clone（flex:1 均分行高）；勾选态与角标需 L2 手工加 -->
+        <div class="n12-checklist__item" data-repeat="items">
+          <div class="n12-checkbox"></div>
+          <div class="n12-checklist__body">
+            <div class="n12-checklist__title" data-layer="item-t" data-label="条目" data-editable="text">{{t}}</div>
+            <div class="n12-checklist__note" data-layer="item-note" data-label="条目注" data-editable="text">{{note}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pg-footer">
+    <span>aiefficiencylab.cn</span>
+    <span>N12 · 待办清单</span>
+  </div>
+
+    </div>
+      </section>
+    </div>
+
+    <div class="gal-item" id="n13">
+      <!-- ============ N13 · Prompt 教程 ============
+           用途：Prompt 拆解教程——编号步骤 + 示例 prompt 等宽块
+           适合：4-6 步的 prompt 公式教学；不适合：无示例内容
+           可以变：步骤 4-6 条
+           槽位：big-num / tag / title / sub / steps[]（num,t,prompt）/ foot-note
+           限制：big-num≤2字符且=条数；title≤16字(2行)；sub≤18字(1行)；t≤12字(1行)；prompt≤26字符(1行)；foot-note≤30字符
+           hl：title 内 1 处（span.hl）
+           图槽：无
+           来源：ai-covers N13
+      -->
+      <section data-layout="N13-prompt-tutorial">
+    <div class="ai-page n13" data-artwork data-size="1080x1440">
+
+  <div class="paper-noise"></div>
+
+  <div class="brand-top">
+    <div class="left">
+      <div class="logo"><div class="ph">AI</div></div>
+      <span class="brand-name">AI Efficiency Lab</span>
+    </div>
+    <div class="right">PROMPT · GUIDE</div>
+  </div>
+
+  <div class="mega-hero">
+    <div class="mh-row">
+      <div class="big-num" data-layer="big-num" data-label="条数大数字" data-editable="text">{{big-num}}</div>
+      <div class="hero-text">
+        <span class="tag" data-layer="tag" data-label="标签" data-editable="text">{{tag}}</span>
+        <div class="title" data-layer="title" data-label="标题" data-editable="text">{{title}}</div>
+      </div>
+    </div>
+    <div class="sub" data-layer="sub" data-label="副题" data-editable="text">{{sub}}</div>
+  </div>
+
+  <div class="after-hero"></div>
+
+  <div class="content">
+    <div class="n13-prompt-list">
+      <!-- repeat ×4-6: 步骤条 clone（flex:1 均分）；prompt 为等宽块一行内 -->
+      <div class="step" data-repeat="steps">
+        <div class="num" data-layer="step-num" data-label="步骤号" data-editable="text">{{num}}</div>
+        <div class="main">
+          <div class="t" data-layer="step-t" data-label="步骤名" data-editable="text">{{t}}</div>
+          <div class="prompt" data-layer="step-prompt" data-label="示例" data-editable="text">{{prompt}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pg-footer">
+    <span>aiefficiencylab.cn</span>
+    <span class="page-no" data-layer="foot-note" data-label="公式脚注" data-editable="text">{{foot-note}}</span>
+  </div>
+
+    </div>
+      </section>
+    </div>
+
+    <div class="gal-item" id="n14">
+      <!-- ============ N14 · 误区避雷 ============
+           用途：误区避雷页——✗误区 → 正解对照行 + 底部转发条
+           适合：4-6 条认知纠偏；不适合：正面教程内容
+           可以变：条目 4-6 条；底部转发条可留空
+           槽位：big-num / tag / title / sub / myths[]（wrong,right）/ cta-line
+           限制：big-num≤2字符且=条数；title≤16字(2行)；sub≤14字(1行)；wrong≤12字(1行)；right≤18字(1行)；cta-line≤18字
+           hl：title 内 1 处（span.hl）
+           图槽：无
+           来源：ai-covers N14
+      -->
+      <section data-layout="N14-myths-bust">
+    <div class="ai-page n14" data-artwork data-size="1080x1440">
+
+  <div class="paper-noise"></div>
+
+  <div class="brand-top">
+    <div class="left">
+      <div class="logo"><div class="ph">AI</div></div>
+      <span class="brand-name">AI Efficiency Lab</span>
+    </div>
+    <div class="right">MISTAKES</div>
+  </div>
+
+  <div class="mega-hero">
+    <div class="mh-row">
+      <div class="big-num" data-layer="big-num" data-label="条数大数字" data-editable="text">{{big-num}}</div>
+      <div class="hero-text">
+        <span class="tag" data-layer="tag" data-label="标签" data-editable="text">{{tag}}</span>
+        <div class="title" data-layer="title" data-label="标题" data-editable="text">{{title}}</div>
+      </div>
+    </div>
+    <div class="sub" data-layer="sub" data-label="副题" data-editable="text">{{sub}}</div>
+  </div>
+
+  <div class="after-hero"></div>
+
+  <div class="content">
+    <div class="n14-myths">
+      <!-- repeat ×4-6: 误区行 clone（flex:1 均分行高）；right 为正解一行 -->
+      <div class="n14-myth" data-repeat="myths">
+        <div class="n14-no">✗</div>
+        <div class="content">
+          <div class="n14-wrong" data-layer="myth-wrong" data-label="误区" data-editable="text">{{wrong}}</div>
+          <div class="right" data-layer="myth-right" data-label="正解" data-editable="text">{{right}}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="n14-accent-bar" data-layer="cta-line" data-label="转发条" data-editable="text">{{cta-line}}</div>
+  </div>
+
+  <div class="pg-footer">
+    <span>aiefficiencylab.cn</span>
+    <span>N14 · 误区避雷</span>
+  </div>
+
+    </div>
+      </section>
+    </div>
+  </div>
+
+  <div class="gal-group" id="g-showcase">
+    <div class="gal-group-head"><span class="num">G05</span><h2>展示</h2><span class="count">5 MASTERS</span></div>
+    <div class="gal-item" id="n15">
+      <!-- ============ N15 · Agent 卡片网格 ============
+           用途：Agent/工具卡片纵列——分类+名称+描述+可抄 Prompt
+           适合：2-4 个 Agent 逐个安利；不适合：大图展示
+           可以变：卡片 2-4 张
+           槽位：big-num / tag / title / sub / cards[]（cat,name,desc,prompt）
+           限制：big-num≤2字符且=条数；title≤16字(2行)；sub≤16字(1行)；cat≤8字符；name≤18字；desc≤22字(1行)；prompt≤22字符(1行)
+           hl：title 内 1 处（span.hl）
+           图槽：无
+           来源：ai-covers N15
+      -->
+      <section data-layout="N15-agent-gallery">
+    <div class="ai-page n15" data-artwork data-size="1080x1440">
+
+  <div class="paper-noise"></div>
+
+  <div class="brand-top">
+    <div class="left">
+      <div class="logo"><div class="ph">AI</div></div>
+      <span class="brand-name">AI Efficiency Lab</span>
+    </div>
+    <div class="right">AGENTS</div>
+  </div>
+
+  <div class="mega-hero">
+    <div class="mh-row">
+      <div class="big-num" data-layer="big-num" data-label="条数大数字" data-editable="text">{{big-num}}</div>
+      <div class="hero-text">
+        <span class="tag" data-layer="tag" data-label="标签" data-editable="text">{{tag}}</span>
+        <div class="title" data-layer="title" data-label="标题" data-editable="text">{{title}}</div>
+      </div>
+    </div>
+    <div class="sub" data-layer="sub" data-label="副题" data-editable="text">{{sub}}</div>
+  </div>
+
+  <div class="after-hero"></div>
+
+  <div class="content">
+    <!-- repeat ×2-4: Agent 卡 clone（flex:1 均分）；4 张时 desc 收一行 -->
+    <div class="card" data-repeat="cards">
+      <div class="n15-cat" data-layer="card-cat" data-label="分类" data-editable="text">{{cat}}</div>
+      <div class="t" data-layer="card-t" data-label="名称" data-editable="text">{{name}}</div>
+      <div class="d" data-layer="card-d" data-label="描述" data-editable="text">{{desc}}</div>
+      <div class="prompt" data-layer="card-prompt" data-label="Prompt" data-editable="text">{{prompt}}</div>
+    </div>
+  </div>
+
+  <div class="pg-footer">
+    <span>aiefficiencylab.cn</span>
+    <span>N15 · Agent 卡片网格</span>
+  </div>
+
+    </div>
+      </section>
+    </div>
+
+    <div class="gal-item" id="n16">
+      <!-- ============ N16 · 分组图片展示 ============
+           用途：分场景图片展示——3 组各带说明 + 横排 3 图
+           适合：多场景对比、案例集；不适合：单图深度展示
+           可以变：组数固定 3 组（增减需 L2）；每组图 1-3 张
+           槽位：big-num / tag / title / sub / g1-name/g1-desc / 图×3 / g2-name/g2-desc / 图×3 / g3-name/g3-desc / 图×3 / page-no
+           限制：big-num≤2字符；title≤14字(2行)；sub≤16字(1行)；组名≤6字；组说明≤20字(1行)
+           hl：无
+           图槽：竖版 194:283 cover ×9（组内横排）
+           来源：ai-covers N16
+      -->
+      <section data-layout="N16-group-showcase">
+    <div class="ai-page n16" data-artwork data-size="1080x1440">
+
+  <div class="paper-noise"></div>
+
+  <div class="brand-top">
+    <div class="left">
+      <div class="logo"><div class="ph">AI</div></div>
+      <span class="brand-name">AI Efficiency Lab</span>
+    </div>
+    <div class="right">ISSUE · 03</div>
+  </div>
+
+  <div class="mega-hero">
+    <div class="mh-row">
+      <div class="big-num" data-layer="big-num" data-label="组数大数字" data-editable="text">{{big-num}}</div>
+      <div class="hero-text">
+        <span class="tag" data-layer="tag" data-label="标签" data-editable="text">{{tag}}</span>
+        <div class="title" data-layer="title" data-label="标题" data-editable="text">{{title}}</div>
+      </div>
+    </div>
+    <div class="sub" data-layer="sub" data-label="副题" data-editable="text">{{sub}}</div>
+  </div>
+
+  <div class="after-hero"></div>
+
+  <div class="n16-groups">
+    <div class="n16-group" data-layer="n16-group-1" data-label="组1" data-type="group">
+      <div class="n16-gname">
+        <span class="n16-mono" data-layer="g1-no" data-label="组1编号" data-editable="text">{{g1-no}}</span>
+        <span data-layer="g1-name" data-label="组1名" data-editable="text">{{g1-name}}</span>
+        <span class="desc" data-layer="g1-desc" data-label="组1说明" data-editable="text">{{g1-desc}}</span>
+      </div>
+      <div class="n16-gimgs">
+        <div class="img-card ph-img" data-img="N16-01" data-fit="cover"><img class="ph-img__img" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-slot="image" data-layer="n16-img-1" data-label="IMG" data-ratio="194:283" alt=""><div class="placeholder ph-img__label">IMG</div><div class="corner-num">01</div></div>
+        <div class="img-card ph-img" data-img="N16-02" data-fit="cover"><img class="ph-img__img" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-slot="image" data-layer="n16-img-2" data-label="IMG" data-ratio="194:283" alt=""><div class="placeholder ph-img__label">IMG</div><div class="corner-num">02</div></div>
+        <div class="img-card ph-img" data-img="N16-03" data-fit="cover"><img class="ph-img__img" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-slot="image" data-layer="n16-img-3" data-label="IMG" data-ratio="194:283" alt=""><div class="placeholder ph-img__label">IMG</div><div class="corner-num">03</div></div>
+      </div>
+    </div>
+    <div class="n16-group" data-layer="n16-group-2" data-label="组2" data-type="group">
+      <div class="n16-gname">
+        <span class="n16-mono" data-layer="g2-no" data-label="组2编号" data-editable="text">{{g2-no}}</span>
+        <span data-layer="g2-name" data-label="组2名" data-editable="text">{{g2-name}}</span>
+        <span class="desc" data-layer="g2-desc" data-label="组2说明" data-editable="text">{{g2-desc}}</span>
+      </div>
+      <div class="n16-gimgs">
+        <div class="img-card ph-img" data-img="N16-04" data-fit="cover"><img class="ph-img__img" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-slot="image" data-layer="n16-img-4" data-label="IMG" data-ratio="194:283" alt=""><div class="placeholder ph-img__label">IMG</div><div class="corner-num">01</div></div>
+        <div class="img-card ph-img" data-img="N16-05" data-fit="cover"><img class="ph-img__img" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-slot="image" data-layer="n16-img-5" data-label="IMG" data-ratio="194:283" alt=""><div class="placeholder ph-img__label">IMG</div><div class="corner-num">02</div></div>
+        <div class="img-card ph-img" data-img="N16-06" data-fit="cover"><img class="ph-img__img" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-slot="image" data-layer="n16-img-6" data-label="IMG" data-ratio="194:283" alt=""><div class="placeholder ph-img__label">IMG</div><div class="corner-num">03</div></div>
+      </div>
+    </div>
+    <div class="n16-group" data-layer="n16-group-3" data-label="组3" data-type="group">
+      <div class="n16-gname">
+        <span class="n16-mono" data-layer="g3-no" data-label="组3编号" data-editable="text">{{g3-no}}</span>
+        <span data-layer="g3-name" data-label="组3名" data-editable="text">{{g3-name}}</span>
+        <span class="desc" data-layer="g3-desc" data-label="组3说明" data-editable="text">{{g3-desc}}</span>
+      </div>
+      <div class="n16-gimgs">
+        <div class="img-card ph-img" data-img="N16-07" data-fit="cover"><img class="ph-img__img" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-slot="image" data-layer="n16-img-7" data-label="IMG" data-ratio="194:283" alt=""><div class="placeholder ph-img__label">IMG</div><div class="corner-num">01</div></div>
+        <div class="img-card ph-img" data-img="N16-08" data-fit="cover"><img class="ph-img__img" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-slot="image" data-layer="n16-img-8" data-label="IMG" data-ratio="194:283" alt=""><div class="placeholder ph-img__label">IMG</div><div class="corner-num">02</div></div>
+        <div class="img-card ph-img" data-img="N16-09" data-fit="cover"><img class="ph-img__img" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-slot="image" data-layer="n16-img-9" data-label="IMG" data-ratio="194:283" alt=""><div class="placeholder ph-img__label">IMG</div><div class="corner-num">03</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pg-footer">
+    <span>aiefficiencylab.cn</span>
+    <span class="page-no" data-layer="page-no" data-label="页码" data-editable="text">{{page-no}}</span>
+  </div>
+
+    </div>
+      </section>
+    </div>
+
+    <div class="gal-item" id="n17">
+      <!-- ============ N17 · 纯图片密集网格 ============
+           用途：密集图片墙——4×3 十二宫格
+           适合：批量生图/作品集展示；不适合：需要文字说明的图
+           可以变：12 格固定（减格需 L2）
+           槽位：big-num / tag / title / sub / 图×12（223:291 cover）/ page-no
+           限制：big-num≤2字符且=图数；title≤14字(2行)；sub≤18字(1行)
+           hl：无
+           图槽：竖版 223:291 cover ×12
+           来源：ai-covers N17
+      -->
+      <section data-layout="N17-grid-gallery">
+    <div class="ai-page n17" data-artwork data-size="1080x1440">
+
+  <div class="paper-noise"></div>
+
+  <div class="brand-top">
+    <div class="left">
+      <div class="logo"><div class="ph">AI</div></div>
+      <span class="brand-name">AI Efficiency Lab</span>
+    </div>
+    <div class="right">ISSUE · 12</div>
+  </div>
+
+  <div class="mega-hero">
+    <div class="mh-row">
+      <div class="big-num" data-layer="big-num" data-label="图数大数字" data-editable="text">{{big-num}}</div>
+      <div class="hero-text">
+        <span class="tag" data-layer="tag" data-label="标签" data-editable="text">{{tag}}</span>
+        <div class="title" data-layer="title" data-label="标题" data-editable="text">{{title}}</div>
+      </div>
+    </div>
+    <div class="sub" data-layer="sub" data-label="副题" data-editable="text">{{sub}}</div>
+  </div>
+
+  <div class="after-hero"></div>
+
+  <div class="n17-gallery">
+    <div class="img-card ph-img" data-img="N17-01" data-fit="cover"><img class="ph-img__img" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-slot="image" data-layer="n17-img-1" data-label="图 01" data-ratio="223:291" alt=""><div class="placeholder ph-img__label">IMG · 01</div><div class="corner-num">01</div></div>
+    <div class="img-card ph-img" data-img="N17-02" data-fit="cover"><img class="ph-img__img" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-slot="image" data-layer="n17-img-2" data-label="图 02" data-ratio="223:291" alt=""><div class="placeholder ph-img__label">IMG · 02</div><div class="corner-num">02</div></div>
+    <div class="img-card ph-img" data-img="N17-03" data-fit="cover"><img class="ph-img__img" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-slot="image" data-layer="n17-img-3" data-label="图 03" data-ratio="223:291" alt=""><div class="placeholder ph-img__label">IMG · 03</div><div class="corner-num">03</div></div>
+    <div class="img-card ph-img" data-img="N17-04" data-fit="cover"><img class="ph-img__img" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-slot="image" data-layer="n17-img-4" data-label="图 04" data-ratio="223:291" alt=""><div class="placeholder ph-img__label">IMG · 04</div><div class="corner-num">04</div></div>
+    <div class="img-card ph-img" data-img="N17-05" data-fit="cover"><img class="ph-img__img" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-slot="image" data-layer="n17-img-5" data-label="图 05" data-ratio="223:291" alt=""><div class="placeholder ph-img__label">IMG · 05</div><div class="corner-num">05</div></div>
+    <div class="img-card ph-img" data-img="N17-06" data-fit="cover"><img class="ph-img__img" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-slot="image" data-layer="n17-img-6" data-label="图 06" data-ratio="223:291" alt=""><div class="placeholder ph-img__label">IMG · 06</div><div class="corner-num">06</div></div>
+    <div class="img-card ph-img" data-img="N17-07" data-fit="cover"><img class="ph-img__img" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-slot="image" data-layer="n17-img-7" data-label="图 07" data-ratio="223:291" alt=""><div class="placeholder ph-img__label">IMG · 07</div><div class="corner-num">07</div></div>
+    <div class="img-card ph-img" data-img="N17-08" data-fit="cover"><img class="ph-img__img" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-slot="image" data-layer="n17-img-8" data-label="图 08" data-ratio="223:291" alt=""><div class="placeholder ph-img__label">IMG · 08</div><div class="corner-num">08</div></div>
+    <div class="img-card ph-img" data-img="N17-09" data-fit="cover"><img class="ph-img__img" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-slot="image" data-layer="n17-img-9" data-label="图 09" data-ratio="223:291" alt=""><div class="placeholder ph-img__label">IMG · 09</div><div class="corner-num">09</div></div>
+    <div class="img-card ph-img" data-img="N17-10" data-fit="cover"><img class="ph-img__img" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-slot="image" data-layer="n17-img-10" data-label="图 10" data-ratio="223:291" alt=""><div class="placeholder ph-img__label">IMG · 10</div><div class="corner-num">10</div></div>
+    <div class="img-card ph-img" data-img="N17-11" data-fit="cover"><img class="ph-img__img" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-slot="image" data-layer="n17-img-11" data-label="图 11" data-ratio="223:291" alt=""><div class="placeholder ph-img__label">IMG · 11</div><div class="corner-num">11</div></div>
+    <div class="img-card ph-img" data-img="N17-12" data-fit="cover"><img class="ph-img__img" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-slot="image" data-layer="n17-img-12" data-label="图 12" data-ratio="223:291" alt=""><div class="placeholder ph-img__label">IMG · 12</div><div class="corner-num">12</div></div>
+  </div>
+
+  <div class="pg-footer">
+    <span>aiefficiencylab.cn</span>
+    <span class="page-no" data-layer="page-no" data-label="页码" data-editable="text">{{page-no}}</span>
+  </div>
+
+    </div>
+      </section>
+    </div>
+
+    <div class="gal-item" id="n18">
+      <!-- ============ N18 · Bento 生成展示 ============
+           用途：Bento 网格生成展示——1 大 4 小图 + 角标签
+           适合：5 件生成作品/工具展示；不适合：文字为主的内容
+           可以变：格子固定 5（1+4）；角标签可留空
+           槽位：big-num / tag / title / sub / 图×5（305:934、305:503×2、305:419×2 cover）/ b1-tag..b5-tag
+           限制：big-num≤2字符且=件数；title≤16字(2行)；sub≤18字(1行)；b*-tag≤12字符
+           hl：title 内 1 处（span.hl）
+           图槽：bento 五格 cover；格内占位字为装饰
+           来源：ai-covers N18
+      -->
+      <section data-layout="N18-bento-showcase">
+    <div class="ai-page n18" data-artwork data-size="1080x1440">
+
+  <div class="paper-noise"></div>
+
+  <div class="brand-top">
+    <div class="left">
+      <div class="logo"><div class="ph">AI</div></div>
+      <span class="brand-name">AI Efficiency Lab</span>
+    </div>
+    <div class="right">GENERATION</div>
+  </div>
+
+  <div class="mega-hero">
+    <div class="mh-row">
+      <div class="big-num" data-layer="big-num" data-label="件数大数字" data-editable="text">{{big-num}}</div>
+      <div class="hero-text">
+        <span class="tag" data-layer="tag" data-label="标签" data-editable="text">{{tag}}</span>
+        <div class="title" data-layer="title" data-label="标题" data-editable="text">{{title}}</div>
+      </div>
+    </div>
+    <div class="sub" data-layer="sub" data-label="副题" data-editable="text">{{sub}}</div>
+  </div>
+
+  <div class="after-hero"></div>
+
+  <div class="content">
+    <div class="n18-g n18-big ph-img" data-img="N18-01" data-fit="cover"><img class="ph-img__img" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-slot="image" data-layer="n18-img-1" data-label="大图" data-ratio="305:934" alt=""><div class="ph ph-img__label">MIDJOURNEY</div><div class="label" data-layer="b1-tag" data-label="大图角标" data-editable="text">{{b1-tag}}</div></div>
+    <div class="n18-g ph-img" data-img="N18-02" data-fit="cover"><img class="ph-img__img" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-slot="image" data-layer="n18-img-2" data-label="右上格" data-ratio="305:503" alt=""><div class="ph ph-img__label">RUNWAY</div><div class="label" data-layer="b2-tag" data-label="右上角标" data-editable="text">{{b2-tag}}</div></div>
+    <div class="n18-g ph-img" data-img="N18-03" data-fit="cover"><img class="ph-img__img" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-slot="image" data-layer="n18-img-3" data-label="右下格" data-ratio="305:503" alt=""><div class="ph ph-img__label">PIKA</div><div class="label" data-layer="b3-tag" data-label="右下角标" data-editable="text">{{b3-tag}}</div></div>
+    <div class="n18-g ph-img" data-img="N18-04" data-fit="cover"><img class="ph-img__img" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-slot="image" data-layer="n18-img-4" data-label="左下格" data-ratio="305:419" alt=""><div class="ph ph-img__label">FLUX</div><div class="label" data-layer="b4-tag" data-label="左下角标" data-editable="text">{{b4-tag}}</div></div>
+    <div class="n18-g ph-img" data-img="N18-05" data-fit="cover"><img class="ph-img__img" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-slot="image" data-layer="n18-img-5" data-label="中下格" data-ratio="305:419" alt=""><div class="ph ph-img__label">SORA</div><div class="label" data-layer="b5-tag" data-label="中下角标" data-editable="text">{{b5-tag}}</div></div>
+  </div>
+
+  <div class="pg-footer">
+    <span>aiefficiencylab.cn</span>
+    <span>N18 · Bento 生成展示</span>
+  </div>
+
+    </div>
+      </section>
+    </div>
+
+    <div class="gal-item" id="n19">
+      <!-- ============ N19 · 单大图深度解析 ============
+           用途：单大图深度解析——横版大图 + 三要点拆解
+           适合：一张核心截图/作品 + 拆解；不适合：多图
+           可以变：要点 2-4 条；图上角标可留空
+           槽位：big-num / tag / title / sub / 图×1（937:638 cover）/ img-tag / points[]（n,t,d）/ page-no
+           限制：big-num≤2字符；title≤16字(2行)；sub≤16字(1行)；img-tag≤12字符；t≤8字(1行)；d≤24字(2行)
+           hl：无
+           图槽：横版大图 937:638 cover
+           来源：ai-covers N19
+      -->
+      <section data-layout="N19-single-deep">
+    <div class="ai-page n19" data-artwork data-size="1080x1440">
+
+  <div class="paper-noise"></div>
+
+  <div class="brand-top">
+    <div class="left">
+      <div class="logo"><div class="ph">AI</div></div>
+      <span class="brand-name">AI Efficiency Lab</span>
+    </div>
+    <div class="right">ISSUE · 01</div>
+  </div>
+
+  <div class="mega-hero">
+    <div class="mh-row">
+      <div class="big-num" data-layer="big-num" data-label="序号大数字" data-editable="text">{{big-num}}</div>
+      <div class="hero-text">
+        <span class="tag" data-layer="tag" data-label="标签" data-editable="text">{{tag}}</span>
+        <div class="title" data-layer="title" data-label="标题" data-editable="text">{{title}}</div>
+      </div>
+    </div>
+    <div class="sub" data-layer="sub" data-label="副题" data-editable="text">{{sub}}</div>
+  </div>
+
+  <div class="after-hero"></div>
+
+  <div class="main">
+    <div class="n19-hero-img ph-img" data-img="N19-01" data-fit="cover"><img class="ph-img__img" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-slot="image" data-layer="n19-img-1" data-label="主图" data-ratio="937:638" alt="">
+      <span class="n19-hero-tag" data-layer="img-tag" data-label="图上角标" data-editable="text">{{img-tag}}</span>
+      <div class="placeholder ph-img__label">LARGE · IMAGE · PLACEHOLDER</div>
+    </div>
+
+    <div class="points">
+      <!-- repeat ×2-4: 要点行 clone（flex:1 均分）；4 条时 d 收一行 -->
+      <div class="n19-point" data-repeat="points">
+        <div class="n19-pn" data-layer="point-num" data-label="序号" data-editable="text">{{n}}</div>
+        <div class="n19-pt" data-layer="point-t" data-label="要点名" data-editable="text">{{t}}</div>
+        <div class="n19-pd" data-layer="point-d" data-label="要点说明" data-editable="text">{{d}}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pg-footer">
+    <span>aiefficiencylab.cn</span>
+    <span class="page-no" data-layer="page-no" data-label="页码" data-editable="text">{{page-no}}</span>
+  </div>
+
+    </div>
+      </section>
+    </div>
+  </div>
+
+  <div class="gal-group" id="g-compare">
+    <div class="gal-group-head"><span class="num">G06</span><h2>对比</h2><span class="count">2 MASTERS</span></div>
+    <div class="gal-item" id="n20">
+      <!-- ============ N20 · Before/After 大对比 ============
+           用途：Before/After 大对比——双栏任务清单 + 底部数据格
+           适合：两种路径/工具对照；不适合：三栏以上
+           可以变：两栏任务各 3-5 条；数据格固定 4
+           槽位：big-num / tag / title / sub / before-tag/before-t / before-tasks[]（task）/ after-tag/after-t / after-tasks[]（task）/ stat1..4（n,l）
+           限制：big-num≤2字符；title≤16字(2行)；sub≤22字(1行)；col tag≤16字符；col t≤10字；task≤14字(1行)；stat n≤6字符 l≤4字
+           hl：无（VS 与双栏自带强调）
+           图槽：无
+           来源：ai-covers N20
+      -->
+      <section data-layout="N20-before-after">
+    <div class="ai-page n20" data-artwork data-size="1080x1440">
+
+  <div class="paper-noise"></div>
+
+  <div class="brand-top">
+    <div class="left">
+      <div class="logo"><div class="ph">AI</div></div>
+      <span class="brand-name">AI Efficiency Lab</span>
+    </div>
+    <div class="right">REAL · STORY</div>
+  </div>
+
+  <div class="mega-hero">
+    <div class="mh-row">
+      <div class="big-num" data-layer="big-num" data-label="大数字" data-editable="text">{{big-num}}</div>
+      <div class="hero-text">
+        <span class="tag" data-layer="tag" data-label="标签" data-editable="text">{{tag}}</span>
+        <div class="title" data-layer="title" data-label="标题" data-editable="text">{{title}}</div>
+      </div>
+    </div>
+    <div class="sub" data-layer="sub" data-label="副题" data-editable="text">{{sub}}</div>
+  </div>
+
+  <div class="after-hero"></div>
+
+  <div class="content">
+    <div class="compare">
+      <div class="n20-col n20-before" data-layer="n20-col-before" data-label="Before栏" data-type="group">
+        <div class="tag" data-layer="before-tag" data-label="Before标签" data-editable="text">{{before-tag}}</div>
+        <div class="t" data-layer="before-t" data-label="Before标题" data-editable="text">{{before-t}}</div>
+        <!-- repeat ×3-5: Before 任务行 clone -->
+        <div class="n20-task" data-repeat="before-tasks" data-layer="before-task" data-editable="text">{{task}}</div>
+      </div>
+      <div class="n20-col n20-after" data-layer="n20-col-after" data-label="After栏" data-type="group">
+        <div class="tag" data-layer="after-tag" data-label="After标签" data-editable="text">{{after-tag}}</div>
+        <div class="t" data-layer="after-t" data-label="After标题" data-editable="text">{{after-t}}</div>
+        <!-- repeat ×3-5: After 任务行 clone -->
+        <div class="n20-task" data-repeat="after-tasks" data-layer="after-task" data-editable="text">{{task}}</div>
+      </div>
+    </div>
+    <div class="n20-vs">VS</div>
+
+    <div class="n20-stats">
+      <div class="n20-cell"><div class="n" data-layer="stat1-n" data-label="数据1" data-editable="text">{{stat1-n}}</div><div class="n20-l" data-layer="stat1-l" data-label="数据1说明" data-editable="text">{{stat1-l}}</div></div>
+      <div class="n20-cell"><div class="n" data-layer="stat2-n" data-label="数据2" data-editable="text">{{stat2-n}}</div><div class="n20-l" data-layer="stat2-l" data-label="数据2说明" data-editable="text">{{stat2-l}}</div></div>
+      <div class="n20-cell"><div class="n" data-layer="stat3-n" data-label="数据3" data-editable="text">{{stat3-n}}</div><div class="n20-l" data-layer="stat3-l" data-label="数据3说明" data-editable="text">{{stat3-l}}</div></div>
+      <div class="n20-cell"><div class="n" data-layer="stat4-n" data-label="数据4" data-editable="text">{{stat4-n}}</div><div class="n20-l" data-layer="stat4-l" data-label="数据4说明" data-editable="text">{{stat4-l}}</div></div>
+    </div>
+  </div>
+
+  <div class="pg-footer">
+    <span>aiefficiencylab.cn</span>
+    <span>N20 · Before/After</span>
+  </div>
+
+    </div>
+      </section>
+    </div>
+
+    <div class="gal-item" id="n21">
+      <!-- ============ N21 · 对比表格 ============
+           用途：横向对比表——4 列表头 + 5 行指标 + 结论条
+           适合：3 选项 × 多指标横评；不适合：选项或行数更多
+           可以变：行文案自由；单元格色块按预设类（✓/—/△），改配色需 L2
+           槽位：big-num / tag / title / sub / th1..th4 / r1..r5（label,c1,c2,c3）/ verdict / cta
+           限制：big-num≤2字符；title≤16字(2行)；sub≤20字(1行)；th≤8字；label≤8字；cell≤6字符；verdict≤18字
+           hl：无
+           图槽：无；末列 n21-me 为推荐强调列
+           来源：ai-covers N21
+      -->
+      <section data-layout="N21-editor-compare">
+    <div class="ai-page n21" data-artwork data-size="1080x1440">
+
+  <div class="paper-noise"></div>
+
+  <div class="brand-top">
+    <div class="left">
+      <div class="logo"><div class="ph">AI</div></div>
+      <span class="brand-name">AI Efficiency Lab</span>
+    </div>
+    <div class="right">COMPARISON · 2025</div>
+  </div>
+
+  <div class="mega-hero">
+    <div class="mh-row">
+      <div class="big-num" data-layer="big-num" data-label="选项数" data-editable="text">{{big-num}}</div>
+      <div class="hero-text">
+        <span class="tag" data-layer="tag" data-label="标签" data-editable="text">{{tag}}</span>
+        <div class="title" data-layer="title" data-label="标题" data-editable="text">{{title}}</div>
+      </div>
+    </div>
+    <div class="sub" data-layer="sub" data-label="副题" data-editable="text">{{sub}}</div>
+  </div>
+
+  <div class="after-hero"></div>
+
+  <div class="content">
+    <div class="n21-table">
+      <div class="n21-tr">
+        <div class="n21-td" data-layer="th1" data-label="表头1" data-editable="text">{{th1}}</div>
+        <div class="n21-td" data-layer="th2" data-label="表头2" data-editable="text">{{th2}}</div>
+        <div class="n21-td" data-layer="th3" data-label="表头3" data-editable="text">{{th3}}</div>
+        <div class="n21-td n21-me" data-layer="th4" data-label="表头4·推荐列" data-editable="text">{{th4}}</div>
+      </div>
+      <div class="n21-tr">
+        <div class="n21-td" data-layer="r1-label" data-label="行1名" data-editable="text">{{r1-label}}</div>
+        <div class="n21-td n21-icon-mid" data-layer="r1-c1" data-label="行1中" data-editable="text">{{r1-c1}}</div>
+        <div class="n21-td n21-icon-yes" data-layer="r1-c2" data-label="行1是" data-editable="text">{{r1-c2}}</div>
+        <div class="n21-td n21-me n21-icon-yes" data-layer="r1-c3" data-label="行1推荐" data-editable="text">{{r1-c3}}</div>
+      </div>
+      <div class="n21-tr">
+        <div class="n21-td" data-layer="r2-label" data-label="行2名" data-editable="text">{{r2-label}}</div>
+        <div class="n21-td n21-icon-no" data-layer="r2-c1" data-label="行2否" data-editable="text">{{r2-c1}}</div>
+        <div class="n21-td n21-icon-yes" data-layer="r2-c2" data-label="行2是" data-editable="text">{{r2-c2}}</div>
+        <div class="n21-td n21-me n21-icon-yes" data-layer="r2-c3" data-label="行2推荐" data-editable="text">{{r2-c3}}</div>
+      </div>
+      <div class="n21-tr">
+        <div class="n21-td" data-layer="r3-label" data-label="行3名" data-editable="text">{{r3-label}}</div>
+        <div class="n21-td" data-layer="r3-c1" data-label="行3值" data-editable="text">{{r3-c1}}</div>
+        <div class="n21-td" data-layer="r3-c2" data-label="行3值" data-editable="text">{{r3-c2}}</div>
+        <div class="n21-td n21-me" data-layer="r3-c3" data-label="行3推荐值" data-editable="text">{{r3-c3}}</div>
+      </div>
+      <div class="n21-tr">
+        <div class="n21-td" data-layer="r4-label" data-label="行4名" data-editable="text">{{r4-label}}</div>
+        <div class="n21-td n21-icon-yes" data-layer="r4-c1" data-label="行4是" data-editable="text">{{r4-c1}}</div>
+        <div class="n21-td n21-icon-no" data-layer="r4-c2" data-label="行4否" data-editable="text">{{r4-c2}}</div>
+        <div class="n21-td n21-me n21-icon-yes" data-layer="r4-c3" data-label="行4推荐" data-editable="text">{{r4-c3}}</div>
+      </div>
+      <div class="n21-tr">
+        <div class="n21-td" data-layer="r5-label" data-label="行5名" data-editable="text">{{r5-label}}</div>
+        <div class="n21-td n21-icon-mid" data-layer="r5-c1" data-label="行5中" data-editable="text">{{r5-c1}}</div>
+        <div class="n21-td n21-icon-yes" data-layer="r5-c2" data-label="行5是" data-editable="text">{{r5-c2}}</div>
+        <div class="n21-td n21-me n21-icon-yes" data-layer="r5-c3" data-label="行5推荐" data-editable="text">{{r5-c3}}</div>
+      </div>
+    </div>
+
+    <div class="n21-bottom-card">
+      <div class="t" data-layer="verdict" data-label="结论" data-editable="text">{{verdict}}</div>
+      <div class="s" data-layer="cta" data-label="链接行" data-editable="text">{{cta}}</div>
+    </div>
+  </div>
+
+  <div class="pg-footer">
+    <span>aiefficiencylab.cn</span>
+    <span>N21 · 对比表格</span>
+  </div>
+
+    </div>
+      </section>
+    </div>
+  </div>
+
+  <div class="gal-group" id="g-demo">
+    <div class="gal-group-head"><span class="num">G07</span><h2>演示</h2><span class="count">3 MASTERS</span></div>
+    <div class="gal-item" id="n22">
+      <!-- ============ N22 · 标注截图 ============
+           用途：单图标注讲解——窗口截图 + 编号钉 + 对应说明列表
+           适合：一张界面图的分步导览；不适合：多图
+           可以变：钉与说明固定 3 组（增减需 L2 同步钉位）；钉位坐标可 L2 调
+           槽位：big-num / tag / title / sub / shot-name / 图×1（55:29 cover）/ pin1-head/pin1-note .. pin3
+           限制：big-num≤2字符；title≤12字(2行)；sub≤16字(1行)；shot-name≤24字符；head≤12字(1行)；note≤28字(2行)
+           hl：无
+           图槽：横版 55:29 cover；钉号 1/2/3 与列表一一对应
+           来源：ai-covers N22
+      -->
+      <section data-layout="N22-annotated-shot">
+    <div class="ai-page n22" data-artwork data-size="1080x1440">
+
+  <div class="paper-noise"></div>
+
+  <div class="brand-top">
+    <div class="left">
+      <div class="logo"><div class="ph">AI</div></div>
+      <span class="brand-name">AI Efficiency Lab</span>
+    </div>
+    <div class="right">GUIDE · 03</div>
+  </div>
+
+  <div class="mega-hero">
+    <div class="mh-row">
+      <div class="big-num" data-layer="big-num" data-label="钉数大数字" data-editable="text">{{big-num}}</div>
+      <div class="hero-text">
+        <span class="tag" data-layer="tag" data-label="标签" data-editable="text">{{tag}}</span>
+        <div class="title" data-layer="title" data-label="标题" data-editable="text">{{title}}</div>
+      </div>
+    </div>
+    <div class="sub" data-layer="sub" data-label="副题" data-editable="text">{{sub}}</div>
+  </div>
+
+  <div class="after-hero"></div>
+
+  <div class="content">
+    <div class="n22-shot" data-layer="n22-shot" data-label="截图组" data-type="group">
+      <div class="n22-shot__chrome">
+        <div class="dots"><span></span><span></span><span></span></div>
+        <div class="n22-shot__chrome__title" data-layer="shot-name" data-label="窗口标题" data-editable="text">{{shot-name}}</div>
+      </div>
+      <div class="n22-shot__img ph-img" data-img="N22-01" data-fit="cover"><img class="ph-img__img" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-slot="image" data-layer="n22-img-1" data-label="标注截图" data-ratio="55:29" alt=""><span class="ph-img__label">截图占位 · 1280 × 720</span></div>
+      <!-- Pin 位置按比例（原内联样式收编为专属类） -->
+      <span class="n22-pin n22-pin--1">1</span>
+      <span class="n22-pin n22-pin--2">2</span>
+      <span class="n22-pin n22-pin--3">3</span>
+    </div>
+
+    <div class="n22-pins">
+      <div class="n22-pins__item is-hot">
+        <div class="n22-pins__num">1</div>
+        <div class="n22-pins__body">
+          <div class="n22-pins__head" data-layer="pin1-head" data-label="钉1标题" data-editable="text">{{pin1-head}}</div>
+          <div class="n22-pins__note" data-layer="pin1-note" data-label="钉1说明" data-editable="text">{{pin1-note}}</div>
+        </div>
+      </div>
+      <div class="n22-pins__item">
+        <div class="n22-pins__num">2</div>
+        <div class="n22-pins__body">
+          <div class="n22-pins__head" data-layer="pin2-head" data-label="钉2标题" data-editable="text">{{pin2-head}}</div>
+          <div class="n22-pins__note" data-layer="pin2-note" data-label="钉2说明" data-editable="text">{{pin2-note}}</div>
+        </div>
+      </div>
+      <div class="n22-pins__item">
+        <div class="n22-pins__num">3</div>
+        <div class="n22-pins__body">
+          <div class="n22-pins__head" data-layer="pin3-head" data-label="钉3标题" data-editable="text">{{pin3-head}}</div>
+          <div class="n22-pins__note" data-layer="pin3-note" data-label="钉3说明" data-editable="text">{{pin3-note}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pg-footer">
+    <span>aiefficiencylab.cn</span>
+    <span>N22 · 标注截图</span>
+  </div>
+
+    </div>
+      </section>
+    </div>
+
+    <div class="gal-item" id="n23">
+      <!-- ============ N23 · 对话界面 ============
+           用途：对话演示页——聊天窗口完整问答实录
+           适合：人机对话实录、Prompt 效果展示；不适合：多轮长对话
+           可以变：问答固定 2 组；model 名可改
+           槽位：big-num / tag / title / sub / model / model-id / q1 / a1 / q2 / a2
+           限制：big-num≤4字符；title≤14字(2行)；sub≤24字(1行)；model≤20字符；model-id≤24字符；q≤22字；a1≤90字(多行,可用 br/strong)；a2≤24字
+           hl：a1 内 strong 1-2 处
+           图槽：无；输入框/头像为装饰
+           来源：ai-covers N23
+      -->
+      <section data-layout="N23-chat-demo">
+    <div class="ai-page n23" data-artwork data-size="1080x1440">
+
+  <div class="paper-noise"></div>
+
+  <div class="brand-top">
+    <div class="left">
+      <div class="logo"><div class="ph">AI</div></div>
+      <span class="brand-name">AI Efficiency Lab</span>
+    </div>
+    <div class="right">CASE · 05</div>
+  </div>
+
+  <div class="mega-hero">
+    <div class="mh-row">
+      <div class="big-num" data-layer="big-num" data-label="标识大字" data-editable="text">{{big-num}}</div>
+      <div class="hero-text">
+        <span class="tag" data-layer="tag" data-label="标签" data-editable="text">{{tag}}</span>
+        <div class="title" data-layer="title" data-label="标题" data-editable="text">{{title}}</div>
+      </div>
+    </div>
+    <div class="sub" data-layer="sub" data-label="副题" data-editable="text">{{sub}}</div>
+  </div>
+
+  <div class="after-hero"></div>
+
+  <div class="content">
+    <div class="n23-chat" data-layer="n23-chat" data-label="聊天窗" data-type="group">
+      <div class="n23-chat__bar">
+        <div class="n23-chat__avatar">AI</div>
+        <div>
+          <div class="n23-chat__model"><span data-layer="model" data-label="模型名" data-editable="text">{{model}}</span> <small data-layer="model-id" data-label="模型ID" data-editable="text">{{model-id}}</small></div>
+        </div>
+      </div>
+      <div class="n23-chat__body">
+        <div class="n23-msg n23-msg--me">
+          <div class="n23-msg__avatar">Me</div>
+          <div class="n23-msg__bubble" data-layer="q1" data-label="提问1" data-editable="text">{{q1}}</div>
+        </div>
+        <div class="n23-msg n23-msg--ai">
+          <div class="n23-msg__avatar">AI</div>
+          <div class="n23-msg__bubble" data-layer="a1" data-label="回答1" data-editable="text">{{a1}}</div>
+        </div>
+        <div class="n23-msg n23-msg--me">
+          <div class="n23-msg__avatar">Me</div>
+          <div class="n23-msg__bubble" data-layer="q2" data-label="提问2" data-editable="text">{{q2}}</div>
+        </div>
+        <div class="n23-msg n23-msg--ai">
+          <div class="n23-msg__avatar">AI</div>
+          <div class="n23-msg__bubble" data-layer="a2" data-label="回答2" data-editable="text">{{a2}}</div>
+        </div>
+      </div>
+      <div class="n23-chat__input">
+        <div class="n23-chat__input__ph">输入消息…</div>
+        <div class="n23-chat__input__send">↑</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pg-footer">
+    <span>aiefficiencylab.cn</span>
+    <span>N23 · 对话界面</span>
+  </div>
+
+    </div>
+      </section>
+    </div>
+
+    <div class="gal-item" id="n24">
+      <!-- ============ N24 · 代码编辑器 ============
+           用途：代码展示页——编辑器窗口 + 高亮代码 + 状态栏
+           适合：单段代码/命令展示；不适合：长代码（>12 行）
+           可以变：代码为高亮示例，换码走 L2（沿用 n24-tk-* span 手工包）；标签页/状态栏/说明可改
+           槽位：big-num / tag / title / sub / tab1..tab3 / status-l / status-r / note
+           限制：big-num≤3字符；title≤14字(2行)；sub≤24字(1行)；tab≤14字符；status-l≤26字符；status-r≤22字符；note≤40字符
+           hl：无（代码高亮为 tk-* 静态装饰，不在富文本白名单）
+           图槽：无
+           来源：ai-covers N24
+      -->
+      <section data-layout="N24-code-editor">
+    <div class="ai-page n24" data-artwork data-size="1080x1440">
+
+  <div class="paper-noise"></div>
+
+  <div class="brand-top">
+    <div class="left">
+      <div class="logo"><div class="ph">AI</div></div>
+      <span class="brand-name">AI Efficiency Lab</span>
+    </div>
+    <div class="right">SNIPPET · 12</div>
+  </div>
+
+  <div class="mega-hero">
+    <div class="mh-row">
+      <div class="big-num" data-layer="big-num" data-label="行数大数字" data-editable="text">{{big-num}}</div>
+      <div class="hero-text">
+        <span class="tag" data-layer="tag" data-label="标签" data-editable="text">{{tag}}</span>
+        <div class="title" data-layer="title" data-label="标题" data-editable="text">{{title}}</div>
+      </div>
+    </div>
+    <div class="sub" data-layer="sub" data-label="副题" data-editable="text">{{sub}}</div>
+  </div>
+
+  <div class="after-hero"></div>
+
+  <div class="content">
+    <div class="n24-editor" data-layer="n24-editor" data-label="编辑器" data-type="group">
+      <div class="n24-editor__tabbar">
+        <div class="n24-editor__tab n24-is-active"><span class="ic">⟨/⟩</span><span data-layer="tab1" data-label="标签页1" data-editable="text">{{tab1}}</span></div>
+        <div class="n24-editor__tab"><span data-layer="tab2" data-label="标签页2" data-editable="text">{{tab2}}</span></div>
+        <div class="n24-editor__tab"><span data-layer="tab3" data-label="标签页3" data-editable="text">{{tab3}}</span></div>
+      </div>
+      <div class="n24-editor__body">
+        <div class="n24-editor__lines">
+          1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10
+        </div>
+        <pre class="n24-editor__code"><span class="n24-tk-c">// AI 写的周报生成器</span>
+<span class="n24-tk-k">function</span> <span class="n24-tk-f">genWeekly</span>(<span class="n24-tk-k">const</span> notes: <span class="n24-tk-b">string</span>[]) {
+  <span class="n24-tk-k">const</span> week = <span class="n24-tk-f">getWeekRange</span>();
+  <span class="n24-tk-k">const</span> items = notes.<span class="n24-tk-f">map</span>(n => <span class="n24-tk-s">`• ${n}`</span>);
+  
+  <span class="n24-tk-k">return</span> <span class="n24-tk-s">`## 周报 ${week}</span>
+<span class="n24-tk-s">${items.<span class="n24-tk-f">join</span>(<span class="n24-tk-s">'\n'</span>)}</span>
+<span class="n24-tk-s">`</span>;
+}
+
+<span class="n24-tk-k">export default</span> genWeekly;</pre>
+      </div>
+      <div class="n24-editor__status">
+        <div><span class="ic">●</span><span data-layer="status-l" data-label="状态栏左" data-editable="text">{{status-l}}</span></div>
+        <div data-layer="status-r" data-label="状态栏右" data-editable="text">{{status-r}}</div>
+      </div>
+    </div>
+    <div class="n24-editor__note" data-layer="note" data-label="底部说明" data-editable="text">{{note}}</div>
+  </div>
+
+  <div class="pg-footer">
+    <span>aiefficiencylab.cn</span>
+    <span>N24 · 代码编辑器</span>
+  </div>
+
+    </div>
+      </section>
+    </div>
+  </div>
+
+  <div class="gal-group" id="g-data">
+    <div class="gal-group-head"><span class="num">G08</span><h2>数据</h2><span class="count">1 MASTERS</span></div>
+    <div class="gal-item" id="n25">
+      <!-- ============ N25 · 数据指标 ============
+           用途：数据指标页——主指标柱状图 + 双小指标卡
+           适合：实测数据汇报；不适合：无数据的观点页
+           可以变：柱状图 7 根为装饰（改值走 L2 改 n25-h1..h7 类高度）；小指标 2 卡固定
+           槽位：big-num / tag / title / sub / main-label / main-val / main-unit / sm1（label,val,delta,r1l,r1v,r2l,r2v）/ sm2（同）
+           限制：big-num≤3字符；title≤14字(2行)；sub≤18字(1行)；main-label≤14字；main-val≤5字符；sm*-label≤6字；sm*-val≤5字符；sm*-delta≤5字符；行 label≤4字 val≤6字符
+           hl：无（delta 自带涨跌色）
+           图槽：无；柱状图为装饰性数据可视化
+           来源：ai-covers N25
+      -->
+      <section data-layout="N25-metrics">
+    <div class="ai-page n25" data-artwork data-size="1080x1440">
+
+  <div class="paper-noise"></div>
+
+  <div class="brand-top">
+    <div class="left">
+      <div class="logo"><div class="ph">AI</div></div>
+      <span class="brand-name">AI Efficiency Lab</span>
+    </div>
+    <div class="right">REPORT · 2025Q4</div>
+  </div>
+
+  <div class="mega-hero">
+    <div class="mh-row">
+      <div class="big-num" data-layer="big-num" data-label="倍数大数字" data-editable="text">{{big-num}}</div>
+      <div class="hero-text">
+        <span class="tag" data-layer="tag" data-label="标签" data-editable="text">{{tag}}</span>
+        <div class="title" data-layer="title" data-label="标题" data-editable="text">{{title}}</div>
+      </div>
+    </div>
+    <div class="sub" data-layer="sub" data-label="副题" data-editable="text">{{sub}}</div>
+  </div>
+
+  <div class="after-hero"></div>
+
+  <div class="content">
+    <!-- 主指标 -->
+    <div class="n25-metric-main" data-layer="n25-main" data-label="主指标卡" data-type="group">
+      <div class="n25-metric-main__label" data-layer="main-label" data-label="主指标名" data-editable="text">{{main-label}}</div>
+      <div>
+        <span class="n25-metric-main__val" data-layer="main-val" data-label="主指标值" data-editable="text">{{main-val}}</span>
+        <span class="n25-metric-main__unit" data-layer="main-unit" data-label="主指标单位" data-editable="text">{{main-unit}}</span>
+      </div>
+      <div class="n25-bars-wrap">
+        <div class="n25-mini-bars">
+          <i class="n25-h1"></i>
+          <i class="n25-h2"></i>
+          <i class="n25-h3"></i>
+          <i class="n25-h4"></i>
+          <i class="n25-h5"></i>
+          <i class="n25-h6"></i>
+          <i class="n25-h7"></i>
+        </div>
+        <div class="n25-mini-bars__axis">
+          <span>W1</span><span>W2</span><span>W3</span><span>W4</span>
+          <span>W5</span><span>W6</span><span>W7</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 小指标 1 -->
+    <div class="n25-metric-sm" data-layer="n25-sm1" data-label="小指标1" data-type="group">
+      <div class="n25-metric-sm__label" data-layer="sm1-label" data-label="指标1名" data-editable="text">{{sm1-label}}</div>
+      <div class="n25-metric-sm__val"><span data-layer="sm1-val" data-label="指标1值" data-editable="text">{{sm1-val}}</span>
+        <span class="n25-metric-sm__delta n25-up" data-layer="sm1-delta" data-label="指标1涨幅" data-editable="text">{{sm1-delta}}</span>
+      </div>
+      <div class="n25-metric-row"><span class="n25-metric-row__label" data-layer="sm1-r1l" data-label="指标1行1名" data-editable="text">{{sm1-r1l}}</span><span class="n25-metric-row__val" data-layer="sm1-r1v" data-label="指标1行1值" data-editable="text">{{sm1-r1v}}</span></div>
+      <div class="n25-metric-row"><span class="n25-metric-row__label" data-layer="sm1-r2l" data-label="指标1行2名" data-editable="text">{{sm1-r2l}}</span><span class="n25-metric-row__val" data-layer="sm1-r2v" data-label="指标1行2值" data-editable="text">{{sm1-r2v}}</span></div>
+    </div>
+
+    <!-- 小指标 2 -->
+    <div class="n25-metric-sm" data-layer="n25-sm2" data-label="小指标2" data-type="group">
+      <div class="n25-metric-sm__label" data-layer="sm2-label" data-label="指标2名" data-editable="text">{{sm2-label}}</div>
+      <div class="n25-metric-sm__val"><span data-layer="sm2-val" data-label="指标2值" data-editable="text">{{sm2-val}}</span>
+        <span class="n25-metric-sm__delta n25-down" data-layer="sm2-delta" data-label="指标2降幅" data-editable="text">{{sm2-delta}}</span>
+      </div>
+      <div class="n25-metric-row"><span class="n25-metric-row__label" data-layer="sm2-r1l" data-label="指标2行1名" data-editable="text">{{sm2-r1l}}</span><span class="n25-metric-row__val" data-layer="sm2-r1v" data-label="指标2行1值" data-editable="text">{{sm2-r1v}}</span></div>
+      <div class="n25-metric-row"><span class="n25-metric-row__label" data-layer="sm2-r2l" data-label="指标2行2名" data-editable="text">{{sm2-r2l}}</span><span class="n25-metric-row__val" data-layer="sm2-r2v" data-label="指标2行2值" data-editable="text">{{sm2-r2v}}</span></div>
+    </div>
+  </div>
+
+  <div class="pg-footer">
+    <span>aiefficiencylab.cn</span>
+    <span>N25 · 数据指标</span>
+  </div>
+
+    </div>
+      </section>
+    </div>
+  </div>
+
+  <div class="gal-group" id="g-convert">
+    <div class="gal-group-head"><span class="num">G09</span><h2>转化</h2><span class="count">2 MASTERS</span></div>
+    <div class="gal-item" id="n26">
+      <!-- ============ N26 · 限时福利 ============
+           用途：限时福利/免费领取页——价格区 + 权益列表 + CTA
+           适合：课程/资源包限时放送；不适合：长期常设内容
+           可以变：权益 2-4 项；big-num 本版留空（中心价格制式）
+           槽位：pill / tag / title / sub / original / now / period / features[]（t,v）/ cta / foot-note
+           限制：title≤14字(2行)；sub≤18字(1行)；original≤10字符；now≤6字符；period≤22字符；feat t≤6字 v≤8字；cta≤26字
+           hl：title 内 1 处、cta 内 0-1 处（span.hl）
+           图槽：无
+           来源：ai-covers N26
+      -->
+      <section data-layout="N26-free-course">
+    <div class="ai-page n26" data-artwork data-size="1080x1440">
+
+  <div class="paper-noise"></div>
+
+  <div class="brand-top">
+    <div class="left">
+      <div class="logo"><div class="ph">AI</div></div>
+      <span class="brand-name">AI Efficiency Lab</span>
+    </div>
+    <div class="right n26-limited" data-layer="pill" data-label="限时胶囊" data-editable="text">{{pill}}</div>
+  </div>
+
+  <div class="mega-hero n26-center-price">
+    <div class="mh-row">
+      <div class="big-num"></div>
+      <div class="hero-text">
+        <span class="tag" data-layer="tag" data-label="标签" data-editable="text">{{tag}}</span>
+        <div class="title" data-layer="title" data-label="标题" data-editable="text">{{title}}</div>
+      </div>
+    </div>
+    <div class="sub" data-layer="sub" data-label="副题" data-editable="text">{{sub}}</div>
+  </div>
+
+  <div class="after-hero"></div>
+
+  <div class="content">
+    <div class="n26-price-area">
+      <div class="n26-original" data-layer="original" data-label="原价" data-editable="text">{{original}}</div>
+      <div class="n26-now" data-layer="now" data-label="现价" data-editable="text">{{now}}</div>
+      <div class="n26-period" data-layer="period" data-label="期限" data-editable="text">{{period}}</div>
+    </div>
+
+    <div class="features">
+      <!-- repeat ×2-4: 权益格 clone -->
+      <div class="n26-f" data-repeat="features"><div class="t" data-layer="feat-t" data-label="权益量" data-editable="text">{{t}}</div><div class="n26-v" data-layer="feat-v" data-label="权益名" data-editable="text">{{v}}</div></div>
+    </div>
+
+    <div class="cta" data-layer="cta" data-label="领取指引" data-editable="text">{{cta}}</div>
+  </div>
+
+  <div class="pg-footer">
+    <span>aiefficiencylab.cn</span>
+    <span class="page-no" data-layer="foot-note" data-label="脚注" data-editable="text">{{foot-note}}</span>
+  </div>
+
+    </div>
+      </section>
+    </div>
+
+    <div class="gal-item" id="n27">
+      <!-- ============ N27 · 社群招募 ============
+           用途：社群/订阅招募页——身份卡 + 权益列表 + 人数 + CTA
+           适合：社群/Newsletter 招募；不适合：硬卖货
+           可以变：权益 2-3 项
+           槽位：tag / title / sub / name / desc / features[]（t,d）/ members-num / cta
+           限制：title≤12字(2行)；sub≤26字(1行)；name≤12字；desc≤14字(1行)；feat t≤8字 d≤14字(1行)；members-num≤8字符；cta≤18字
+           hl：title 内 1 处（span.hl）
+           图槽：无
+           来源：ai-covers N27
+      -->
+      <section data-layout="N27-community-recruit">
+    <div class="ai-page n27" data-artwork data-size="1080x1440">
+
+  <div class="paper-noise"></div>
+
+  <div class="brand-top">
+    <div class="left">
+      <div class="logo"><div class="ph">AI</div></div>
+      <span class="brand-name">AI Efficiency Lab</span>
+    </div>
+    <div class="right">COMMUNITY</div>
+  </div>
+
+  <div class="mega-hero n27-center-no-num">
+    <div class="mh-row">
+      <div class="big-num"></div>
+      <div class="hero-text">
+        <span class="tag" data-layer="tag" data-label="标签" data-editable="text">{{tag}}</span>
+        <div class="title" data-layer="title" data-label="标题" data-editable="text">{{title}}</div>
+      </div>
+    </div>
+    <div class="sub" data-layer="sub" data-label="副题" data-editable="text">{{sub}}</div>
+  </div>
+
+  <div class="after-hero"></div>
+
+  <div class="content">
+    <div class="card" data-layer="n27-card" data-label="身份卡" data-type="group">
+      <div class="n27-head">
+        <div class="n27-logo-circle">AI</div>
+        <div>
+          <div class="name" data-layer="name" data-label="社群名" data-editable="text">{{name}}</div>
+          <div class="s" data-layer="desc" data-label="一句话" data-editable="text">{{desc}}</div>
+        </div>
+      </div>
+      <div class="features">
+        <!-- repeat ×2-3: 权益行 clone -->
+        <div class="n27-feat" data-repeat="features"><div class="t" data-layer="feat-t" data-label="权益名" data-editable="text">{{t}}</div><div class="d" data-layer="feat-d" data-label="权益说明" data-editable="text">{{d}}</div></div>
+      </div>
+      <div class="n27-members">已有 <span class="n" data-layer="members-num" data-label="人数" data-editable="text">{{members-num}}</span> 人加入</div>
+    </div>
+
+    <div class="cta">
+      <span data-layer="cta" data-label="行动指引" data-editable="text">{{cta}}</span>
+      <span class="n27-small">LIMITED TIME</span>
+    </div>
+  </div>
+
+  <div class="pg-footer">
+    <span>aiefficiencylab.cn</span>
+    <span>N27 · 社群招募</span>
+  </div>
+
+    </div>
+      </section>
+    </div>
+  </div>
+
+  <div class="gal-group" id="g-ending">
+    <div class="gal-group-head"><span class="num">G10</span><h2>结尾</h2><span class="count">5 MASTERS</span></div>
+    <div class="gal-item" id="n28">
+      <!-- ============ N28 · CTA 导向结尾 ============
+           用途：CTA 导向结尾——金句 + 三条记住 + 关注引导 + 下期预告
+           适合：内容号固定收尾；不适合：正文中间页
+           可以变：takeaways 2-4 条；callout/下期预告可留空
+           槽位：quote / takeaways[]（item）/ cta-t / tip / next-ep
+           限制：quote≤20字(4行,含 br)；item≤20字(1行)；cta-t≤10字；tip≤36字(2行)；next-ep≤16字
+           hl：quote 内 1 处（span.hl + strong）
+           图槽：无
+           来源：ai-covers N28
+      -->
+      <section data-layout="N28-ending-cta">
+    <div class="ai-page n28" data-artwork data-size="1080x1440">
+
+  <div class="paper-noise"></div>
+
+  <div class="brand-top">
+    <div class="left">
+      <div class="logo"><div class="ph">AI</div></div>
+      <span class="brand-name">AI Efficiency Lab</span>
+    </div>
+    <div class="right dot-accent">SEE YOU · 下期</div>
+  </div>
+
+  <div class="n28-ending">
+    <div class="n28-the-end">— THAT'S ALL · 本期完 —</div>
+
+    <div class="n28-big-quote" data-layer="quote" data-label="金句" data-editable="text">{{quote}}</div>
+
+    <div class="n28-takeaways">
+      <div class="n28-takeaways__title">· THREE THINGS TO REMEMBER ·</div>
+      <!-- repeat ×2-4: takeaway 行 clone -->
+      <div class="n28-takeaways__item" data-repeat="takeaways" data-layer="takeaway" data-editable="text">{{item}}</div>
+    </div>
+
+    <div class="n28-cta-big">
+      <div class="n28-cta-big__text"><span data-layer="cta-t" data-label="关注语" data-editable="text">{{cta-t}}</span>
+        <small>FOLLOW · SHARE · COMMENT</small>
+      </div>
+      <div class="n28-cta-big__arrow">→</div>
+    </div>
+
+    <div class="callout">
+      <div class="callout__icon">ℹ</div>
+      <div class="callout__body">
+        <div class="callout__head">· 为什么值得关注 ·</div>
+        <div class="callout__text" data-layer="tip" data-label="关注理由" data-editable="text">{{tip}}</div>
+      </div>
+    </div>
+
+    <div class="n28-next-ep">
+      <span class="n28-next-ep__label">NEXT · 下一期预告</span>
+      <div class="n28-next-ep__divider"></div>
+      <span class="n28-next-ep__title" data-layer="next-ep" data-label="下期预告" data-editable="text">{{next-ep}}</span>
+    </div>
+  </div>
+
+  <div class="pg-footer">
+    <span>aiefficiencylab.cn</span>
+    <span>N28 · 结尾 CTA</span>
+  </div>
+
+    </div>
+      </section>
+    </div>
+
+    <div class="gal-item" id="n29">
+      <!-- ============ N29 · 卡片式结尾 ============
+           用途：卡片式结尾——下期预告大卡 + 作者卡 + 社群二维码卡
+           适合：系列内容固定收尾；不适合：中间页
+           可以变：预告标签 0-4 个；作者卡文案可改
+           槽位：outro-title / 图×2（389:492 cover、1:1 contain）/ next-num / next-title / next-tags[]（tag）/ bio / qr-hint
+           限制：outro-title≤10字(2行)；next-num≤4字符；next-title≤14字(2行)；tag≤8字符；bio≤20字(1行)；qr-hint≤18字(1行)
+           hl：qr-hint 内 strong 1 处
+           图槽：下期封面 cover + 二维码 contain
+           来源：ai-covers N29
+      -->
+      <section data-layout="N29-ending-cards">
+    <div class="ai-page n29" data-artwork data-size="1080x1440">
+
+  <div class="paper-noise"></div>
+
+  <div class="brand-top">
+    <div class="left">
+      <div class="logo"><div class="ph">AI</div></div>
+      <span class="brand-name">AI Efficiency Lab</span>
+    </div>
+    <div class="right">END · VOL.03</div>
+  </div>
+
+  <div class="after-hero"></div>
+
+  <div class="content">
+    <!-- 结尾大标题 -->
+    <div class="n29-outro-head">
+      <div class="n29-outro-cat">— VOL.03 · THE END —</div>
+      <div class="n29-outro-title" data-layer="outro-title" data-label="收尾标题" data-editable="text">{{outro-title}}</div>
+    </div>
+
+    <!-- 三卡片 -->
+    <div class="n29-card-grid">
+      <!-- 下期预告（跨两列） -->
+      <div class="n29-next-card" data-layer="n29-next-card" data-label="下期预告卡" data-type="group">
+        <div class="n29-next-card__img ph-img" data-img="N29-01" data-fit="cover"><img class="ph-img__img" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-slot="image" data-layer="n29-img-1" data-label="下期封面" data-ratio="389:492" alt=""><span class="ph-img__label">IMG · 下期封面</span></div>
+        <div class="n29-next-card__body">
+          <div class="n29-next-card__top">
+            <div class="n29-next-card__num" data-layer="next-num" data-label="期号" data-editable="text">{{next-num}}</div>
+            <div class="n29-next-card__label">NEXT EPISODE · 下期预告</div>
+          </div>
+          <div class="n29-next-card__title" data-layer="next-title" data-label="下期标题" data-editable="text">{{next-title}}</div>
+          <div class="n29-next-card__tags">
+            <!-- repeat ×0-4: 话题标签 clone -->
+            <span data-repeat="next-tags" data-layer="next-tag" data-editable="text">{{tag}}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 作者卡 -->
+      <div class="n29-author-card" data-layer="n29-author-card" data-label="作者卡" data-type="group">
+        <div class="n29-author-card__label">· ABOUT AUTHOR ·</div>
+        <div class="n29-author-card__name">AI Efficiency Lab</div>
+        <div class="n29-author-card__bio" data-layer="bio" data-label="作者简介" data-editable="text">{{bio}}</div>
+        <div class="n29-author-card__social">
+          <span>@ai-efficiency-lab</span>
+          ·
+          <span>aiefficiencylab.cn</span>
+        </div>
+      </div>
+
+      <!-- 社群卡 -->
+      <div class="n29-comm-card" data-layer="n29-comm-card" data-label="社群卡" data-type="group">
+        <div class="n29-comm-card__label">· JOIN US ·</div>
+        <div class="n29-comm-card__qr ph-img" data-img="N29-02" data-fit="contain"><img class="ph-img__img" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-slot="image" data-layer="n29-img-2" data-label="二维码" data-ratio="1:1" alt=""><span class="ph-img__label">QR CODE</span></div>
+        <div class="n29-comm-card__hint" data-layer="qr-hint" data-label="二维码提示" data-editable="text">{{qr-hint}}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pg-footer">
+    <span>aiefficiencylab.cn</span>
+    <span>N29 · 卡片式结尾</span>
+  </div>
+
+    </div>
+      </section>
+    </div>
+
+    <div class="gal-item" id="n30">
+      <!-- ============ N30 · 极简致谢深色 ============
+           用途：极简致谢收尾（深色版）——金句 + 关注条
+           适合：系列固定收尾；不适合：信息量大的总结
+           可以变：cta 条文案自由
+           槽位：quote / sub / cta-t
+           限制：quote≤24字(4行)；sub≤26字(1行)；cta-t≤18字
+           hl：quote 内 1 处（span.hl + strong）；cta-t 内 0-1 处（span.hl）
+           图槽：无
+           来源：ai-covers N30
+      -->
+      <section data-layout="N30-ending-thanks-dark">
+    <div class="ai-page dark n30" data-artwork data-size="1080x1440">
+
+  <div class="paper-noise"></div>
+
+  <div class="brand-top">
+    <div class="left">
+      <div class="logo"><div class="ph">AI</div></div>
+      <span class="brand-name">AI Efficiency Lab</span>
+    </div>
+    <div class="right">END · VOL.03</div>
+  </div>
+
+  <div class="thanks">
+    <div class="thanks__tag">— THANK YOU —</div>
+    <div class="thanks__rule"></div>
+
+    <div class="thanks__quote" data-layer="quote" data-label="金句" data-editable="text">{{quote}}</div>
+
+    <div class="thanks__sub" data-layer="sub" data-label="结束语" data-editable="text">{{sub}}</div>
+
+    <div class="cta-bar">
+      <span class="cta-bar__label">· FOLLOW ·</span>
+      <span class="cta-bar__text" data-layer="cta-t" data-label="关注条" data-editable="text">{{cta-t}}</span>
+    </div>
+  </div>
+
+  <div class="pg-footer">
+    <span>aiefficiencylab.cn</span>
+    <span>N30 · 极简致谢（深色）</span>
+  </div>
+
+    </div>
+      </section>
+    </div>
+
+    <div class="gal-item" id="n31">
+      <!-- ============ N31 · 极简致谢浅色 ============
+           用途：极简致谢收尾（浅色版）——金句 + 关注条
+           适合：系列固定收尾；不适合：信息量大的总结
+           可以变：cta 条文案自由
+           槽位：quote / sub / cta-t
+           限制：quote≤24字(4行)；sub≤26字(1行)；cta-t≤18字
+           hl：quote 内 1 处（span.hl + strong）；cta-t 内 0-1 处（span.hl）
+           图槽：无
+           来源：ai-covers N31
+      -->
+      <section data-layout="N31-ending-thanks-light">
+    <div class="ai-page n31" data-artwork data-size="1080x1440">
+
+  <div class="paper-noise"></div>
+
+  <div class="brand-top">
+    <div class="left">
+      <div class="logo"><div class="ph">AI</div></div>
+      <span class="brand-name">AI Efficiency Lab</span>
+    </div>
+    <div class="right">END · VOL.03</div>
+  </div>
+
+  <div class="thanks">
+    <div class="thanks__tag">— THANK YOU —</div>
+    <div class="thanks__rule"></div>
+
+    <div class="thanks__quote" data-layer="quote" data-label="金句" data-editable="text">{{quote}}</div>
+
+    <div class="thanks__sub" data-layer="sub" data-label="结束语" data-editable="text">{{sub}}</div>
+
+    <div class="cta-bar">
+      <span class="cta-bar__label">· FOLLOW ·</span>
+      <span class="cta-bar__text" data-layer="cta-t" data-label="关注条" data-editable="text">{{cta-t}}</span>
+    </div>
+  </div>
+
+  <div class="pg-footer">
+    <span>aiefficiencylab.cn</span>
+    <span>N31 · 极简致谢（浅色）</span>
+  </div>
+
+    </div>
+      </section>
+    </div>
+
+    <div class="gal-item" id="n32">
+      <!-- ============ N32 · 结尾对照 ============
+           用途：结尾对照——前后图对照 + 三句话总结
+           适合：系列收尾复盘；不适合：中间页
+           可以变：harvest 2-4 条
+           槽位：big-num / tag / title / 图×2（209:157、209:170 cover）/ before-cap / after-cap / harvest-title / harvest[]（item）
+           限制：big-num≤4字符；title≤12字(2行)；cap≤24字(2行)；harvest-title≤12字；item≤20字(1行)
+           hl：无
+           图槽：横版对照图 ×2 cover
+           来源：ai-covers N32
+      -->
+      <section data-layout="N32-ending-compare">
+    <div class="ai-page n32" data-artwork data-size="1080x1440">
+
+  <div class="paper-noise"></div>
+
+  <div class="brand-top">
+    <div class="left">
+      <div class="logo"><div class="ph">AI</div></div>
+      <span class="brand-name">AI Efficiency Lab</span>
+    </div>
+    <div class="right">END · THANK YOU</div>
+  </div>
+
+  <div class="mega-hero">
+    <div class="mh-row">
+      <div class="big-num" data-layer="big-num" data-label="标识大字" data-editable="text">{{big-num}}</div>
+      <div class="hero-text">
+        <span class="tag" data-layer="tag" data-label="标签" data-editable="text">{{tag}}</span>
+        <div class="title" data-layer="title" data-label="标题" data-editable="text">{{title}}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="after-hero"></div>
+
+  <div class="content">
+    <div class="compare">
+      <div class="n32-compare__side n32-compare__side--before" data-layer="n32-side-before" data-label="对照前栏" data-type="group">
+        <div class="n32-compare__side__tag">· BEFORE ·</div>
+        <div class="n32-compare__img ph-img" data-img="N32-01" data-fit="cover"><img class="ph-img__img" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-slot="image" data-layer="n32-img-1" data-label="对照前图" data-ratio="209:157" alt=""><span class="ph-img__label">IMG · 之前</span></div>
+        <div class="n32-compare__caption" data-layer="before-cap" data-label="对照前说明" data-editable="text">{{before-cap}}</div>
+      </div>
+      <div class="compare__vs">VS</div>
+      <div class="n32-compare__side n32-compare__side--after" data-layer="n32-side-after" data-label="对照后栏" data-type="group">
+        <div class="n32-compare__side__tag">· AFTER ·</div>
+        <div class="n32-compare__img ph-img" data-img="N32-02" data-fit="cover"><img class="ph-img__img" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-slot="image" data-layer="n32-img-2" data-label="对照后图" data-ratio="209:170" alt=""><span class="ph-img__label">IMG · 之后</span></div>
+        <div class="n32-compare__caption" data-layer="after-cap" data-label="对照后说明" data-editable="text">{{after-cap}}</div>
+      </div>
+    </div>
+
+    <div class="n32-harvest">
+      <div class="n32-harvest__label">· THREE TAKEAWAYS ·</div>
+      <div class="n32-harvest__title" data-layer="harvest-title" data-label="总结标题" data-editable="text">{{harvest-title}}</div>
+      <ul class="n32-harvest__list">
+        <!-- repeat ×2-4: 总结条 clone -->
+        <li data-repeat="harvest" data-layer="harvest-item" data-editable="text">{{item}}</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="pg-footer">
+    <span>aiefficiencylab.cn</span>
+    <span>N32 · 结尾对照</span>
+  </div>
+
+    </div>
+      </section>
+    </div>
+  </div>
+  </main>
+
+  <div class="gal-foot">TECH-BLUE · 32 MASTERS · REPOSITORY = GALLERY = DESIGN BOARD · EDIT MASTERS HERE, STYLES IN style.css</div>
+
+<script>
+/* 画廊说明头渲染器：把每张母版 section 前的说明头注释渲染成可见卡片。
+   render 抽取 <section data-layout> 时不带走本脚本与本卡片。 */
+(function () {
+  var esc = function (s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); };
+  document.querySelectorAll('section[data-layout]').forEach(function (sec) {
+    var node = sec.previousSibling;
+    while (node && node.nodeType !== 8) node = node.previousSibling;
+    if (!node) return;
+    var lines = node.nodeValue.split('\n').map(function (s) { return s.trim(); }).filter(Boolean)
+      .filter(function (l) { return !/^-+$|^=+$/.test(l); });
+    if (!lines.length) return;
+    var head = (lines.shift() || '').replace(/^=+\s*/, '').replace(/\s*=+$/, '').trim();
+    var mm = head.match(/^(\S+)\s*[·—-]?\s*(.*)$/);
+    var card = document.createElement('div');
+    card.className = 'gal-card-head';
+    var html = '<div class="gc-id">' + esc(mm ? mm[1] : '') + '</div><div class="gc-title">' + esc(mm ? mm[2] : head) + '</div>';
+    html += lines.map(function (l) { return '<div class="gc-line">' + esc(l) + '</div>'; }).join('');
+    card.innerHTML = html;
+    sec.parentNode.insertBefore(card, sec);
+  });
+  // 占位符防溢出（仅画廊视觉，不改源码）：{{x}} 元素超宽时按比例缩字号；
+  // 有兄弟元素者上限 = 父容器 55%（给邻居留位），孤行者上限 = 画布安全区 86%
+  function shrinkPh() {
+    document.querySelectorAll('section[data-layout] [data-editable]').forEach(function (el) {
+      if (!/^\{\{[\s\S]*\}\}$/.test(el.textContent.trim())) return;
+      var page = el.closest('.ai-page');
+      if (!page) return;
+      var pr = page.getBoundingClientRect();
+      var er = el.getBoundingClientRect();
+      var sibCount = 0;
+      Array.prototype.forEach.call(el.parentElement.children, function (s) {
+        if (s !== el && s.getBoundingClientRect().width > 1) sibCount++;
+      });
+      var cap = sibCount > 0 ? el.parentElement.clientWidth * 0.55 : pr.width * 0.86;
+      if (er.width > cap) {
+        var fs = parseFloat(getComputedStyle(el).fontSize);
+        el.style.fontSize = Math.max(12, fs * cap / er.width * 0.95) + 'px';
+      }
+    });
+  }
+  requestAnimationFrame(function () { shrinkPh(); requestAnimationFrame(shrinkPh); });
+})();
+</script>
+</body>
+</html>
