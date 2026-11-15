@@ -16,7 +16,7 @@ argument-hint: <原文素材路径或目录>
 | 选母版 | `styles/catalog.md` | 公用·一份：风格→语义组→母版，四栏（适合/不适合/可以变+字数语义） |
 | 填内容 | `styles/<风格>/templates.html` | 选中母版的槽位（data-slot/占位符名）与 **repeat 注释=条数与字数联动的唯一配置点** |
 | 即兴或写新母版 | `styles/<风格>/design-system.md` | 风格语义、组件使用纪律、反例——即兴只准用该风格 style.css 的既有类 |
-| 出图 | `render/render.mjs` | 自动：填槽/克隆 repeat/手机框兜底/图标 SVG 内联/CSS 内联/三层校验/截图/总览图 |
+| 出图 | `script/render.mjs` | 自动：填槽/克隆 repeat/手机框兜底/图标 SVG 内联/CSS 内联/三层校验/截图/总览图 |
 
 只读当前阶段需要的文件；母版的视觉值全部在 style.css，规则语义全部在 catalog 与 design-system，别处文档不作为验收依据。
 
@@ -28,7 +28,7 @@ argument-hint: <原文素材路径或目录>
 4. **素材图片识别**：按图片决策表逐张分类——手机截图（套手机壳槽，框由 render 自动兜底）/窗口截图（进窗口槽，原图自带边框用无边框槽）/干净图（直接用）/杂乱图（AI 读图选区写 crop）。**裁切由 CSS 机械完成，AI 不做像素级编辑**。
 5. **逐页选母版**：读 `catalog.md` 该风格段落，按语义组+四栏选版式；精确条数与字数从选中母版的 repeat 注释读取。
 6. **写 plan.json**：每页一条 `layout + fields`；fields 键=母版槽位名；条目传数组（render 按 repeat 注释克隆）；字段值允许受控富文本（仅 `span.hl`/`br`/`strong`）；即兴页写 `layout: "custom/<语义名>"` 并附整页 markup。
-7. **跑 render → 校验 → 交付**：`node render/render.mjs runs/<任务>/`；硬错误（槽位残留/图片缺失/标记重复）即停修 plan 重跑；软告警（字数超限/裁切量大）人决定；交付目录只含 `P*.html` + `*.png` + `assets/` + `preview.png`。
+7. **跑 render → 校验 → 交付**：`node script/render.mjs runs/<任务>/`；硬错误（槽位残留/图片缺失/标记重复）即停修 plan 重跑；软告警（字数超限/裁切量大）人决定；交付目录只含 `P*.html` + `*.png` + `assets/` + `preview.png`。
 
 ## plan.json 格式
 
@@ -46,8 +46,8 @@ argument-hint: <原文素材路径或目录>
 ## 执行入口
 
 ```sh
-node render/render.mjs runs/<任务>/          # 实例化+校验+截图+总览
-node render/render.mjs runs/<任务>/ --check-geometry   # 即兴页默认开启，母版页可手动加
+node script/render.mjs runs/<任务>/          # 实例化+校验+截图+总览
+node script/render.mjs runs/<任务>/ --check-geometry   # 即兴页默认开启，母版页可手动加
 ```
 
 交付后进编辑器微调（可选）：`cd /d/AI/pageApp/demo && node pack.mjs "<交付目录>"`。
