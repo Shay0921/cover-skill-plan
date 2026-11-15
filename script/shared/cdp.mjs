@@ -7,7 +7,7 @@ import path from 'node:path';
 import { findChrome } from './find-chrome.mjs';
 
 export function createOptions(overrides = {}) {
-  return { width: 1080, height: 1440, dsf: 1, selector: '.p-page', waitSelector: '.p-page',
+  return { width: 1080, height: 1440, dsf: 1, selector: '.artwork-page', waitSelector: '.artwork-page',
     timeout: 30000, fontTimeout: 5000, noSandbox: false, block: [], ...overrides,
     chrome: overrides.chrome || findChrome() };
 }

@@ -4,25 +4,23 @@
    唯一强调色 #2563EB | 衬线标题 / 无衬线正文 / 等宽标签
    ----------------------------------------------------------------
    结构：共享段（基座 = 全风格词表 + 上收公共组件）→ 专属段（母版私有，
-   类名前缀 n<nn>- 或作用域 .n<nn>）→ 画廊家具说明见 templates.html。
-   本文件由 script/_migrate/pass1-merge.mjs 从 tokens.css + N01-N32 生成。
-   ⚠ 手改后勿重跑生成脚本覆盖；架构详见 final/01 手册 §3.2。
+   类名前缀 n<nn>- 或作用域 .n<nn>）；共享/专属归属判定 =「会不会被第二个母版复用」。
    ================================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600;700;900&family=Noto+Sans+SC:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+/* 字体：默认本机字体栈，不引 CDN / 不加载 webfont。
+   --serif / --sans / --mono 首项为本机字体名，命中即用、未装按栈回退。 */
 
-/* ☁ 图片注入入口（原 images.css 职责，T2 起由 render 按槽位注入 --img）：
-   [data-img="N17-03"]{ --img:url("…"); --label-visibility:hidden; }
-   未配置的槽位保持占位态。data-fit="cover" 裁切填满 / "contain" 完整显示。 */
-/* ===== 共享段 · 基座（原 tokens.css 全量词表，逐字保真） ===== */
+/* ☁ 图槽唯一通道：母版 <img class="ph-img__img" data-slot="image"> 占位，
+   render / 编辑器只替换它的 src，并给容器补 data-filled 隐藏占位标签。
+   data-fit="cover"（默认）裁切填满 / "contain" 完整显示。 */
+/* ===== 共享段 · 基座（全风格词表） ===== */
 
 /* ================================================================
    AI Efficiency Lab · 小红书封面母版 · 极简科技蓝
    画布 1080×1440（3:4）| 纯白底 + 40px 极淡网格 + 深墨 #0D1117
    唯一强调色 #2563EB | 衬线标题 / 无衬线正文 / 等宽标签
-   —— 统一色板 / 统一字体层级 / 统一 .ai-page 画布骨架
+   —— 统一色板 / 统一字体层级 / 统一 .artwork-page 画布骨架
    ================================================================ */
-/* 图片替换入口：换图只改 images.css */
 :root{
   /* —— 统一色板 · 极简科技蓝 ——
   极淡冷灰蓝底（有质感但不彩色）+ 深墨 + 明确科技蓝强调
@@ -62,7 +60,7 @@ html,body{margin:0;padding:0;background:#ECEEF3;font-family:var(--sans);}
    row4: 内容区（minmax(0,1fr) —— 关键！允许子元素被压缩）
    row5: pg-footer 底部分页（auto）
    → 绝对定位只留给 .paper-noise 装饰和 content 内部元素 */
-.ai-page{
+.artwork-page{
   position:relative;  /* ⚠️ 关键：为 .paper-noise 的 absolute 提供定位上下文 */
   display:flex;flex-direction:column;  /* ✅ 改为 flex column，所有元素顺流排 */
   gap:0;margin:0 auto;
@@ -73,11 +71,11 @@ html,body{margin:0;padding:0;background:#ECEEF3;font-family:var(--sans);}
   -webkit-font-smoothing:antialiased;
   }
 
-.ai-page.dark{background:var(--ink-bg);color:var(--ink-paper);}
+.artwork-page.dark{background:var(--ink-bg);color:var(--ink-paper);}
 
-.ai-page *{box-sizing:border-box;}
+.artwork-page *{box-sizing:border-box;}
 
-.ai-page h1,.ai-page h2,.ai-page h3,.ai-page p,.ai-page ul,.ai-page ol{margin:0;padding:0;}
+.artwork-page h1,.artwork-page h2,.artwork-page h3,.artwork-page p,.artwork-page ul,.artwork-page ol{margin:0;padding:0;}
 
 /* ---------- 极淡网格底纹 ----------
    克制的细线网格（1px / 极淡透明度 / 40px 间距），
@@ -92,7 +90,7 @@ html,body{margin:0;padding:0;background:#ECEEF3;font-family:var(--sans);}
   background-size:40px 40px;
   }
 
-.ai-page.dark .paper-noise{
+.artwork-page.dark .paper-noise{
   background-image:
   linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),
   linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);
@@ -100,7 +98,7 @@ html,body{margin:0;padding:0;background:#ECEEF3;font-family:var(--sans);}
 
 /* ✅ 所有内容层统一 position:relative; z-index:1
    确保在 .paper-noise (z-index:0) 之上 */
-.ai-page > *:not(.paper-noise){
+.artwork-page > *:not(.paper-noise){
   position:relative;z-index:1;
   }
 
@@ -143,7 +141,7 @@ html,body{margin:0;padding:0;background:#ECEEF3;font-family:var(--sans);}
 .accent-word{color:var(--accent);}
 /* 富文本通用高亮（白名单 span.hl 的默认形态；N01/N28/N30 的块状 .hl 由各自作用域覆盖） */
 .hl{color:var(--accent);}
-/* 页码/脚注等宽小字（N10/N13/N16/N17 等共用；原各母版内联样式收编） */
+/* 页码/脚注等宽小字（N10/N13/N16/N17 等共用） */
 .page-no{font-family:var(--mono);font-size:1.3cqw;letter-spacing:.14em;}
 
 .accent-bg{
@@ -398,33 +396,25 @@ html,body{margin:0;padding:0;background:#ECEEF3;font-family:var(--sans);}
   }
 
 /* ================================================================
-   图片槽位统一契约 · ph-img
+   图片槽位统一契约 · ph-img（单通道：只替换 <img> 的 src）
    —— 槽位只追加 class / data 属性，尺寸、比例、grid、fr 一律不改
-   data-img : 全局唯一槽位 ID，对应 shots/<ID>.png
-   data-fit : cover（默认，按比例裁切填满）/ contain（完整显示）
-   --img    : 由 images.css 按 data-img 注入；未配置时保持占位态
-   图片层用绝对定位伪元素，脱离布局流，因此有图 / 无图布局完全一致
+   data-slot="image" : 图片槽唯一标记（编辑器据此识别可换图图层）
+   data-layer       : 图层唯一 id = plan.json 图槽键
+   data-fit         : cover（默认，按比例裁切填满）/ contain（完整显示）
+   data-filled      : render 填图后补在容器上，隐藏占位标签
+   实图层用 <img class="ph-img__img"> 绝对定位，脱离布局流，有图/无图布局一致
    ================================================================ */
 /* :where() 把权重降为 0：原本声明了 absolute/relative 的槽位保留原值，
    只给 static 槽位补 relative 作为图片层的定位上下文，避免破坏窗口内截图定位 */
-.ai-page :where(.ph-img){position:relative;}
+.artwork-page :where(.ph-img){position:relative;}
 
-.ai-page .ph-img::before{
-  content:"";position:absolute;inset:0;
-  background-image:var(--img,none);
-  background-size:cover;background-position:center;background-repeat:no-repeat;
-  pointer-events:none;
-  }
+.artwork-page .ph-img__label{visibility:visible;}
 
-.ai-page .ph-img[data-fit="contain"]::before{background-size:contain;}
-
-.ai-page .ph-img__label{visibility:var(--label-visibility,visible);}
-
-/* 图槽实图层（T1b 起）：render/编辑器经 <img data-slot="image"> 换图；无 src 时占位态不变。
+/* 图槽实图层：render/编辑器经 <img data-slot="image"> 换图；无 src 时占位态不变。
    img 居底（z-index:0），占位标签/角标/标注等既有子元素天然在其上。 */
-.ai-page .ph-img__img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;}
-.ai-page .ph-img[data-fit="contain"] .ph-img__img{object-fit:contain;}
-.ai-page .ph-img[data-filled] .ph-img__label{visibility:hidden;}
+.artwork-page .ph-img__img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;}
+.artwork-page .ph-img[data-fit="contain"] .ph-img__img{object-fit:contain;}
+.artwork-page .ph-img[data-filled] .ph-img__label{visibility:hidden;}
 
 
 /* ===== 共享段 · 上收（多母版定义一致、覆盖检查通过的公共组件） ===== */
@@ -474,7 +464,7 @@ html,body{margin:0;padding:0;background:#ECEEF3;font-family:var(--sans);}
 .cta-bar__accent{color:var(--accent);}
 
 
-/* ===== 专属段 · 母版私有（前缀 n<nn>- / 作用域 .n<nn>，改前先读 final/03 §5） ===== */
+/* ===== 专属段 · 母版私有（前缀 n<nn>- / 作用域 .n<nn>） ===== */
 
 
 /* ---- N01 · 金句震撼封面 ---- */
@@ -1742,7 +1732,7 @@ html,body{margin:0;padding:0;background:#ECEEF3;font-family:var(--sans);}
   font-family:var(--serif);font-weight:700;font-size:1.5cqw;
   box-shadow:0 .4cqw 1.2cqw rgba(37,99,235,.35);
   }
-/* 钉位坐标（原内联样式收编；L2 调整位置改这里） */
+/* 钉位坐标（L2 调整位置改这里） */
 .n22-pin--1{left:12%;top:42%;}
 .n22-pin--2{left:58%;top:55%;}
 .n22-pin--3{left:35%;top:78%;}
@@ -1982,7 +1972,7 @@ html,body{margin:0;padding:0;background:#ECEEF3;font-family:var(--sans);}
 
 .n25-mini-bars i:nth-child(7){background:var(--accent);}
 
-/* 柱高（原内联样式收编；改数据走 L2 调整这些百分比） */
+/* 柱高（改数据走 L2 调整这些百分比） */
 .n25-h1{height:30%;}
 .n25-h2{height:45%;}
 .n25-h3{height:38%;}
@@ -2039,7 +2029,7 @@ html,body{margin:0;padding:0;background:#ECEEF3;font-family:var(--sans);}
 /* ---- N26 · 限时福利 ---- */
 /* AI10 · 限时福利 — flex column，封面型 */
 .n26 .mega-hero.n26-center-price{text-align:center;gap:2.4cqw;}
-/* 顶部限时胶囊（原内联样式收编） */
+/* 顶部限时胶囊 */
 .n26-limited{color:var(--accent);border:1px solid var(--accent);padding:.6cqw 1.6cqw;border-radius:99px;}
 
 .n26 .mega-hero.n26-center-price .mh-row{justify-content:center;gap:0;}
@@ -2352,35 +2342,35 @@ html,body{margin:0;padding:0;background:#ECEEF3;font-family:var(--sans);}
 
 /* ---- N30 · 极简致谢深色 ---- */
 /* ========== AI27-DARK · 深色版极简致谢 ==========
-   使用 <div class="ai-page dark"> 切换深色主题
+   使用 <div class="artwork-page dark"> 切换深色主题
    tokens.css 已支持 .dark 变体（paper-noise 白色网格）*/
 /* 深色变体覆盖 */
-.ai-page.n30.dark{
+.artwork-page.n30.dark{
   background:var(--ink);color:var(--ink-paper);gap:0;
   }
 
-.ai-page.n30.dark .brand-top{background:transparent;}
+.artwork-page.n30.dark .brand-top{background:transparent;}
 
-.ai-page.n30.dark .brand-top .brand-name{color:#fff;}
+.artwork-page.n30.dark .brand-top .brand-name{color:#fff;}
 
-.ai-page.n30.dark .brand-top .logo{background:rgba(255,255,255,.1);}
+.artwork-page.n30.dark .brand-top .logo{background:rgba(255,255,255,.1);}
 
-.ai-page.n30.dark .brand-top .ph{color:#fff;}
+.artwork-page.n30.dark .brand-top .ph{color:#fff;}
 
-.ai-page.n30.dark .brand-top .right{color:rgba(255,255,255,.5);}
+.artwork-page.n30.dark .brand-top .right{color:rgba(255,255,255,.5);}
 
-.ai-page.n30.dark .pg-footer{background:transparent;border-top-color:rgba(255,255,255,.1);}
+.artwork-page.n30.dark .pg-footer{background:transparent;border-top-color:rgba(255,255,255,.1);}
 
-.ai-page.n30.dark .pg-footer span{color:rgba(255,255,255,.4);}
+.artwork-page.n30.dark .pg-footer span{color:rgba(255,255,255,.4);}
 
 .n30 .thanks__tag{
   font-family:var(--mono);font-size:1.3cqw;letter-spacing:.4em;
   font-weight:600;
   }
 
-.ai-page.n30.dark .thanks__tag{color:rgba(255,255,255,.4);}
+.artwork-page.n30.dark .thanks__tag{color:rgba(255,255,255,.4);}
 
-.ai-page.n30:not(.dark) .thanks__tag{color:var(--muted);}
+.artwork-page.n30:not(.dark) .thanks__tag{color:var(--muted);}
 
 /* 中心金句 */
 .n30 .thanks__quote{
@@ -2389,9 +2379,9 @@ html,body{margin:0;padding:0;background:#ECEEF3;font-family:var(--sans);}
   font-size:8.4cqw;line-height:1.15;letter-spacing:-.03em;
   }
 
-.ai-page.n30.dark .thanks__quote{color:#fff;}
+.artwork-page.n30.dark .thanks__quote{color:#fff;}
 
-.ai-page.n30:not(.dark) .thanks__quote{color:var(--ink);}
+.artwork-page.n30:not(.dark) .thanks__quote{color:var(--ink);}
 
 .n30 .thanks__quote .hl::before{
   content:"";position:absolute;left:0;right:0;bottom:.05em;
@@ -2400,9 +2390,9 @@ html,body{margin:0;padding:0;background:#ECEEF3;font-family:var(--sans);}
 
 .n30 .thanks__quote .hl strong{position:relative;z-index:1;font-weight:700;}
 
-.ai-page.n30.dark .thanks__quote .hl strong{color:#fff;}
+.artwork-page.n30.dark .thanks__quote .hl strong{color:#fff;}
 
-.ai-page.n30:not(.dark) .thanks__quote .hl strong{color:var(--ink);}
+.artwork-page.n30:not(.dark) .thanks__quote .hl strong{color:var(--ink);}
 
 /* 副标题 */
 .n30 .thanks__sub{
@@ -2410,9 +2400,9 @@ html,body{margin:0;padding:0;background:#ECEEF3;font-family:var(--sans);}
   font-family:var(--serif);font-size:2cqw;line-height:1.6;font-style:italic;
   }
 
-.ai-page.n30.dark .thanks__sub{color:rgba(255,255,255,.55);}
+.artwork-page.n30.dark .thanks__sub{color:rgba(255,255,255,.55);}
 
-.ai-page.n30:not(.dark) .thanks__sub{color:var(--ink-soft);}
+.artwork-page.n30:not(.dark) .thanks__sub{color:var(--ink-soft);}
 
 /* CTA 小条 */
 .n30 .cta-bar{
@@ -2420,23 +2410,23 @@ html,body{margin:0;padding:0;background:#ECEEF3;font-family:var(--sans);}
   padding:1.2cqw 2.4cqw;border-radius:var(--radius-md);
   }
 
-.ai-page.n30.dark .cta-bar{border:1px solid rgba(255,255,255,.2);}
+.artwork-page.n30.dark .cta-bar{border:1px solid rgba(255,255,255,.2);}
 
-.ai-page.n30:not(.dark) .cta-bar{border:1px solid var(--line-strong);background:var(--paper);}
+.artwork-page.n30:not(.dark) .cta-bar{border:1px solid var(--line-strong);background:var(--paper);}
 
 .n30 .cta-bar__label{
   font-family:var(--mono);font-size:1.1cqw;letter-spacing:.2em;font-weight:600;
   }
 
-.ai-page.n30.dark .cta-bar__label{color:rgba(255,255,255,.5);}
+.artwork-page.n30.dark .cta-bar__label{color:rgba(255,255,255,.5);}
 
-.ai-page.n30:not(.dark) .cta-bar__label{color:var(--muted);}
+.artwork-page.n30:not(.dark) .cta-bar__label{color:var(--muted);}
 
 .n30 .cta-bar__text{font-family:var(--serif);font-size:2cqw;font-weight:700;}
 
-.ai-page.n30.dark .cta-bar__text{color:#fff;}
+.artwork-page.n30.dark .cta-bar__text{color:#fff;}
 
-.ai-page.n30:not(.dark) .cta-bar__text{color:var(--ink);}
+.artwork-page.n30:not(.dark) .cta-bar__text{color:var(--ink);}
 
 
 
@@ -2565,4 +2555,3 @@ html,body{margin:0;padding:0;background:#ECEEF3;font-family:var(--sans);}
   }
 
 
-/* 合并统计：基座 0（tokens 原样）+ 上收 9 + 专属(前缀化 305/作用域 253) + 冗余删除 3；选择器级重复 0 */

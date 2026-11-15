@@ -14,7 +14,7 @@
 <body>
 <div class="wrap">
 <h1>固定母版制 · 生产 SOP 全流程图</h1>
-<p class="sub">依据 final/01-母版开发与生产手册.md §2（2026-11-15 定稿）· 节点颜色 = 执行者 · 红虚线 = 返修循环 · 紫虚线 = 沉淀入库 · 灰虚线 = 只读引用 / 可选步骤</p>
+<p class="sub">依据 final/01-母版开发与生产手册.md「生产 SOP（八步）」 · 节点颜色 = 执行者 · 红虚线 = 返修循环 · 紫虚线 = 沉淀入库 · 灰虚线 = 只读引用 / 可选步骤</p>
 
 <svg viewBox="0 0 1440 2170" xmlns="http://www.w3.org/2000/svg" font-family="system-ui,'Noto Sans SC','Microsoft YaHei',sans-serif">
 <defs>
@@ -25,7 +25,7 @@
 
 <!-- ===== 标题与图例 ===== -->
 <text x="40" y="42" font-size="21" font-weight="700" fill="#0F172A">固定母版制 · 生产 SOP 全流程（八步主线 + 三层校验 + 受控即兴三级阶梯 + 转正管道）</text>
-<text x="40" y="66" font-size="12.5" fill="#64748B">依据 final/01-母版开发与生产手册.md §2 · 2026-11-15 定稿 · 本图与手册同步维护</text>
+<text x="40" y="66" font-size="12.5" fill="#64748B">依据 final/01-母版开发与生产手册.md「生产 SOP（八步）」 · 本图与手册同步维护</text>
 <g font-size="12">
   <rect x="40"  y="84" width="16" height="16" rx="4" fill="#FFF4E5" stroke="#EA580C"/><text x="62"  y="97" fill="#334155">用户</text>
   <rect x="130" y="84" width="16" height="16" rx="4" fill="#EFF6FF" stroke="#2563EB"/><text x="152" y="97" fill="#334155">AI</text>
@@ -91,7 +91,7 @@
 <!-- ===== ⑤ ===== -->
 <rect x="70" y="682" width="440" height="93" rx="10" fill="#EFF6FF" stroke="#2563EB" stroke-width="1.5"/>
 <text x="88" y="706" font-size="15" font-weight="700" fill="#1E3A8A">⑤ 逐页选母版（AI）</text>
-<text x="88" y="728" font-size="12.5" fill="#334155">读 styles/catalog.md 该风格段落（语义组 + 四栏）</text>
+<text x="88" y="728" font-size="12.5" fill="#334155">读 styles/&lt;风格&gt;/catalog.md（语义组 + 四栏）</text>
 <text x="88" y="747" font-size="12.5" fill="#334155">输入含素材类型分布（④）——有手机截图的页才考虑手机壳母版</text>
 <text x="88" y="766" font-size="12.5" fill="#334155">精确条数/字数 = ⑦ 填表时读母版 repeat 注释（唯一配置点）</text>
 
@@ -110,7 +110,7 @@
 <text x="598" y="740" font-size="12.5" fill="#334155">L2 母版为底微调：局部增删槽位，条数限区间内</text>
 <text x="598" y="759" font-size="12.5" fill="#334155">L3 组件组合整页：只用 style.css 既有类（custom/&lt;名&gt;）</text>
 <text x="598" y="778" font-size="12.5" font-weight="600" fill="#B91C1C">内容约束：文案忠于素材提炼，版式适配内容——禁大幅改写</text>
-<text x="598" y="797" font-size="12.5" fill="#334155">校验升级：形态校验 + 几何体检（--check-geometry 默认开）</text>
+<text x="598" y="797" font-size="12.5" fill="#334155">校验：形态必查 + 几何体检（--check-geometry 显式开）</text>
 
 <!-- L2/L3 → ⑦ -->
 <path d="M 770,840 V 1030 H 500 V 1048" fill="none" stroke="#475569" stroke-width="1.6" marker-end="url(#ar)"/>
@@ -119,18 +119,18 @@
 <!-- ===== ⑥ ===== -->
 <rect x="70" y="919" width="440" height="93" rx="10" fill="#EFF6FF" stroke="#2563EB" stroke-width="1.5"/>
 <text x="88" y="943" font-size="15" font-weight="700" fill="#1E3A8A">⑥ 图片×槽位匹配（AI · 决策表落地）</text>
-<text x="88" y="965" font-size="12.5" fill="#334155">手机截图→手机壳槽（框由 render 自动兜底）/ 窗口→窗口槽（防双框）</text>
+<text x="88" y="965" font-size="12.5" fill="#334155">手机截图→手机壳槽（框由 render 自动内嵌）/ 窗口→窗口槽（防双框）</text>
 <text x="88" y="984" font-size="12.5" fill="#334155">干净图→直接用 / 杂乱图→AI 读图选区 crop</text>
 <text x="88" y="1003" font-size="12.5" fill="#334155">裁切由 CSS 机械执行（零漂移）；不符 → 换槽位 / 换母版</text>
 
 <!-- ===== ⑦ ===== -->
 <rect x="70" y="1052" width="440" height="131" rx="10" fill="#EFF6FF" stroke="#2563EB" stroke-width="1.5"/>
 <text x="88" y="1076" font-size="15" font-weight="700" fill="#1E3A8A">⑦ 写 plan.json（AI 唯一产出物 · 过程件）</text>
-<text x="88" y="1098" font-size="12.5" fill="#334155">fields 键 = 母版槽位名（data-slot / 占位符名）</text>
+<text x="88" y="1098" font-size="12.5" fill="#334155">fields 键 = 槽位锚：文字={{槽名}}=data-layer id · 图槽=data-layer id</text>
 <text x="88" y="1117" font-size="12.5" fill="#334155">数组 → repeat 槽（render 克隆并校验 ×min-max 区间）</text>
 <text x="88" y="1136" font-size="12.5" fill="#334155">受控富文本：仅 span.hl / br / strong；图片路径 + crop 描述</text>
 <text x="88" y="1155" font-size="12.5" fill="#334155">即兴页：layout=custom/&lt;名&gt; + 整页 markup</text>
-<text x="88" y="1174" font-size="11.5" fill="#64748B">render 转写为 fields.json 随交付（编辑器初稿·一份数据两种身份）</text>
+<text x="88" y="1174" font-size="11.5" fill="#64748B">render 转写为 fields.json 先写运行区（编辑器初稿·一份数据两种身份；--with-editor 才随交付目录）</text>
 
 <!-- ===== ⑧ render（脚本大节点）===== -->
 <rect x="70" y="1225" width="440" height="190" rx="10" fill="#F0FDF4" stroke="#16A34A" stroke-width="1.5"/>
@@ -138,11 +138,11 @@
 <text x="88" y="1271" font-size="12" fill="#334155">① 按 layout 从 templates.html 抽 section（custom 直用 markup）</text>
 <text x="88" y="1290" font-size="12" fill="#334155">② 填槽——槽位一一对应校验（缺 / 多 / 类型错即停）</text>
 <text x="88" y="1309" font-size="12" fill="#334155">③ repeat 数组克隆（校验区间）+ crop 执行</text>
-<text x="88" y="1328" font-size="12" fill="#334155">④ frame-img 槽自动兜底手机框（解码 b64 唯一源）</text>
-<text x="88" y="1347" font-size="12" fill="#334155">⑤ 图标 SVG 内联 + style.css 内联 + 图片内嵌或落 assets/</text>
+<text x="88" y="1328" font-size="12" fill="#334155">④ frame-img 槽内嵌手机框（读 styles/assets/iphone-frame.png 现场编码，缺文件即停）</text>
+<text x="88" y="1347" font-size="12" fill="#334155">⑤ style.css 内联 + 图片内嵌 dataURL + 原件复制进运行区 assets/</text>
 <text x="88" y="1366" font-size="12" fill="#334155">⑥ 包独立壳 → P&lt;nn&gt;-&lt;名&gt;.html（自包含，可进编辑器）</text>
 <text x="88" y="1385" font-size="12" fill="#334155">⑦ Chrome（script/shared）逐页截图 1080×1440</text>
-<text x="88" y="1404" font-size="12" fill="#334155">⑧ preview.png 总览 + editor.manifest.json + fields.json</text>
+<text x="88" y="1404" font-size="12" fill="#334155">⑧ 产物全写任务运行区（含 preview/manifest/fields）→ 校验截图全过 → 白名单拷交付目录</text>
 
 <!-- ===== D2 三层校验 ===== -->
 <rect x="70" y="1455" width="440" height="114" rx="10" fill="#FEF9C3" stroke="#CA8A04" stroke-width="1.5"/>
@@ -176,18 +176,18 @@
 <text x="598" y="1653" font-size="12.5" fill="#713F12">同一内容即兴两次不满意 → 转正管道（上方）</text>
 <text x="598" y="1672" font-size="11.5" fill="#64748B">满意 → 主线继续交付（左）</text>
 
-<!-- ===== ⑨ 交付 ===== -->
+<!-- ===== 交付（⑧ 脚本大节点收尾）===== -->
 <rect x="70" y="1720" width="440" height="96" rx="10" fill="#F0FDF4" stroke="#16A34A" stroke-width="1.5"/>
-<text x="88" y="1744" font-size="15" font-weight="700" fill="#14532D">⑨ 交付（脚本打包 · D1 标准件）</text>
-<text x="88" y="1766" font-size="12.5" fill="#334155">标准包：P*.html + P*.png + assets/ + preview.png</text>
-<text x="88" y="1785" font-size="12.5" fill="#334155">可选：editor.manifest.json + fields.json（编辑器初稿）</text>
-<text x="88" y="1804" font-size="12.5" fill="#334155">过程件（plan.json / 任务副本）留 runs/ —— 不进交付区</text>
+<text x="88" y="1744" font-size="15" font-weight="700" fill="#14532D">交付（⑧ 脚本收尾 · D1 标准件）</text>
+<text x="88" y="1766" font-size="12.5" fill="#334155">白名单：P*.html + P*.png + preview.png → 用户工作区 YYYY-MM-DD-&lt;小标题&gt;/</text>
+<text x="88" y="1785" font-size="12.5" fill="#334155">--with-editor 追加：fields.json + editor.manifest.json + assets/</text>
+<text x="88" y="1804" font-size="12.5" fill="#334155">plan.json / 过程件留任务运行区；技能安装目录运行期只读</text>
 
 <!-- ===== ⑩ 编辑器 ===== -->
 <line x1="290" y1="1816" x2="290" y2="1852" stroke="#94A3B8" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#arGray)"/>
 <rect x="70" y="1856" width="440" height="74" rx="10" fill="#FFF4E5" stroke="#EA580C" stroke-width="1.5"/>
 <text x="88" y="1880" font-size="15" font-weight="700" fill="#9A3412">⑩ 编辑器微调（可选 · 用户）</text>
-<text x="88" y="1902" font-size="12.5" fill="#78350F">node pack.mjs "&lt;交付目录&gt;" → covers-edit.html</text>
+<text x="88" y="1902" font-size="12.5" fill="#78350F">node pack.mjs "&lt;含 manifest 的目录&gt;" → covers-edit.html</text>
 <text x="88" y="1921" font-size="12.5" fill="#78350F">拖拽 / 改字 / 换图 / 导出 PNG · HTML（pageApp 契约 v1.9）</text>
 
 <!-- ===== END ===== -->
@@ -199,13 +199,13 @@
 <text x="1028" y="170" font-size="15" font-weight="700" fill="#5B21B6">只读资产层（styles/）—— 支撑全部环节</text>
 <g font-size="12.5" fill="#4C1D95">
   <circle cx="1034" cy="203" r="4" fill="#7C3AED"/><text x="1048" y="208">style-picker.md → ③ 定风格</text>
-  <circle cx="1034" cy="241" r="4" fill="#7C3AED"/><text x="1048" y="246">catalog.md → ⑤ 选母版（四栏语义）</text>
+  <circle cx="1034" cy="241" r="4" fill="#7C3AED"/><text x="1048" y="246">styles/&lt;风格&gt;/catalog.md → ⑤ 选母版（四栏语义）</text>
   <circle cx="1034" cy="279" r="4" fill="#7C3AED"/><text x="1048" y="284">templates.html → ⑧ 抽 section / 画廊三合一</text>
   <circle cx="1034" cy="317" r="4" fill="#7C3AED"/><text x="1048" y="322">style.css → ⑧ 内联 + 即兴词汇白名单</text>
   <circle cx="1034" cy="355" r="4" fill="#7C3AED"/><text x="1048" y="360">design-system.md → 受控即兴纪律</text>
-  <circle cx="1034" cy="393" r="4" fill="#7C3AED"/><text x="1048" y="398">assets/iphone-frame.b64 → ⑧ 手机框兜底</text>
-  <circle cx="1034" cy="431" r="4" fill="#7C3AED"/><text x="1048" y="436">assets/fonts/ → ⑧ 字体内嵌（编辑器 PNG 限制 §3.7）</text>
-  <circle cx="1034" cy="469" r="4" fill="#7C3AED"/><text x="1048" y="474">catalog ↔ 母版说明头 ↔ 看板：同源同步（render 校验）</text>
+  <circle cx="1034" cy="393" r="4" fill="#7C3AED"/><text x="1048" y="398">assets/iphone-frame.png → ⑧ 手机框单源内嵌</text>
+  <circle cx="1034" cy="431" r="4" fill="#7C3AED"/><text x="1048" y="436">本机字体栈（手册「字体策略」节）；assets/fonts/ 分片未接入</text>
+  <circle cx="1034" cy="469" r="4" fill="#7C3AED"/><text x="1048" y="474">catalog ↔ 母版说明头 ↔ 看板：同源同步（入库纪律）</text>
 </g>
 <text x="1028" y="530" font-size="11.5" fill="#6B21A8">只读引用，永不进交付区。</text>
 <text x="1028" y="550" font-size="11.5" fill="#6B21A8">改 style.css = 风格演进 = 用户过目（三处同源一起改）。</text>
@@ -229,7 +229,7 @@
 <rect x="580" y="960" width="380" height="114" rx="10" fill="#FDF2F8" stroke="#DB2777" stroke-width="1.5"/>
 <text x="598" y="984" font-size="15" font-weight="700" fill="#9D174D">转正重整（AI 起草 · 用户目检）</text>
 <text x="598" y="1006" font-size="12.5" fill="#334155">按母版规范重整：补标记 / 占位符 / 限制注释</text>
-<text x="598" y="1025" font-size="12.5" fill="#334155">入 templates.html + catalog.md（标注归属）</text>
+<text x="598" y="1025" font-size="12.5" fill="#334155">入 templates.html + 该风格 catalog.md</text>
 <text x="598" y="1044" font-size="12.5" fill="#334155">用户目检 + 真实任务回归一次</text>
 <text x="598" y="1063" font-size="11.5" fill="#64748B">转正不是复制粘贴当次产物</text>
 

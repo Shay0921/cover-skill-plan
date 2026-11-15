@@ -1,8 +1,8 @@
 <!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><title>paper-journal · 受控组件组合</title>
 <style>
-@import url('./fonts/playfair-display-400.css');
-@import url('./fonts/noto-serif-sc-400.css');
+/* 字体策略（全库归一）：默认本机字体栈，不引 CDN / 不加载 webfont / 不做 base64 内嵌。
+   --serif / --sans 首项为本机字体名，命中即用、未装按栈回退；跨风格共享的字体分片在 styles/assets/fonts/，当前未接入。 */
 :root{--paper:#F6EFE3;--paper-2:#EFE6D4;--ink:#171512;--muted:#756C5F;--accent:#C0562F;--card:#FFFDF8;--line:rgba(23,21,18,.14);--line-strong:rgba(23,21,18,.30);--sans:"PingFang SC","Microsoft YaHei",sans-serif;--serif-stack:"Playfair Display","Noto Serif SC","Songti SC",serif;--serif:var(--serif-stack);--bleed-edge:12.4cqw;}
 html,body{margin:0;padding:0;background:#171512;}
 .p-page,.p-page *{box-sizing:border-box;}
