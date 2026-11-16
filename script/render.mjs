@@ -1,21 +1,25 @@
 #!/usr/bin/env node
 /* render.mjs · 实例化器——生产环境固定脚本，不是临时文件
- * 用法：node script/render.mjs <任务运行区>/ [--delivery=<交付目录>] [--with-editor] [--force] [--check-geometry] [--only=N01,N02]
+ * 用法：node script/render.mjs <任务运行区>/ [--delivery=<交付目录>] [--with-editor] [--force] [--check-geometry] [--only=N01,N02] [--font-report]
+ *   --font-report 是诊断开关（不进常规出图）：打印每页实际命中字体与三套字体栈的字宽实测，见 shared/cdp.mjs fontReport
+ *   --only + --font-report = 只读诊断：只写临时 HTML 跑体检、跑完即删；不更新 P 页 / PNG / fields.json / manifest / preview.png。
+ *     单独 --font-report（无 --only）= 出图时顺带体检；单独 --only（无 --font-report）= 调试出指定页，两者行为不变。
  * 输入：<任务运行区>/plan.json + 素材图片（相对运行区）
  * 三级目录（技能安装目录只读，运行期零写入）：
- *   ① 技能安装目录 = 本文件所在仓库：styles/ + script/，只读资产与代码（final/ 等开发期治理文档不随生产包分发）
- *   ② 任务运行区 = agent 临时工作区：plan.json / 素材 / 过程件 / P 页 / PNG / _preview.html / assets / fields / manifest
+ *   ① 技能安装目录 = 本文件所在仓库：styles/ + script/，只读资产与代码（开发期文档与施工台账不随生产包分发）
+ *   ② 任务运行区 = agent 临时工作区：plan.json / 素材 / 过程件 / P 页 / PNG / assets / fields / manifest（_preview.html 是拼总览用的临时页，截完即删）
  *   ③ 交付目录 = 用户选中的工作区（--delivery 或 plan.delivery，命名 YYYY-MM-DD-<小标题>）：校验+截图全过后按白名单拷贝
  * 交付白名单（默认）：P<nn>-<名>.html + P<nn>.png + preview.png
  *   --with-editor 追加：fields.json + editor.manifest.json + assets/
- * 硬校验（即停）：{{ 残留 / 图片缺失或格式不符 / 根节点与画布 / data-layer 重复 / 必填槽为空 / plan 字段与槽位对不上 / repeat 区间
+ * 硬校验（即停）：{{ 残留 / 图片缺失或格式不符 / 根节点与画布 / data-layer 重复 / 必填槽为空 / plan 字段与槽位对不上 / repeat 区间 / 富文本白名单外标签
+ *   文案里的裸 < > 不算标签（"年收入 > 10 万"、"A < B" 照常出图，注入前转义为实体显示）
  * 软校验（WARN）：字数超限（解析说明头"限制"行）/ 图片与槽位比例差异大
  * 即兴页（layout: custom/*）：形态校验 + --check-geometry 几何体检
  */
 import fs from 'node:fs';
 import path from 'node:path';
 import url from 'node:url';
-import { launchBrowser, closeBrowser, withPage, evaluate, captureReadyPage, createOptions } from './shared/cdp.mjs';
+import { launchBrowser, closeBrowser, withPage, evaluate, captureReadyPage, createOptions, fontReport } from './shared/cdp.mjs';
 
 const ROOT = path.resolve(path.dirname(url.fileURLToPath(import.meta.url)), '..');
 const argv = process.argv.slice(2);
@@ -31,7 +35,12 @@ function flagValue(name) {
 const GEOM = argv.includes('--check-geometry');
 const FORCE = argv.includes('--force');
 const WITH_EDITOR = argv.includes('--with-editor');
+// 字体体检：默认关闭（每页要多走一次全量 DOM + 逐文字节点协议往返），只在核对字面/重测字宽时开
+const FONT_REPORT = argv.includes('--font-report');
 const onlyArg = flagValue('--only');
+// 只读体检模式：--only + --font-report 时，只生成临时 HTML 跑字体体检，绝不写正式产物。
+// 避免诊断顺带把 fields/manifest/preview 覆盖成单页版、污染正式运行区（多页运行区尤其明显）。
+const DIAG_ONLY = FONT_REPORT && onlyArg !== null;
 // --only 同时接受 02 / N02 / P02 三种写法（plan.nn 是两位数字）；显式传空值报错，防止静默退化成全量渲染
 let ONLY = null;
 if (onlyArg !== null) {
@@ -55,9 +64,12 @@ if (!STYLE) fail('plan.json 缺 style 字段');
 // 相对路径按当前工作目录解析（用户选中的工作区）；脚本不会自动改名，目录由调用方按 YYYY-MM-DD-<小标题> 命名。
 const DELIVERY_RAW = deliveryArg !== null ? deliveryArg : (plan.delivery ? String(plan.delivery) : '');
 if (deliveryArg === '') fail('--delivery 不能为空：请写 --delivery=<目录>，或省略该参数只写运行区');
-const DELIVERY = DELIVERY_RAW ? path.resolve(DELIVERY_RAW) : null;
+// 只读诊断（--only + --font-report）不产出交付物：忽略 --delivery / plan.delivery，既不报错也不拷贝。
+// 否则带 delivery 的正式任务无法就地体检，与「可在正式运行区直接跑」的用法矛盾。
+const DELIVERY = DIAG_ONLY ? null : (DELIVERY_RAW ? path.resolve(DELIVERY_RAW) : null);
 if (DELIVERY && DELIVERY === taskDir) fail('交付目录不能等于任务运行区（过程件与成品必须分开）');
-// --only 是调试开关：只出部分页时，交付目录会残留旧页、preview/manifest/fields 会被单页覆盖，形成新旧混装包。
+// --only 是调试开关：只出部分页时，preview/manifest/fields 会被单页覆盖（形成新旧混装包），故禁止与交付同用。
+// 只读诊断（DIAG_ONLY）的 DELIVERY 已在上方置 null，因此不受这道守卫限制。
 if (ONLY && DELIVERY) fail('--only 仅用于运行区调试，不能与 --delivery（或 plan.delivery）同用；正式交付请跑完整页数');
 // 开工前先挡掉目录冲突，避免整轮截图跑完才报错（拷贝阶段再查一次，防并发期间被别的任务占用）
 if (DELIVERY && fs.existsSync(DELIVERY)) {
@@ -71,7 +83,6 @@ const CSS_FILE = path.join(STYLE_DIR, 'style.css');
 for (const f of [TPL, CSS_FILE]) if (!fs.existsSync(f)) fail(`风格文件缺失: ${f}`);
 
 const MIME = { '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.webp': 'image/webp' };
-const OUT_PAGES = [];
 
 function fail(msg) { console.error('❌ ' + msg); process.exit(1); }
 const rel = (p) => path.relative(ROOT, p).replace(/\\/g, '/');
@@ -86,6 +97,8 @@ function extractSections(tplText) {
 }
 function rootOf(body) {
   // 按「class 含 artwork-page」扫 <div> 开标签：不要求 class 是首个属性，也不要求属性值以 artwork-page 开头
+  // 已知边界（低危，当前母版不触发）：正则按 > 收标签，若根标签的属性值里出现裸 > 或注释里写 <div> 示例，会误判
+  //   → 母版根标签只写 class/data-size，说明头注释不写 <div> 字面量即可
   let rootTag = null; let openEnd = -1;
   for (const m of body.matchAll(/<div\b[^>]*>/g)) {
     const cls = m[0].match(/\bclass\s*=\s*["']([^"']*)["']/);
@@ -116,13 +129,31 @@ function findUnitEnd(body, start) {
   throw new Error('repeat 单元未闭合');
 }
 
-// ---------- 富文本校验 ----------
-const RICH_OK = /<span class="hl">|<\/span>|<br\s*\/?>|<strong>|<\/strong>/gi;
+// ---------- 富文本校验与转义 ----------
+// 白名单标签（双/单引号都认，允许标签内尾空格；hl 也是唯一带属性的白名单标签）
+const RICH_OK = /<span\s+class=["']hl["']\s*>|<\/span>|<br\s*\/?>|<strong>|<\/strong>/gi;
+// 只把「明确的标签形态」判为非法：<name> / </name> / <name attr="v"> / <!doctype> / <?xml?>
+//   文案里的裸 < > 不算标签（"年收入 > 10 万"、"A < B"、"x<y 时 5>3"）——
+//   标签名后只认「空格 + 字母属性名」（可带 =值），中文/数字跟在 < 后不构成标签。
+//   这条判定只决定「要不要报错提示」，安全由 richHtml 转义兜底：即使漏判，也只会显示成文字，不会真变成标签。
+const TAG_LOOKING = /<\/?[a-zA-Z][a-zA-Z0-9-]*(?:\s+[a-zA-Z-]+(?:=(?:"[^"]*"|'[^']*'|[^\s<>]+))?)*\s*\/?>|<[!?][^<>]*>/;
 function checkRich(value, where, errors) {
   const stripped = value.replace(RICH_OK, '');
-  if (/[<>]/.test(stripped)) errors.push(`${where}: 值含白名单外标签（只允许 span.hl / br / strong）`);
+  if (!TAG_LOOKING.test(stripped)) return;
+  const hit = stripped.match(new RegExp(`[\\s\\S]{0,10}(?:${TAG_LOOKING.source})`));
+  errors.push(`${where}: 值含白名单外标签（只允许 span.hl / br / strong），检出错段 "${(hit ? hit[0] : '').trim()}"`);
 }
-function escText(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+// 注入前转义：白名单标签原样保留，其余 & < > 转实体（已存在的实体不二次转义）。
+// 哨兵用私用区 U+E000/U+E001：正文不会出现，也不与字体/CSS 混淆。
+function richHtml(value) {
+  const keep = [];
+  const held = value.replace(RICH_OK, (m) => `\uE000${keep.push(m) - 1}\uE001`);
+  const esc = held
+    .replace(/&(?!amp;|lt;|gt;|quot;|apos;|#\d+;|#x[0-9a-fA-F]+;)/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+  return esc.replace(/\uE000(\d+)\uE001/g, (_, i) => keep[+i]);
+}
 
 // ---------- 图片处理 ----------
 // 只产出「dataURL + crop 样式」，不拼全新 <img> 标签。
@@ -174,7 +205,7 @@ function fillSection(layout, body, fields, errors, warns, usedFiles) {
   for (const m of body.matchAll(/<img\b[^>]*>/g)) {
     if (!/data-slot="image"/.test(m[0])) continue;
     const lm = m[0].match(/data-layer="([^"]+)"/);
-    if (!lm) { errors.push(`${layout}: 图槽 <img data-slot="image"> 缺 data-layer（编辑器扫不出换图层）`); continue; }
+    if (!lm) { errors.push(`${layout}: 图槽 <img data-slot="image"> 缺 data-layer（render 无法把 plan 图键对应到该槽；编辑器仍会按 img 推断成 image 图层）`); continue; }
     imgIds.push(lm[1]);
   }
   const consumed = new Set();
@@ -225,8 +256,8 @@ function fillSection(layout, body, fields, errors, warns, usedFiles) {
         if (v === undefined || v === null || v === '') errors.push(`${layout}: "${u.arr}[${i}].${ph}" 为空`);
         const sv = String(v ?? '');
         checkRich(sv, `${layout}:${u.arr}[${i}].${ph}`, errors);
-        // checkRich 已拦下白名单外标签，此处原样注入（富文本 br/strong/span.hl 生效）
-        html = html.split(`{{${ph}}}`).join(sv);
+        // 白名单标签保留生效，裸 < > 转义显示（"A < B" 不会变成半个标签）
+        html = html.split(`{{${ph}}}`).join(richHtml(sv));
       }
       if (i > 0) html = html.replace(/data-layer="([^"]+)"/g, (_, id) => `data-layer="${id}-${i + 1}"`);
       html = html.replace(/\s*data-repeat="[^"]*"/g, ''); // 克隆件是具体内容，不再携带 repeat 标记
@@ -235,7 +266,7 @@ function fillSection(layout, body, fields, errors, warns, usedFiles) {
     body = body.slice(0, u.start) + rendered.join('\n') + body.slice(u.end);
   }
 
-  // 2) 图片槽：只替换 src（+ crop 外包），原 <img> 的 data-slot / data-layer / data-label / data-ratio 全部保留
+  // 2) 图槽：只替换 src（+ crop 外包），原 <img> 的 data-slot / data-layer / data-label / data-ratio 全部保留
   //    这些标记是编辑器图层的身份证；父容器补 data-filled 隐藏占位标签。
   for (const id of imgIds) {
     consumed.add(id);
@@ -262,7 +293,7 @@ function fillSection(layout, body, fields, errors, warns, usedFiles) {
       const [rw, rh] = ratioM[1].split(':').map(Number);
       try {
         const buf = fs.readFileSync(path.resolve(taskDir, imgSpec.spec.src));
-        // PNG 尺寸直接读 IHDR；JPEG/WebP 交给 Chrome 阶段
+        // 只判 PNG（直接读 IHDR 宽高）；JPEG/WebP 读不到尺寸头，本软校验跳过——比例问题靠人审 PNG
         if (buf.length > 24 && buf.toString('hex', 0, 8) === '89504e470d0a1a0a') {
           const w = buf.readUInt32BE(16), h = buf.readUInt32BE(20);
           const want = rw / rh, got = w / h;
@@ -301,8 +332,8 @@ function fillSection(layout, body, fields, errors, warns, usedFiles) {
     if (v === undefined || v === null || v === '') { errors.push(`${layout}: 槽 "${name}" 为空（必填）`); continue; }
     const sv = String(v);
     checkRich(sv, `${layout}:${name}`, errors);
-    // 校验通过后原样注入（富文本生效；白名单外标签已在 checkRich 硬停）
-    body = body.split(`{{${name}}}`).join(sv);
+    // 白名单标签保留生效，裸 < > 转义显示（白名单外标签已在 checkRich 硬停）
+    body = body.split(`{{${name}}}`).join(richHtml(sv));
   }
 
   // 5) plan 多余字段
@@ -317,7 +348,7 @@ function fillSection(layout, body, fields, errors, warns, usedFiles) {
   const dup = layers.filter((v, i) => layers.indexOf(v) !== i);
   if (dup.length) errors.push(`${layout}: data-layer 重复 ${[...new Set(dup)].join(',')}`);
 
-  return { body, warns, unitLayerMaps };
+  return { body, unitLayerMaps };
 }
 let _frame = null;
 function getFrameDataUrl() {
@@ -331,15 +362,21 @@ function getFrameDataUrl() {
 }
 
 // ---------- 字数软校验（解析说明头"限制"行） ----------
-// 计数口径（与 final/01 §3.5 一致）：
-//   `≤N字`   = 视觉宽度单位（1 单位 ≈ 一个汉字宽）。汉字/全角 = 1；ASCII 大写 0.67、小写 0.5、
-//               数字 0.57、半角标点/符号 0.45；空白 0；HTML 标签 0；emoji 等 = 1。
-//              权重来自本机真实字体栈实测（Noto/PingFang，100px 字号），见 final/01 §3.5 表。
+// 计数口径（母版说明头「限制」行的两种写法）：
+//   `≤N字`   = 视觉宽度单位（1 单位 ≈ 一个汉字宽）。汉字/全角 = 1；ASCII 大写 0.68、小写 0.55、
+//              数字 0.58、半角标点/符号 0.45；空白 0；HTML 标签 0；emoji 等 = 1。
+//              建模值 ≥ `--font-report` 三档实测上限（serif 700 / sans 400 / mono 600：大写 ≤0.664、
+//              小写 ≤0.534、数字 ≤0.575、半角标点 ≤0.324）——宁可早告警，不放过溢出。
+//              这三档之外（如宋 900 / 苹方 600）脚本不测，复现不出来，不作为建模依据。
+//              实测可用 `--font-report` 复现（它打印三套栈实测值，判据：建模值 ≥ 实测）；
+//              换字体栈或换机器后必须重测，模型只对实测的那三档成立。
+// 【旧口径，已注释存档勿引用】建模值逐项 ≥ 本机全部字重实测上限（宋 700/900、苹方 400/600：
+//              大写 ≤0.674、小写 ≤0.547、数字 ≤0.576、半角标点 ≤0.332）。
 //   `≤N字符` = 实际字符个数（ASCII/数字槽的原始意图，如 big-num≤3字符、app≤14字符）。
 //   为何区分：按码点算宽度会让「10 字的英文单词」独占 10 字位（实际只占约 5.2 字宽），
 //   而 ASCII 短槽（编号/型号/文件名）要的确实是字符个数，不能被宽度稀释。
 const CHAR_TOLERANCE = 0.2;   // 超限 20% 以内不告警（同一字号下偶发换行可接受）
-const ASCII_WIDTH = { upper: 0.67, lower: 0.5, digit: 0.57, punct: 0.45 };
+const ASCII_WIDTH = { upper: 0.68, lower: 0.55, digit: 0.58, punct: 0.45 };
 const isFullWidth = (ch) => /[\u1100-\u115F\u2E80-\u303F\u3041-\u33FF\u3400-\u4DBF\u4E00-\u9FFF\uA000-\uA4CF\uAC00-\uD7A3\uF900-\uFAFF\uFE10-\uFE6F\uFF01-\uFF60\uFFE0-\uFFE6]/.test(ch);
 function charWidth(ch) {
   const code = ch.codePointAt(0);
@@ -509,13 +546,17 @@ ${b.html}
 </body>
 </html>
 `;
-  fs.writeFileSync(path.join(taskDir, `P${b.nn}-${b.name}.html`), pageHtml);
+  // 只读体检走临时 HTML（跑完即删），不覆盖正式 P 页；其余流程照旧写正式文件
+  const htmlFile = DIAG_ONLY ? `_diag-P${b.nn}.html` : `P${b.nn}-${b.name}.html`;
+  fs.writeFileSync(path.join(taskDir, htmlFile), pageHtml);
+  b.file = htmlFile;
 }
 
 // fields.json（plan 转写：键 = 页面真实 data-layer id，编辑器契约初稿）
 // 注：图槽键的值仍为 plan 申报的 {src, crop} 对象——编辑器当前不读 fields.json（T6 未做），届时按 image 图层消费
 // repeat 条目短名经 unitLayerMaps 映射为单元元素的 data-layer，并加与克隆体一致的 -2/-3 后缀
-{
+// 只读体检不写：诊断只跑 --only 指定页，写了会把多页的 fields/manifest 覆盖成单页版
+if (!DIAG_ONLY) {
   // 图槽 src 统一转成交付区可解析的 `assets/<文件名>`：素材副本按 basename 平铺在 assets/，
   // plan 里的 `shots/xxx.png` 只存在于运行区，交付目录没有 shots/（T6 注入时会找不到图）
   const normField = (v) => (v && typeof v === 'object' && typeof v.src === 'string')
@@ -540,8 +581,8 @@ ${b.html}
   fs.writeFileSync(path.join(taskDir, 'fields.json'), JSON.stringify({ canvas: { width: 1080, height: 1440 }, pages: pagesOut }, null, 2));
 }
 
-// editor.manifest.json
-{
+// editor.manifest.json（只读体检不写，理由同上）
+if (!DIAG_ONLY) {
   fs.writeFileSync(path.join(taskDir, 'editor.manifest.json'), JSON.stringify({
     format: 'pageapp-editor-manifest', version: 1,
     root: '.artwork-page', canvas: { width: 1080, height: 1440 }, layerMode: 'markers',
@@ -550,16 +591,32 @@ ${b.html}
   }, null, 2));
 }
 
+// ---------- 字体体检输出（--font-report）----------
+function printFontReport(rep, tag) {
+  console.log(`🔎 ${tag} 字体体检：document.fonts=${rep.status}；@font-face 声明 ${rep.faces.length} 个（加载成功 ${rep.loadedFaces}）`);
+  const tally = new Map();
+  for (const a of rep.actual) tally.set(a.face, (tally.get(a.face) || 0) + 1);
+  console.log('   实际命中 face：' + ([...tally].map(([f, n]) => `${f}×${n}`).join(' · ') || '未读到'));
+  for (const role of ['serif', 'sans', 'mono']) {
+    const w = rep.widths?.[role];
+    if (w) console.log(`   字宽实测 ${role}(100px)：汉字 ${w.han} · 大写 ${w.upper} · 小写 ${w.lower} · 数字 ${w.digit} · 半角标点 ${w.punct}`);
+  }
+  for (const warn of rep.warnings) console.warn('   ⚠ ' + warn);
+}
+
 // ---------- 截图 ----------
 const opts = createOptions({ selector: '.artwork-page', waitSelector: '.artwork-page', timeout: 60000 });
 const inst = await launchBrowser(opts);
 try {
   for (const b of built) {
-    const file = path.join(taskDir, `P${b.nn}-${b.name}.html`);
+    const file = path.join(taskDir, b.file || `P${b.nn}-${b.name}.html`);
     await withPage(inst, 'file:///' + file.replace(/\\/g, '/'), opts, async (ctx) => {
+      if (FONT_REPORT) printFontReport(await fontReport(ctx), `P${b.nn}`);
+      if (DIAG_ONLY) return;   // 只读体检：不截图、不写 PNG
       const shot = await captureReadyPage(ctx, opts);
       fs.writeFileSync(path.join(taskDir, `P${b.nn}.png`), shot.buffer);
     });
+    if (DIAG_ONLY) { fs.rmSync(file); continue; }   // 临时 HTML 跑完即删，不做几何/出图日志
     if (b.custom && GEOM) {
       await withPage(inst, 'file:///' + file.replace(/\\/g, '/'), opts, async (ctx) => {
         const geo = await evaluate(ctx.cdp, ctx.sessionId, `(() => {
@@ -581,8 +638,8 @@ try {
     console.log(`📸 P${b.nn} · ${b.name}`);
   }
 
-  // preview.png 总览
-  {
+  // preview.png 总览（只读体检不生成：--only 只有单页，拼图会覆盖多页运行区的总览）
+  if (!DIAG_ONLY) {
     const files = built.map((b) => `P${b.nn}.png`);
     const gridHtml = `<!doctype html><html><head><meta charset="utf-8"><style>
       body{margin:0;background:#ECEEF3;font-family:sans-serif;padding:16px;}
@@ -633,8 +690,10 @@ if (DELIVERY) {
   delivered = { dir: DELIVERY, count: white.length };
 }
 
-console.log(`\n✅ ${built.length} 页出图完毕 → ${rel(taskDir)}（任务运行区）`);
-if (delivered) console.log(`📦 交付目录 → ${delivered.dir}（${delivered.count} 个文件${WITH_EDITOR ? ' + assets/' : ''}；plan.json / 过程件未拷入）`);
+if (DIAG_ONLY) console.log(`\n✅ ${built.length} 页字体体检完毕（只读：未写 P 页/PNG/fields/manifest/preview）`);
+else console.log(`\n✅ ${built.length} 页出图完毕 → ${rel(taskDir)}（任务运行区）`);
+if (DIAG_ONLY) console.log('ℹ 只读体检：本次未出图、未交付（--delivery / plan.delivery 已忽略）');
+else if (delivered) console.log(`📦 交付目录 → ${delivered.dir}（${delivered.count} 个文件${WITH_EDITOR ? ' + assets/' : ''}；plan.json / 过程件未拷入）`);
 else console.log('ℹ 未指定 --delivery 或 plan.delivery：本次只写任务运行区，未生成交付目录');
 if (allWarns.length) {
   console.log('⚠ 软校验 WARN:');

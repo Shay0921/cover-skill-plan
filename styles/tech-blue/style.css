@@ -5,22 +5,15 @@
    ----------------------------------------------------------------
    结构：共享段（基座 = 全风格词表 + 上收公共组件）→ 专属段（母版私有，
    类名前缀 n<nn>- 或作用域 .n<nn>）；共享/专属归属判定 =「会不会被第二个母版复用」。
+   规范：tokens 与 design-system.md「设计令牌」、templates.html 看板三处同源。
+   字体：默认本机字体栈，不引 CDN / 不加载 webfont；--serif/--sans/--mono
+   首项为本机字体名，命中即用、未装按栈回退。
+   图槽：母版 <img class="ph-img__img" data-slot="image"> 占位，render / 编辑器
+   只替换它的 src，并给容器补 data-filled 隐藏占位标签；
+   data-fit="cover"（默认）裁切填满 / "contain" 完整显示。
    ================================================================ */
-
-/* 字体：默认本机字体栈，不引 CDN / 不加载 webfont。
-   --serif / --sans / --mono 首项为本机字体名，命中即用、未装按栈回退。 */
-
-/* ☁ 图槽唯一通道：母版 <img class="ph-img__img" data-slot="image"> 占位，
-   render / 编辑器只替换它的 src，并给容器补 data-filled 隐藏占位标签。
-   data-fit="cover"（默认）裁切填满 / "contain" 完整显示。 */
 /* ===== 共享段 · 基座（全风格词表） ===== */
 
-/* ================================================================
-   AI Efficiency Lab · 小红书封面母版 · 极简科技蓝
-   画布 1080×1440（3:4）| 纯白底 + 40px 极淡网格 + 深墨 #0D1117
-   唯一强调色 #2563EB | 衬线标题 / 无衬线正文 / 等宽标签
-   —— 统一色板 / 统一字体层级 / 统一 .artwork-page 画布骨架
-   ================================================================ */
 :root{
   /* —— 统一色板 · 极简科技蓝 ——
   极淡冷灰蓝底（有质感但不彩色）+ 深墨 + 明确科技蓝强调
@@ -161,8 +154,6 @@ html,body{margin:0;padding:0;background:#ECEEF3;font-family:var(--sans);}
 /* ---------- 极细分割线（杂志风格） ---------- */
 .fine-line{height:1px;background:var(--line-strong);}
 
-.fine-line-tight{height:1px;background:var(--line);}
-
 /* ---------- 组件 ---------- */
 .fine-border{
   border:1px solid var(--line-strong);border-radius:0;
@@ -200,11 +191,6 @@ html,body{margin:0;padding:0;background:#ECEEF3;font-family:var(--sans);}
 .callout__text{
   font-size:1.5cqw;color:var(--ink-soft);line-height:1.6;
   }
-
-/* ---------- 布局 ---------- */
-.frame{position:absolute;left:6.6cqw;right:6.6cqw;}
-
-.bt{display:flex;justify-content:space-between;align-items:center;}
 
 /* ---------- 底部页码/标识 ---------- */
 .pg-footer{
@@ -263,12 +249,6 @@ html,body{margin:0;padding:0;background:#ECEEF3;font-family:var(--sans);}
 
 .brand-top .left.dot-only::before{
   content:"";flex:none;width:.9cqw;height:.9cqw;border-radius:50%;background:var(--accent);
-  }
-
-/* 极细分割线（顶栏下方）*/
-.hero-divider{
-  position:absolute;left:0;right:0;height:1px;
-  background:var(--line-strong);
   }
 
 /* 超大数字 Hero 区：Grid row 2，不再 absolute
@@ -330,11 +310,7 @@ html,body{margin:0;padding:0;background:#ECEEF3;font-family:var(--sans);}
 
 .callout strong{color:var(--ink);font-weight:600;}
 
-/* Pill · 悬浮 pill 按钮组 */
-.pill-row{
-  display:flex;gap:1.2cqw;
-  }
-
+/* Pill · 悬浮胶囊按钮组（即兴词汇：32 母版未用，见 design-system「画布骨架与共享组件」） */
 .pill{
   display:inline-flex;align-items:center;gap:.8cqw;
   padding:1cqw 1.8cqw;
@@ -459,9 +435,6 @@ html,body{margin:0;padding:0;background:#ECEEF3;font-family:var(--sans);}
 
 /* ▲ 上收 · 30,31 */
 .thanks__quote .hl{position:relative;padding:0 .1cqw;}
-
-/* ▲ 上收 · 30,31 */
-.cta-bar__accent{color:var(--accent);}
 
 
 /* ===== 专属段 · 母版私有（前缀 n<nn>- / 作用域 .n<nn>） ===== */
@@ -760,10 +733,6 @@ html,body{margin:0;padding:0;background:#ECEEF3;font-family:var(--sans);}
   font-family:var(--mono);font-size:1.3cqw;color:var(--accent);letter-spacing:.18em;font-weight:700;
   }
 
-.n04-phones__corner-tag--right{
-  left:auto;right:1.4cqw;top:auto;bottom:1.4cqw;color:var(--muted);
-  font-size:1.3cqw;letter-spacing:.2em;
-  }
 
 /* 手机 */
 .n04-phone{

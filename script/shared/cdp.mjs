@@ -1,5 +1,5 @@
-// Zero-dependency CDP pipe. One browser per batch; font cache sharing is NOT a
-// guarantee of identical font selection. Every measured page records real faces.
+// Chrome 调试桥（零依赖 · CDP over pipe）：一个批次复用一个 browser 进程，每页新建一个 target，截完即关。
+// 调用方：script/render.mjs（createOptions / launchBrowser / withPage / captureReadyPage / closeBrowser / evaluate）。
 import { spawn, spawnSync } from 'node:child_process';
 import fs from 'node:fs';
 import os from 'node:os';
@@ -8,10 +8,11 @@ import { findChrome } from './find-chrome.mjs';
 
 export function createOptions(overrides = {}) {
   return { width: 1080, height: 1440, dsf: 1, selector: '.artwork-page', waitSelector: '.artwork-page',
-    timeout: 30000, fontTimeout: 5000, noSandbox: false, block: [], ...overrides,
+    timeout: 30000, fontTimeout: 5000, noSandbox: false, ...overrides,
     chrome: overrides.chrome || findChrome() };
 }
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+
 class CdpPipe {
   constructor(write, read) {
     this.write = write; this.buffer = Buffer.alloc(0); this.nextId = 1; this.pending = new Map(); this.closed = false;
@@ -44,6 +45,7 @@ class CdpPipe {
     this.pending.clear();
   }
 }
+
 export async function launchBrowser(opts = createOptions()) {
   try {
     return await launchOnce(opts);
@@ -63,6 +65,7 @@ export async function launchBrowser(opts = createOptions()) {
     }
   }
 }
+
 async function launchOnce(opts) {
   if (!opts.chrome) throw new Error('找不到 Chrome/Edge；可设置 CHROME_PATH / CHROME_BIN');
   const userDataDir = fs.mkdtempSync(path.join(os.tmpdir(), 'cover-cdp-'));
@@ -101,6 +104,7 @@ async function launchOnce(opts) {
     throw wrapped;
   }
 }
+
 export async function closeBrowser(inst) {
   if (!inst) return;
   try { await inst.cdp.send('Browser.close', {}, undefined, 2000); } catch { /* already closed */ }
@@ -113,87 +117,104 @@ export async function closeBrowser(inst) {
   }
   try { fs.rmSync(inst.userDataDir, { recursive: true, force: true }); } catch { /* temporary OS lock */ }
 }
+
 export async function evaluate(cdp, sessionId, expression, options = {}) {
   const result = await cdp.send('Runtime.evaluate', { expression, returnByValue: true, awaitPromise: !!options.awaitPromise }, sessionId, options.timeoutMs || 30000);
   if (result.exceptionDetails) throw new Error(result.exceptionDetails.exception?.description || result.exceptionDetails.text);
   return result.result?.value;
 }
 
-// Parsing runs in a separate about:blank target. Blocking all requests happens
-// before DOMParser sees any source; the inert parsed document is never attached.
-export async function withBlank(inst, opts, fn, { offline = true } = {}) {
+// 在独立 target 里打开一页，等到「文档就绪 + 字体稳定 + 图片 decode 完」再交给回调；
+// 回调返回即关 target（截图、量尺寸都在这一个 target 里做，避免字体在两次渲染间换 face）。
+export async function withPage(inst, navUrl, opts, fn) {
   const { cdp } = inst;
   const { targetId } = await cdp.send('Target.createTarget', { url: 'about:blank' });
   try {
     const { sessionId } = await cdp.send('Target.attachToTarget', { targetId, flatten: true });
     await cdp.send('Page.enable', {}, sessionId);
     await cdp.send('Runtime.enable', {}, sessionId);
-    await cdp.send('Network.enable', {}, sessionId);
-    await cdp.send('Network.setBlockedURLs', { urls: offline ? ['*'] : opts.block || [] }, sessionId);
-    await cdp.send('Emulation.setDeviceMetricsOverride', { width: opts.width, height: opts.height, deviceScaleFactor: opts.dsf, mobile: false }, sessionId);
-    return await fn({ cdp, sessionId, targetId });
+    await cdp.send('Emulation.setDeviceMetricsOverride',
+      { width: opts.width, height: opts.height, deviceScaleFactor: opts.dsf, mobile: false }, sessionId);
+    const ctx = { cdp, sessionId, targetId };
+    const navigation = await cdp.send('Page.navigate', { url: navUrl }, sessionId, opts.timeout);
+    if (navigation.errorText) throw new Error(`页面加载失败: ${navigation.errorText}`);
+    await evaluate(cdp, sessionId, `(async () => {
+      const start=Date.now(), limit=${Math.min(opts.timeout, 10000)};
+      while(document.readyState!=='complete' && Date.now()-start<limit) await new Promise(r=>setTimeout(r,50));
+      void document.body?.offsetHeight;
+      await Promise.race([document.fonts.ready,new Promise(r=>setTimeout(r,${opts.fontTimeout}))]);
+      await Promise.race([Promise.all([...document.images].map(i=>i.decode().catch(()=>null))),new Promise(r=>setTimeout(r,4000))]);
+    })()`, { awaitPromise: true, timeoutMs: opts.timeout });
+    // 停掉迟到的网络响应，防止字体在测量与截图之间换 face
+    await cdp.send('Page.stopLoading', {}, sessionId);
+    await evaluate(cdp, sessionId, 'new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)))', { awaitPromise: true });
+    if (opts.waitSelector && !await evaluate(cdp, sessionId, `!!document.querySelector(${JSON.stringify(opts.waitSelector)})`))
+      throw new Error(`找不到 ${opts.waitSelector}`);
+    return await fn(ctx);
   } finally {
     try { await cdp.send('Target.closeTarget', { targetId }, undefined, 2000); } catch { /* closed */ }
   }
 }
 
-export async function fontState({ cdp, sessionId }) {
-  const result = await evaluate(cdp, sessionId, `(() => ({status:document.fonts.status,
-    faces:[...document.fonts].map(f=>({family:f.family,style:f.style,weight:f.weight,status:f.status})),
-    requested:[...new Set([...document.querySelectorAll('[data-editable="text"],.brand,.footer')].map(e=>getComputedStyle(e).fontFamily))]}))()`);
-  result.actual = []; result.warnings = [];
+// 字体体检（按需诊断，**不在每页热路径**：只有 render --font-report 才会调用）。
+// 回答三件事：
+//   ① 声明了 @font-face 却一个分片都没加载？——此时 document.fonts.status 照样是 loaded，
+//      文字其实全走系统回退，这是接入 webfont（styles/assets/fonts/ 分片）后最容易静默翻车的点。
+//   ② 每个文字层实际由哪个 face 渲染？——CSS.getPlatformFontsForNode 逐节点问 Chrome，
+//      用于换机出图前核对「声明栈 → 真实命中」，以及交付页字形回退排查。
+//   ③ 三套字体栈的字宽实测？——`≤N字` 的宽度模型绑定运行机器字面：本报告打印的是实测值，
+//      与 render.mjs 里 ASCII_WIDTH / 汉字 1.0 的建模值直接比（建模值必须 ≥ 实测，越接近越紧），
+//      换字体或换机后重跑本报告即可判断模型是否仍偏保守。
+// 成本：一次 DOM.getDocument(depth:-1) + 逐文字节点协议往返；默认关闭时零开销。
+export async function fontReport({ cdp, sessionId }) {
+  const declared = await evaluate(cdp, sessionId, `(() => ({
+    status: document.fonts.status,
+    faces: [...document.fonts].map(f => ({ family: f.family, weight: f.weight, status: f.status })),
+  }))()`);
+  const report = { status: declared.status, faces: declared.faces, loadedFaces: 0, actual: [], widths: {}, warnings: [] };
+  report.loadedFaces = declared.faces.filter((f) => f.status === 'loaded').length;
+  if (declared.status !== 'loaded') report.warnings.push(`document.fonts 状态 ${declared.status}：字体尚未就绪，实际字形可能中途换 face`);
+  if (declared.faces.length && !report.loadedFaces)
+    report.warnings.push(`@font-face 声明 ${declared.faces.length} 个分片、加载成功 0 个：文字按系统回退渲染，核对下方实际 face`);
   try {
-    await cdp.send('DOM.enable', {}, sessionId); await cdp.send('CSS.enable', {}, sessionId);
+    await cdp.send('DOM.enable', {}, sessionId);
+    await cdp.send('CSS.enable', {}, sessionId);
     const { root } = await cdp.send('DOM.getDocument', { depth: -1 }, sessionId);
     const nodes = [];
-    const walk = node => {
-      const attrs = Object.fromEntries(Array.from({ length: (node.attributes || []).length / 2 }, (_, i) => [node.attributes[i * 2], node.attributes[i * 2 + 1]]));
-      if (node.nodeType === 1 && node.children?.some(child => child.nodeType === 3 && child.nodeValue.trim()))
-        nodes.push({ nodeId: node.nodeId, layer: attrs['data-layer'] || null, tag: node.nodeName });
+    const walk = (node) => {
+      const attrs = node.attributes || [];
+      // 只问「直接含非空文本子节点」的元素：纯容器问了也是空结果，白付协议往返
+      if (node.nodeType === 1 && !['STYLE', 'TITLE', 'SCRIPT'].includes(node.nodeName)
+        && node.children?.some((c) => c.nodeType === 3 && c.nodeValue.trim())) {
+        let layer = null;
+        for (let i = 0; i < attrs.length; i += 2) if (attrs[i] === 'data-layer') layer = attrs[i + 1];
+        nodes.push({ nodeId: node.nodeId, layer, tag: node.nodeName });
+      }
       for (const child of node.children || []) walk(child);
     };
     walk(root);
     for (const node of nodes) {
-      if (['STYLE', 'TITLE', 'SCRIPT'].includes(node.tag)) continue;
       const { fonts } = await cdp.send('CSS.getPlatformFontsForNode', { nodeId: node.nodeId }, sessionId);
-      if (fonts.length) result.actual.push({ layer: node.layer, tag: node.tag, fonts });
+      if (fonts.length) report.actual.push({ layer: node.layer, tag: node.tag, face: fonts.map((f) => f.familyName).join('+') });
     }
-  } catch (error) { result.warnings.push(`无法读取实际字体 face: ${error.message}`); }
-  if (result.status !== 'loaded' || result.faces.some(f => f.status === 'error' || f.status === 'loading'))
-    result.warnings.push('部分字体未加载成功；实际 face 见 actual，不声明任何特定系统回退字体');
-  // 未命中的 unicode-range 分片停在 unloaded 属正常；但"声明了却一个都没 loaded"时
-  // document.fonts.status 照样是 loaded，文字其实全走系统回退，这种静默必须进报告。
-  result.loadedFaces = result.faces.filter(f => f.status === 'loaded').length;
-  if (result.faces.length && !result.loadedFaces)
-    result.warnings.push(`@font-face 声明 ${result.faces.length} 个分片，加载成功 0 个：文字按系统回退渲染，请按 fonts.actual 核对实际字体`);
-  return result;
-}
-
-export async function withPage(inst, navUrl, opts, fn) {
-  return withBlank(inst, opts, async ctx => {
-    const { cdp, sessionId } = ctx;
-    const navigation = await cdp.send('Page.navigate', { url: navUrl }, sessionId, opts.timeout);
-    if (navigation.errorText) throw new Error(`页面加载失败: ${navigation.errorText}`);
-    const readiness = await evaluate(cdp, sessionId, `(async () => {
-      const start=Date.now(), limit=${Math.min(opts.timeout, 10000)};
-      while(document.readyState!=='complete' && Date.now()-start<limit) await new Promise(r=>setTimeout(r,50));
-      const loaded=document.readyState==='complete';
-      void document.body?.offsetHeight;
-      await Promise.race([document.fonts.ready,new Promise(r=>setTimeout(r,${opts.fontTimeout}))]);
-      await Promise.race([Promise.all([...document.images].map(i=>i.decode().catch(()=>null))),new Promise(r=>setTimeout(r,4000))]);
-      return {loaded,fontStatus:document.fonts.status};
-    })()`, { awaitPromise: true, timeoutMs: opts.timeout });
-    // Stop late network responses from swapping font faces between measurement
-    // and capture. This is per-target stabilization, not a batch fallback claim.
-    await cdp.send('Page.stopLoading', {}, sessionId);
-    await evaluate(cdp, sessionId, 'new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)))', { awaitPromise: true });
-    if (opts.waitSelector && !await evaluate(cdp, sessionId, `!!document.querySelector(${JSON.stringify(opts.waitSelector)})`))
-      throw new Error(`找不到 ${opts.waitSelector}`);
-    ctx.readiness = readiness;
-    ctx.fonts = await fontState(ctx);
-    if (!readiness.loaded) ctx.fonts.warnings.push('页面 load 未完成，已停止剩余加载；测量和截图复用此 Target');
-    return fn(ctx);
-  }, { offline: false });
+  } catch (error) { report.warnings.push(`读不到实际 face：${error.message}`); }
+  if (!report.actual.length) report.warnings.push('未读到任何实际 face（页面无文字层，或 CSS 域不可用）');
+  try {
+    // 用页面自身的字体栈量字宽：canvas measureText 逐字符，除以字号得 em 比例
+    report.widths = await evaluate(cdp, sessionId, `(() => {
+      const cs = getComputedStyle(document.documentElement);
+      const stack = (name, fallback) => (cs.getPropertyValue(name) || '').trim() || fallback;
+      const ctx = document.createElement('canvas').getContext('2d');
+      const avg = (font, text) => { ctx.font = font; let sum = 0; for (const ch of text) sum += ctx.measureText(ch).width; return +(sum / [...text].length / 100).toFixed(3); };
+      const out = {};
+      for (const [role, weight, family] of [['serif', 700, stack('--serif', 'serif')], ['sans', 400, stack('--sans', 'sans-serif')], ['mono', 600, stack('--mono', 'monospace')]]) {
+        const font = weight + ' 100px ' + family;
+        out[role] = { han: avg(font, '中文测试'), upper: avg(font, 'ABCDEF'), lower: avg(font, 'abcdef'), digit: avg(font, '0123456789'), punct: avg(font, ',.;:!?()') };
+      }
+      return out;
+    })()`);
+  } catch (error) { report.warnings.push(`字宽实测失败：${error.message}`); }
+  return report;
 }
 
 export async function captureReadyPage({ cdp, sessionId }, opts = createOptions()) {

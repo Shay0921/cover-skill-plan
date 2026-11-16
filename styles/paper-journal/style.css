@@ -1,6 +1,13 @@
-<!doctype html>
-<html lang="zh-CN"><head><meta charset="utf-8"><title>paper-journal · 受控组件组合</title>
-<style>
+/* ================================================================
+   paper-journal · 纸质杂志 · 唯一样式文件
+   画布 1080×1440（3:4）| 暖纸 #F6EFE3 + 墨色 #171512 + 陶土红 #C0562F
+   字体：本机字体栈（sans 承担正文 / serif 承担引语），不引 CDN、不加载 webfont
+   ----------------------------------------------------------------
+   状态：待激活（TODO T4）。41 档母版仍在 masters/（根类 .p-page），
+   合并进 templates.html 时根类统一为 .artwork-page，本文选择器同步改名；
+   风格判断（气质/字体角色/杂志语言）见 style-notes.md。
+   ================================================================ */
+
 /* 字体策略（全库归一）：默认本机字体栈，不引 CDN / 不加载 webfont / 不做 base64 内嵌。
    --serif / --sans 首项为本机字体名，命中即用、未装按栈回退；跨风格共享的字体分片在 styles/assets/fonts/，当前未接入。 */
 :root{--paper:#F6EFE3;--paper-2:#EFE6D4;--ink:#171512;--muted:#756C5F;--accent:#C0562F;--card:#FFFDF8;--line:rgba(23,21,18,.14);--line-strong:rgba(23,21,18,.30);--sans:"PingFang SC","Microsoft YaHei",sans-serif;--serif-stack:"Playfair Display","Noto Serif SC","Songti SC",serif;--serif:var(--serif-stack);--bleed-edge:12.4cqw;}
@@ -235,12 +242,3 @@ html,body{margin:0;padding:0;background:#171512;}
 .shot.sq{aspect-ratio:1/1;flex:none;width:100%;}
 /* 窄卡档（来源页 35） */
 .fcard.w50{max-width:50cqw;}
-</style>
-</head><body>
-<div class="p-page" data-artwork data-size="1080x1440" data-recipe="R-quote-01">
-<div class="grain" data-decoration></div><div class="wash" data-decoration></div>
-<header class="page-header"><div class="brand" data-layer="brand" data-group><span class="seal" data-layer="brand-seal" data-editable="text">牌</span><div><div class="nm" data-layer="brand-name" data-editable="text">品牌名</div><div class="tg" data-layer="brand-tag" data-editable="text">品牌一句话</div></div></div><div class="issue" data-layer="issue-line"><span>期名</span><b>第 00 期</b></div></header>
-<div class="heading" data-region="head"><h1 class="h1" data-component="h1" data-layer="headline" data-editable="text" data-from="h1">替换为本页主张</h1></div>
-<main class="body"><div class="region grow justify-center" data-region="bottom"><blockquote class="quote" data-component="serif" data-layer="main-quote" data-group><p class="serif" data-layer="quote-text" data-editable="text" data-from="q1">替换为值得记住的一句话。</p><p class="source" data-layer="quote-source" data-editable="text" data-from="q1">替换为观点来源，或明确标注的改写</p></blockquote></div></main>
-<footer class="footer"><span data-layer="footer-signature" data-editable="text">品牌名</span><span class="pageno" data-layer="page-number" data-editable="text" data-numbering>01 / 01</span></footer>
-</div></body></html>

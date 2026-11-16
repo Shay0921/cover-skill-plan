@@ -43,16 +43,18 @@
 | `.num-list` | 编号条目列表 | N10/N11 清单骨架 |
 | `.img-card` + `.ph-img` | 图片占位卡 | 见 §3 图槽契约 |
 | `.callout` | 底部补充说明条（白底细线 + 圆形图标） | 提示/Tip |
-| `.pill` / `.pill--fill` | 悬浮按钮组 | 少量 CTA 母版 |
+| `.pill` / `.pill--fill` | 悬浮胶囊（描边 / 墨底两式，`.num` 是序号位） | 即兴词汇，当前 32 母版未使用。CTA 组合：`<span class="pill"><span class="num">01</span>免费领取</span>`、`<span class="pill pill--fill">立即进入</span>`；可排成一行做「步骤/权益」横条 |
 | `.fine-line` / `.fine-border` / `.fine-card` | 极细分割线/边框/卡片 | 弱结构 |
 | `.accent-word` / `.accent-bg` / `.accent-line` / `.ink-bg` | 强调四式 | 关键词变色 / 蓝底白字 / 短横线 / 墨底白字 |
 | `.hl` | 富文本高亮（白名单） | 通用=变蓝；N01/N28/N30 的块状 .hl 在各自作用域 |
 | `.title-xl/lg/md`、`.num-large`、`.body-text`、`.mono-text`、`.label` | 字级工具类 | 即兴时直接用 |
 
+> **本表是共享段词表，不是 32 母版用量的镜像。** 表里有、当前母版没用的类（`.pill`、`.title-xl`、`.accent-bg`、`.ink-bg`、`.fine-card` 等）是**刻意保留的 L3 即兴词汇**：能组合出母版没覆盖的版式，且已在 style.css 里有实现。判断"能不能删"只有两条——① 不在本表也不在任何说明头 → 死代码该删；② 在本表 → 删了就等于收回即兴能力，不能当冗余清理。
+
 ## 3. 图槽契约（ph-img 机制）
 
-- 槽位 = `<img class="ph-img__img" data-slot="image" data-layer data-label data-ratio src="1×1 透明 GIF">`，外层容器带 `.ph-img` + `data-fit`（**cover** 裁切填满 / **contain** 完整显示）。
-- 空 src（透明 GIF）时容器显示占位标签（`.ph-img__label`），布局与有图完全一致；render/编辑器换图直接改 img 的 src。
+- 槽位 = `<img class="ph-img__img" data-slot="image" data-layer data-label src="1×1 占位 PNG">`，外层容器带 `.ph-img` + `data-fit`（**cover** 裁切填满 / **contain** 完整显示）。`data-ratio`（槽位比例声明）写 img 或容器任写其一、render 都认，但**同一图槽只写一处**（两处都写时 render 优先读 img）。
+- 占位是 1×1 PNG（**不是 GIF**：GIF dataURL 会让打包器整批失败），容器此时显示占位标签（`.ph-img__label`），布局与有图完全一致；render/编辑器换图直接改 img 的 src。
 - render 填图后给容器加 `data-filled` → 占位标签自动隐藏（`.ph-img[data-filled] .ph-img__label{visibility:hidden}`）。
 - 手机框：`frame-img` 类装饰 `<img>`（如 N04 `.phone__frame`），源 = `styles/assets/iphone-frame.png`（render 现场编码内嵌；画廊以 `../assets/` 直接引用），母版不内嵌框图数据。
 - 图片格式 PNG/JPEG/WebP；裁切由 CSS 机械执行，AI 只在 plan.json 写 `crop` 选区描述。
@@ -60,12 +62,12 @@
 
 ## 4. 槽位与 repeat 契约
 
-- **两处同名**：文字槽 `{{槽名}}` = `data-layer` id = plan.json 的 fields 键（英文 kebab-case；`data-label` 是图层面板中文名，不参与键名）。**data-slot 禁用于文字元素**（仅 `<img>`，值恒为 "image"）。
+- **三处同名**：文字槽 `{{槽名}}` = `data-layer` id = plan.json 的 fields 键（英文 kebab-case；`data-label` 是图层面板中文名，不参与键名）。**data-slot 禁用于文字元素**（仅 `<img>`，值恒为 "image"）。
 - 文字元素**不打 data-slot**（编辑器契约：data-slot="image" 仅落 `<img>`）。
 - 容器可打 `data-layer + data-type="group"`（可整体移动）；纯装饰不标 layer。
 - **repeat**：单元标 `data-repeat="<数组名>"`，单元前注释 `<!-- repeat ×min-max: 克隆规则；条数-字数联动 -->`（全库唯一数值配置点）；单元内占位符用条目键（如 `{{t}}` `{{d}}`），render 克隆时给 data-layer 加序号后缀。
-- 富文本白名单：值内仅 `span.hl` / `br` / `strong`；其余标签会被拒绝。
-- 就地限制：说明头"限制"行是 render 字数软校验的解析对象，写实测值。`≤N字` 按视觉宽度（1 = 一个汉字宽，英文大写 0.67 / 小写 0.5 / 数字 0.57 / 半角标点 0.45），`≤N字符` 按实际字符个数（ASCII 短槽用）；`code≤2行每行≤30字符` 这类写法会校验行数与单行。
+- 富文本白名单：值内仅 `span.hl` / `br` / `strong`；其余标签会被拒绝。裸 `<` `>` 是文案（`5>3`、`A < B`），render 注入前转义，不算标签。
+- 就地限制：说明头"限制"行是 render 字数软校验的解析对象，写实测值。`≤N字` 按视觉宽度（1 = 一个汉字宽，英文大写 0.68 / 小写 0.55 / 数字 0.58 / 半角标点 0.45，逐项 ≥ 本机实测上限），`≤N字符` 按实际字符个数（ASCII 短槽用）；`code≤2行每行≤30字符` 这类写法会校验行数与单行。
 
 ## 5. 受控即兴纪律（L3）
 
@@ -81,8 +83,8 @@
 - ❌ 圆角滥用（卡片一律大圆角）——本风格是直角+极细线，圆角只按三级令牌。
 - ❌ 用无衬线粗体当大标题——标题必须是衬线（`--serif`）。
 - ❌ 把 brand-top / pg-footer 当内容改——那是风格身份件；页码用 `.page-no` 槽。
-- ❌ 图槽塞 `<div style="background:url()">`——必须走 `<img data-slot="image">`，否则编辑器换不了图。
-- ❌ repeat 区间写在 catalog——catalog 只写语义，数值只在母版注释。
+- ❌ 图槽塞 `<div style="background:url()">`——必须走 `<img data-slot="image">`。背景图既不是编辑器图层（换不了图），render 也认不出图槽（plan 图键报「与母版槽位对不上」）。
+- ❌ 把**机器配置值**写进 catalog——`repeat ×min-max`、每槽 `≤N字` 精确限值只在母版注释；catalog 只写选型判断用的量级语义（如「适合 3-8 条」「标题两行内」）。
 - ❌ 内容迁就版式大改文案——回炉内容提炼，不是即兴能解决的事。
 
 ## 7. 文件与字体

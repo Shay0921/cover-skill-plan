@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 /**
  * find-chrome.mjs —— 跨平台探测本机 Chrome / Chromium / Edge / Brave，供 cdp.mjs 使用。
  * 探测顺序：环境变量 CHROME_PATH / CHROME_BIN → 平台默认安装路径。
