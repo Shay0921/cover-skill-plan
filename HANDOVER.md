@@ -6,7 +6,7 @@
 
 ## 现状（一句话）
 
-tech-blue 风格已可跑通：32 张母版（templates.html 仓库=画廊）+ style.css 双段制 + catalog.md 选型牌桌 + design-system.md 风格规范 + render.mjs 实例化器。样例任务 8 页零 ERROR、pack 0 warnings、8 个图槽全部可换图；**尚未人审真实素材排版，paper-journal 未激活，T4/T6 未做**。**三级目录已分离**：技能安装目录只读 / 任务运行区（agent 临时工作区）/ 交付目录（用户工作区白名单成品）。当前为开发阶段：所有 `preview.png` 都是任务级总览产物，只存在于 `runs/` 与交付目录；风格级预览图 `styles/<风格>/style-preview.png` 尚未产出（定版后由用户统一生成）。
+tech-blue 风格已可跑通：32 张母版（templates.html 仓库=画廊）+ style.css 双段制 + catalog.md 选型牌桌 + design-system.md 风格规范 + render.mjs 实例化器。样例任务 8 页零 ERROR、pack 0 warnings、8 个图槽全部可换图；**尚未人审真实素材排版，paper-journal 未激活，T4/T6 未做**。**三级目录已分离**：技能安装目录只读 / 任务运行区（agent 临时工作区）/ 交付目录（用户工作区白名单成品）。
 
 ## 关键文件地图
 
@@ -30,7 +30,7 @@ tech-blue 风格已可跑通：32 张母版（templates.html 仓库=画廊）+ s
 
 ### 两个提醒（易误判）
 
-1. **P05 横评页 verdict 字数 24 超上限 18**（render 软告警，非错误）——已登记 TODO T3，等用户目检时定：改文案至合规，或确认无溢出后回调说明头与 catalog 的限制值。
+1. **P05 横评页 verdict 字数**（render 软告警，非错误）——已定限值 ≤26（实测 28 字单行不溢出），样例 24 字文案不再告警；校准方法与逐键复核定于 TODO T6。
 2. **N26/N27 的 hero 大数字位置是空的**——刻意设计（中心价格/无数字制式），不是漏填。
 
 ## 手机框单源（已落地）
@@ -47,7 +47,7 @@ tech-blue 风格已可跑通：32 张母版（templates.html 仓库=画廊）+ s
 ## 编辑器边界（谁做的什么）
 
 - **编辑器本体 = `D:\AI\pageApp\` 项目**（独立开发线，有自己的里程碑；本仓库不开发编辑器）。`covers-edit.html` 由 pageApp 现成的通用打包器 `pageApp/demo/pack.mjs` 产出：读交付目录的 `editor.manifest.json` → 把每页 `data-layer` 标记扫成图层表 → 内联 CSS/图片 → 拼装单文件编辑器。
-- **本仓库只产出进场材料**：render.mjs 在**任务运行区**生成 `editor.manifest.json` + `fields.json`（同一份数据两种身份）；默认不进交付区，`--with-editor` 才随交付目录追加。pack.mjs 可直接指向任务运行区（那里有全套材料）。
+- **本仓库只产出进场材料**：render.mjs 在**任务运行区**生成 `editor.manifest.json` + `fields.json`（后者是 plan 的编辑器契约转写，见 final/01 §2.1）；默认不进交付区，`--with-editor` 才随交付目录追加。pack.mjs 可直接指向任务运行区（那里有全套材料）。
 - **pageApp 侧未做**：T6（编辑器读取 fields.json 作初稿注入）。当前无影响——render 已把真实内容烤进每页 HTML，编辑器打开即见成品。
 - `script/_ref/` = 上一代流水线的退役脚本（build/pipeline/validate，纯参考、已不可运行、零引用），T3 完工即删。
 

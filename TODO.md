@@ -43,7 +43,7 @@
 - [x] 完工清理：script/_migrate/（迁移工具与过程报告）已随收工清理；`script/_ref/` 待 render 实跑确认后删除
 - [x] **并发冲突处置（2026-11-15 晚）**：监工会话将 styles/tech-blue/assets/ 当零引用冗余删除，但 templates.html 有 2 处 `src="assets/iphone-frame.png"`（画廊显示用）→ 已从唯一源 styles/assets/iphone-frame.b64 解码还原 PNG（64255 字节，字节同一）。**口径终版**：手机框单源 = styles/assets/iphone-frame.png（render 读取内嵌 + 画廊 ../assets/ 引用）；b64 已删除
 
-- [ ] **风格级预览图（定版后）**：当前开发阶段不产出；风格定版时由用户按统一文案生成合规的 `styles/<风格>/style-preview.png`。任务级总览拼图 `preview.png` 只留在 `runs/` 与交付目录，禁止改名塞进风格目录
+- [ ] **风格预览图（定版后）**：当前开发阶段不产出；风格定版时由用户按统一文案生成 `styles/<风格>/style-preview.png`，口径见 `styles/style-picker.md`「风格目录构成」
 
 ### 监工复核留痕（2026-11-15 · 监工只读复核，全项通过）
 
@@ -61,7 +61,7 @@
 - [ ] 新建 `styles/paper-journal/catalog.md`（素材：_archive/references/04-recipes.md 20 卡语义）
 - [ ] style-notes.md 升级 design-system.md（补组件语义表/几何预算速查——素材：_archive/config/ 两 json）
 - [ ] **合并时统一根类名**：`masters/` 41 档当前画布根是 `p-page`，而 render 固定认 `.artwork-page`（T4 激活前须逐档改名，否则直接报「画布根缺失」；影响面 = 41 个母档 + paper-journal/style.css 12 处选择器，机械替换后 grep 清零验证）
-- [ ] **判据**：paper-journal/ 目录只剩四个必交文件 + 可选 assets；masters/ 整目录删除；风格级 `style-preview.png` 定版后另补
+- [ ] **判据**：paper-journal/ 目录只剩四个必交文件 + 可选 assets；masters/ 整目录删除；`style-preview.png` 定版后另补
 
 ## T5 · 转正管道首跑（随真实使用触发）
 
