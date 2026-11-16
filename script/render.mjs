@@ -331,20 +331,50 @@ function getFrameDataUrl() {
 }
 
 // ---------- 字数软校验（解析说明头"限制"行） ----------
+// 计数口径（与 final/01 §3.5 一致）：1 字 = 1 个字符位。
+// 汉字 / 字母 / 数字 / 半角符号 / 全角标点各计 1；空格与换行不计；HTML 标签不计；emoji 按码点计 1。
+// 不按"单词"计：`VSCode` 是 6 个字位还是 1 个，宽度差 3 倍，按码点才安全。
+const CHAR_TOLERANCE = 0.2;   // 超限 20% 以内不告警（同一字号下偶发换行可接受）
+function countChars(value) {
+  return Array.from(String(value).replace(/<[^>]+>/g, '').replace(/\s+/g, '')).length;
+}
+// 限制键 → 实际字段键的四种命名写法都要认，否则该条限制静默失效：
+//   ① 同名：`verdict` → verdict
+//   ② 族名：`th` → th1..th4、`q` → q1/q2、`tab` → tab1..tab3（键名 + 数字）
+//   ③ 区间：`c1..c3` → c1/c2/c3（与说明头「槽位」行同一记号）
+//   ④ 通配：`sm*-label` → sm1-label、`b*-tag` → b1-tag（`*` 只吞序号，不吞字母，避免 `c*` 误伤 `cta`）
+const escapeRe = (s) => s.replace(/[.+?^${}()|[\]\\]/g, '\\$&');
+function expandLimitKey(key) {
+  const m = key.match(/^([A-Za-z]+)(\d+)\.\.([A-Za-z]+)(\d+)$/);
+  if (!m) return [key];
+  const out = [];
+  for (let i = +m[2]; i <= +m[4]; i++) out.push(`${m[1]}${i}`);
+  return out;
+}
+function matchesLimit(fieldKey, limitKey) {
+  return expandLimitKey(limitKey).some((key) => {
+    if (fieldKey === key) return true;
+    if (fieldKey.split('-')[0] === key) return true;
+    if (new RegExp(`^${escapeRe(key)}\\d+$`).test(fieldKey)) return true;
+    if (key.includes('*')) return new RegExp(`^${escapeRe(key).replace(/\*/g, '[-0-9]*')}$`).test(fieldKey);
+    return false;
+  });
+}
 function wordWarnings(headerText, filledValues, layout, warns) {
   if (!headerText) return;
   const line = headerText.split('\n').map((s) => s.trim()).find((l) => l.startsWith('限制：'));
   if (!line) return;
-  for (const m of line.matchAll(/([A-Za-z0-9*-]+)≤(\d+)字/g)) {
-    const rawKey = m[1];
-    const wildcard = rawKey.endsWith('*');   // 说明头写 `title*≤N字` 时命中所有同前缀克隆槽
-    const key = rawKey.replace(/\*$/, '');
-    const candidates = Object.keys(filledValues).filter((k) => k === key || k.split('-')[0] === key || (wildcard && k.startsWith(key)));
+  // 「字」与「字符」是同一口径的两种写法（历史上 ASCII 槽写字符、中文槽写字），两者都必须校验
+  for (const m of line.matchAll(/([A-Za-z0-9*.-]+)≤(\d+)(字符|字)/g)) {
+    const key = m[1];
+    const limit = +m[2];
+    const ceiling = limit + Math.ceil(limit * CHAR_TOLERANCE);
+    const candidates = Object.keys(filledValues).filter((k) => matchesLimit(k, key));
     for (const k of candidates) {
       const v = filledValues[k];
       if (typeof v !== 'string') continue;
-      const cjk = v.replace(/<[^>]+>/g, '').replace(/\s+/g, '');
-      if (cjk.length > +m[2] + Math.ceil(+m[2] * 0.2)) warns.push(`${layout}: "${k}" 字数 ${cjk.length} 超限（≤${m[2]}），可能溢出`);
+      const n = countChars(v);
+      if (n > ceiling) warns.push(`${layout}: "${k}" 字数 ${n} 超限（≤${limit}，容差上限 ${ceiling}），可能溢出`);
     }
   }
 }

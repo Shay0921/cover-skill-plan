@@ -52,8 +52,13 @@ export async function launchBrowser(opts = createOptions()) {
     // 表现是调试管道秒关（SIGTRAP），stderr 全是 crashpad 噪声、看不到 "No usable sandbox"。
     // 只降级一次；显式要求 noSandbox 时不再重试，避免掩盖真实错误。
     if (opts.noSandbox) throw error;
-    console.warn('⚠ Chrome 首次启动失败，自动加 --no-sandbox 重试一次（受限环境适配）');
-    return await launchOnce({ ...opts, noSandbox: true });
+    console.warn('⚠ Chrome 首次启动失败（疑似受限环境无法建 renderer），自动加 --no-sandbox 重试一次');
+    try {
+      return await launchOnce({ ...opts, noSandbox: true });
+    } catch (retryError) {
+      // 两次错误都要留：只报重试那条会把真实原因（如 Chrome 路径错、profile 锁）藏掉
+      throw new Error(`Chrome 启动失败（已含 --no-sandbox 重试）\n[首次] ${error.message}\n[重试] ${retryError.message}`);
+    }
   }
 }
 async function launchOnce(opts) {

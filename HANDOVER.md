@@ -6,7 +6,7 @@
 
 ## 现状（一句话）
 
-tech-blue 风格已可跑通：32 张母版（templates.html 仓库=画廊）+ style.css 双段制 + catalog.md 选型牌桌 + design-system.md 风格规范 + render.mjs 实例化器。样例任务 8 页零 ERROR、pack 0 warnings、8 个图槽全部可换图；**尚未人审真实素材排版，paper-journal 未激活，T4/T6 未做**。**三级目录已分离**：技能安装目录只读 / 任务运行区（agent 临时工作区）/ 交付目录（用户工作区白名单成品）。当前为开发阶段：所有 preview.png 都是任务级总览产物，只存在于 `runs/` 下；风格级预览图尚未产出（定版后由用户统一生成）。
+tech-blue 风格已可跑通：32 张母版（templates.html 仓库=画廊）+ style.css 双段制 + catalog.md 选型牌桌 + design-system.md 风格规范 + render.mjs 实例化器。样例任务 8 页零 ERROR、pack 0 warnings、8 个图槽全部可换图；**尚未人审真实素材排版，paper-journal 未激活，T4/T6 未做**。**三级目录已分离**：技能安装目录只读 / 任务运行区（agent 临时工作区）/ 交付目录（用户工作区白名单成品）。当前为开发阶段：所有 `preview.png` 都是任务级总览产物，只存在于 `runs/` 与交付目录；风格级预览图 `styles/<风格>/style-preview.png` 尚未产出（定版后由用户统一生成）。
 
 ## 关键文件地图
 

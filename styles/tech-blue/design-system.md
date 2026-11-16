@@ -87,5 +87,5 @@
 
 ## 7. 文件与字体
 
-- 风格目录构成见 `styles/style-picker.md`（全库唯一权威定义）；`preview.png` 是风格定版后由用户统一生成的预览图，当前开发阶段未产出。共享资产在 `styles/assets/`，任务级总览拼图在交付目录，均不属于风格目录。
+- 风格目录构成见 `styles/style-picker.md`（全库唯一权威定义）；`style-preview.png` 是风格定版后由用户统一生成的风格级预览图，当前开发阶段未产出。共享资产在 `styles/assets/`；任务级总览拼图 `preview.png` 在交付目录（生产手册 §6），两者都不属于风格目录。
 - 字体：默认本机字体栈，`style.css` 不引 CDN / 不加载 webfont；`--serif/--sans/--mono` 首项为本机字体名，命中即用、未装按栈回退。画廊、交付页与编辑器导出字形一致（编辑器导出 PNG 只认本机已装字体与 base64 内嵌）。
