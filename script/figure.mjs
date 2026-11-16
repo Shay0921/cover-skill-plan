@@ -127,7 +127,7 @@ let expectTokens = null;   // 注入成功时记下图形引用的令牌，截�
 if (flags['no-tokens']) {
   console.warn('⚠ --no-tokens：不注入 style.css，直接用文件自带的令牌出图（等同「浏览器直接打开」的样子，调试用）');
 } else if (usedTokens.size === 0) {
-  // 纯字面量颜色的 HTML（非样板的生产件/说明图）：不涉令牌，无需风格
+  // 纯字面量颜色的 HTML（普通说明图，非令牌化图形）：不涉令牌，无需风格
   console.log('· 该文件未引用 var() 令牌，跳过注入');
 } else if (!stylePath) {
   console.error('✗ 没解析到图形所属风格的 style.css —— 图形必须带风格，拒绝出图。');
