@@ -35,9 +35,11 @@
 
 - [x] 一篇真实文章完整走 SOP：选风格 → plan.json → render → 任务运行区出 8 页 P*.html/P*.png/过程件 → 白名单拷贝交付目录（P*.html + P*.png + preview.png）
 - [x] 编辑器链路验证：pack.mjs 产出 covers-edit.html（拖拽/改字/换图/导出可用）；**换图实证**：8 页共 8 个图槽全部扫成 `type:image` 图层，pack 0 warnings
+  - 2026-11-16 复核：该目录里留存的编辑器包是根类改名**之前**的产物（352 处 `ai-page`、查不到 `n02-img-1`），已改名 `covers-edit.STALE-ai-page.html`；8 页 P 页已用现行代码重渲，换图实证需在 pageApp 机器重新 `pack.mjs` 复验
 - [x] 记录耗时与问题清单：三项防呆注入即拦（_test-bad1/2/3：缺槽/未知字段/图片缺失均正确报错）
 - [x] 8 个 P 页零 `<script>`（自包含，可拖编辑器）；P01-P08 完整、命名规范
 - [ ] **唯一剩余：用户目检 8 张 PNG**（人审是质量最终把关）。目检时一并定 P05 verdict 字数：现文案 24 字超 ≤18 上限（软告警留档未改），届时二选一——改文案至合规，或确认排版无溢出后回调说明头/catalog 的限制值
+  - 2026-11-16 已目检 `runs/2026-11-15-ai工具盘点/P05.png`：结论条完整、无溢出、未换行（黑色条实际可容约 26 字）→ 倾向「调限制值到 ≤26」而非改文案，等用户拍板
 - [x] 完工清理：script/_migrate/（迁移工具与过程报告）已随收工清理；`script/_ref/` 待 render 实跑确认后删除
 - [x] **并发冲突处置（2026-11-15 晚）**：监工会话将 styles/tech-blue/assets/ 当零引用冗余删除，但 templates.html 有 2 处 `src="assets/iphone-frame.png"`（画廊显示用）→ 已从唯一源 styles/assets/iphone-frame.b64 解码还原 PNG（64255 字节，字节同一）。**口径终版**：手机框单源 = styles/assets/iphone-frame.png（render 读取内嵌 + 画廊 ../assets/ 引用）；b64 已删除
 

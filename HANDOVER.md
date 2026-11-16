@@ -19,13 +19,13 @@ tech-blue 风格已可跑通：32 张母版（templates.html 仓库=画廊）+ s
 | `styles/assets/` | 跨风格共享：iphone-frame.png（手机框唯一源：render 内嵌 + 画廊 ../assets/ 引用）+ fonts/ |
 | `script/render.mjs` + `script/shared/` | **生产环境固定脚本**：实例化器 + Chrome 桥（不是临时文件） |
 | `script/_ref/` | 上一代流水线退役脚本（build/pipeline/validate，零引用、不可运行），**施工参考，T3 完工后删除** |
-| `runs/` | 任务运行区 = agent 临时工作区（gitignore）；`runs/2026-11-15-ai工具盘点/` = 全链路验证样例（8 页 + covers-edit.html）。**不是交付物** |
+| `runs/` | 任务运行区 = agent 临时工作区（gitignore）；`runs/2026-11-15-ai工具盘点/` = 全链路验证样例（8 页 HTML+PNG+preview+manifest+fields，**2026-11-16 已用现行代码重渲**：根类 `.artwork-page`、`manifest.root`、fields 图槽 src 均已同步）。**不是交付物**。旧编辑器包已更名 `covers-edit.STALE-ai-page.html`（改名前的产物，勿作现行对照，需重新 pack） |
 | `<交付目录>/` | 仓外：用户选中的工作区（无则 agent 默认任务文件夹），`YYYY-MM-DD-<小标题>/`，只含白名单成品；由 `--delivery` 或 plan.delivery 指定 |
 
 ## 下一步 · T3 实物验收（只差用户动手）
 
 1. **拿一篇真文章走一遍 SOP**（SKILL.md 八步）：定风格 → 盘点识别 → 选母版 → 图片×槽位匹配 → 写 plan.json → render（带 `--delivery=<YYYY-MM-DD-小标题>`）→ 人审 PNG → 交付。可直接拿 `runs/2026-11-15-ai工具盘点/` 当样例对照；过程件留运行区，成品进交付目录。
-2. **实测编辑器**：双击打开 `covers-edit.html`（可用 `pack.mjs` 指向任务运行区，或指向带 `--with-editor` 的交付目录），试拖拽 / 改字 / 换图 / 导出 PNG（pageApp 契约 v1.9）。换图槽已实证：8 页共 8 个 `type:image` 图层，选中后「选择本地图片」可替换。
+2. **实测编辑器**：在有 pageApp 的机器上 `node pack.mjs "runs/2026-11-15-ai工具盘点"`（或指向带 `--with-editor` 的交付目录）重新打包出 `covers-edit.html`，再双击试拖拽 / 改字 / 换图 / 导出 PNG（pageApp 契约 v1.9）。换图槽已实证：8 页共 8 个 `type:image` 图层，选中后「选择本地图片」可替换。⚠ 目录里现存的 `covers-edit.STALE-ai-page.html` 是根类改名前的旧包（352 处 `ai-page`、无 `n02-img-1`），只能当历史件看。
 3. 两项都过 → **删 `script/_ref/`** → 项目主线完工（T4 paper-journal 激活、T5 转正管道为后续独立节点）。
 
 ### 两个提醒（易误判）
