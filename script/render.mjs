@@ -331,12 +331,38 @@ function getFrameDataUrl() {
 }
 
 // ---------- 字数软校验（解析说明头"限制"行） ----------
-// 计数口径（与 final/01 §3.5 一致）：1 字 = 1 个字符位。
-// 汉字 / 字母 / 数字 / 半角符号 / 全角标点各计 1；空格与换行不计；HTML 标签不计；emoji 按码点计 1。
-// 不按"单词"计：`VSCode` 是 6 个字位还是 1 个，宽度差 3 倍，按码点才安全。
+// 计数口径（与 final/01 §3.5 一致）：
+//   `≤N字`   = 视觉宽度单位（1 单位 ≈ 一个汉字宽）。汉字/全角 = 1；ASCII 大写 0.67、小写 0.5、
+//               数字 0.57、半角标点/符号 0.45；空白 0；HTML 标签 0；emoji 等 = 1。
+//              权重来自本机真实字体栈实测（Noto/PingFang，100px 字号），见 final/01 §3.5 表。
+//   `≤N字符` = 实际字符个数（ASCII/数字槽的原始意图，如 big-num≤3字符、app≤14字符）。
+//   为何区分：按码点算宽度会让「10 字的英文单词」独占 10 字位（实际只占约 5.2 字宽），
+//   而 ASCII 短槽（编号/型号/文件名）要的确实是字符个数，不能被宽度稀释。
 const CHAR_TOLERANCE = 0.2;   // 超限 20% 以内不告警（同一字号下偶发换行可接受）
+const ASCII_WIDTH = { upper: 0.67, lower: 0.5, digit: 0.57, punct: 0.45 };
+const isFullWidth = (ch) => /[\u1100-\u115F\u2E80-\u303F\u3041-\u33FF\u3400-\u4DBF\u4E00-\u9FFF\uA000-\uA4CF\uAC00-\uD7A3\uF900-\uFAFF\uFE10-\uFE6F\uFF01-\uFF60\uFFE0-\uFFE6]/.test(ch);
+function charWidth(ch) {
+  const code = ch.codePointAt(0);
+  if (code <= 0x20 || ch === '\u00a0') return 0;
+  if (code < 0x7f) {
+    if (code >= 0x41 && code <= 0x5a) return ASCII_WIDTH.upper;
+    if (code >= 0x61 && code <= 0x7a) return ASCII_WIDTH.lower;
+    if (code >= 0x30 && code <= 0x39) return ASCII_WIDTH.digit;
+    return ASCII_WIDTH.punct;
+  }
+  if (isFullWidth(ch)) return 1;
+  return 1;   // emoji / 其他文字符号按一个汉字宽（保守）
+}
+function stripMarkup(value) {
+  return String(value).replace(/<[^>]+>/g, '').replace(/\s+/g, '');
+}
+function countWidth(value) {
+  let sum = 0;
+  for (const ch of stripMarkup(value)) sum += charWidth(ch);
+  return Math.round(sum * 10) / 10;
+}
 function countChars(value) {
-  return Array.from(String(value).replace(/<[^>]+>/g, '').replace(/\s+/g, '')).length;
+  return Array.from(stripMarkup(value)).length;
 }
 // 限制键 → 实际字段键的四种命名写法都要认，否则该条限制静默失效：
 //   ① 同名：`verdict` → verdict
@@ -364,18 +390,40 @@ function wordWarnings(headerText, filledValues, layout, warns) {
   if (!headerText) return;
   const line = headerText.split('\n').map((s) => s.trim()).find((l) => l.startsWith('限制：'));
   if (!line) return;
-  // 「字」与「字符」是同一口径的两种写法（历史上 ASCII 槽写字符、中文槽写字），两者都必须校验
-  for (const m of line.matchAll(/([A-Za-z0-9*.-]+)≤(\d+)(字符|字)/g)) {
-    const key = m[1];
-    const limit = +m[2];
+  const emit = (key, byWidth, limit, msg) => {
     const ceiling = limit + Math.ceil(limit * CHAR_TOLERANCE);
-    const candidates = Object.keys(filledValues).filter((k) => matchesLimit(k, key));
-    for (const k of candidates) {
+    for (const k of Object.keys(filledValues).filter((k) => matchesLimit(k, key))) {
       const v = filledValues[k];
       if (typeof v !== 'string') continue;
-      const n = countChars(v);
-      if (n > ceiling) warns.push(`${layout}: "${k}" 字数 ${n} 超限（≤${limit}，容差上限 ${ceiling}），可能溢出`);
+      msg(k, v, byWidth, limit, ceiling);
     }
+  };
+  const cmp = (n, ceiling) => n > ceiling;
+  // ① `key≤N行每行≤M字/字符`——行数与单行宽度都要管（code 槽用此写法；它不匹配 ② 的正则，必须单独解析，
+  //    否则这条限制会静默失效）
+  for (const m of line.matchAll(/([A-Za-z0-9*.-]+)≤(\d+)行每行≤(\d+)(字符|字)/g)) {
+    const [, key, maxLines, perLimit, unit] = m;
+    const byWidth = unit === '字';
+    emit(key, byWidth, +perLimit, (k, v, bw, limit, ceiling) => {
+      // 先按 <br> 切行，再剥其余标签——顺序反了会把 br 一起剥掉，多行被当成一行
+      const lines = String(v).split(/<br\s*\/?>|\n/i).map((s) => s.replace(/<[^>]+>/g, '').trim()).filter(Boolean);
+      if (lines.length > +maxLines) warns.push(`${layout}: "${k}" ${lines.length} 行超限（≤${maxLines} 行），可能溢出`);
+      lines.forEach((ln, i) => {
+        const n = bw ? countWidth(ln) : countChars(ln);
+        if (cmp(n, ceiling)) warns.push(`${layout}: "${k}" 第 ${i + 1} 行${bw ? `宽度 ${n}` : `字符数 ${n}`} 超限（每行≤${limit}${bw ? ' 字位' : ' 字符'}），可能溢出`);
+      });
+    });
+  }
+  // ② `key≤N字/字符`——单槽总量。`字` 走视觉宽度、`字符` 走实际字符数，两条口径不同但都要解析
+  for (const m of line.matchAll(/([A-Za-z0-9*.-]+)≤(\d+)(字符|字)/g)) {
+    const byWidth = m[3] === '字';
+    emit(m[1], byWidth, +m[2], (k, v, bw, limit, ceiling) => {
+      const n = bw ? countWidth(v) : countChars(v);
+      if (!cmp(n, ceiling)) return;
+      warns.push(bw
+        ? `${layout}: "${k}" 宽度 ${n} 超限（≤${limit} 字位，容差上限 ${ceiling}），可能溢出`
+        : `${layout}: "${k}" 字符数 ${n} 超限（≤${limit} 字符，容差上限 ${ceiling}），可能溢出`);
+    });
   }
 }
 

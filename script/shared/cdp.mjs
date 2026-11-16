@@ -50,13 +50,15 @@ export async function launchBrowser(opts = createOptions()) {
   } catch (error) {
     // 受限环境（容器 / root / CI / macOS 沙箱）里 Chrome 建不了 renderer 沙箱会直接退出，
     // 表现是调试管道秒关（SIGTRAP），stderr 全是 crashpad 噪声、看不到 "No usable sandbox"。
-    // 只降级一次；显式要求 noSandbox 时不再重试，避免掩盖真实错误。
-    if (opts.noSandbox) throw error;
+    // 但「进程根本没起来」（路径错 / 无执行权限）重试毫无意义，只会把真实原因说成沙箱问题。
+    const spawnFailed = ['ENOENT', 'EACCES', 'ENOTDIR'].includes(error.code)
+      || /\bspawn\b[\s\S]*(ENOENT|EACCES|ENOTDIR)/.test(error.message);
+    if (spawnFailed || opts.noSandbox) throw error;
     console.warn('⚠ Chrome 首次启动失败（疑似受限环境无法建 renderer），自动加 --no-sandbox 重试一次');
     try {
       return await launchOnce({ ...opts, noSandbox: true });
     } catch (retryError) {
-      // 两次错误都要留：只报重试那条会把真实原因（如 Chrome 路径错、profile 锁）藏掉
+      // 两次错误都要留：只报重试那条会把真实原因（如 profile 锁、页面级崩溃）藏掉
       throw new Error(`Chrome 启动失败（已含 --no-sandbox 重试）\n[首次] ${error.message}\n[重试] ${retryError.message}`);
     }
   }
@@ -78,15 +80,26 @@ async function launchOnce(opts) {
   try {
     await cdp.send('Browser.getVersion', {}, undefined, 10000);
     // 冒烟：browser 进程活着不代表 renderer 起得来。受限环境里建 target 能用，但一导航 renderer 就被沙箱杀掉，
-    // 管道秒关、stderr 只有 crashpad 噪声；这里用 data: URL 真导航一次提前暴露，交给 launchBrowser 统一降级重试。
+    // 管道秒关、stderr 只有 crashpad 噪声。这里必须真导航 + 真求值（固定 sleep 在快慢机上都不靠谱），
+    // 失败就抛给 launchBrowser 统一降级重试。
     const { targetId } = await cdp.send('Target.createTarget', { url: 'about:blank' }, undefined, 15000);
     const { sessionId } = await cdp.send('Target.attachToTarget', { targetId, flatten: true }, undefined, 10000);
     await cdp.send('Page.enable', {}, sessionId, 10000);
     await cdp.send('Page.navigate', { url: 'data:text/html,<html><body>ok</body></html>' }, sessionId, 15000);
-    await delay(120);
-    await cdp.send('Target.closeTarget', { targetId }, undefined, 5000);
+    let alive = false;
+    for (let i = 0; i < 20 && !alive && !cdp.closed; i++) {
+      try { alive = (await evaluate(cdp, sessionId, 'document.body?document.body.textContent.trim():""', { timeoutMs: 2000 })) === 'ok'; } catch { /* renderer 未起 */ }
+      if (!alive) await delay(100);
+    }
+    try { await cdp.send('Target.closeTarget', { targetId }, undefined, 5000); } catch { /* 管道已关时忽略 */ }
+    if (!alive) throw new Error(cdp.closed ? 'Chrome CDP 连接已关闭（renderer 被沙箱杀掉）' : 'renderer 冒烟超时：导航后无响应');
     return inst;
-  } catch (error) { await closeBrowser(inst); throw new Error(`${error.message}\n${inst.stderr}`); }
+  } catch (error) {
+    await closeBrowser(inst);
+    const wrapped = new Error(`${error.message}\n${inst.stderr}`);
+    if (error.code) wrapped.code = error.code;   // 保留 ENOENT/EACCES，供 launchBrowser 判断是否值得重试
+    throw wrapped;
+  }
 }
 export async function closeBrowser(inst) {
   if (!inst) return;
