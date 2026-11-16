@@ -45,6 +45,18 @@ class CdpPipe {
   }
 }
 export async function launchBrowser(opts = createOptions()) {
+  try {
+    return await launchOnce(opts);
+  } catch (error) {
+    // 受限环境（容器 / root / CI / macOS 沙箱）里 Chrome 建不了 renderer 沙箱会直接退出，
+    // 表现是调试管道秒关（SIGTRAP），stderr 全是 crashpad 噪声、看不到 "No usable sandbox"。
+    // 只降级一次；显式要求 noSandbox 时不再重试，避免掩盖真实错误。
+    if (opts.noSandbox) throw error;
+    console.warn('⚠ Chrome 首次启动失败，自动加 --no-sandbox 重试一次（受限环境适配）');
+    return await launchOnce({ ...opts, noSandbox: true });
+  }
+}
+async function launchOnce(opts) {
   if (!opts.chrome) throw new Error('找不到 Chrome/Edge；可设置 CHROME_PATH / CHROME_BIN');
   const userDataDir = fs.mkdtempSync(path.join(os.tmpdir(), 'cover-cdp-'));
   const args = ['--headless=new', '--remote-debugging-pipe', '--no-first-run', '--no-default-browser-check',
@@ -58,8 +70,18 @@ export async function launchBrowser(opts = createOptions()) {
   const inst = { child, cdp, userDataDir, stderr: '' };
   child.stderr.on('data', chunk => { inst.stderr = (inst.stderr + chunk).slice(-6000); });
   child.on('error', error => cdp.close(error));
-  try { await cdp.send('Browser.getVersion', {}, undefined, 10000); return inst; }
-  catch (error) { await closeBrowser(inst); throw new Error(`${error.message}\n${inst.stderr}`); }
+  try {
+    await cdp.send('Browser.getVersion', {}, undefined, 10000);
+    // 冒烟：browser 进程活着不代表 renderer 起得来。受限环境里建 target 能用，但一导航 renderer 就被沙箱杀掉，
+    // 管道秒关、stderr 只有 crashpad 噪声；这里用 data: URL 真导航一次提前暴露，交给 launchBrowser 统一降级重试。
+    const { targetId } = await cdp.send('Target.createTarget', { url: 'about:blank' }, undefined, 15000);
+    const { sessionId } = await cdp.send('Target.attachToTarget', { targetId, flatten: true }, undefined, 10000);
+    await cdp.send('Page.enable', {}, sessionId, 10000);
+    await cdp.send('Page.navigate', { url: 'data:text/html,<html><body>ok</body></html>' }, sessionId, 15000);
+    await delay(120);
+    await cdp.send('Target.closeTarget', { targetId }, undefined, 5000);
+    return inst;
+  } catch (error) { await closeBrowser(inst); throw new Error(`${error.message}\n${inst.stderr}`); }
 }
 export async function closeBrowser(inst) {
   if (!inst) return;

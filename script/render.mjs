@@ -85,9 +85,13 @@ function extractSections(tplText) {
   return map;
 }
 function rootOf(body) {
-  const openEnd = body.indexOf('>', body.indexOf('<div class="artwork-page'));
-  if (openEnd < 0) throw new Error('画布根缺失');
-  const rootTag = body.slice(0, openEnd + 1).match(/<div class="artwork-page[^"]*"[^>]*>/)[0];
+  // 按「class 含 artwork-page」扫 <div> 开标签：不要求 class 是首个属性，也不要求属性值以 artwork-page 开头
+  let rootTag = null; let openEnd = -1;
+  for (const m of body.matchAll(/<div\b[^>]*>/g)) {
+    const cls = m[0].match(/\bclass\s*=\s*["']([^"']*)["']/);
+    if (cls && cls[1].split(/\s+/).includes('artwork-page')) { rootTag = m[0]; openEnd = m.index + m[0].length - 1; break; }
+  }
+  if (!rootTag) throw new Error('画布根缺失：未找到 class 含 artwork-page 的 <div>');
   let depth = 1; const re = /<div\b|<\/div>/g; re.lastIndex = openEnd + 1; let mm; let closeStart = -1;
   while ((mm = re.exec(body))) { depth += mm[0] === '</div>' ? -1 : 1; if (!depth) { closeStart = mm.index; break; } }
   if (depth !== 0) throw new Error('根 div 未配对');
@@ -434,6 +438,11 @@ ${b.html}
 // 注：图槽键的值仍为 plan 申报的 {src, crop} 对象——编辑器当前不读 fields.json（T6 未做），届时按 image 图层消费
 // repeat 条目短名经 unitLayerMaps 映射为单元元素的 data-layer，并加与克隆体一致的 -2/-3 后缀
 {
+  // 图槽 src 统一转成交付区可解析的 `assets/<文件名>`：素材副本按 basename 平铺在 assets/，
+  // plan 里的 `shots/xxx.png` 只存在于运行区，交付目录没有 shots/（T6 注入时会找不到图）
+  const normField = (v) => (v && typeof v === 'object' && typeof v.src === 'string')
+    ? { ...v, src: `assets/${path.basename(v.src)}` }
+    : v;
   const pagesOut = [];
   for (const b of built) {
     const flat = {};
@@ -443,10 +452,10 @@ ${b.html}
         v.forEach((item, i) => {
           for (const [ik, iv] of Object.entries(item)) {
             const layer = map?.get(ik) || ik;           // 单元内短名 → 该元素的 data-layer
-            flat[i === 0 ? layer : `${layer}-${i + 1}`] = iv;
+            flat[i === 0 ? layer : `${layer}-${i + 1}`] = normField(iv);
           }
         });
-      } else flat[k] = v;
+      } else flat[k] = normField(v);
     }
     pagesOut.push({ id: `p${b.nn}`, fields: flat });
   }
@@ -506,10 +515,9 @@ try {
     </div></body></html>`;
     const tmp = path.join(taskDir, '_preview.html');
     fs.writeFileSync(tmp, gridHtml);
-    const cols = Math.min(4, built.length);
-    const rows = Math.ceil(built.length / cols);
     await withPage(inst, 'file:///' + tmp.replace(/\\/g, '/'), { ...opts, selector: '.g', waitSelector: '.g' }, async (ctx) => {
-      const shot = await captureReadyPage(ctx, { ...opts, selector: null });
+      // 截 body 而不是整页：整页按视口高度（1440）出图，页数少时下方会留大片空白
+      const shot = await captureReadyPage(ctx, { ...opts, selector: 'body' });
       fs.writeFileSync(path.join(taskDir, 'preview.png'), shot.buffer);
     });
     fs.rmSync(tmp);
