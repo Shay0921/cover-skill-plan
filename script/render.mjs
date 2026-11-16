@@ -12,9 +12,14 @@
  * 交付白名单（默认）：P<nn>-<名>.html + P<nn>.png + preview.png
  *   --with-editor 追加：fields.json + editor.manifest.json + assets/
  * 硬校验（即停）：{{ 残留 / 图片缺失或格式不符 / 根节点与画布 / data-layer 重复 / 必填槽为空 / plan 字段与槽位对不上 / repeat 区间 / 富文本白名单外标签
+ *   / data-sys 白名单外取值 / plan 出现手填 page-no 字段
  *   文案里的裸 < > 不算标签（"年收入 > 10 万"、"A < B" 照常出图，注入前转义为实体显示）
- * 软校验（WARN）：字数超限（解析说明头"限制"行）/ 图片与槽位比例差异大
+ * 软校验（WARN）：字数超限（解析说明头"限制"行）/ 图片与槽位比例差异大 / crop 百分比超界（clamp 到 5–99）
  * 即兴页（layout: custom/*）：形态校验 + --check-geometry 几何体检
+ * 动态槽位：按 data-sys 注入，与风格/class 无关——
+ *   A 类 brand-logo/brand-name/footer-id 来自 plan.meta.brand（整组统一，meta 缺失保留母版默认）；
+ *   B' 类 page-no 由 render 按页序机械生成 nn / 总页数（总页数取 plan.pages.length，与 --only 无关），封面 nn=01 注入 display:none 保留图层；
+ *   B 类 issue 与 C 类按钮是普通 {{占位符}}，走 per-page fields，无需新逻辑。
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -155,11 +160,82 @@ function richHtml(value) {
   return esc.replace(/\uE000(\d+)\uE001/g, (_, i) => keep[+i]);
 }
 
+// ---------- 动态槽位（A 类 meta + B' 页码）----------
+// data-sys 白名单：只认这些值；出现白名单外取值 = 硬错误即停（防拼错静默不填）。
+// A 类由 meta.brand 注入；page-no 由 render 机械生成；issue 是普通 {{占位符}} 走 fields，不在注入函数内。
+const SYS_WHITELIST = new Set(['brand-logo', 'brand-name', 'footer-id', 'issue', 'page-no']);
+const SYS_META_KEY = { 'brand-logo': 'logo', 'brand-name': 'name', 'footer-id': 'footer' };
+
+// 扫 body 里所有 data-sys 节点做白名单校验；返回计数（供 fields 展开与体检）。
+// 白名单外的值 → 硬错误（防拼错静默不填）；同一 data-sys 出现多次 → WARN 幂等替换。
+function checkSysTags(body, layout, errors, warns) {
+  const tags = [...body.matchAll(/\bdata-sys=(["'])([^"']*)\1/g)].map((m) => m[2]);
+  const tally = {};
+  for (const v of tags) {
+    if (!SYS_WHITELIST.has(v)) errors.push(`${layout}: data-sys 白名单外取值 "${v}"（只允许 ${[...SYS_WHITELIST].join('/')}）`);
+    tally[v] = (tally[v] || 0) + 1;
+  }
+  for (const [v, n] of Object.entries(tally)) {
+    if (n > 1) warns.push(`${layout}: data-sys="${v}" 出现 ${n} 次（>1，将全部替换）`);
+  }
+  return tally;
+}
+
+// 步骤 0 · A 类全局注入：用 plan.meta.brand.* 覆盖 data-sys=brand-logo/name/footer-id 节点的整段文本。
+// 只替换标签内的文本内容，保留节点所有属性（data-sys/data-layer/data-editable/class 等）。
+// meta 缺失的键跳过（保留母版默认文本，向后兼容旧 plan）。富文本按 checkRich 白名单校验后注入。
+function injectMeta(body, meta, layout, errors) {
+  const brand = meta && typeof meta.brand === 'object' ? meta.brand : null;
+  if (!brand) return body;
+  let out = body;
+  for (const sys of Object.keys(SYS_META_KEY)) {
+    const val = brand[SYS_META_KEY[sys]];
+    if (val === undefined || val === null || val === '') continue;   // 缺失保留默认
+    const sv = String(val);
+    checkRich(sv, `${layout}:meta.brand.${SYS_META_KEY[sys]}`, errors);
+    const replacement = richHtml(sv);
+    // 节点可能跨行；匹配 <tag ...data-sys="sys"...> 到其闭合标签，只换中间文本。
+    // 用函数式 replace，逐节点处理（同一 sys 多次出现幂等全覆盖）。
+    out = out.replace(/(<([a-z0-9]+)\b[^>]*\bdata-sys=(["'])([^"']*)\3[^>]*>)([\s\S]*?)(<\/\2>)/gi, (full, open, tag, _q, sysVal, inner, close) => {
+      if (sysVal !== sys) return full;
+      return open + replacement + close;
+    });
+  }
+  return out;
+}
+
+// 步骤 6 · 页码注入/隐藏（B' 类）：扫 data-sys="page-no" 节点。
+// 非封面：把 {{page-no}} 换为 `nn / 总页数`（总页数取 plan.pages.length，与 --only 无关）。
+// 封面（nn==="01"）：文本置空 + 注入 style="display:none"，不删节点（编辑器 markers 模式仍能扫到图层）。
+// 返回 { body, pageNoValue, hidden }，pageNoValue 供 fields.json 转写用。
+function injectPageNo(body, nn, total, layout, errors) {
+  const hidden = nn === '01';
+  const value = hidden ? '' : `${nn} / ${String(total).padStart(2, '0')}`;
+  let found = false;
+  const out = body.replace(/(<([a-z0-9]+)\b[^>]*\bdata-sys=["']page-no["'][^>]*>)([\s\S]*?)(<\/\2>)/gi, (full, open, tag, inner, close) => {
+    found = true;
+    if (!/\{\{page-no\}\}/.test(inner)) {
+      errors.push(`${layout}: data-sys="page-no" 节点内未找到 {{page-no}} 占位符（节点内容="${inner.trim()}"）`);
+    }
+    let newInner = inner.replace(/\{\{page-no\}\}/g, hidden ? '' : value);
+    let newOpen = open;
+    if (hidden) {
+      if (/\bstyle="([^"]*)"/.test(newOpen)) {
+        newOpen = newOpen.replace(/\bstyle="([^"]*)"/, (_, s) => `style="${s}${/display\s*:/.test(s) ? '' : ';display:none'}"`);
+      } else {
+        newOpen = newOpen.replace(/>$/, ' style="display:none">');
+      }
+    }
+    return newOpen + newInner + close;
+  });
+  return { body: out, pageNoValue: value, hidden, found };
+}
+
 // ---------- 图片处理 ----------
 // 只产出「dataURL + crop 样式」，不拼全新 <img> 标签。
 // 母版 img 上的 data-slot/data-layer/data-label/data-ratio 是编辑器图层的身份证，
 // 必须由 fillSection 在替换 src 时原样保留。
-function imgValue(v, where, errors, usedFiles) {
+function imgValue(v, where, errors, usedFiles, warns) {
   const spec = typeof v === 'string' ? { src: v } : v;
   if (!spec || typeof spec.src !== 'string' || !spec.src) { errors.push(`${where}: 图片值为空`); return null; }
   const file = path.resolve(taskDir, spec.src);
@@ -172,6 +248,7 @@ function imgValue(v, where, errors, usedFiles) {
   if (spec.crop) {
     const crop = parseCrop(spec.crop);
     if (!crop) { errors.push(`${where}: crop 描述无法解析 "${spec.crop}"（例："下 55%" / "left 30%"）`); return null; }
+    if (crop.raw < 5 || crop.raw > 99) warns.push(`${where}: crop "${spec.crop}" 百分比超出有效范围 5–99，已按 ${Math.round(crop.fraction * 100)}% 处理`);
     cropStyle = crop.axis === 'y'
       ? `height:${(100 / crop.fraction).toFixed(1)}%;width:100%;${crop.align === 'end' ? 'bottom:0;' : crop.align === 'start' ? 'top:0;' : 'top:50%;transform:translateY(-50%);'}`
       : `width:${(100 / crop.fraction).toFixed(1)}%;height:100%;${crop.align === 'end' ? 'right:0;' : crop.align === 'start' ? 'left:0;' : 'left:50%;transform:translateX(-50%);'}`;
@@ -184,19 +261,19 @@ function parseCrop(desc) {
     const axis = ['左', '右'].includes(m[1]) ? 'x' : 'y';
     const align = { 上: 'start', 下: 'end', 左: 'start', 右: 'end', 中: 'center' }[m[1]] || 'end';
     const fraction = Math.min(99, Math.max(5, +m[2])) / 100;
-    return { axis, align, fraction };
+    return { axis, align, fraction, raw: +m[2] };
   }
   const m2 = String(desc).match(/^(left|right|top|bottom|center)\s+(\d{1,3})\s*%$/);
   if (m2) {
     const axis = ['top', 'bottom'].includes(m2[1]) ? 'y' : 'x';
     const align = { top: 'start', bottom: 'end', left: 'start', right: 'end', center: 'center' }[m2[1]];
-    return { axis, align, fraction: Math.min(99, Math.max(5, +m2[2])) / 100 };
+    return { axis, align, fraction: Math.min(99, Math.max(5, +m2[2])) / 100, raw: +m2[2] };
   }
   return null;
 }
 
 // ---------- 填充一个 section ----------
-function fillSection(layout, body, fields, errors, warns, usedFiles) {
+function fillSection(layout, body, fields, errors, warns, usedFiles, meta, nn, total) {
   const placeholders = [...body.matchAll(/\{\{([^}]+)\}\}/g)].map((m) => m[1].trim());
   const names = [...new Set(placeholders)];
   const repeatNames = [...body.matchAll(/data-repeat="([^"]+)"/g)].map((m) => m[1]);
@@ -209,6 +286,10 @@ function fillSection(layout, body, fields, errors, warns, usedFiles) {
     imgIds.push(lm[1]);
   }
   const consumed = new Set();
+
+  // 0) 动态槽位：白名单校验 + A 类全局注入（最先，先于 repeat/图槽/文字槽）
+  const sysTally = checkSysTags(body, layout, errors, warns);
+  body = injectMeta(body, meta, layout, errors);
 
   // 1) repeat 单元（从后往前替换，防位移）
   const units = [];
@@ -272,7 +353,7 @@ function fillSection(layout, body, fields, errors, warns, usedFiles) {
     consumed.add(id);
     const v = fields[id];
     if (v === undefined) { errors.push(`${layout}: 图槽 "${id}" 未在 plan 中填报（必填）`); continue; }
-    const imgSpec = imgValue(v, `${layout}:${id}`, errors, usedFiles);
+    const imgSpec = imgValue(v, `${layout}:${id}`, errors, usedFiles, warns);
     if (!imgSpec) continue;
 
     // 标签定位不依赖属性顺序（class 是否首个属性、data-* 相对位置都不限定）
@@ -325,8 +406,10 @@ function fillSection(layout, body, fields, errors, warns, usedFiles) {
   }
 
   // 4) 文字槽（以 repeat 替换后 body 中残留的 {{}} 为准 = 顶层槽）
+  //    page-no 是 B' 类机械槽，不读 fields，留给步骤 6 单独注入；此处跳过避免误报"为空"。
   const remaining = [...new Set([...body.matchAll(/\{\{([^}]+)\}\}/g)].map((m) => m[1].trim()))];
   for (const name of remaining) {
+    if (name === 'page-no') continue;
     consumed.add(name);
     const v = fields[name];
     if (v === undefined || v === null || v === '') { errors.push(`${layout}: 槽 "${name}" 为空（必填）`); continue; }
@@ -336,19 +419,29 @@ function fillSection(layout, body, fields, errors, warns, usedFiles) {
     body = body.split(`{{${name}}}`).join(richHtml(sv));
   }
 
-  // 5) plan 多余字段
+  // 5) plan 多余字段。page-no 是 B' 类机械槽：plan 手填属违规（页码只由 render 生成），给专门提示并计入 consumed 防止重复报错。
+  if (Object.prototype.hasOwnProperty.call(fields, 'page-no')) {
+    errors.push(`${layout}: plan 禁止手填 page-no 字段（页码由 render 按页序机械生成，见动态槽位规范）`);
+    consumed.add('page-no');
+  }
   for (const k of Object.keys(fields)) {
     if (!consumed.has(k)) errors.push(`${layout}: plan 字段 "${k}" 与母版槽位对不上`);
   }
 
-  // 6) {{ 残留 + layer 唯一
+  // 6) 页码注入/隐藏（B' 类，残留校验之前）：总页数取 plan.pages.length，与 --only 无关
+  const pg = injectPageNo(body, nn, total, layout, errors);
+  body = pg.body;
+  if (sysTally['page-no'] && !pg.found) errors.push(`${layout}: 母版有 data-sys="page-no" 但注入定位失败`);
+
+  // 7) {{ 残留 + layer 唯一
   const residual = body.match(/\{\{[^}]*\}\}/g);
   if (residual) errors.push(`${layout}: {{ 占位符残留: ${residual.slice(0, 4).join(' ')}${residual.length > 4 ? ' …' : ''}}`);
   const layers = [...body.matchAll(/data-layer="([^"]+)"/g)].map((m) => m[1]);
   const dup = layers.filter((v, i) => layers.indexOf(v) !== i);
   if (dup.length) errors.push(`${layout}: data-layer 重复 ${[...new Set(dup)].join(',')}`);
 
-  return { body, unitLayerMaps };
+  // 归档系统槽信息供 fields.json 转写：A 类值取 meta，page-no 取机械值
+  return { body, unitLayerMaps, sysTally, pageNoValue: pg.pageNoValue, pageNoHidden: pg.hidden };
 }
 let _frame = null;
 function getFrameDataUrl() {
@@ -486,6 +579,8 @@ const built = [];
 for (const page of targets) {
   const nn = String(page.nn || '').padStart(2, '0');
   if (!nn || nn === '00') fail('每页需 nn 序号');
+  // page.name 会拼进 P 页文件名与 manifest，含非法字符会在落盘/拷贝时炸出难查的错误——入口即拦
+  if (page.name && /[\\/:*?"<>|]/.test(String(page.name))) fail(`P${nn}: page.name 含文件名非法字符（/ \\ : * ? " < > |）："${page.name}"`);
   if (page.layout === 'custom/...' || String(page.layout).startsWith('custom/')) {
     if (!page.markup) fail(`P${nn}: custom 页需 markup`);
     const rootM = page.markup.match(/<div class="artwork-page[^"]*"[^>]*>/);
@@ -501,7 +596,8 @@ for (const page of targets) {
   if (!sections.has(layout)) fail(`P${nn}: layout "${layout}" 在 templates.html 中不存在`);
   const fields = page.fields || {};
   const errors = []; const warns = [];
-  const { body, unitLayerMaps } = fillSection(layout, sections.get(layout), fields, errors, warns, usedFiles);
+  const { body, unitLayerMaps, sysTally, pageNoValue, pageNoHidden } =
+    fillSection(layout, sections.get(layout), fields, errors, warns, usedFiles, plan.meta, nn, pages.length);
   if (errors.length) {
     console.error(`\n❌ P${nn} · ${layout} 校验失败（即停）：`);
     errors.forEach((e) => console.error('   - ' + e));
@@ -522,12 +618,15 @@ for (const page of targets) {
   const { rootTag, inner } = rootOf(body);
   const rootClose = '</div>';
   const masterHtml = `  ${rootTag}\n${inner}\n  ${rootClose}`;
-  built.push({ nn, name: page.name || layout, html: masterHtml, custom: false, layout, fields, unitLayerMaps });
+  built.push({ nn, name: page.name || layout, html: masterHtml, custom: false, layout, fields, unitLayerMaps, sysTally, pageNoValue, pageNoHidden });
 }
 
 // ---------- 写产物 ----------
-fs.mkdirSync(path.join(taskDir, 'assets'), { recursive: true });
-for (const f of new Set(usedFiles)) fs.copyFileSync(f, path.join(taskDir, 'assets', path.basename(f)));
+// 只读体检不建 assets、不拷素材副本（与「只读」口径一致：诊断不消费图片文件）
+if (!DIAG_ONLY) {
+  fs.mkdirSync(path.join(taskDir, 'assets'), { recursive: true });
+  for (const f of new Set(usedFiles)) fs.copyFileSync(f, path.join(taskDir, 'assets', path.basename(f)));
+}
 
 // 交付页 CSS：防御性剥离 @import 行（默认字体策略为本机字体栈，源 CSS 已不含外链；编辑器打包器拒绝外链）
 const cssInline = cssText.split('\n').filter((l) => !/^\s*@import\b/.test(l)).join('\n');
@@ -575,6 +674,17 @@ if (!DIAG_ONLY) {
           }
         });
       } else flat[k] = normField(v);
+    }
+    // 系统槽：A 类从 meta 展开、B' 页码取机械值，仅当该页母版确有对应 data-sys 槽时写入，
+    // 保证 fields.json 与页面可见内容一致、编辑器打开即见当前值（meta 缺失则该槽保留母版默认，不写）。
+    if (!b.custom && b.sysTally) {
+      const brand = plan.meta && plan.meta.brand ? plan.meta.brand : {};
+      for (const [sys, key] of Object.entries(SYS_META_KEY)) {
+        if (b.sysTally[sys] && brand[key] !== undefined && brand[key] !== null && brand[key] !== '') {
+          flat[`sys-${sys}`] = String(brand[key]);
+        }
+      }
+      if (b.sysTally['page-no']) flat['sys-page-no'] = b.pageNoValue;   // 封面为 ''，与 display:none 一致
     }
     pagesOut.push({ id: `p${b.nn}`, fields: flat });
   }

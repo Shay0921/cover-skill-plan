@@ -64,11 +64,11 @@ a{color:inherit;text-decoration:none;}
     <span class="brand">tech-blue</span>
       <a href="#g-cover">封面<span>4</span></a>
       <a href="#g-overview">概览<span>1</span></a>
-      <a href="#g-steps">步骤<span>4</span></a>
+      <a href="#g-steps">步骤<span>5</span></a>
       <a href="#g-lists">清单<span>5</span></a>
       <a href="#g-showcase">展示<span>5</span></a>
       <a href="#g-compare">对比<span>2</span></a>
-      <a href="#g-demo">演示<span>3</span></a>
+      <a href="#g-demo">演示<span>4</span></a>
       <a href="#g-data">数据<span>1</span></a>
       <a href="#g-convert">转化<span>2</span></a>
       <a href="#g-ending">结尾<span>5</span></a>
@@ -137,8 +137,8 @@ a{color:inherit;text-decoration:none;}
            用途：单句主张型封面——一句狠话 + 数据点撑场
            适合：观点/实测类开篇；不适合：多图内容、长标题
            可以变：数据 0-4 项；标签 0-4 个；高亮词可移位
-           槽位：kicker / title / sub / stats[]（n,u）/ sub-note / tags[]（t）
-           限制：title≤12字(2行)；sub≤24字(1行)；stat n≤6字符 u≤4字；sub-note≤24字(1行)；tag≤8字
+           槽位：kicker / title / sub / stats[]（n,u）/ sub-note / tags[]（t） / issue / page-no
+           限制：title≤12字(2行)；sub≤24字(1行)；stat n≤6字符 u≤4字；sub-note≤24字(1行)；tag≤8字；issue≤14字
            hl：title 内 1 处
            图槽：无
            来源：ai-covers N01
@@ -149,10 +149,11 @@ a{color:inherit;text-decoration:none;}
   <div class="paper-noise"></div>
 
   <div class="brand-top">
-    <div class="left dot-only">
-      <span class="brand-name">AI Efficiency Lab</span>
+    <div class="left">
+      <div class="logo"><div class="ph" data-sys="brand-logo" data-layer="sys-brand-logo" data-label="logo字" data-editable="text">AI</div></div>
+      <span class="brand-name" data-sys="brand-name" data-layer="sys-brand-name" data-label="品牌名" data-editable="text">AI Efficiency Lab</span>
     </div>
-    <div class="right">ISSUE · 001</div>
+    <div class="right" data-sys="issue" data-layer="sys-issue" data-label="期号" data-editable="text">{{issue}}</div>
   </div>
 
   <div class="content">
@@ -177,8 +178,8 @@ a{color:inherit;text-decoration:none;}
   </div>
 
   <div class="pg-footer">
-    <span>aiefficiencylab.cn</span>
-    <span>N01 · 金句震撼封面</span>
+    <span data-sys="footer-id" data-layer="sys-footer-id" data-label="页脚署名" data-editable="text">aiefficiencylab.cn</span>
+    <span class="page-no" data-sys="page-no" data-layer="sys-page-no" data-label="页码" data-editable="text">{{page-no}}</span>
   </div>
 
     </div>
@@ -189,10 +190,11 @@ a{color:inherit;text-decoration:none;}
       <!-- ============ N02 · 对话框封面 ============
            用途：教程/Prompt 类封面——标题 + 浏览器窗口截图
            适合：有横版截图的开篇；不适合：无图可用、竖图（裁切严重）
-           可以变：按钮为装饰固定；note 可省略
-           槽位：kicker / title / sub / note / 图×1（窗口 884:497 cover）
-           限制：title≤14字(2行)；sub≤26字(1行)；note≤14字；hl：title 内 1 处
-           图槽：884:497 横图 cover；窗口地址栏为装饰
+           可以变：按钮文案可变（btn-1/btn-2）；note 可省略
+           槽位：kicker / title / sub / note / 图×1（窗口 16:9 cover） / issue / page-no / btn-1 / btn-2
+           限制：title≤14字(2行)；sub≤26字(1行)；note≤14字；issue≤14字；btn-1≤8字；btn-2≤10字
+           hl：title 内 1 处
+           图槽：16:9 横图 cover；窗口地址栏为装饰
            来源：ai-covers N02
       -->
       <section data-layout="N02-dialog-cover">
@@ -201,10 +203,11 @@ a{color:inherit;text-decoration:none;}
   <div class="paper-noise"></div>
 
   <div class="brand-top">
-    <div class="left dot-only">
-      <span class="brand-name">AI Efficiency Lab</span>
+    <div class="left">
+      <div class="logo"><div class="ph" data-sys="brand-logo" data-layer="sys-brand-logo" data-label="logo字" data-editable="text">AI</div></div>
+      <span class="brand-name" data-sys="brand-name" data-layer="sys-brand-name" data-label="品牌名" data-editable="text">AI Efficiency Lab</span>
     </div>
-    <div class="right">THE SHIFT · 07</div>
+    <div class="right" data-sys="issue" data-layer="sys-issue" data-label="期号" data-editable="text">{{issue}}</div>
   </div>
 
   <div class="n02-dialog-wrap">
@@ -221,22 +224,22 @@ a{color:inherit;text-decoration:none;}
         <div class="n02-window__dots"><span></span><span></span><span></span></div>
         <div class="n02-window__addr">aiefficiencylab.cn / prompts</div>
       </div>
-      <div class="n02-window__img ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n02-img-1" data-label="窗口截图" data-ratio="884:497" alt=""><span class="ph-img__label">IMG · 1280 × 720</span></div>
+      <div class="n02-window__img ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n02-img-1" data-label="窗口截图" data-ratio="16:9" alt=""><span class="ph-img__label">IMG · 1280 × 720</span></div>
     </div>
 
     <!-- 按钮（窗口下方） -->
     <div class="n02-action-bar">
       <span class="note" data-layer="note" data-label="小注" data-editable="text">{{note}}</span>
       <div class="n02-btns">
-        <span class="n02-btn">看示例</span>
-        <span class="n02-btn n02-btn--p">拿走 Prompt →</span>
+        <span class="n02-btn" data-layer="n02-btn-1" data-label="按钮1" data-editable="text">{{btn-1}}</span>
+        <span class="n02-btn n02-btn--p" data-layer="n02-btn-2" data-label="按钮2" data-editable="text">{{btn-2}}</span>
       </div>
     </div>
   </div>
 
   <div class="pg-footer">
-    <span>aiefficiencylab.cn</span>
-    <span>N02 · 对话框封面</span>
+    <span data-sys="footer-id" data-layer="sys-footer-id" data-label="页脚署名" data-editable="text">aiefficiencylab.cn</span>
+    <span class="page-no" data-sys="page-no" data-layer="sys-page-no" data-label="页码" data-editable="text">{{page-no}}</span>
   </div>
 
     </div>
@@ -248,8 +251,8 @@ a{color:inherit;text-decoration:none;}
            用途：通知/消息流封面——AI 通知卡片堆叠
            适合：自动化/Agent/日报类主题开篇；不适合：需要大图时
            可以变：通知 2-4 条；首条强调款（n03-is-accent）需 L2 手工加
-           槽位：kicker / title / sub / notes[]（app,time,note-title,note-msg）
-           限制：title≤15字(3行,每行≤6字)；sub≤26字(1行)；note-title≤12字；note-msg≤20字(1行)；app≤14字符；time≤6字
+           槽位：kicker / title / sub / notes[]（app,time,note-title,note-msg） / issue / page-no
+           限制：title≤15字(3行,每行≤6字)；sub≤26字(1行)；note-title≤12字；note-msg≤20字(1行)；app≤14字符；time≤6字；issue≤14字
            hl：title 内 1 处
            图槽：无
            来源：ai-covers N03
@@ -261,10 +264,10 @@ a{color:inherit;text-decoration:none;}
 
   <div class="brand-top">
     <div class="left">
-      <div class="logo"><div class="ph">AI</div></div>
-      <span class="brand-name">AI Efficiency Lab</span>
+      <div class="logo"><div class="ph" data-sys="brand-logo" data-layer="sys-brand-logo" data-label="logo字" data-editable="text">AI</div></div>
+      <span class="brand-name" data-sys="brand-name" data-layer="sys-brand-name" data-label="品牌名" data-editable="text">AI Efficiency Lab</span>
     </div>
-    <div class="right">ISSUE · 08</div>
+    <div class="right" data-sys="issue" data-layer="sys-issue" data-label="期号" data-editable="text">{{issue}}</div>
   </div>
 
   <div class="after-hero"></div>
@@ -292,8 +295,8 @@ a{color:inherit;text-decoration:none;}
   </div>
 
   <div class="pg-footer">
-    <span>aiefficiencylab.cn</span>
-    <span>N03 · 通知堆叠封面</span>
+    <span data-sys="footer-id" data-layer="sys-footer-id" data-label="页脚署名" data-editable="text">aiefficiencylab.cn</span>
+    <span class="page-no" data-sys="page-no" data-layer="sys-page-no" data-label="页码" data-editable="text">{{page-no}}</span>
   </div>
 
     </div>
@@ -305,10 +308,10 @@ a{color:inherit;text-decoration:none;}
            用途：手机 App 类封面——双手机叠放展示两张竖屏截图
            适合：竖屏手机截图素材；不适合：横图（裁切严重）
            可以变：可减为一台手机（L2 删除一台）；框图由 render 自动内嵌
-           槽位：kicker / title / sub / 图×2（手机屏 36:61、13:23 cover）/ caption-t / caption-d
-           限制：title≤14字(2行,每行≤7字)；sub≤22字(1行)；caption-t≤12字；caption-d≤14字
+           槽位：kicker / title / sub / 图×2（手机内屏 46:99 cover）/ caption-t / caption-d / issue / page-no
+           限制：title≤14字(2行,每行≤7字)；sub≤22字(1行)；caption-t≤12字；caption-d≤14字；issue≤14字
            hl：title 内 0-1 处
-           图槽：竖屏截图 cover；手机框 = frame-img 装饰槽（render 单源内嵌 styles/assets/iphone-frame.png）
+           图槽：竖屏截图 cover；内屏开口 = 壳图实测 7.58%/3.82%/84.73%/92.30%，壳压图（frame z-index 高于 screen）；手机框 = frame-img 装饰槽（render 单源内嵌 styles/assets/iphone-frame.png）
            来源：ai-covers N04
       -->
       <section data-layout="N04-phone-stack-cover">
@@ -318,10 +321,10 @@ a{color:inherit;text-decoration:none;}
 
   <div class="brand-top">
     <div class="left">
-      <div class="logo"><div class="ph">AI</div></div>
-      <span class="brand-name">AI Efficiency Lab</span>
+      <div class="logo"><div class="ph" data-sys="brand-logo" data-layer="sys-brand-logo" data-label="logo字" data-editable="text">AI</div></div>
+      <span class="brand-name" data-sys="brand-name" data-layer="sys-brand-name" data-label="品牌名" data-editable="text">AI Efficiency Lab</span>
     </div>
-    <div class="right">AI APP · 03</div>
+    <div class="right" data-sys="issue" data-layer="sys-issue" data-label="期号" data-editable="text">{{issue}}</div>
   </div>
 
   <div class="after-hero"></div>
@@ -341,14 +344,14 @@ a{color:inherit;text-decoration:none;}
       <div class="n04-phone n04-phone--back">
         <img class="n04-phone__frame frame-img" src="../assets/iphone-frame.png" alt="" draggable="false">
         <div class="n04-phone__screen">
-          <div class="ph ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n04-img-1" data-label="后屏截图" data-ratio="36:61" alt=""><span class="ph-img__label">IMG · Cursor 首页</span></div>
+          <div class="ph ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n04-img-1" data-label="后屏截图" data-ratio="46:99" alt=""><span class="ph-img__label">IMG · Cursor 首页</span></div>
         </div>
       </div>
 
       <div class="n04-phone n04-phone--front">
         <img class="n04-phone__frame frame-img" src="../assets/iphone-frame.png" alt="" draggable="false">
         <div class="n04-phone__screen">
-          <div class="ph ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n04-img-2" data-label="前屏截图" data-ratio="13:23" alt=""><span class="ph-img__label">IMG · Notion AI 对话</span></div>
+          <div class="ph ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n04-img-2" data-label="前屏截图" data-ratio="46:99" alt=""><span class="ph-img__label">IMG · Notion AI 对话</span></div>
         </div>
       </div>
     </div>
@@ -357,8 +360,8 @@ a{color:inherit;text-decoration:none;}
   </div>
 
   <div class="pg-footer">
-    <span>aiefficiencylab.cn</span>
-    <span>N04 · 手机叠放封面</span>
+    <span data-sys="footer-id" data-layer="sys-footer-id" data-label="页脚署名" data-editable="text">aiefficiencylab.cn</span>
+    <span class="page-no" data-sys="page-no" data-layer="sys-page-no" data-label="页码" data-editable="text">{{page-no}}</span>
   </div>
 
     </div>
@@ -373,8 +376,8 @@ a{color:inherit;text-decoration:none;}
            用途：成长/历程类概览——时间线条目纵向排布
            适合：Day N 叙事、阶段复盘；不适合：无时间含义的并列内容
            可以变：条目 3-5 条；末条强调款（is-hot + c-accent）需 L2 手工加；speed 标签可留空
-           槽位：big-num / tag / title / sub / timeline[]（when,head,note,speed）
-           限制：big-num≤3字符；title≤14字(2行,每行≤7字)；sub≤20字(1行)；head≤14字(1行)；note≤22字(1行)；when≤7字符；speed≤8字符
+           槽位：big-num / tag / title / sub / timeline[]（when,head,note,speed） / issue / page-no
+           限制：big-num≤3字符；title≤14字(2行,每行≤7字)；sub≤20字(1行)；head≤14字(1行)；note≤22字(1行)；when≤7字符；speed≤8字符；issue≤14字
            hl：无（speed 标签自带强调）
            图槽：无
            来源：ai-covers N05
@@ -386,10 +389,10 @@ a{color:inherit;text-decoration:none;}
 
   <div class="brand-top">
     <div class="left">
-      <div class="logo"><div class="ph">AI</div></div>
-      <span class="brand-name">AI Efficiency Lab</span>
+      <div class="logo"><div class="ph" data-sys="brand-logo" data-layer="sys-brand-logo" data-label="logo字" data-editable="text">AI</div></div>
+      <span class="brand-name" data-sys="brand-name" data-layer="sys-brand-name" data-label="品牌名" data-editable="text">AI Efficiency Lab</span>
     </div>
-    <div class="right">ISSUE · 06</div>
+    <div class="right" data-sys="issue" data-layer="sys-issue" data-label="期号" data-editable="text">{{issue}}</div>
   </div>
 
   <div class="mega-hero">
@@ -421,8 +424,8 @@ a{color:inherit;text-decoration:none;}
   </div>
 
   <div class="pg-footer">
-    <span>aiefficiencylab.cn</span>
-    <span>N05 · 时间线概览</span>
+    <span data-sys="footer-id" data-layer="sys-footer-id" data-label="页脚署名" data-editable="text">aiefficiencylab.cn</span>
+    <span class="page-no" data-sys="page-no" data-layer="sys-page-no" data-label="页码" data-editable="text">{{page-no}}</span>
   </div>
 
     </div>
@@ -431,14 +434,14 @@ a{color:inherit;text-decoration:none;}
   </div>
 
   <div class="gal-group" id="g-steps">
-    <div class="gal-group-head"><span class="num">G03</span><h2>步骤</h2><span class="count">4 MASTERS</span></div>
+    <div class="gal-group-head"><span class="num">G03</span><h2>步骤</h2><span class="count">5 MASTERS</span></div>
     <div class="gal-item" id="n06">
       <!-- ============ N06 · 单步骤深度详情 ============
            用途：步骤详解页——步骤头 + 图文三段混排 + 代码块 + 总结 + tip
            适合：有 2-3 张过程截图的单步教学；不适合：无截图纯文字
            可以变：三段 para 各带 strong 强调；cap 可留空
-           槽位：step-num / step-cat / title / para-1..3 / 图×3（187:57、230:97 cover）+ cap-1..3 / code-name / code / sum-body / tip-body
-           限制：title≤16字(2行)；para≤44字(2行)；cap≤16字(1行)；code≤2行每行≤30字符；sum-body≤44字(2行)；tip-body≤40字(2行)
+           槽位：step-num / step-cat / title / para-1..3 / 图×3（187:57、230:97 cover）+ cap-1..3 / code-name / code / sum-body / tip-body / issue / page-no
+           限制：title≤16字(2行)；para≤44字(2行)；cap≤16字(1行)；code≤2行每行≤30字符；sum-body≤44字(2行)；tip-body≤40字(2行)；issue≤14字
            hl：para/sum/tip 内 strong 强调
            图槽：横长条 cover；标注号 1/2/3 为装饰
            来源：ai-covers N06
@@ -450,10 +453,10 @@ a{color:inherit;text-decoration:none;}
 
   <div class="brand-top">
     <div class="left">
-      <div class="logo"><div class="ph">AI</div></div>
-      <span class="brand-name">AI Efficiency Lab</span>
+      <div class="logo"><div class="ph" data-sys="brand-logo" data-layer="sys-brand-logo" data-label="logo字" data-editable="text">AI</div></div>
+      <span class="brand-name" data-sys="brand-name" data-layer="sys-brand-name" data-label="品牌名" data-editable="text">AI Efficiency Lab</span>
     </div>
-    <div class="right">STEP · 03 / 05</div>
+    <div class="right" data-sys="issue" data-layer="sys-issue" data-label="期号" data-editable="text">{{issue}}</div>
   </div>
 
   <div class="after-hero"></div>
@@ -524,8 +527,8 @@ a{color:inherit;text-decoration:none;}
   </div>
 
   <div class="pg-footer">
-    <span>aiefficiencylab.cn</span>
-    <span>N06 · 单步骤深度详情</span>
+    <span data-sys="footer-id" data-layer="sys-footer-id" data-label="页脚署名" data-editable="text">aiefficiencylab.cn</span>
+    <span class="page-no" data-sys="page-no" data-layer="sys-page-no" data-label="页码" data-editable="text">{{page-no}}</span>
   </div>
 
     </div>
@@ -537,10 +540,10 @@ a{color:inherit;text-decoration:none;}
            用途：单步教学页——步骤头 + 大截图 + 三要点 + Pro Tip
            适合：一张主截图讲一个动作；不适合：多步骤并列
            可以变：要点 2-4 条；要点强调款（is-hot）需 L2 手工加
-           槽位：step-num / step-cat / title / shot-name / 图×1（17:9 cover）/ points[]（n,point-text）/ tip-1 / tip-2
-           限制：title≤18字(2行)；shot-name≤26字符；point-text≤24字(2行)；tip-1≤40字(2行)；tip-2≤20字(1行)
+           槽位：step-num / step-cat / title / shot-name / 图×1（16:9 cover）/ points[]（n,point-text）/ tip-1 / tip-2 / issue / page-no
+           限制：title≤18字(2行)；shot-name≤26字符；point-text≤24字(2行)；tip-1≤40字(2行)；tip-2≤20字(1行)；issue≤14字
            hl：point-text/tip-1 内 strong 或 span.hl 强调
-           图槽：横版 17:9 cover；窗口 path 栏为 chrome
+           图槽：横版 16:9 cover；窗口 path 栏为 chrome
            来源：ai-covers N07
       -->
       <section data-layout="N07-step-single">
@@ -550,10 +553,10 @@ a{color:inherit;text-decoration:none;}
 
   <div class="brand-top">
     <div class="left">
-      <div class="logo"><div class="ph">AI</div></div>
-      <span class="brand-name">AI Efficiency Lab</span>
+      <div class="logo"><div class="ph" data-sys="brand-logo" data-layer="sys-brand-logo" data-label="logo字" data-editable="text">AI</div></div>
+      <span class="brand-name" data-sys="brand-name" data-layer="sys-brand-name" data-label="品牌名" data-editable="text">AI Efficiency Lab</span>
     </div>
-    <div class="right">STEP · 02 / 05</div>
+    <div class="right" data-sys="issue" data-layer="sys-issue" data-label="期号" data-editable="text">{{issue}}</div>
   </div>
 
   <div class="after-hero"></div>
@@ -574,7 +577,7 @@ a{color:inherit;text-decoration:none;}
         <div class="dots"><span></span><span></span><span></span></div>
         <div class="n07-shot-main__chrome__path" data-layer="shot-name" data-label="窗口路径" data-editable="text">{{shot-name}}</div>
       </div>
-      <div class="n07-shot-main__img ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n07-img-1" data-label="主截图" data-ratio="17:9" alt=""><span class="ph-img__label">IMG · 1280 × 720</span></div>
+      <div class="n07-shot-main__img ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n07-img-1" data-label="主截图" data-ratio="16:9" alt=""><span class="ph-img__label">IMG · 1280 × 720</span></div>
     </div>
 
     <!-- 要点 + tips -->
@@ -601,8 +604,8 @@ a{color:inherit;text-decoration:none;}
   </div>
 
   <div class="pg-footer">
-    <span>aiefficiencylab.cn</span>
-    <span>N07 · 单步骤概览</span>
+    <span data-sys="footer-id" data-layer="sys-footer-id" data-label="页脚署名" data-editable="text">aiefficiencylab.cn</span>
+    <span class="page-no" data-sys="page-no" data-layer="sys-page-no" data-label="页码" data-editable="text">{{page-no}}</span>
   </div>
 
     </div>
@@ -614,10 +617,10 @@ a{color:inherit;text-decoration:none;}
            用途：双步骤并列页——上下两个步骤卡，第 1 组带截图
            适合：教程前两步打包讲；不适合：超过 2 步（拆 N06/N07）
            可以变：每组要点 2-3 条；进度脚注可改
-           槽位：s1-num/s1-cat/s1-title / 图×1（89:50 cover）/ points-1[]（n,point）/ s2-num/s2-cat/s2-title / points-2[]（n,point）/ progress
-           限制：s1/s2 title≤14字(1行)；cat≤18字符；point≤20字(1行)；progress≤10字符
+           槽位：s1-num/s1-cat/s1-title / 图×1（16:9 cover）/ points-1[]（n,point）/ s2-num/s2-cat/s2-title / points-2[]（n,point）/ progress / issue / page-no
+           限制：s1/s2 title≤14字(1行)；cat≤18字符；point≤20字(1行)；progress≤10字符；issue≤14字
            hl：point 内 strong 强调
-           图槽：横版 89:50 cover（仅第 1 组）；分隔条与"继续→"为装饰
+           图槽：横版 16:9 cover（仅第 1 组）；分隔条与"继续→"为装饰
            来源：ai-covers N08
       -->
       <section data-layout="N08-steps-pair">
@@ -627,10 +630,10 @@ a{color:inherit;text-decoration:none;}
 
   <div class="brand-top">
     <div class="left">
-      <div class="logo"><div class="ph">AI</div></div>
-      <span class="brand-name">AI Efficiency Lab</span>
+      <div class="logo"><div class="ph" data-sys="brand-logo" data-layer="sys-brand-logo" data-label="logo字" data-editable="text">AI</div></div>
+      <span class="brand-name" data-sys="brand-name" data-layer="sys-brand-name" data-label="品牌名" data-editable="text">AI Efficiency Lab</span>
     </div>
-    <div class="right">STEP · 01+02 / 05</div>
+    <div class="right" data-sys="issue" data-layer="sys-issue" data-label="期号" data-editable="text">{{issue}}</div>
   </div>
 
   <div class="after-hero"></div>
@@ -648,7 +651,7 @@ a{color:inherit;text-decoration:none;}
         </div>
         <div class="n08-step__shot">
           <div class="dots"><span></span><span></span><span></span></div>
-          <div class="n08-step__shot__img ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n08-img-1" data-label="步骤1截图" data-ratio="89:50" alt=""><span class="ph-img__label">IMG · 安装界面</span></div>
+          <div class="n08-step__shot__img ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n08-img-1" data-label="步骤1截图" data-ratio="16:9" alt=""><span class="ph-img__label">IMG · 安装界面</span></div>
         </div>
         <div class="n08-step__points">
           <!-- repeat ×2-3: 步骤1要点 clone；每条一行内 -->
@@ -684,8 +687,8 @@ a{color:inherit;text-decoration:none;}
   </div>
 
   <div class="pg-footer">
-    <span>aiefficiencylab.cn</span>
-    <span>N08 · 双步骤同页</span>
+    <span data-sys="footer-id" data-layer="sys-footer-id" data-label="页脚署名" data-editable="text">aiefficiencylab.cn</span>
+    <span class="page-no" data-sys="page-no" data-layer="sys-page-no" data-label="页码" data-editable="text">{{page-no}}</span>
   </div>
 
     </div>
@@ -697,10 +700,10 @@ a{color:inherit;text-decoration:none;}
            用途：步骤前后对比——旧方法 vs 新方法双栏 + 底部收获条
            适合：改造/自动化前后对照；不适合：三项以上对比
            可以变：收获条可省（L2 删除）
-           槽位：step-num / step-cat / title / 图×2（227:142 cover）/ before-head/before-t/before-note / after-head/after-t/after-note / gain-num / gain-text
-           限制：title≤16字(2行)；leg head≤14字(1行)；t≤20字(2行)；note≤16字(1行)；gain-num≤4字符；gain-text≤30字(1行)
+           槽位：step-num / step-cat / title / 图×2（16:10 cover）/ before-head/before-t/before-note / after-head/after-t/after-note / gain-num / gain-text / issue / page-no
+           限制：title≤16字(2行)；leg head≤14字(1行)；t≤20字(2行)；note≤16字(1行)；gain-num≤4字符；gain-text≤30字(1行)；issue≤14字
            hl：无（VS 与 before/after 自带对比强调）
-           图槽：横版 227:142 cover ×2
+           图槽：横版 16:10 cover ×2
            来源：ai-covers N09
       -->
       <section data-layout="N09-step-compare">
@@ -710,10 +713,10 @@ a{color:inherit;text-decoration:none;}
 
   <div class="brand-top">
     <div class="left">
-      <div class="logo"><div class="ph">AI</div></div>
-      <span class="brand-name">AI Efficiency Lab</span>
+      <div class="logo"><div class="ph" data-sys="brand-logo" data-layer="sys-brand-logo" data-label="logo字" data-editable="text">AI</div></div>
+      <span class="brand-name" data-sys="brand-name" data-layer="sys-brand-name" data-label="品牌名" data-editable="text">AI Efficiency Lab</span>
     </div>
-    <div class="right">STEP · 03 / 05</div>
+    <div class="right" data-sys="issue" data-layer="sys-issue" data-label="期号" data-editable="text">{{issue}}</div>
   </div>
 
   <div class="after-hero"></div>
@@ -732,7 +735,7 @@ a{color:inherit;text-decoration:none;}
     <div class="compare">
       <div class="n09-leg n09-leg--before" data-layer="n09-leg-before" data-label="旧方法栏" data-type="group">
         <div class="n09-leg__head" data-layer="before-head" data-label="旧方法标题" data-editable="text">{{before-head}}</div>
-        <div class="n09-leg__shot ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n09-img-1" data-label="旧流程截图" data-ratio="227:142" alt=""><span class="ph-img__label">IMG · 手动流程</span></div>
+        <div class="n09-leg__shot ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n09-img-1" data-label="旧流程截图" data-ratio="16:10" alt=""><span class="ph-img__label">IMG · 手动流程</span></div>
         <div class="n09-leg__body">
           <div class="n09-leg__t" data-layer="before-t" data-label="旧方法描述" data-editable="text">{{before-t}}</div>
           <div class="n09-leg__note" data-layer="before-note" data-label="旧方法代价" data-editable="text">{{before-note}}</div>
@@ -743,7 +746,7 @@ a{color:inherit;text-decoration:none;}
 
       <div class="n09-leg n09-leg--after" data-layer="n09-leg-after" data-label="新方法栏" data-type="group">
         <div class="n09-leg__head" data-layer="after-head" data-label="新方法标题" data-editable="text">{{after-head}}</div>
-        <div class="n09-leg__shot ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n09-img-2" data-label="新流程截图" data-ratio="227:142" alt=""><span class="ph-img__label">IMG · Agent 流程</span></div>
+        <div class="n09-leg__shot ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n09-img-2" data-label="新流程截图" data-ratio="16:10" alt=""><span class="ph-img__label">IMG · Agent 流程</span></div>
         <div class="n09-leg__body">
           <div class="n09-leg__t" data-layer="after-t" data-label="新方法描述" data-editable="text">{{after-t}}</div>
           <div class="n09-leg__note" data-layer="after-note" data-label="新方法收益" data-editable="text">{{after-note}}</div>
@@ -760,8 +763,118 @@ a{color:inherit;text-decoration:none;}
   </div>
 
   <div class="pg-footer">
-    <span>aiefficiencylab.cn</span>
-    <span>N09 · 步骤前后对比</span>
+    <span data-sys="footer-id" data-layer="sys-footer-id" data-label="页脚署名" data-editable="text">aiefficiencylab.cn</span>
+    <span class="page-no" data-sys="page-no" data-layer="sys-page-no" data-label="页码" data-editable="text">{{page-no}}</span>
+  </div>
+
+    </div>
+      </section>
+    </div>
+
+    <div class="gal-item" id="n33">
+      <!-- ============ N33 · 流程链路图（内置 SVG） ============
+           用途：四步流程/链路总览——内置 SVG 画 2×2 节点与走向箭头，非图片槽
+           适合：方法论 4 步、内容生产链路、处理流水线；不适合：步数≠4（另开档或走 L3）、要展示真实界面
+           可以变：节点标题/说明、结尾一句话全部可改；节点数固定 4（SVG 无流式布局，repeat 克隆的节点会全部叠在同一坐标）
+           槽位：big-num / tag / title / sub / s1-t..s4-t / s1-d..s4-d / fig-note / issue / page-no
+           限制：big-num≤2字符；tag≤8字；title≤14字(2行)；sub≤26字(1行)；s*-t≤6字(1行)；s*-d≤12字(1行)；fig-note≤24字(1行)；issue≤14字
+           hl：无
+           图槽：无（图形由母版内 SVG 绘制，节点文字是普通文字槽；此页不支持换图）
+           来源：新建（SVG 能力实测 2026-11-16）
+      -->
+      <section data-layout="N33-flow-4">
+    <div class="artwork-page n33" data-artwork data-size="1080x1440">
+
+  <div class="paper-noise"></div>
+
+  <div class="brand-top">
+    <div class="left">
+      <div class="logo"><div class="ph" data-sys="brand-logo" data-layer="sys-brand-logo" data-label="logo字" data-editable="text">AI</div></div>
+      <span class="brand-name" data-sys="brand-name" data-layer="sys-brand-name" data-label="品牌名" data-editable="text">AI Efficiency Lab</span>
+    </div>
+    <div class="right" data-sys="issue" data-layer="sys-issue" data-label="期号" data-editable="text">{{issue}}</div>
+  </div>
+
+  <div class="mega-hero">
+    <div class="mh-row">
+      <div class="big-num" data-layer="big-num" data-label="步数大字" data-editable="text">{{big-num}}</div>
+      <div class="hero-text">
+        <span class="tag" data-layer="tag" data-label="标签" data-editable="text">{{tag}}</span>
+        <div class="title" data-layer="title" data-label="标题" data-editable="text">{{title}}</div>
+      </div>
+    </div>
+    <div class="sub" data-layer="sub" data-label="副题" data-editable="text">{{sub}}</div>
+  </div>
+
+  <div class="after-hero"></div>
+
+  <div class="n33-figure" data-layer="n33-figure" data-label="流程链路图" data-type="group">
+    <svg class="n33-svg" viewBox="0 0 1000 930" preserveAspectRatio="xMidYMid meet" role="img" aria-label="四步流程链路图">
+      <defs>
+        <marker id="n33-mk" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 Z"/></marker>
+      </defs>
+
+      <text class="n33-hd" x="12" y="52">PIPELINE</text>
+      <text class="n33-hd" x="988" y="52" text-anchor="end">FIXED · 4 NODES</text>
+      <line class="n33-rule" x1="12" y1="78" x2="988" y2="78"/>
+
+      <!-- 节点 01（左上） -->
+      <g class="n33-lane" data-layer="n33-lane-1" data-label="节点1" data-type="group">
+        <rect class="n33-node" x="12" y="110" width="430" height="280" rx="10"/>
+        <circle class="n33-idx-bg" cx="64" cy="172" r="23"/>
+        <text class="n33-idx" x="64" y="180" text-anchor="middle">01</text>
+        <text class="n33-t" x="64" y="260" data-layer="s1-t" data-label="节点1标题" data-editable="text">{{s1-t}}</text>
+        <line class="n33-rule" x1="42" y1="288" x2="412" y2="288"/>
+        <text class="n33-d" x="64" y="330" data-layer="s1-d" data-label="节点1说明" data-editable="text">{{s1-d}}</text>
+      </g>
+
+      <!-- 节点 02（右上，深底强调末位之外的高亮位） -->
+      <g class="n33-lane" data-layer="n33-lane-2" data-label="节点2" data-type="group">
+        <rect class="n33-node" x="508" y="110" width="430" height="280" rx="10"/>
+        <circle class="n33-idx-bg" cx="560" cy="172" r="23"/>
+        <text class="n33-idx" x="560" y="180" text-anchor="middle">02</text>
+        <text class="n33-t" x="560" y="260" data-layer="s2-t" data-label="节点2标题" data-editable="text">{{s2-t}}</text>
+        <line class="n33-rule" x1="538" y1="288" x2="908" y2="288"/>
+        <text class="n33-d" x="560" y="330" data-layer="s2-d" data-label="节点2说明" data-editable="text">{{s2-d}}</text>
+      </g>
+
+      <!-- 节点 03（左下） -->
+      <g class="n33-lane" data-layer="n33-lane-3" data-label="节点3" data-type="group">
+        <rect class="n33-node" x="12" y="510" width="430" height="280" rx="10"/>
+        <circle class="n33-idx-bg" cx="64" cy="572" r="23"/>
+        <text class="n33-idx" x="64" y="580" text-anchor="middle">03</text>
+        <text class="n33-t" x="64" y="660" data-layer="s3-t" data-label="节点3标题" data-editable="text">{{s3-t}}</text>
+        <line class="n33-rule" x1="42" y1="688" x2="412" y2="688"/>
+        <text class="n33-d" x="64" y="730" data-layer="s3-d" data-label="节点3说明" data-editable="text">{{s3-d}}</text>
+      </g>
+
+      <!-- 节点 04（右下，反白收尾） -->
+      <g class="n33-lane n33-lane--last" data-layer="n33-lane-4" data-label="节点4" data-type="group">
+        <rect class="n33-node n33-node--last" x="508" y="510" width="430" height="280" rx="10"/>
+        <circle class="n33-idx-bg" cx="560" cy="572" r="23"/>
+        <text class="n33-idx" x="560" y="580" text-anchor="middle">04</text>
+        <text class="n33-t" x="560" y="660" data-layer="s4-t" data-label="节点4标题" data-editable="text">{{s4-t}}</text>
+        <line class="n33-rule n33-rule--invert" x1="538" y1="688" x2="908" y2="688"/>
+        <text class="n33-d" x="560" y="730" data-layer="s4-d" data-label="节点4说明" data-editable="text">{{s4-d}}</text>
+      </g>
+
+      <!-- 走向：01→02 →
+           02→03 沿右侧下行后左折 ↓
+           03→04 → -->
+      <line class="n33-flow" x1="450" y1="250" x2="498" y2="250" marker-end="url(#n33-mk)"/>
+      <path class="n33-flow" d="M723 390 V450 H227 V498" marker-end="url(#n33-mk)"/>
+      <line class="n33-flow" x1="450" y1="650" x2="498" y2="650" marker-end="url(#n33-mk)"/>
+
+      <!-- 收尾一句话 -->
+      <line class="n33-rule" x1="12" y1="850" x2="988" y2="850"/>
+      <rect class="n33-bar" x="12" y="874" width="4" height="34"/>
+      <text class="n33-note" x="34" y="900" data-layer="fig-note" data-label="收尾一句话" data-editable="text">{{fig-note}}</text>
+    </svg>
+  </div>
+
+  <div class="pg-footer">
+    <span data-sys="footer-id" data-layer="sys-footer-id" data-label="页脚署名" data-editable="text">aiefficiencylab.cn</span>
+    <span class="page-no" data-sys="page-no" data-layer="sys-page-no" data-label="页码" data-editable="text">{{page-no}}</span>
   </div>
 
     </div>
@@ -772,14 +885,14 @@ a{color:inherit;text-decoration:none;}
   <div class="gal-group" id="g-lists">
     <div class="gal-group-head"><span class="num">G04</span><h2>清单</h2><span class="count">5 MASTERS</span></div>
     <div class="gal-item" id="n10">
-      <!-- ============ N10 · 工具清单 v2 ============
+      <!-- ============ N10 · 工具清单 ============
            用途：工具/资源推荐——左编号清单 + 右 2×3 图格
            适合：3-8 条量级推荐 + 有截图素材；不适合：每条需长说明（d 一行）
            可以变：条目 3-8 条（行距自适应）；右栏图格固定 6 格，可 L2 减格
-           槽位：big-num / tag / title / sub / items[]（num,t,d）/ 图×6（212:291 cover）/ page-no
-           限制：big-num≤2字符且=条数；title≤16字(2行,每行≤8字)；sub≤16字(1行)；t≤12字；d≤16字(1行)；6-8条时 d 更短
+           槽位：big-num / tag / title / sub / items[]（num,t,d）/ 图×6（3:4 cover）/ issue / page-no
+           限制：big-num≤2字符且=条数；title≤16字(2行,每行≤8字)；sub≤16字(1行)；t≤12字；d≤16字(1行)；6-8条时 d 更短；issue≤14字
            hl：title 内 0-1 处
-           图槽：竖版 212:291 cover ×6
+           图槽：竖版 3:4 cover ×6
            来源：ai-covers N10
       -->
       <section data-layout="N10-tool-list">
@@ -789,10 +902,10 @@ a{color:inherit;text-decoration:none;}
 
   <div class="brand-top">
     <div class="left">
-      <div class="logo"><div class="ph">AI</div></div>
-      <span class="brand-name">AI Efficiency Lab</span>
+      <div class="logo"><div class="ph" data-sys="brand-logo" data-layer="sys-brand-logo" data-label="logo字" data-editable="text">AI</div></div>
+      <span class="brand-name" data-sys="brand-name" data-layer="sys-brand-name" data-label="品牌名" data-editable="text">AI Efficiency Lab</span>
     </div>
-    <div class="right">ISSUE · 05</div>
+    <div class="right" data-sys="issue" data-layer="sys-issue" data-label="期号" data-editable="text">{{issue}}</div>
   </div>
 
   <div class="mega-hero">
@@ -821,18 +934,18 @@ a{color:inherit;text-decoration:none;}
     </div>
 
     <div class="n10-img-grid">
-      <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n10-img-1" data-label="图 01" data-ratio="212:291" alt=""><div class="placeholder ph-img__label">IMG · 01</div><div class="corner-num">01</div></div>
-      <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n10-img-2" data-label="图 02" data-ratio="212:291" alt=""><div class="placeholder ph-img__label">IMG · 02</div><div class="corner-num">02</div></div>
-      <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n10-img-3" data-label="图 03" data-ratio="212:291" alt=""><div class="placeholder ph-img__label">IMG · 03</div><div class="corner-num">03</div></div>
-      <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n10-img-4" data-label="图 04" data-ratio="212:291" alt=""><div class="placeholder ph-img__label">IMG · 04</div><div class="corner-num">04</div></div>
-      <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n10-img-5" data-label="图 05" data-ratio="212:291" alt=""><div class="placeholder ph-img__label">IMG · 05</div><div class="corner-num">05</div></div>
-      <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n10-img-6" data-label="图 06" data-ratio="212:291" alt=""><div class="placeholder ph-img__label">IMG · 06</div><div class="corner-num">06</div></div>
+      <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n10-img-1" data-label="图 01" data-ratio="3:4" alt=""><div class="placeholder ph-img__label">IMG · 01</div><div class="corner-num">01</div></div>
+      <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n10-img-2" data-label="图 02" data-ratio="3:4" alt=""><div class="placeholder ph-img__label">IMG · 02</div><div class="corner-num">02</div></div>
+      <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n10-img-3" data-label="图 03" data-ratio="3:4" alt=""><div class="placeholder ph-img__label">IMG · 03</div><div class="corner-num">03</div></div>
+      <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n10-img-4" data-label="图 04" data-ratio="3:4" alt=""><div class="placeholder ph-img__label">IMG · 04</div><div class="corner-num">04</div></div>
+      <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n10-img-5" data-label="图 05" data-ratio="3:4" alt=""><div class="placeholder ph-img__label">IMG · 05</div><div class="corner-num">05</div></div>
+      <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n10-img-6" data-label="图 06" data-ratio="3:4" alt=""><div class="placeholder ph-img__label">IMG · 06</div><div class="corner-num">06</div></div>
     </div>
   </div>
 
   <div class="pg-footer">
-    <span>aiefficiencylab.cn</span>
-    <span class="page-no" data-layer="page-no" data-label="页码" data-editable="text">{{page-no}}</span>
+    <span data-sys="footer-id" data-layer="sys-footer-id" data-label="页脚署名" data-editable="text">aiefficiencylab.cn</span>
+    <span class="page-no" data-sys="page-no" data-layer="sys-page-no" data-label="页码" data-editable="text">{{page-no}}</span>
   </div>
 
     </div>
@@ -844,8 +957,8 @@ a{color:inherit;text-decoration:none;}
            用途：基础工具清单——编号行 + 名称/描述/分类标签，纯文字
            适合：3-7 条量级推荐；不适合：需配图、每条长说明
            可以变：条目 3-7 条（行高自适应）；tag 可留空
-           槽位：big-num / tag / title / sub / items[]（num,name,desc,tag）
-           限制：big-num≤2字符且=条数；title≤16字(2行)；sub≤18字(1行)；name≤14字；desc≤20字(1行)；tag≤8字符
+           槽位：big-num / tag / title / sub / items[]（num,name,desc,tag） / issue / page-no
+           限制：big-num≤2字符且=条数；title≤16字(2行)；sub≤18字(1行)；name≤14字；desc≤20字(1行)；tag≤8字符；issue≤14字
            hl：title 内 1 处（span.hl）
            图槽：无
            来源：ai-covers N11
@@ -857,10 +970,10 @@ a{color:inherit;text-decoration:none;}
 
   <div class="brand-top">
     <div class="left">
-      <div class="logo"><div class="ph">AI</div></div>
-      <span class="brand-name">AI Efficiency Lab</span>
+      <div class="logo"><div class="ph" data-sys="brand-logo" data-layer="sys-brand-logo" data-label="logo字" data-editable="text">AI</div></div>
+      <span class="brand-name" data-sys="brand-name" data-layer="sys-brand-name" data-label="品牌名" data-editable="text">AI Efficiency Lab</span>
     </div>
-    <div class="right">TOOL · KIT</div>
+    <div class="right" data-sys="issue" data-layer="sys-issue" data-label="期号" data-editable="text">{{issue}}</div>
   </div>
 
   <div class="mega-hero">
@@ -889,8 +1002,8 @@ a{color:inherit;text-decoration:none;}
   </div>
 
   <div class="pg-footer">
-    <span>aiefficiencylab.cn</span>
-    <span>N11 · 工具清单基础</span>
+    <span data-sys="footer-id" data-layer="sys-footer-id" data-label="页脚署名" data-editable="text">aiefficiencylab.cn</span>
+    <span class="page-no" data-sys="page-no" data-layer="sys-page-no" data-label="页码" data-editable="text">{{page-no}}</span>
   </div>
 
     </div>
@@ -902,8 +1015,8 @@ a{color:inherit;text-decoration:none;}
            用途：待办/打卡清单——勾选框条目 + 进度头
            适合：5-8 条行动清单；不适合：无勾选语义的纯列表（用 N11）
            可以变：条目 5-8 条；勾选态与角标（n12-is-done / n12-checklist__tag）需 L2 手工加
-           槽位：big-num / tag / title / sub / list-title / progress / items[]（t,note）
-           限制：big-num≤2字符且=条数；title≤14字(2行)；sub≤16字(1行)；list-title≤10字；progress≤6字符；t≤14字(1行)；note≤16字(1行)
+           槽位：big-num / tag / title / sub / list-title / progress / items[]（t,note） / issue / page-no
+           限制：big-num≤2字符且=条数；title≤14字(2行)；sub≤16字(1行)；list-title≤10字；progress≤6字符；t≤14字(1行)；note≤16字(1行)；issue≤14字
            hl：无
            图槽：无
            来源：ai-covers N12
@@ -915,10 +1028,10 @@ a{color:inherit;text-decoration:none;}
 
   <div class="brand-top">
     <div class="left">
-      <div class="logo"><div class="ph">AI</div></div>
-      <span class="brand-name">AI Efficiency Lab</span>
+      <div class="logo"><div class="ph" data-sys="brand-logo" data-layer="sys-brand-logo" data-label="logo字" data-editable="text">AI</div></div>
+      <span class="brand-name" data-sys="brand-name" data-layer="sys-brand-name" data-label="品牌名" data-editable="text">AI Efficiency Lab</span>
     </div>
-    <div class="right">TODO · WEEK 07</div>
+    <div class="right" data-sys="issue" data-layer="sys-issue" data-label="期号" data-editable="text">{{issue}}</div>
   </div>
 
   <div class="mega-hero">
@@ -955,8 +1068,8 @@ a{color:inherit;text-decoration:none;}
   </div>
 
   <div class="pg-footer">
-    <span>aiefficiencylab.cn</span>
-    <span>N12 · 待办清单</span>
+    <span data-sys="footer-id" data-layer="sys-footer-id" data-label="页脚署名" data-editable="text">aiefficiencylab.cn</span>
+    <span class="page-no" data-sys="page-no" data-layer="sys-page-no" data-label="页码" data-editable="text">{{page-no}}</span>
   </div>
 
     </div>
@@ -968,8 +1081,8 @@ a{color:inherit;text-decoration:none;}
            用途：Prompt 拆解教程——编号步骤 + 示例 prompt 等宽块
            适合：4-6 步的 prompt 公式教学；不适合：无示例内容
            可以变：步骤 4-6 条
-           槽位：big-num / tag / title / sub / steps[]（num,t,prompt）/ foot-note
-           限制：big-num≤2字符且=条数；title≤16字(2行)；sub≤18字(1行)；t≤12字(1行)；prompt≤26字符(1行)；foot-note≤30字符
+           槽位：big-num / tag / title / sub / steps[]（num,t,prompt）/ foot-note / issue / page-no
+           限制：big-num≤2字符且=条数；title≤16字(2行)；sub≤18字(1行)；t≤12字(1行)；prompt≤26字符(1行)；foot-note≤30字符；issue≤14字
            hl：title 内 1 处（span.hl）
            图槽：无
            来源：ai-covers N13
@@ -981,10 +1094,10 @@ a{color:inherit;text-decoration:none;}
 
   <div class="brand-top">
     <div class="left">
-      <div class="logo"><div class="ph">AI</div></div>
-      <span class="brand-name">AI Efficiency Lab</span>
+      <div class="logo"><div class="ph" data-sys="brand-logo" data-layer="sys-brand-logo" data-label="logo字" data-editable="text">AI</div></div>
+      <span class="brand-name" data-sys="brand-name" data-layer="sys-brand-name" data-label="品牌名" data-editable="text">AI Efficiency Lab</span>
     </div>
-    <div class="right">PROMPT · GUIDE</div>
+    <div class="right" data-sys="issue" data-layer="sys-issue" data-label="期号" data-editable="text">{{issue}}</div>
   </div>
 
   <div class="mega-hero">
@@ -1014,8 +1127,9 @@ a{color:inherit;text-decoration:none;}
   </div>
 
   <div class="pg-footer">
-    <span>aiefficiencylab.cn</span>
-    <span class="page-no" data-layer="foot-note" data-label="公式脚注" data-editable="text">{{foot-note}}</span>
+    <span data-sys="footer-id" data-layer="sys-footer-id" data-label="页脚署名" data-editable="text">aiefficiencylab.cn</span>
+    <span class="foot-note" data-layer="foot-note" data-label="公式脚注" data-editable="text">{{foot-note}}</span>
+    <span class="page-no" data-sys="page-no" data-layer="sys-page-no" data-label="页码" data-editable="text">{{page-no}}</span>
   </div>
 
     </div>
@@ -1027,8 +1141,8 @@ a{color:inherit;text-decoration:none;}
            用途：误区避雷页——✗误区 → 正解对照行 + 底部转发条
            适合：4-6 条认知纠偏；不适合：正面教程内容
            可以变：条目 4-6 条；底部转发条可留空
-           槽位：big-num / tag / title / sub / myths[]（wrong,right）/ cta-line
-           限制：big-num≤2字符且=条数；title≤16字(2行)；sub≤14字(1行)；wrong≤12字(1行)；right≤18字(1行)；cta-line≤18字
+           槽位：big-num / tag / title / sub / myths[]（wrong,right）/ cta-line / issue / page-no
+           限制：big-num≤2字符且=条数；title≤16字(2行)；sub≤14字(1行)；wrong≤12字(1行)；right≤18字(1行)；cta-line≤18字；issue≤14字
            hl：title 内 1 处（span.hl）
            图槽：无
            来源：ai-covers N14
@@ -1040,10 +1154,10 @@ a{color:inherit;text-decoration:none;}
 
   <div class="brand-top">
     <div class="left">
-      <div class="logo"><div class="ph">AI</div></div>
-      <span class="brand-name">AI Efficiency Lab</span>
+      <div class="logo"><div class="ph" data-sys="brand-logo" data-layer="sys-brand-logo" data-label="logo字" data-editable="text">AI</div></div>
+      <span class="brand-name" data-sys="brand-name" data-layer="sys-brand-name" data-label="品牌名" data-editable="text">AI Efficiency Lab</span>
     </div>
-    <div class="right">MISTAKES</div>
+    <div class="right" data-sys="issue" data-layer="sys-issue" data-label="期号" data-editable="text">{{issue}}</div>
   </div>
 
   <div class="mega-hero">
@@ -1075,8 +1189,8 @@ a{color:inherit;text-decoration:none;}
   </div>
 
   <div class="pg-footer">
-    <span>aiefficiencylab.cn</span>
-    <span>N14 · 误区避雷</span>
+    <span data-sys="footer-id" data-layer="sys-footer-id" data-label="页脚署名" data-editable="text">aiefficiencylab.cn</span>
+    <span class="page-no" data-sys="page-no" data-layer="sys-page-no" data-label="页码" data-editable="text">{{page-no}}</span>
   </div>
 
     </div>
@@ -1091,8 +1205,8 @@ a{color:inherit;text-decoration:none;}
            用途：Agent/工具卡片纵列——分类+名称+描述+可抄 Prompt
            适合：2-4 个 Agent 逐个安利；不适合：大图展示
            可以变：卡片 2-4 张
-           槽位：big-num / tag / title / sub / cards[]（cat,name,desc,prompt）
-           限制：big-num≤2字符且=条数；title≤16字(2行)；sub≤16字(1行)；cat≤8字符；name≤18字；desc≤22字(1行)；prompt≤22字符(1行)
+           槽位：big-num / tag / title / sub / cards[]（cat,name,desc,prompt） / issue / page-no
+           限制：big-num≤2字符且=条数；title≤16字(2行)；sub≤16字(1行)；cat≤8字符；name≤18字；desc≤22字(1行)；prompt≤22字符(1行)；issue≤14字
            hl：title 内 1 处（span.hl）
            图槽：无
            来源：ai-covers N15
@@ -1104,10 +1218,10 @@ a{color:inherit;text-decoration:none;}
 
   <div class="brand-top">
     <div class="left">
-      <div class="logo"><div class="ph">AI</div></div>
-      <span class="brand-name">AI Efficiency Lab</span>
+      <div class="logo"><div class="ph" data-sys="brand-logo" data-layer="sys-brand-logo" data-label="logo字" data-editable="text">AI</div></div>
+      <span class="brand-name" data-sys="brand-name" data-layer="sys-brand-name" data-label="品牌名" data-editable="text">AI Efficiency Lab</span>
     </div>
-    <div class="right">AGENTS</div>
+    <div class="right" data-sys="issue" data-layer="sys-issue" data-label="期号" data-editable="text">{{issue}}</div>
   </div>
 
   <div class="mega-hero">
@@ -1134,8 +1248,8 @@ a{color:inherit;text-decoration:none;}
   </div>
 
   <div class="pg-footer">
-    <span>aiefficiencylab.cn</span>
-    <span>N15 · Agent 卡片网格</span>
+    <span data-sys="footer-id" data-layer="sys-footer-id" data-label="页脚署名" data-editable="text">aiefficiencylab.cn</span>
+    <span class="page-no" data-sys="page-no" data-layer="sys-page-no" data-label="页码" data-editable="text">{{page-no}}</span>
   </div>
 
     </div>
@@ -1147,10 +1261,10 @@ a{color:inherit;text-decoration:none;}
            用途：分场景图片展示——3 组各带说明 + 横排 3 图
            适合：多场景对比、案例集；不适合：单图深度展示
            可以变：组数固定 3 组（增减需 L2）；每组图 1-3 张
-           槽位：big-num / tag / title / sub / g1-name/g1-desc / 图×3 / g2-name/g2-desc / 图×3 / g3-name/g3-desc / 图×3 / page-no
-           限制：big-num≤2字符；title≤14字(2行)；sub≤16字(1行)；g*-name≤6字；g*-desc≤20字(1行)
+           槽位：big-num / tag / title / sub / g1-name/g1-desc / 图×3 / g2-name/g2-desc / 图×3 / g3-name/g3-desc / 图×3 / issue / page-no
+           限制：big-num≤2字符；title≤14字(2行)；sub≤16字(1行)；g*-name≤6字；g*-desc≤20字(1行)；issue≤14字
            hl：无
-           图槽：竖版 194:283 cover ×9（组内横排）
+           图槽：竖版 2:3 cover ×9（组内横排）
            来源：ai-covers N16
       -->
       <section data-layout="N16-group-showcase">
@@ -1160,10 +1274,10 @@ a{color:inherit;text-decoration:none;}
 
   <div class="brand-top">
     <div class="left">
-      <div class="logo"><div class="ph">AI</div></div>
-      <span class="brand-name">AI Efficiency Lab</span>
+      <div class="logo"><div class="ph" data-sys="brand-logo" data-layer="sys-brand-logo" data-label="logo字" data-editable="text">AI</div></div>
+      <span class="brand-name" data-sys="brand-name" data-layer="sys-brand-name" data-label="品牌名" data-editable="text">AI Efficiency Lab</span>
     </div>
-    <div class="right">ISSUE · 03</div>
+    <div class="right" data-sys="issue" data-layer="sys-issue" data-label="期号" data-editable="text">{{issue}}</div>
   </div>
 
   <div class="mega-hero">
@@ -1187,9 +1301,9 @@ a{color:inherit;text-decoration:none;}
         <span class="desc" data-layer="g1-desc" data-label="组1说明" data-editable="text">{{g1-desc}}</span>
       </div>
       <div class="n16-gimgs">
-        <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n16-img-1" data-label="IMG" data-ratio="194:283" alt=""><div class="placeholder ph-img__label">IMG</div><div class="corner-num">01</div></div>
-        <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n16-img-2" data-label="IMG" data-ratio="194:283" alt=""><div class="placeholder ph-img__label">IMG</div><div class="corner-num">02</div></div>
-        <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n16-img-3" data-label="IMG" data-ratio="194:283" alt=""><div class="placeholder ph-img__label">IMG</div><div class="corner-num">03</div></div>
+        <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n16-img-1" data-label="IMG" data-ratio="2:3" alt=""><div class="placeholder ph-img__label">IMG</div><div class="corner-num">01</div></div>
+        <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n16-img-2" data-label="IMG" data-ratio="2:3" alt=""><div class="placeholder ph-img__label">IMG</div><div class="corner-num">02</div></div>
+        <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n16-img-3" data-label="IMG" data-ratio="2:3" alt=""><div class="placeholder ph-img__label">IMG</div><div class="corner-num">03</div></div>
       </div>
     </div>
     <div class="n16-group" data-layer="n16-group-2" data-label="组2" data-type="group">
@@ -1199,9 +1313,9 @@ a{color:inherit;text-decoration:none;}
         <span class="desc" data-layer="g2-desc" data-label="组2说明" data-editable="text">{{g2-desc}}</span>
       </div>
       <div class="n16-gimgs">
-        <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n16-img-4" data-label="IMG" data-ratio="194:283" alt=""><div class="placeholder ph-img__label">IMG</div><div class="corner-num">01</div></div>
-        <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n16-img-5" data-label="IMG" data-ratio="194:283" alt=""><div class="placeholder ph-img__label">IMG</div><div class="corner-num">02</div></div>
-        <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n16-img-6" data-label="IMG" data-ratio="194:283" alt=""><div class="placeholder ph-img__label">IMG</div><div class="corner-num">03</div></div>
+        <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n16-img-4" data-label="IMG" data-ratio="2:3" alt=""><div class="placeholder ph-img__label">IMG</div><div class="corner-num">01</div></div>
+        <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n16-img-5" data-label="IMG" data-ratio="2:3" alt=""><div class="placeholder ph-img__label">IMG</div><div class="corner-num">02</div></div>
+        <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n16-img-6" data-label="IMG" data-ratio="2:3" alt=""><div class="placeholder ph-img__label">IMG</div><div class="corner-num">03</div></div>
       </div>
     </div>
     <div class="n16-group" data-layer="n16-group-3" data-label="组3" data-type="group">
@@ -1211,16 +1325,16 @@ a{color:inherit;text-decoration:none;}
         <span class="desc" data-layer="g3-desc" data-label="组3说明" data-editable="text">{{g3-desc}}</span>
       </div>
       <div class="n16-gimgs">
-        <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n16-img-7" data-label="IMG" data-ratio="194:283" alt=""><div class="placeholder ph-img__label">IMG</div><div class="corner-num">01</div></div>
-        <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n16-img-8" data-label="IMG" data-ratio="194:283" alt=""><div class="placeholder ph-img__label">IMG</div><div class="corner-num">02</div></div>
-        <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n16-img-9" data-label="IMG" data-ratio="194:283" alt=""><div class="placeholder ph-img__label">IMG</div><div class="corner-num">03</div></div>
+        <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n16-img-7" data-label="IMG" data-ratio="2:3" alt=""><div class="placeholder ph-img__label">IMG</div><div class="corner-num">01</div></div>
+        <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n16-img-8" data-label="IMG" data-ratio="2:3" alt=""><div class="placeholder ph-img__label">IMG</div><div class="corner-num">02</div></div>
+        <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n16-img-9" data-label="IMG" data-ratio="2:3" alt=""><div class="placeholder ph-img__label">IMG</div><div class="corner-num">03</div></div>
       </div>
     </div>
   </div>
 
   <div class="pg-footer">
-    <span>aiefficiencylab.cn</span>
-    <span class="page-no" data-layer="page-no" data-label="页码" data-editable="text">{{page-no}}</span>
+    <span data-sys="footer-id" data-layer="sys-footer-id" data-label="页脚署名" data-editable="text">aiefficiencylab.cn</span>
+    <span class="page-no" data-sys="page-no" data-layer="sys-page-no" data-label="页码" data-editable="text">{{page-no}}</span>
   </div>
 
     </div>
@@ -1232,10 +1346,10 @@ a{color:inherit;text-decoration:none;}
            用途：密集图片墙——4×3 十二宫格
            适合：批量生图/作品集展示；不适合：需要文字说明的图
            可以变：12 格固定（减格需 L2）
-           槽位：big-num / tag / title / sub / 图×12（223:291 cover）/ page-no
-           限制：big-num≤2字符且=图数；title≤14字(2行)；sub≤18字(1行)
+           槽位：big-num / tag / title / sub / 图×12（3:4 cover）/ issue / page-no
+           限制：big-num≤2字符且=图数；title≤14字(2行)；sub≤18字(1行)；issue≤14字
            hl：无
-           图槽：竖版 223:291 cover ×12
+           图槽：竖版 3:4 cover ×12
            来源：ai-covers N17
       -->
       <section data-layout="N17-grid-gallery">
@@ -1245,10 +1359,10 @@ a{color:inherit;text-decoration:none;}
 
   <div class="brand-top">
     <div class="left">
-      <div class="logo"><div class="ph">AI</div></div>
-      <span class="brand-name">AI Efficiency Lab</span>
+      <div class="logo"><div class="ph" data-sys="brand-logo" data-layer="sys-brand-logo" data-label="logo字" data-editable="text">AI</div></div>
+      <span class="brand-name" data-sys="brand-name" data-layer="sys-brand-name" data-label="品牌名" data-editable="text">AI Efficiency Lab</span>
     </div>
-    <div class="right">ISSUE · 12</div>
+    <div class="right" data-sys="issue" data-layer="sys-issue" data-label="期号" data-editable="text">{{issue}}</div>
   </div>
 
   <div class="mega-hero">
@@ -1265,23 +1379,23 @@ a{color:inherit;text-decoration:none;}
   <div class="after-hero"></div>
 
   <div class="n17-gallery">
-    <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n17-img-1" data-label="图 01" data-ratio="223:291" alt=""><div class="placeholder ph-img__label">IMG · 01</div><div class="corner-num">01</div></div>
-    <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n17-img-2" data-label="图 02" data-ratio="223:291" alt=""><div class="placeholder ph-img__label">IMG · 02</div><div class="corner-num">02</div></div>
-    <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n17-img-3" data-label="图 03" data-ratio="223:291" alt=""><div class="placeholder ph-img__label">IMG · 03</div><div class="corner-num">03</div></div>
-    <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n17-img-4" data-label="图 04" data-ratio="223:291" alt=""><div class="placeholder ph-img__label">IMG · 04</div><div class="corner-num">04</div></div>
-    <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n17-img-5" data-label="图 05" data-ratio="223:291" alt=""><div class="placeholder ph-img__label">IMG · 05</div><div class="corner-num">05</div></div>
-    <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n17-img-6" data-label="图 06" data-ratio="223:291" alt=""><div class="placeholder ph-img__label">IMG · 06</div><div class="corner-num">06</div></div>
-    <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n17-img-7" data-label="图 07" data-ratio="223:291" alt=""><div class="placeholder ph-img__label">IMG · 07</div><div class="corner-num">07</div></div>
-    <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n17-img-8" data-label="图 08" data-ratio="223:291" alt=""><div class="placeholder ph-img__label">IMG · 08</div><div class="corner-num">08</div></div>
-    <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n17-img-9" data-label="图 09" data-ratio="223:291" alt=""><div class="placeholder ph-img__label">IMG · 09</div><div class="corner-num">09</div></div>
-    <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n17-img-10" data-label="图 10" data-ratio="223:291" alt=""><div class="placeholder ph-img__label">IMG · 10</div><div class="corner-num">10</div></div>
-    <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n17-img-11" data-label="图 11" data-ratio="223:291" alt=""><div class="placeholder ph-img__label">IMG · 11</div><div class="corner-num">11</div></div>
-    <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n17-img-12" data-label="图 12" data-ratio="223:291" alt=""><div class="placeholder ph-img__label">IMG · 12</div><div class="corner-num">12</div></div>
+    <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n17-img-1" data-label="图 01" data-ratio="3:4" alt=""><div class="placeholder ph-img__label">IMG · 01</div><div class="corner-num">01</div></div>
+    <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n17-img-2" data-label="图 02" data-ratio="3:4" alt=""><div class="placeholder ph-img__label">IMG · 02</div><div class="corner-num">02</div></div>
+    <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n17-img-3" data-label="图 03" data-ratio="3:4" alt=""><div class="placeholder ph-img__label">IMG · 03</div><div class="corner-num">03</div></div>
+    <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n17-img-4" data-label="图 04" data-ratio="3:4" alt=""><div class="placeholder ph-img__label">IMG · 04</div><div class="corner-num">04</div></div>
+    <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n17-img-5" data-label="图 05" data-ratio="3:4" alt=""><div class="placeholder ph-img__label">IMG · 05</div><div class="corner-num">05</div></div>
+    <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n17-img-6" data-label="图 06" data-ratio="3:4" alt=""><div class="placeholder ph-img__label">IMG · 06</div><div class="corner-num">06</div></div>
+    <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n17-img-7" data-label="图 07" data-ratio="3:4" alt=""><div class="placeholder ph-img__label">IMG · 07</div><div class="corner-num">07</div></div>
+    <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n17-img-8" data-label="图 08" data-ratio="3:4" alt=""><div class="placeholder ph-img__label">IMG · 08</div><div class="corner-num">08</div></div>
+    <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n17-img-9" data-label="图 09" data-ratio="3:4" alt=""><div class="placeholder ph-img__label">IMG · 09</div><div class="corner-num">09</div></div>
+    <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n17-img-10" data-label="图 10" data-ratio="3:4" alt=""><div class="placeholder ph-img__label">IMG · 10</div><div class="corner-num">10</div></div>
+    <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n17-img-11" data-label="图 11" data-ratio="3:4" alt=""><div class="placeholder ph-img__label">IMG · 11</div><div class="corner-num">11</div></div>
+    <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n17-img-12" data-label="图 12" data-ratio="3:4" alt=""><div class="placeholder ph-img__label">IMG · 12</div><div class="corner-num">12</div></div>
   </div>
 
   <div class="pg-footer">
-    <span>aiefficiencylab.cn</span>
-    <span class="page-no" data-layer="page-no" data-label="页码" data-editable="text">{{page-no}}</span>
+    <span data-sys="footer-id" data-layer="sys-footer-id" data-label="页脚署名" data-editable="text">aiefficiencylab.cn</span>
+    <span class="page-no" data-sys="page-no" data-layer="sys-page-no" data-label="页码" data-editable="text">{{page-no}}</span>
   </div>
 
     </div>
@@ -1293,8 +1407,8 @@ a{color:inherit;text-decoration:none;}
            用途：Bento 网格生成展示——1 大 4 小图 + 角标签
            适合：5 件生成作品/工具展示；不适合：文字为主的内容
            可以变：格子固定 5（1+4）；角标签可留空
-           槽位：big-num / tag / title / sub / 图×5（305:934、305:503×2、305:419×2 cover）/ b1-tag..b5-tag
-           限制：big-num≤2字符且=件数；title≤16字(2行)；sub≤18字(1行)；b*-tag≤12字符
+           槽位：big-num / tag / title / sub / 图×5（305:934、305:503×2、305:419×2 cover）/ b1-tag..b5-tag / issue / page-no
+           限制：big-num≤2字符且=件数；title≤16字(2行)；sub≤18字(1行)；tag≤16字符；b*-tag≤12字符；issue≤14字
            hl：title 内 1 处（span.hl）
            图槽：bento 五格 cover；格内占位字为装饰
            来源：ai-covers N18
@@ -1306,10 +1420,10 @@ a{color:inherit;text-decoration:none;}
 
   <div class="brand-top">
     <div class="left">
-      <div class="logo"><div class="ph">AI</div></div>
-      <span class="brand-name">AI Efficiency Lab</span>
+      <div class="logo"><div class="ph" data-sys="brand-logo" data-layer="sys-brand-logo" data-label="logo字" data-editable="text">AI</div></div>
+      <span class="brand-name" data-sys="brand-name" data-layer="sys-brand-name" data-label="品牌名" data-editable="text">AI Efficiency Lab</span>
     </div>
-    <div class="right">GENERATION</div>
+    <div class="right" data-sys="issue" data-layer="sys-issue" data-label="期号" data-editable="text">{{issue}}</div>
   </div>
 
   <div class="mega-hero">
@@ -1334,8 +1448,8 @@ a{color:inherit;text-decoration:none;}
   </div>
 
   <div class="pg-footer">
-    <span>aiefficiencylab.cn</span>
-    <span>N18 · Bento 生成展示</span>
+    <span data-sys="footer-id" data-layer="sys-footer-id" data-label="页脚署名" data-editable="text">aiefficiencylab.cn</span>
+    <span class="page-no" data-sys="page-no" data-layer="sys-page-no" data-label="页码" data-editable="text">{{page-no}}</span>
   </div>
 
     </div>
@@ -1347,10 +1461,10 @@ a{color:inherit;text-decoration:none;}
            用途：单大图深度解析——横版大图 + 三要点拆解
            适合：一张核心截图/作品 + 拆解；不适合：多图
            可以变：要点 2-4 条；图上角标可留空
-           槽位：big-num / tag / title / sub / 图×1（937:638 cover）/ img-tag / points[]（n,t,d）/ page-no
-           限制：big-num≤2字符；title≤16字(2行)；sub≤16字(1行)；img-tag≤12字符；t≤8字(1行)；d≤24字(2行)
+           槽位：big-num / tag / title / sub / 图×1（3:2 cover）/ img-tag / points[]（n,t,d）/ issue / page-no
+           限制：big-num≤2字符；title≤16字(2行)；sub≤16字(1行)；img-tag≤12字符；t≤8字(1行)；d≤24字(2行)；issue≤14字
            hl：无
-           图槽：横版大图 937:638 cover
+           图槽：横版大图 3:2 cover
            来源：ai-covers N19
       -->
       <section data-layout="N19-single-deep">
@@ -1360,10 +1474,10 @@ a{color:inherit;text-decoration:none;}
 
   <div class="brand-top">
     <div class="left">
-      <div class="logo"><div class="ph">AI</div></div>
-      <span class="brand-name">AI Efficiency Lab</span>
+      <div class="logo"><div class="ph" data-sys="brand-logo" data-layer="sys-brand-logo" data-label="logo字" data-editable="text">AI</div></div>
+      <span class="brand-name" data-sys="brand-name" data-layer="sys-brand-name" data-label="品牌名" data-editable="text">AI Efficiency Lab</span>
     </div>
-    <div class="right">ISSUE · 01</div>
+    <div class="right" data-sys="issue" data-layer="sys-issue" data-label="期号" data-editable="text">{{issue}}</div>
   </div>
 
   <div class="mega-hero">
@@ -1380,7 +1494,7 @@ a{color:inherit;text-decoration:none;}
   <div class="after-hero"></div>
 
   <div class="main">
-    <div class="n19-hero-img ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n19-img-1" data-label="主图" data-ratio="937:638" alt="">
+    <div class="n19-hero-img ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n19-img-1" data-label="主图" data-ratio="3:2" alt="">
       <span class="n19-hero-tag" data-layer="img-tag" data-label="图上角标" data-editable="text">{{img-tag}}</span>
       <div class="placeholder ph-img__label">LARGE · IMAGE · PLACEHOLDER</div>
     </div>
@@ -1396,8 +1510,8 @@ a{color:inherit;text-decoration:none;}
   </div>
 
   <div class="pg-footer">
-    <span>aiefficiencylab.cn</span>
-    <span class="page-no" data-layer="page-no" data-label="页码" data-editable="text">{{page-no}}</span>
+    <span data-sys="footer-id" data-layer="sys-footer-id" data-label="页脚署名" data-editable="text">aiefficiencylab.cn</span>
+    <span class="page-no" data-sys="page-no" data-layer="sys-page-no" data-label="页码" data-editable="text">{{page-no}}</span>
   </div>
 
     </div>
@@ -1412,8 +1526,8 @@ a{color:inherit;text-decoration:none;}
            用途：Before/After 大对比——双栏任务清单 + 底部数据格
            适合：两种路径/工具对照；不适合：三栏以上
            可以变：两栏任务各 3-5 条；数据格固定 4
-           槽位：big-num / tag / title / sub / before-tag/before-t / before-tasks[]（task）/ after-tag/after-t / after-tasks[]（task）/ stat1..4（n,l）
-           限制：big-num≤2字符；title≤16字(2行)；sub≤22字(1行)；col tag≤16字符；col t≤10字；task≤14字(1行)；stat n≤6字符 l≤4字
+           槽位：big-num / tag / title / sub / before-tag/before-t / before-tasks[]（task）/ after-tag/after-t / after-tasks[]（task）/ stat1..4（n,l） / issue / page-no
+           限制：big-num≤2字符；title≤16字(2行)；sub≤22字(1行)；col tag≤16字符；col t≤10字；task≤14字(1行)；stat n≤6字符 l≤4字；issue≤14字
            hl：无（VS 与双栏自带强调）
            图槽：无
            来源：ai-covers N20
@@ -1425,10 +1539,10 @@ a{color:inherit;text-decoration:none;}
 
   <div class="brand-top">
     <div class="left">
-      <div class="logo"><div class="ph">AI</div></div>
-      <span class="brand-name">AI Efficiency Lab</span>
+      <div class="logo"><div class="ph" data-sys="brand-logo" data-layer="sys-brand-logo" data-label="logo字" data-editable="text">AI</div></div>
+      <span class="brand-name" data-sys="brand-name" data-layer="sys-brand-name" data-label="品牌名" data-editable="text">AI Efficiency Lab</span>
     </div>
-    <div class="right">REAL · STORY</div>
+    <div class="right" data-sys="issue" data-layer="sys-issue" data-label="期号" data-editable="text">{{issue}}</div>
   </div>
 
   <div class="mega-hero">
@@ -1470,8 +1584,8 @@ a{color:inherit;text-decoration:none;}
   </div>
 
   <div class="pg-footer">
-    <span>aiefficiencylab.cn</span>
-    <span>N20 · Before/After</span>
+    <span data-sys="footer-id" data-layer="sys-footer-id" data-label="页脚署名" data-editable="text">aiefficiencylab.cn</span>
+    <span class="page-no" data-sys="page-no" data-layer="sys-page-no" data-label="页码" data-editable="text">{{page-no}}</span>
   </div>
 
     </div>
@@ -1483,8 +1597,8 @@ a{color:inherit;text-decoration:none;}
            用途：横向对比表——4 列表头 + 5 行指标 + 结论条
            适合：3 选项 × 多指标横评；不适合：选项或行数更多
            可以变：行文案自由；单元格色块按预设类（✓/—/△），改配色需 L2
-           槽位：big-num / tag / title / sub / th1..th4 / r1..r5（label,c1,c2,c3）/ verdict / cta
-           限制：big-num≤2字符；title≤16字(2行)；sub≤20字(1行)；th1..th4≤8字；label≤8字；c1..c3≤6字符；verdict≤26字(1行)
+           槽位：big-num / tag / title / sub / th1..th4 / r1..r5（label,c1,c2,c3）/ verdict / cta / issue / page-no
+           限制：big-num≤2字符；title≤16字(2行)；sub≤20字(1行)；th1..th4≤8字；label≤8字；c1..c3≤6字符；verdict≤26字(1行)；issue≤14字
            hl：无
            图槽：无；末列 n21-me 为推荐强调列
            来源：ai-covers N21
@@ -1496,10 +1610,10 @@ a{color:inherit;text-decoration:none;}
 
   <div class="brand-top">
     <div class="left">
-      <div class="logo"><div class="ph">AI</div></div>
-      <span class="brand-name">AI Efficiency Lab</span>
+      <div class="logo"><div class="ph" data-sys="brand-logo" data-layer="sys-brand-logo" data-label="logo字" data-editable="text">AI</div></div>
+      <span class="brand-name" data-sys="brand-name" data-layer="sys-brand-name" data-label="品牌名" data-editable="text">AI Efficiency Lab</span>
     </div>
-    <div class="right">COMPARISON · 2025</div>
+    <div class="right" data-sys="issue" data-layer="sys-issue" data-label="期号" data-editable="text">{{issue}}</div>
   </div>
 
   <div class="mega-hero">
@@ -1562,8 +1676,8 @@ a{color:inherit;text-decoration:none;}
   </div>
 
   <div class="pg-footer">
-    <span>aiefficiencylab.cn</span>
-    <span>N21 · 对比表格</span>
+    <span data-sys="footer-id" data-layer="sys-footer-id" data-label="页脚署名" data-editable="text">aiefficiencylab.cn</span>
+    <span class="page-no" data-sys="page-no" data-layer="sys-page-no" data-label="页码" data-editable="text">{{page-no}}</span>
   </div>
 
     </div>
@@ -1572,16 +1686,16 @@ a{color:inherit;text-decoration:none;}
   </div>
 
   <div class="gal-group" id="g-demo">
-    <div class="gal-group-head"><span class="num">G07</span><h2>演示</h2><span class="count">3 MASTERS</span></div>
+    <div class="gal-group-head"><span class="num">G07</span><h2>演示</h2><span class="count">4 MASTERS</span></div>
     <div class="gal-item" id="n22">
       <!-- ============ N22 · 标注截图 ============
            用途：单图标注讲解——窗口截图 + 编号钉 + 对应说明列表
            适合：一张界面图的分步导览；不适合：多图
            可以变：钉与说明固定 3 组（增减需 L2 同步钉位）；钉位坐标可 L2 调
-           槽位：big-num / tag / title / sub / shot-name / 图×1（55:29 cover）/ pin1-head/pin1-note .. pin3
-           限制：big-num≤2字符；title≤12字(2行)；sub≤16字(1行)；shot-name≤24字符；head≤12字(1行)；note≤28字(2行)
+           槽位：big-num / tag / title / sub / shot-name / 图×1（16:9 cover）/ pin1-head/pin1-note .. pin3 / issue / page-no
+           限制：big-num≤2字符；title≤12字(2行)；sub≤16字(1行)；shot-name≤24字符；head≤12字(1行)；note≤28字(2行)；issue≤14字
            hl：无
-           图槽：横版 55:29 cover；钉号 1/2/3 与列表一一对应
+           图槽：横版 16:9 cover；钉号 1/2/3 与列表一一对应
            来源：ai-covers N22
       -->
       <section data-layout="N22-annotated-shot">
@@ -1591,10 +1705,10 @@ a{color:inherit;text-decoration:none;}
 
   <div class="brand-top">
     <div class="left">
-      <div class="logo"><div class="ph">AI</div></div>
-      <span class="brand-name">AI Efficiency Lab</span>
+      <div class="logo"><div class="ph" data-sys="brand-logo" data-layer="sys-brand-logo" data-label="logo字" data-editable="text">AI</div></div>
+      <span class="brand-name" data-sys="brand-name" data-layer="sys-brand-name" data-label="品牌名" data-editable="text">AI Efficiency Lab</span>
     </div>
-    <div class="right">GUIDE · 03</div>
+    <div class="right" data-sys="issue" data-layer="sys-issue" data-label="期号" data-editable="text">{{issue}}</div>
   </div>
 
   <div class="mega-hero">
@@ -1616,7 +1730,7 @@ a{color:inherit;text-decoration:none;}
         <div class="dots"><span></span><span></span><span></span></div>
         <div class="n22-shot__chrome__title" data-layer="shot-name" data-label="窗口标题" data-editable="text">{{shot-name}}</div>
       </div>
-      <div class="n22-shot__img ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n22-img-1" data-label="标注截图" data-ratio="55:29" alt=""><span class="ph-img__label">截图占位 · 1280 × 720</span></div>
+      <div class="n22-shot__img ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n22-img-1" data-label="标注截图" data-ratio="16:9" alt=""><span class="ph-img__label">截图占位 · 1280 × 720</span></div>
       <!-- Pin 位置按比例 -->
       <span class="n22-pin n22-pin--1">1</span>
       <span class="n22-pin n22-pin--2">2</span>
@@ -1649,8 +1763,8 @@ a{color:inherit;text-decoration:none;}
   </div>
 
   <div class="pg-footer">
-    <span>aiefficiencylab.cn</span>
-    <span>N22 · 标注截图</span>
+    <span data-sys="footer-id" data-layer="sys-footer-id" data-label="页脚署名" data-editable="text">aiefficiencylab.cn</span>
+    <span class="page-no" data-sys="page-no" data-layer="sys-page-no" data-label="页码" data-editable="text">{{page-no}}</span>
   </div>
 
     </div>
@@ -1659,13 +1773,13 @@ a{color:inherit;text-decoration:none;}
 
     <div class="gal-item" id="n23">
       <!-- ============ N23 · 对话界面 ============
-           用途：对话演示页——聊天窗口完整问答实录
-           适合：人机对话实录、Prompt 效果展示；不适合：多轮长对话
-           可以变：问答固定 2 组；model 名可改
-           槽位：big-num / tag / title / sub / model / model-id / q1 / a1 / q2 / a2
-           限制：big-num≤4字符；title≤14字(2行)；sub≤24字(1行)；model≤20字符；model-id≤24字符；q≤22字；a1≤90字(多行,可用 br/strong)；a2≤24字
-           hl：a1 内 strong 1-2 处
-           图槽：无；输入框/头像为装饰
+           用途：对话演示页——聊天窗内嵌真实对话截图
+           适合：人机对话实录、Prompt 效果展示（真截图进窗）；不适合：多轮长对话（一屏装不下）
+           可以变：model 名可改；窗体（标题栏/输入框）为装饰框架
+           槽位：big-num / tag / title / sub / model / model-id / 图×1（1:1 cover）/ issue / page-no
+           限制：big-num≤4字符；title≤14字(2行)；sub≤24字(1行)；model≤20字符；model-id≤24字符；issue≤14字
+           hl：无（本版无 strong 高亮槽）
+           图槽：方图 1:1 cover ×1（异形窗体就近归入 1:1，零头偏差由裁切吸收）
            来源：ai-covers N23
       -->
       <section data-layout="N23-chat-demo">
@@ -1675,10 +1789,10 @@ a{color:inherit;text-decoration:none;}
 
   <div class="brand-top">
     <div class="left">
-      <div class="logo"><div class="ph">AI</div></div>
-      <span class="brand-name">AI Efficiency Lab</span>
+      <div class="logo"><div class="ph" data-sys="brand-logo" data-layer="sys-brand-logo" data-label="logo字" data-editable="text">AI</div></div>
+      <span class="brand-name" data-sys="brand-name" data-layer="sys-brand-name" data-label="品牌名" data-editable="text">AI Efficiency Lab</span>
     </div>
-    <div class="right">CASE · 05</div>
+    <div class="right" data-sys="issue" data-layer="sys-issue" data-label="期号" data-editable="text">{{issue}}</div>
   </div>
 
   <div class="mega-hero">
@@ -1703,22 +1817,7 @@ a{color:inherit;text-decoration:none;}
         </div>
       </div>
       <div class="n23-chat__body">
-        <div class="n23-msg n23-msg--me">
-          <div class="n23-msg__avatar">Me</div>
-          <div class="n23-msg__bubble" data-layer="q1" data-label="提问1" data-editable="text">{{q1}}</div>
-        </div>
-        <div class="n23-msg n23-msg--ai">
-          <div class="n23-msg__avatar">AI</div>
-          <div class="n23-msg__bubble" data-layer="a1" data-label="回答1" data-editable="text">{{a1}}</div>
-        </div>
-        <div class="n23-msg n23-msg--me">
-          <div class="n23-msg__avatar">Me</div>
-          <div class="n23-msg__bubble" data-layer="q2" data-label="提问2" data-editable="text">{{q2}}</div>
-        </div>
-        <div class="n23-msg n23-msg--ai">
-          <div class="n23-msg__avatar">AI</div>
-          <div class="n23-msg__bubble" data-layer="a2" data-label="回答2" data-editable="text">{{a2}}</div>
-        </div>
+        <div class="n23-shot ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n23-img-1" data-label="对话截图" data-ratio="1:1" alt=""><span class="ph-img__label">IMG · 对话截图</span></div>
       </div>
       <div class="n23-chat__input">
         <div class="n23-chat__input__ph">输入消息…</div>
@@ -1728,8 +1827,8 @@ a{color:inherit;text-decoration:none;}
   </div>
 
   <div class="pg-footer">
-    <span>aiefficiencylab.cn</span>
-    <span>N23 · 对话界面</span>
+    <span data-sys="footer-id" data-layer="sys-footer-id" data-label="页脚署名" data-editable="text">aiefficiencylab.cn</span>
+    <span class="page-no" data-sys="page-no" data-layer="sys-page-no" data-label="页码" data-editable="text">{{page-no}}</span>
   </div>
 
     </div>
@@ -1741,8 +1840,8 @@ a{color:inherit;text-decoration:none;}
            用途：代码展示页——编辑器窗口 + 高亮代码 + 状态栏
            适合：单段代码/命令展示；不适合：长代码（>12 行）
            可以变：代码为高亮示例，换码走 L2（沿用 n24-tk-* span 手工包：k=关键字 f=函数 n=数字 s=字符串 c=注释 b=内置 p=标点）；标签页/状态栏/说明可改
-           槽位：big-num / tag / title / sub / tab1..tab3 / status-l / status-r / note
-           限制：big-num≤3字符；title≤14字(2行)；sub≤24字(1行)；tab≤14字符；status-l≤26字符；status-r≤22字符；note≤40字符
+           槽位：big-num / tag / title / sub / tab1..tab3 / status-l / status-r / note / issue / page-no
+           限制：big-num≤3字符；title≤14字(2行)；sub≤24字(1行)；tab≤14字符；status-l≤26字符；status-r≤22字符；note≤40字符；issue≤14字
            hl：无（代码高亮为 tk-* 静态装饰，不在富文本白名单）
            图槽：无
            来源：ai-covers N24
@@ -1754,10 +1853,10 @@ a{color:inherit;text-decoration:none;}
 
   <div class="brand-top">
     <div class="left">
-      <div class="logo"><div class="ph">AI</div></div>
-      <span class="brand-name">AI Efficiency Lab</span>
+      <div class="logo"><div class="ph" data-sys="brand-logo" data-layer="sys-brand-logo" data-label="logo字" data-editable="text">AI</div></div>
+      <span class="brand-name" data-sys="brand-name" data-layer="sys-brand-name" data-label="品牌名" data-editable="text">AI Efficiency Lab</span>
     </div>
-    <div class="right">SNIPPET · 12</div>
+    <div class="right" data-sys="issue" data-layer="sys-issue" data-label="期号" data-editable="text">{{issue}}</div>
   </div>
 
   <div class="mega-hero">
@@ -1805,8 +1904,73 @@ a{color:inherit;text-decoration:none;}
   </div>
 
   <div class="pg-footer">
-    <span>aiefficiencylab.cn</span>
-    <span>N24 · 代码编辑器</span>
+    <span data-sys="footer-id" data-layer="sys-footer-id" data-label="页脚署名" data-editable="text">aiefficiencylab.cn</span>
+    <span class="page-no" data-sys="page-no" data-layer="sys-page-no" data-label="页码" data-editable="text">{{page-no}}</span>
+  </div>
+
+    </div>
+      </section>
+    </div>
+
+    <div class="gal-item" id="n34">
+      <!-- ============ N34 · Prompt 效果卡 ============
+           用途：Prompt 效果展示——效果图在上，下方聊天窗内嵌单条 Prompt 原文（可抄）
+           适合：AI 生图/生文效果展示；不适合：多轮对话实录（用 N23）、多步 Prompt 教学（用 N13）
+           可以变：model 名可改；prompt 原文 1-3 行（可含 br/strong）
+           槽位：big-num / tag / title / sub / model / model-id / prompt / 图×1（16:9 cover）/ issue / page-no
+           限制：big-num≤4字符；title≤14字(2行)；sub≤24字(1行)；model≤20字符；model-id≤24字符；prompt≤80字(3行)；issue≤14字
+           hl：prompt 内 strong 1-2 处
+           图槽：横版 16:9 cover ×1；聊天窗复用 n23-chat 窗体系列类（一比一还原 N23 窗体），仅 prompt 文本为 n34 专属
+           来源：新增（2026-11-16，填「Prompt→效果图」语义空位）
+      -->
+      <section data-layout="N34-prompt-effect">
+    <div class="artwork-page n34" data-artwork data-size="1080x1440">
+
+  <div class="paper-noise"></div>
+
+  <div class="brand-top">
+    <div class="left">
+      <div class="logo"><div class="ph" data-sys="brand-logo" data-layer="sys-brand-logo" data-label="logo字" data-editable="text">AI</div></div>
+      <span class="brand-name" data-sys="brand-name" data-layer="sys-brand-name" data-label="品牌名" data-editable="text">AI Efficiency Lab</span>
+    </div>
+    <div class="right" data-sys="issue" data-layer="sys-issue" data-label="期号" data-editable="text">{{issue}}</div>
+  </div>
+
+  <div class="mega-hero">
+    <div class="mh-row">
+      <div class="big-num" data-layer="big-num" data-label="标识大字" data-editable="text">{{big-num}}</div>
+      <div class="hero-text">
+        <span class="tag" data-layer="tag" data-label="标签" data-editable="text">{{tag}}</span>
+        <div class="title" data-layer="title" data-label="标题" data-editable="text">{{title}}</div>
+      </div>
+    </div>
+    <div class="sub" data-layer="sub" data-label="副题" data-editable="text">{{sub}}</div>
+  </div>
+
+  <div class="after-hero"></div>
+
+  <div class="content">
+    <div class="n34-img ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n34-img-1" data-label="生成效果图" data-ratio="16:9" alt=""><span class="ph-img__label">IMG · 生成效果图 · 16:9</span></div>
+    <div class="n23-chat" data-layer="n34-chat" data-label="聊天窗" data-type="group">
+      <div class="n23-chat__bar">
+        <div class="n23-chat__avatar">AI</div>
+        <div>
+          <div class="n23-chat__model"><span data-layer="model" data-label="模型名" data-editable="text">{{model}}</span> <small data-layer="model-id" data-label="模型ID" data-editable="text">{{model-id}}</small></div>
+        </div>
+      </div>
+      <div class="n23-chat__body">
+        <div class="n34-prompt-text" data-layer="prompt" data-label="Prompt 原文" data-editable="text">{{prompt}}</div>
+      </div>
+      <div class="n23-chat__input">
+        <div class="n23-chat__input__ph">输入消息…</div>
+        <div class="n23-chat__input__send">↑</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pg-footer">
+    <span data-sys="footer-id" data-layer="sys-footer-id" data-label="页脚署名" data-editable="text">aiefficiencylab.cn</span>
+    <span class="page-no" data-sys="page-no" data-layer="sys-page-no" data-label="页码" data-editable="text">{{page-no}}</span>
   </div>
 
     </div>
@@ -1821,8 +1985,8 @@ a{color:inherit;text-decoration:none;}
            用途：数据指标页——主指标柱状图 + 双小指标卡
            适合：实测数据汇报；不适合：无数据的观点页
            可以变：柱状图 7 根为装饰（改值走 L2 改 n25-h1..h7 类高度）；小指标 2 卡固定
-           槽位：big-num / tag / title / sub / main-label / main-val / main-unit / sm1（label,val,delta,r1l,r1v,r2l,r2v）/ sm2（同）
-           限制：big-num≤3字符；title≤14字(2行)；sub≤18字(1行)；main-label≤14字；main-val≤5字符；sm*-label≤6字；sm*-val≤5字符；sm*-delta≤5字符；行 label≤4字 val≤6字符
+           槽位：big-num / tag / title / sub / main-label / main-val / main-unit / sm1（label,val,delta,r1l,r1v,r2l,r2v）/ sm2（同） / issue / page-no
+           限制：big-num≤3字符；title≤14字(2行)；sub≤18字(1行)；main-label≤14字；main-val≤5字符；sm*-label≤6字；sm*-val≤5字符；sm*-delta≤5字符；行 label≤4字 val≤6字符；issue≤14字
            hl：无（delta 自带涨跌色）
            图槽：无；柱状图为装饰性数据可视化
            来源：ai-covers N25
@@ -1834,10 +1998,10 @@ a{color:inherit;text-decoration:none;}
 
   <div class="brand-top">
     <div class="left">
-      <div class="logo"><div class="ph">AI</div></div>
-      <span class="brand-name">AI Efficiency Lab</span>
+      <div class="logo"><div class="ph" data-sys="brand-logo" data-layer="sys-brand-logo" data-label="logo字" data-editable="text">AI</div></div>
+      <span class="brand-name" data-sys="brand-name" data-layer="sys-brand-name" data-label="品牌名" data-editable="text">AI Efficiency Lab</span>
     </div>
-    <div class="right">REPORT · 2025Q4</div>
+    <div class="right" data-sys="issue" data-layer="sys-issue" data-label="期号" data-editable="text">{{issue}}</div>
   </div>
 
   <div class="mega-hero">
@@ -1900,8 +2064,8 @@ a{color:inherit;text-decoration:none;}
   </div>
 
   <div class="pg-footer">
-    <span>aiefficiencylab.cn</span>
-    <span>N25 · 数据指标</span>
+    <span data-sys="footer-id" data-layer="sys-footer-id" data-label="页脚署名" data-editable="text">aiefficiencylab.cn</span>
+    <span class="page-no" data-sys="page-no" data-layer="sys-page-no" data-label="页码" data-editable="text">{{page-no}}</span>
   </div>
 
     </div>
@@ -1916,8 +2080,8 @@ a{color:inherit;text-decoration:none;}
            用途：限时福利/免费领取页——价格区 + 权益列表 + CTA
            适合：课程/资源包限时放送；不适合：长期常设内容
            可以变：权益 2-4 项；big-num 本版留空（中心价格制式）
-           槽位：pill / tag / title / sub / original / now / period / features[]（t,v）/ cta / foot-note
-           限制：title≤14字(2行)；sub≤18字(1行)；original≤10字符；now≤6字符；period≤22字符；feat t≤6字 v≤8字；cta≤26字
+           槽位：issue / tag / title / sub / original / now / period / features[]（t,v）/ cta / foot-note / page-no
+           限制：title≤14字(2行)；sub≤18字(1行)；original≤10字符；now≤6字符；period≤22字符；feat t≤6字 v≤8字；cta≤26字；issue≤14字
            hl：title 内 1 处、cta 内 0-1 处（span.hl）
            图槽：无
            来源：ai-covers N26
@@ -1929,10 +2093,10 @@ a{color:inherit;text-decoration:none;}
 
   <div class="brand-top">
     <div class="left">
-      <div class="logo"><div class="ph">AI</div></div>
-      <span class="brand-name">AI Efficiency Lab</span>
+      <div class="logo"><div class="ph" data-sys="brand-logo" data-layer="sys-brand-logo" data-label="logo字" data-editable="text">AI</div></div>
+      <span class="brand-name" data-sys="brand-name" data-layer="sys-brand-name" data-label="品牌名" data-editable="text">AI Efficiency Lab</span>
     </div>
-    <div class="right n26-limited" data-layer="pill" data-label="限时胶囊" data-editable="text">{{pill}}</div>
+    <div class="right n26-limited" data-sys="issue" data-layer="sys-issue" data-label="期号" data-editable="text">{{issue}}</div>
   </div>
 
   <div class="mega-hero n26-center-price">
@@ -1964,8 +2128,9 @@ a{color:inherit;text-decoration:none;}
   </div>
 
   <div class="pg-footer">
-    <span>aiefficiencylab.cn</span>
-    <span class="page-no" data-layer="foot-note" data-label="脚注" data-editable="text">{{foot-note}}</span>
+    <span data-sys="footer-id" data-layer="sys-footer-id" data-label="页脚署名" data-editable="text">aiefficiencylab.cn</span>
+    <span class="foot-note" data-layer="foot-note" data-label="脚注" data-editable="text">{{foot-note}}</span>
+    <span class="page-no" data-sys="page-no" data-layer="sys-page-no" data-label="页码" data-editable="text">{{page-no}}</span>
   </div>
 
     </div>
@@ -1977,8 +2142,8 @@ a{color:inherit;text-decoration:none;}
            用途：社群/订阅招募页——身份卡 + 权益列表 + 人数 + CTA
            适合：社群/Newsletter 招募；不适合：硬卖货
            可以变：权益 2-3 项；hero 大数字位留空（`n27-center-no-num` 居中制式，不是漏填）
-           槽位：tag / title / sub / name / desc / features[]（t,d）/ members-num / cta
-           限制：title≤12字(2行)；sub≤26字(1行)；name≤12字；desc≤14字(1行)；feat t≤8字 d≤14字(1行)；members-num≤8字符；cta≤18字
+           槽位：tag / title / sub / name / desc / features[]（t,d）/ members-num / cta / issue / page-no
+           限制：title≤12字(2行)；sub≤26字(1行)；name≤12字；desc≤14字(1行)；feat t≤8字 d≤14字(1行)；members-num≤8字符；cta≤18字；issue≤14字
            hl：title 内 1 处（span.hl）
            图槽：无
            来源：ai-covers N27
@@ -1990,10 +2155,10 @@ a{color:inherit;text-decoration:none;}
 
   <div class="brand-top">
     <div class="left">
-      <div class="logo"><div class="ph">AI</div></div>
-      <span class="brand-name">AI Efficiency Lab</span>
+      <div class="logo"><div class="ph" data-sys="brand-logo" data-layer="sys-brand-logo" data-label="logo字" data-editable="text">AI</div></div>
+      <span class="brand-name" data-sys="brand-name" data-layer="sys-brand-name" data-label="品牌名" data-editable="text">AI Efficiency Lab</span>
     </div>
-    <div class="right">COMMUNITY</div>
+    <div class="right" data-sys="issue" data-layer="sys-issue" data-label="期号" data-editable="text">{{issue}}</div>
   </div>
 
   <div class="mega-hero n27-center-no-num">
@@ -2032,8 +2197,8 @@ a{color:inherit;text-decoration:none;}
   </div>
 
   <div class="pg-footer">
-    <span>aiefficiencylab.cn</span>
-    <span>N27 · 社群招募</span>
+    <span data-sys="footer-id" data-layer="sys-footer-id" data-label="页脚署名" data-editable="text">aiefficiencylab.cn</span>
+    <span class="page-no" data-sys="page-no" data-layer="sys-page-no" data-label="页码" data-editable="text">{{page-no}}</span>
   </div>
 
     </div>
@@ -2048,8 +2213,8 @@ a{color:inherit;text-decoration:none;}
            用途：CTA 导向结尾——金句 + 三条记住 + 关注引导 + 下期预告
            适合：内容号固定收尾；不适合：正文中间页
            可以变：takeaways 2-4 条；callout/下期预告可留空
-           槽位：quote / takeaways[]（item）/ cta-t / tip / next-ep
-           限制：quote≤20字(4行,含 br)；item≤20字(1行)；cta-t≤10字；tip≤36字(2行)；next-ep≤16字
+           槽位：quote / takeaways[]（item）/ cta-t / tip / next-ep / issue / page-no
+           限制：quote≤20字(4行,含 br)；item≤20字(1行)；cta-t≤10字；tip≤36字(2行)；next-ep≤16字；issue≤14字
            hl：quote 内 1 处（span.hl + strong）
            图槽：无
            来源：ai-covers N28
@@ -2061,10 +2226,10 @@ a{color:inherit;text-decoration:none;}
 
   <div class="brand-top">
     <div class="left">
-      <div class="logo"><div class="ph">AI</div></div>
-      <span class="brand-name">AI Efficiency Lab</span>
+      <div class="logo"><div class="ph" data-sys="brand-logo" data-layer="sys-brand-logo" data-label="logo字" data-editable="text">AI</div></div>
+      <span class="brand-name" data-sys="brand-name" data-layer="sys-brand-name" data-label="品牌名" data-editable="text">AI Efficiency Lab</span>
     </div>
-    <div class="right">SEE YOU · 下期</div>
+    <div class="right" data-sys="issue" data-layer="sys-issue" data-label="期号" data-editable="text">{{issue}}</div>
   </div>
 
   <div class="n28-ending">
@@ -2101,8 +2266,8 @@ a{color:inherit;text-decoration:none;}
   </div>
 
   <div class="pg-footer">
-    <span>aiefficiencylab.cn</span>
-    <span>N28 · 结尾 CTA</span>
+    <span data-sys="footer-id" data-layer="sys-footer-id" data-label="页脚署名" data-editable="text">aiefficiencylab.cn</span>
+    <span class="page-no" data-sys="page-no" data-layer="sys-page-no" data-label="页码" data-editable="text">{{page-no}}</span>
   </div>
 
     </div>
@@ -2114,8 +2279,8 @@ a{color:inherit;text-decoration:none;}
            用途：卡片式结尾——下期预告大卡 + 作者卡 + 社群二维码卡
            适合：系列内容固定收尾；不适合：中间页
            可以变：预告标签 0-4 个；作者卡文案可改
-           槽位：outro-title / 图×2（389:492 cover、1:1 contain）/ next-num / next-title / next-tags[]（tag）/ bio / qr-hint
-           限制：outro-title≤10字(2行)；next-num≤4字符；next-title≤14字(2行)；tag≤8字符；bio≤20字(1行)；qr-hint≤18字(1行)
+           槽位：outro-title / 图×2（4:5 cover、1:1 contain）/ next-num / next-title / next-tags[]（tag）/ bio / qr-hint / issue / page-no
+           限制：outro-title≤10字(2行)；next-num≤4字符；next-title≤14字(2行)；tag≤8字符；bio≤20字(1行)；qr-hint≤18字(1行)；issue≤14字
            hl：qr-hint 内 strong 1 处
            图槽：下期封面 cover + 二维码 contain
            来源：ai-covers N29
@@ -2127,10 +2292,10 @@ a{color:inherit;text-decoration:none;}
 
   <div class="brand-top">
     <div class="left">
-      <div class="logo"><div class="ph">AI</div></div>
-      <span class="brand-name">AI Efficiency Lab</span>
+      <div class="logo"><div class="ph" data-sys="brand-logo" data-layer="sys-brand-logo" data-label="logo字" data-editable="text">AI</div></div>
+      <span class="brand-name" data-sys="brand-name" data-layer="sys-brand-name" data-label="品牌名" data-editable="text">AI Efficiency Lab</span>
     </div>
-    <div class="right">END · VOL.03</div>
+    <div class="right" data-sys="issue" data-layer="sys-issue" data-label="期号" data-editable="text">{{issue}}</div>
   </div>
 
   <div class="after-hero"></div>
@@ -2146,7 +2311,7 @@ a{color:inherit;text-decoration:none;}
     <div class="n29-card-grid">
       <!-- 下期预告（跨两列） -->
       <div class="n29-next-card" data-layer="n29-next-card" data-label="下期预告卡" data-type="group">
-        <div class="n29-next-card__img ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n29-img-1" data-label="下期封面" data-ratio="389:492" alt=""><span class="ph-img__label">IMG · 下期封面</span></div>
+        <div class="n29-next-card__img ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n29-img-1" data-label="下期封面" data-ratio="4:5" alt=""><span class="ph-img__label">IMG · 下期封面</span></div>
         <div class="n29-next-card__body">
           <div class="n29-next-card__top">
             <div class="n29-next-card__num" data-layer="next-num" data-label="期号" data-editable="text">{{next-num}}</div>
@@ -2182,8 +2347,8 @@ a{color:inherit;text-decoration:none;}
   </div>
 
   <div class="pg-footer">
-    <span>aiefficiencylab.cn</span>
-    <span>N29 · 卡片式结尾</span>
+    <span data-sys="footer-id" data-layer="sys-footer-id" data-label="页脚署名" data-editable="text">aiefficiencylab.cn</span>
+    <span class="page-no" data-sys="page-no" data-layer="sys-page-no" data-label="页码" data-editable="text">{{page-no}}</span>
   </div>
 
     </div>
@@ -2195,8 +2360,8 @@ a{color:inherit;text-decoration:none;}
            用途：极简致谢收尾（深色版）——金句 + 关注条
            适合：系列固定收尾；不适合：信息量大的总结
            可以变：cta 条文案自由
-           槽位：quote / sub / cta-t
-           限制：quote≤24字(4行)；sub≤26字(1行)；cta-t≤18字
+           槽位：quote / sub / cta-t / issue / page-no
+           限制：quote≤24字(4行)；sub≤26字(1行)；cta-t≤18字；issue≤14字
            hl：quote 内 1 处（span.hl + strong）；cta-t 内 0-1 处（span.hl）
            图槽：无
            来源：ai-covers N30
@@ -2208,10 +2373,10 @@ a{color:inherit;text-decoration:none;}
 
   <div class="brand-top">
     <div class="left">
-      <div class="logo"><div class="ph">AI</div></div>
-      <span class="brand-name">AI Efficiency Lab</span>
+      <div class="logo"><div class="ph" data-sys="brand-logo" data-layer="sys-brand-logo" data-label="logo字" data-editable="text">AI</div></div>
+      <span class="brand-name" data-sys="brand-name" data-layer="sys-brand-name" data-label="品牌名" data-editable="text">AI Efficiency Lab</span>
     </div>
-    <div class="right">END · VOL.03</div>
+    <div class="right" data-sys="issue" data-layer="sys-issue" data-label="期号" data-editable="text">{{issue}}</div>
   </div>
 
   <div class="thanks">
@@ -2229,8 +2394,8 @@ a{color:inherit;text-decoration:none;}
   </div>
 
   <div class="pg-footer">
-    <span>aiefficiencylab.cn</span>
-    <span>N30 · 极简致谢（深色）</span>
+    <span data-sys="footer-id" data-layer="sys-footer-id" data-label="页脚署名" data-editable="text">aiefficiencylab.cn</span>
+    <span class="page-no" data-sys="page-no" data-layer="sys-page-no" data-label="页码" data-editable="text">{{page-no}}</span>
   </div>
 
     </div>
@@ -2242,8 +2407,8 @@ a{color:inherit;text-decoration:none;}
            用途：极简致谢收尾（浅色版）——金句 + 关注条
            适合：系列固定收尾；不适合：信息量大的总结
            可以变：cta 条文案自由
-           槽位：quote / sub / cta-t
-           限制：quote≤24字(4行)；sub≤26字(1行)；cta-t≤18字
+           槽位：quote / sub / cta-t / issue / page-no
+           限制：quote≤24字(4行)；sub≤26字(1行)；cta-t≤18字；issue≤14字
            hl：quote 内 1 处（span.hl + strong）；cta-t 内 0-1 处（span.hl）
            图槽：无
            来源：ai-covers N31
@@ -2255,10 +2420,10 @@ a{color:inherit;text-decoration:none;}
 
   <div class="brand-top">
     <div class="left">
-      <div class="logo"><div class="ph">AI</div></div>
-      <span class="brand-name">AI Efficiency Lab</span>
+      <div class="logo"><div class="ph" data-sys="brand-logo" data-layer="sys-brand-logo" data-label="logo字" data-editable="text">AI</div></div>
+      <span class="brand-name" data-sys="brand-name" data-layer="sys-brand-name" data-label="品牌名" data-editable="text">AI Efficiency Lab</span>
     </div>
-    <div class="right">END · VOL.03</div>
+    <div class="right" data-sys="issue" data-layer="sys-issue" data-label="期号" data-editable="text">{{issue}}</div>
   </div>
 
   <div class="thanks">
@@ -2276,8 +2441,8 @@ a{color:inherit;text-decoration:none;}
   </div>
 
   <div class="pg-footer">
-    <span>aiefficiencylab.cn</span>
-    <span>N31 · 极简致谢（浅色）</span>
+    <span data-sys="footer-id" data-layer="sys-footer-id" data-label="页脚署名" data-editable="text">aiefficiencylab.cn</span>
+    <span class="page-no" data-sys="page-no" data-layer="sys-page-no" data-label="页码" data-editable="text">{{page-no}}</span>
   </div>
 
     </div>
@@ -2289,8 +2454,8 @@ a{color:inherit;text-decoration:none;}
            用途：结尾对照——前后图对照 + 三句话总结
            适合：系列收尾复盘；不适合：中间页
            可以变：harvest 2-4 条
-           槽位：big-num / tag / title / 图×2（209:157、209:170 cover）/ before-cap / after-cap / harvest-title / harvest[]（item）
-           限制：big-num≤4字符；title≤12字(2行)；cap≤24字(2行)；harvest-title≤12字；item≤20字(1行)
+           槽位：big-num / tag / title / 图×2（4:3 cover）/ before-cap / after-cap / harvest-title / harvest[]（item） / issue / page-no
+           限制：big-num≤4字符；title≤12字(2行)；cap≤24字(2行)；harvest-title≤12字；item≤20字(1行)；issue≤14字
            hl：无
            图槽：横版对照图 ×2 cover
            来源：ai-covers N32
@@ -2302,10 +2467,10 @@ a{color:inherit;text-decoration:none;}
 
   <div class="brand-top">
     <div class="left">
-      <div class="logo"><div class="ph">AI</div></div>
-      <span class="brand-name">AI Efficiency Lab</span>
+      <div class="logo"><div class="ph" data-sys="brand-logo" data-layer="sys-brand-logo" data-label="logo字" data-editable="text">AI</div></div>
+      <span class="brand-name" data-sys="brand-name" data-layer="sys-brand-name" data-label="品牌名" data-editable="text">AI Efficiency Lab</span>
     </div>
-    <div class="right">END · THANK YOU</div>
+    <div class="right" data-sys="issue" data-layer="sys-issue" data-label="期号" data-editable="text">{{issue}}</div>
   </div>
 
   <div class="mega-hero">
@@ -2324,13 +2489,13 @@ a{color:inherit;text-decoration:none;}
     <div class="compare">
       <div class="n32-compare__side n32-compare__side--before" data-layer="n32-side-before" data-label="对照前栏" data-type="group">
         <div class="n32-compare__side__tag">· BEFORE ·</div>
-        <div class="n32-compare__img ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n32-img-1" data-label="对照前图" data-ratio="209:157" alt=""><span class="ph-img__label">IMG · 之前</span></div>
+        <div class="n32-compare__img ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n32-img-1" data-label="对照前图" data-ratio="4:3" alt=""><span class="ph-img__label">IMG · 之前</span></div>
         <div class="n32-compare__caption" data-layer="before-cap" data-label="对照前说明" data-editable="text">{{before-cap}}</div>
       </div>
       <div class="compare__vs">VS</div>
       <div class="n32-compare__side n32-compare__side--after" data-layer="n32-side-after" data-label="对照后栏" data-type="group">
         <div class="n32-compare__side__tag">· AFTER ·</div>
-        <div class="n32-compare__img ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n32-img-2" data-label="对照后图" data-ratio="209:170" alt=""><span class="ph-img__label">IMG · 之后</span></div>
+        <div class="n32-compare__img ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n32-img-2" data-label="对照后图" data-ratio="4:3" alt=""><span class="ph-img__label">IMG · 之后</span></div>
         <div class="n32-compare__caption" data-layer="after-cap" data-label="对照后说明" data-editable="text">{{after-cap}}</div>
       </div>
     </div>
@@ -2346,8 +2511,8 @@ a{color:inherit;text-decoration:none;}
   </div>
 
   <div class="pg-footer">
-    <span>aiefficiencylab.cn</span>
-    <span>N32 · 结尾对照</span>
+    <span data-sys="footer-id" data-layer="sys-footer-id" data-label="页脚署名" data-editable="text">aiefficiencylab.cn</span>
+    <span class="page-no" data-sys="page-no" data-layer="sys-page-no" data-label="页码" data-editable="text">{{page-no}}</span>
   </div>
 
     </div>
@@ -2356,7 +2521,7 @@ a{color:inherit;text-decoration:none;}
   </div>
   </main>
 
-  <div class="gal-foot">TECH-BLUE · 32 MASTERS · REPOSITORY = GALLERY = DESIGN BOARD · EDIT MASTERS HERE, STYLES IN style.css</div>
+  <div class="gal-foot">TECH-BLUE · 34 MASTERS · REPOSITORY = GALLERY = DESIGN BOARD · EDIT MASTERS HERE, STYLES IN style.css</div>
 
 <script>
 /* 画廊说明头渲染器：把每张母版 section 前的说明头注释渲染成可见卡片。

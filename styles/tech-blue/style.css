@@ -40,7 +40,7 @@
   /* —— 统一字体：不换 —— */
   --serif:"Noto Serif SC","Songti SC","Source Han Serif SC",serif;
   --sans:"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif;
-  --mono:"JetBrains Mono","SF Mono",monospace;
+  --mono:"JetBrains Mono","SF Mono","PingFang SC","Microsoft YaHei",monospace;
   }
 
 /* ---------- 画布（干净纯色 + 网格底纹）---------- */
@@ -55,7 +55,7 @@ html,body{margin:0;padding:0;background:#ECEEF3;font-family:var(--sans);}
    → 绝对定位只留给 .paper-noise 装饰和 content 内部元素 */
 .artwork-page{
   position:relative;  /* ⚠️ 关键：为 .paper-noise 的 absolute 提供定位上下文 */
-  display:flex;flex-direction:column;  /* ✅ 改为 flex column，所有元素顺流排 */
+  display:flex;flex-direction:column;  /* flex column：所有元素顺流排 */
   gap:0;margin:0 auto;
   width:1080px;height:1440px;
   container-type:size;overflow:hidden;
@@ -201,6 +201,10 @@ html,body{margin:0;padding:0;background:#ECEEF3;font-family:var(--sans);}
   font-family:var(--mono);font-size:1.4cqw;color:var(--muted);
   }
 
+/* 页脚内联脚注（仅 N13/N26 使用）：贴右显示、与页码留 3cqw 间距。
+   字号/字距沿用原页码样式，视觉与改造前一致；页码则回到最右端，与其余 30 个母版对齐。 */
+.pg-footer .foot-note{margin-left:auto;margin-right:4.5cqw;font-size:1.3cqw;letter-spacing:.14em;}
+
 /* ================================================================
    参考图统一骨架组件（从 ex/2 三张母版提取）
    —— 顶栏品牌 / 超大数字 Hero / 图片占位卡 / 编号角标
@@ -243,13 +247,6 @@ html,body{margin:0;padding:0;background:#ECEEF3;font-family:var(--sans);}
 .brand-top .brand-name{font-family:var(--serif);font-size:1.8cqw;font-weight:700;}
 
 .brand-top .right{font-family:var(--mono);font-size:1.3cqw;color:var(--muted);letter-spacing:.14em;}
-
-/* 变体：纯文字（只有 accent 圆点 + 品牌名，无图片占位）*/
-.brand-top .left.dot-only{gap:.8cqw;}
-
-.brand-top .left.dot-only::before{
-  content:"";flex:none;width:.9cqw;height:.9cqw;border-radius:50%;background:var(--accent);
-  }
 
 /* 超大数字 Hero 区：Grid row 2，不再 absolute
    结构：mega-hero(flex-col) → mh-row(flex-row: big-num + hero-text) + sub(全宽)
@@ -724,8 +721,6 @@ html,body{margin:0;padding:0;background:#ECEEF3;font-family:var(--sans);}
 .n04-phones{
   flex:1;min-height:0;display:flex;align-items:center;justify-content:center;
   position:relative;gap:0;
-  background:var(--paper);  /* ↑ 遮住底下的 paper-noise 网格 */
-  border-radius:var(--radius-lg);
   }
 
 .n04-phones__corner-tag{
@@ -739,15 +734,20 @@ html,body{margin:0;padding:0;background:#ECEEF3;font-family:var(--sans);}
   position:relative;width:40cqw;flex:none;transform-origin:center center;
   }
 
+/* 壳压图：frame 必须成为定位元素且层级高于 absolute 的 screen，
+   否则 static 的 img 永远被 absolute 的 screen 盖住（与 demo p01 的壳在上同款） */
 .n04-phone__frame{
+  position:relative;z-index:2;
   width:100%;display:block;
   filter:drop-shadow(0 .4cqw 1.6cqw rgba(0,0,0,.15));
   }
 
+/* 内屏开口比例对齐壳图实测透明区（demo p01/p01b 同款 910×1806 壳）：
+   left 7.58% top 3.82% width 84.73% height 92.30%；壳图自带圆角，overflow 裁切即可 */
 .n04-phone__screen{
-  position:absolute;
-  top:8.5%;left:7.5%;right:7.5%;bottom:8.5%;
-  border-radius:3cqw;overflow:hidden;
+  position:absolute;z-index:1;
+  left:7.58%;top:3.82%;width:84.73%;height:92.30%;
+  overflow:hidden;
   background:var(--paper-deep);
   }
 
@@ -803,11 +803,14 @@ html,body{margin:0;padding:0;background:#ECEEF3;font-family:var(--sans);}
   padding:2.2cqw 0;position:relative;
   }
 
-/* 节点圆点 — 放大 */
+/* 节点圆点 — 放大；left 对齐竖线：
+   竖线左沿 = 容器左 1.2cqw（线宽 2px）；item 左 = 容器左 + padding 5cqw；dot 半宽 1cqw
+   → dot 左(相对 item) = 1.2 - 1 - 5 = -4.8cqw，中心压在竖线左沿，
+     与竖线几何中心差 1px（实测，1080 画布的 0.09%，肉眼不可见；若要正中改用 calc(-4.8cqw + 1px)） */
 .n05-timeline__dot{
   flex:none;width:2cqw;height:2cqw;border-radius:50%;
   background:var(--ink);border:4px solid var(--paper);
-  position:absolute;left:-5.2cqw;top:2.6cqw;
+  position:absolute;left:-4.8cqw;top:2.6cqw;
   box-shadow:0 0 0 3px var(--line-strong);
   }
 
@@ -1769,41 +1772,15 @@ html,body{margin:0;padding:0;background:#ECEEF3;font-family:var(--sans);}
 .n23-chat__model small{font-size:1.2cqw;font-weight:400;color:var(--muted);margin-left:.6cqw;font-family:var(--mono);letter-spacing:.04em;}
 
 .n23-chat__body{
-  flex:1;min-height:0;overflow:auto;padding:2.6cqw 2.6cqw 3cqw;
-  display:flex;flex-direction:column;gap:1.8cqw;
+  flex:1;min-height:0;overflow:hidden;padding:2.6cqw;
+  display:flex;
   }
 
-/* 消息气泡 */
-.n23-msg{
-  display:flex;gap:1.2cqw;max-width:85%;
+/* 对话截图槽：1:1 方图（窗体内容区实测 ≈877×807，就近归入 1:1） */
+.n23-shot{
+  height:100%;aspect-ratio:1;max-width:100%;
+  margin:auto;
   }
-
-.n23-msg--me{align-self:flex-end;flex-direction:row-reverse;}
-
-.n23-msg__avatar{
-  flex:none;width:2.6cqw;height:2.6cqw;border-radius:50%;
-  display:grid;place-items:center;
-  font-family:var(--serif);font-weight:700;font-size:1.1cqw;color:#fff;
-  }
-
-.n23-msg--me .n23-msg__avatar{background:var(--ink);}
-
-.n23-msg--ai .n23-msg__avatar{background:var(--accent);}
-
-.n23-msg__bubble{
-  padding:1.4cqw 1.8cqw;
-  font-size:1.7cqw;line-height:1.6;color:var(--ink);
-  }
-
-.n23-msg--me .n23-msg__bubble{
-  background:var(--ink);color:#fff;border-radius:2cqw 2cqw .4cqw 2cqw;
-  }
-
-.n23-msg--ai .n23-msg__bubble{
-  background:var(--paper-deep);border-radius:2cqw 2cqw 2cqw .4cqw;
-  }
-
-.n23-msg__bubble strong{color:var(--accent);font-weight:700;}
 
 /* 输入框 */
 .n23-chat__input{
@@ -1917,9 +1894,10 @@ html,body{margin:0;padding:0;background:#ECEEF3;font-family:var(--sans);}
   background:var(--paper);display:flex;align-items:center;gap:3cqw;
   }
 
+/* 竖排标签：中文在 vertical-rl 下天然正立——加 rotate(180deg) 会把整字倒置 */
 .n25-metric-main__label{
   flex:none;font-size:1.4cqw;color:var(--muted);font-family:var(--mono);
-  letter-spacing:.1em;writing-mode:vertical-rl;transform:rotate(180deg);
+  letter-spacing:.1em;writing-mode:vertical-rl;
   }
 
 .n25-metric-main__val{
@@ -1999,7 +1977,9 @@ html,body{margin:0;padding:0;background:#ECEEF3;font-family:var(--sans);}
 /* AI10 · 限时福利 — flex column，封面型 */
 .n26 .mega-hero.n26-center-price{text-align:center;gap:2.4cqw;}
 /* 顶部限时胶囊 */
-.n26-limited{color:var(--accent);border:1px solid var(--accent);padding:.6cqw 1.6cqw;border-radius:99px;}
+/* 顶部限时胶囊 · 右位期号：必须带 .brand-top .right 前缀提升特异性，
+   否则被 .brand-top .right{color:var(--muted)} 压掉（0,2,0 > 0,1,0），字会退成灰 */
+.brand-top .right.n26-limited{color:var(--accent);border:1px solid var(--accent);padding:.6cqw 1.6cqw;border-radius:99px;}
 
 .n26 .mega-hero.n26-center-price .mh-row{justify-content:center;gap:0;}
 
@@ -2524,3 +2504,59 @@ html,body{margin:0;padding:0;background:#ECEEF3;font-family:var(--sans);}
   }
 
 
+
+/* ========== N33 流程链路图（内置 SVG · 2×2 节点） ==========
+   图形属于母版版式（非图片槽）：SVG 随交付页内联，节点文字是普通文字槽。
+   颜色一律走令牌、不写死；几何用 viewBox 单位，随容器等比缩放。 */
+.n33 .n33-figure{
+  flex:1;min-height:0;
+  margin:0 6.6cqw;
+  display:flex;align-items:center;justify-content:center;
+  }
+
+.n33 .n33-svg{width:100%;height:100%;display:block;}
+
+.n33-svg .n33-rule{stroke:var(--line-strong);stroke-width:1;}
+.n33-svg .n33-rule--invert{stroke:rgba(255,255,255,.28);}
+.n33-svg .n33-node{fill:var(--paper);stroke:var(--line-strong);stroke-width:1;}
+.n33-svg .n33-node--last{fill:var(--accent-deep);stroke:var(--accent-deep);}
+.n33-svg .n33-idx-bg{fill:var(--paper-deep);}
+.n33-svg .n33-lane--last .n33-idx-bg{fill:rgba(255,255,255,.18);}
+.n33-svg .n33-idx{font-family:var(--mono);font-size:16px;font-weight:700;fill:var(--accent);letter-spacing:.04em;}
+.n33-svg .n33-lane--last .n33-idx{fill:#fff;}
+.n33-svg .n33-t{font-family:var(--serif);font-size:30px;font-weight:700;fill:var(--ink);letter-spacing:-.01em;}
+.n33-svg .n33-lane--last .n33-t{fill:#fff;}
+.n33-svg .n33-d{font-size:16px;fill:var(--ink-soft);}
+.n33-svg .n33-lane--last .n33-d{fill:rgba(255,255,255,.8);}
+.n33-svg .n33-hd{font-family:var(--mono);font-size:13px;font-weight:600;fill:var(--muted);letter-spacing:.22em;}
+.n33-svg .n33-flow{stroke:var(--accent);stroke-width:1.5;fill:none;}
+.n33-svg .n33-bar{fill:var(--accent);}
+.n33-svg .n33-note{font-size:17px;fill:var(--ink-soft);}
+.n33-svg marker path{fill:var(--accent);}
+
+/* ========== N34 · Prompt 效果卡 ========== */
+/* 聊天窗复用 n23-chat 系列裸类（一比一还原 N23 窗体），此处只补两条专属样式 */
+.n34 .content{
+  flex:1;margin:1.5cqw 6.6cqw 2cqw;min-height:0;
+  display:flex;flex-direction:column;gap:2cqw;
+  }
+
+.n34 .n34-img{
+  flex:none;width:100%;aspect-ratio:16/9;
+  border:1px solid var(--line-strong);
+  border-radius:var(--radius-lg);
+  overflow:hidden;
+  background:var(--paper-deep);
+  display:grid;place-items:center;
+  font-family:var(--mono);font-size:1.4cqw;color:var(--dim);letter-spacing:.16em;
+  }
+
+
+.n34 .n34-prompt-text{
+  font-family:var(--mono);font-size:1.8cqw;line-height:1.7;
+  color:var(--ink);
+  }
+
+.n34 .n34-prompt-text strong{color:var(--accent);font-weight:700;}
+
+.n34 .n23-chat__body{justify-content:center;}
