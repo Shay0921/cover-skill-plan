@@ -19,7 +19,7 @@ argument-hint: <原文素材路径或目录>
 | 填内容 | `styles/<风格>/templates.html` | 选中母版的槽位（文字={{槽名}}=data-layer id；图槽=data-layer id）与 **repeat 注释=条数与字数联动的唯一配置点** |
 | 即兴或写新母版 | `styles/<风格>/design-system.md` | 风格规范：气质/tokens/组件表/图槽与标记契约/即兴纪律/反例——即兴只准用该风格 style.css 的既有类 |
 | 画图形（多轨/分支/矩阵） | `styles/<风格>/design-system.md` §3.1 + `script/figure.mjs` | 图形页没有 container，字号必须写 px 档、颜色只写 `var()`；写到 `runs/<任务>/figures/<名>.html` → 出 PNG → 当普通图片进图槽 |
-| 出图 | `script/render.mjs` | 自动：填槽/克隆 repeat/手机框内嵌/CSS 内联/三层校验/截图/总览图 |
+| 出图 | `script/render.mjs` | 填槽、校验、截图、交付全自动；AI 只负责把 plan.json 写对 |
 
 只读当前阶段需要的文件；母版的视觉值全部在 style.css，规则语义全部在 catalog 与 design-system，别处文档不作为验收依据。
 
@@ -70,9 +70,9 @@ argument-hint: <原文素材路径或目录>
 
 **系统槽（跨风格机器契约，风格无关）**：`meta.brand` 是整组统一的品牌身份件（`logo` logo 字 / `name` 品牌名 / `footer` 页脚署名），一处定义、全篇注入，**不写进逐页 fields**；`meta` 整块可选，缺哪个键就保留母版默认。`fields.issue` = 逐页期号/栏目名，每页必填。**页码不填**（自动生成）。品牌三值的篇幅受品牌栏/页脚宽度约束，上限见所选风格 `design-system.md` 的组件表，超出须在交付说明里点明并请人确认。**`data-sys` 只登记系统槽**：A 类品牌三件（`meta.brand` 注入）+ B 类期号 `issue`（逐页 fields）+ B′ 类页码 `page-no`（自动生成），白名单固定五个值。其余逐页文案——按钮 `btn-*`、标题、副题——都是**普通文本槽**，与 `title`/`sub` 同一待遇（母版说明头登记键、plan 按名填、缺了即停），走 `{{槽名}}` ↔ `data-layer` 的常规路径，**不标 `data-sys`**。
 
-`fields` 的键分两类：内容槽 = `{{槽名}}` = `data-layer` id（图槽同理）；repeat 数组元素内用**条目短名**（`n/t/d`…），clone 时由 render 加序号后缀。系统槽不套这条——A 类不进 fields、layer 带 `sys-` 前缀；B 类与内容槽同名但 layer 也带 `sys-`；C 类（按钮 `btn-*` 等逐页文案）**就是内容槽**，`data-layer` 用母版前缀（如 `n02-btn-1`），不标 `data-sys`。这是全库统一契约，与风格无关——换风格只换视觉资产，不自定命名规范。值允许受控富文本（`span.hl`/`br`/`strong`），**裸 `<`/`>` 是文案不是标签**：写 "5>3 倍提升"、"A < B"、"x<y 时" 直接出图，render 注入前转义；只有形如 `<b>`、`<div class="…">`、`</span>` 的完整标签才硬停（报错附检出错段）。唯一要注意的是 `a<b>c` 这种字母包夹尖括号——它本身就是合法标签形态，请写成 `a < b`。即兴页 `layout` 写 `custom/<名>`、`markup` 字段附整页 HTML。`delivery` 可选，等价于 `--delivery`，命名 `YYYY-MM-DD-<文章小标题>`。
+`fields` 的键分两类：内容槽 = `{{槽名}}` = `data-layer` id（图槽同理）；repeat 数组元素内用**条目短名**（`n/t/d`…），clone 时由 render 加序号后缀。系统槽不套这条——A 类不进 fields、layer 带 `sys-` 前缀；B 类与内容槽同名但 layer 也带 `sys-`；C 类（按钮 `btn-*` 等逐页文案）**就是内容槽**，`data-layer` 用母版前缀（如 `n02-btn-1`），不标 `data-sys`。这是全库统一契约，与风格无关——换风格只换视觉资产，不自定命名规范。值允许受控富文本（`span.hl`/`br`/`strong`），**裸 `<`/`>` 是文案不是标签**：写 "5>3 倍提升"、"A < B"、"x<y 时" 直接出图；只有形如 `<b>`、`<div class="…">`、`</span>` 的完整标签才硬停。唯一要注意的是 `a<b>c` 这种字母包夹尖括号——它本身就是合法标签形态，请写成 `a < b`。即兴页 `layout` 写 `custom/<名>`、`markup` 字段附整页 HTML。`delivery` 可选，等价于 `--delivery`，命名 `YYYY-MM-DD-<文章小标题>`。
 
-**画布根类 `.artwork-page`（全库唯一权威机器锚点，本节即定义处）**：与风格无关——render 的 `rootOf()`、`editor.manifest.json` 的 `root`、Chrome 截图 selector 都认它；所有风格的母版与即兴页必须用它，不得自造根类名。命名与根节点 `data-artwork` 属性对齐，指"一张 AI 生成的作品卡片页"，不是某个风格的标记。
+**画布根类 `.artwork-page`（全库唯一权威机器锚点，本节即定义处）**：与风格无关——render 抽页、`editor.manifest.json` 的 `root`、截图 selector 三处都认它；所有风格的母版与即兴页必须用它，不得自造根类名。命名与根节点 `data-artwork` 属性对齐，指"一张 AI 生成的作品卡片页"，不是某个风格的标记。
 
 ## 执行入口
 
@@ -82,7 +82,6 @@ node script/render.mjs <任务运行区>/ --delivery=<YYYY-MM-DD-小标题>   # 
 node script/render.mjs <任务运行区>/ --delivery=<...> --with-editor     # 交付区追加 fields/manifest/assets
 node script/render.mjs <任务运行区>/ --check-geometry                    # 即兴页几何体检
 node script/render.mjs <任务运行区>/ --only=N01,N02                     # 调试：只出指定页（也接受 02 / P02）
-node script/render.mjs <任务运行区>/ --only=N01 --font-report           # 只读诊断：打印该页命中字体 + 三套栈字宽；不写任何产物（P页/PNG/fields/manifest/preview 全不动）；plan 自带的 delivery 也会被忽略
 node script/render.mjs <任务运行区>/ --delivery=<...> --force            # 重跑：允许覆盖已有交付目录
 ```
 
@@ -91,8 +90,8 @@ node script/render.mjs <任务运行区>/ --delivery=<...> --force            # 
 ## 运行环境
 
 - **Node ≥ 18**（实测 v22）：脚本只用内置模块，零依赖、不需要 `npm install`。
-- **Chrome / Chromium / Edge / Brave 任一**：`script/shared/find-chrome.mjs` 先看环境变量 `CHROME_PATH` / `CHROME_BIN`，再探各平台默认安装路径。受限环境（容器 / root / CI / macOS 沙箱）首次启动会失败，脚本自动加 `--no-sandbox` 重试一次；真起不来会同时报两次原因。
-- **全程离线**：不联网、不下载字体（本机字体栈）。字形与字宽由运行机器的已装字体决定，换机出图需目检并用 `--font-report` 核对。
+- **Chrome / Chromium / Edge / Brave 任一**：`script/shared/find-chrome.mjs` 先看环境变量 `CHROME_PATH` / `CHROME_BIN`，再探各平台默认安装路径；受限环境（容器 / root / CI）若起不来会直接报错退出。
+- **全程离线**：不联网、不下载字体（本机字体栈）。字形与字宽由运行机器的已装字体决定，换机出图先目检首张 PNG 再批量出。
 
 编辑器微调（可选）：`cd <pageApp 仓库>/demo && node pack.mjs "<含 manifest 的目录>"`（可指向任务运行区，或带 `--with-editor` 的交付目录）→ `covers-edit.html`。pageApp 仓库本机两处：Windows `D:\AI\pageApp\demo`｜macOS `/Users/shay/Code/AI/pageApp/demo`。**【待开发】** 该命令依赖本机 pageApp 仓库，换环境（生产安装）不可用；待改造为随技能分发的可配置打包入口后移除此标记。**已知差异**：编辑器按自己的「适配方式」（默认填满裁切）重写图片的 `object-fit`，母版里 `data-fit="contain"` 的槽打开后即按 `cover` 渲染——**只在图与槽比例不同时才会看出裁切**（同比例则渲染一致、无差异）。对策：contain 槽只放与槽同比例（1:1）的图；已因塞了非等比图被裁的页，重跑 render 即恢复。交接时要向用户说明。
 
@@ -109,7 +108,7 @@ node script/render.mjs <任务运行区>/ --delivery=<...> --force            # 
 ## 受控即兴与转正
 
 - 即兴边界：只用该风格 style.css 既有类 + 遵循其 design-system.md；禁内联样式、禁自造 CSS 变量、禁新类名（新类=风格演进=用户过目）。
-- 校验升级：即兴页必过形态校验（根节点 / 禁区属性 / data-layer 唯一）；几何体检需显式加 `--check-geometry`，仅对 custom 页执行。
+- 校验升级：即兴页必过形态校验（自动执行，不过即停）；几何体检不在默认流程内，需显式加 `--check-geometry`（仅对 custom 页执行）。
 - 转正：同一 `custom/<名>` 累计 ≥2 次 → 提示用户入库 → 按母版规范重整（标记/占位符/限制注释）→ 目检+一次真实任务回归。转正不是复制粘贴当次产物。
 - 同一内容即兴两次不满意 → 走转正，不无限即兴。
 

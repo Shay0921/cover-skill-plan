@@ -235,15 +235,92 @@ function injectPageNo(body, nn, total, layout, errors) {
 // 只产出「dataURL + crop 样式」，不拼全新 <img> 标签。
 // 母版 img 上的 data-slot/data-layer/data-label/data-ratio 是编辑器图层的身份证，
 // 必须由 fillSection 在替换 src 时原样保留。
+// 魔数嗅探（T14 P0）：读文件头判真实格式，与扩展名声明的 MIME 交叉校验。
+// GIF 伪装成白名单后缀（如改名 .png）会在此被拦——浏览器虽按内容解码能显示，但编辑器 pack.mjs 嗅探内容后整批拒绝。
+function sniffMime(buf) {
+  if (buf.length >= 8 && buf.toString('hex', 0, 8) === '89504e470d0a1a0a') return 'image/png';
+  if (buf.length >= 3 && buf.toString('hex', 0, 3) === 'ffd8ff') return 'image/jpeg';
+  if (buf.length >= 12 && buf.toString('latin1', 0, 4) === 'RIFF' && buf.toString('latin1', 8, 12) === 'WEBP') return 'image/webp';
+  if (buf.length >= 4 && buf.toString('latin1', 0, 4) === 'GIF8') return 'image/gif';
+  return null;
+}
+
+// 读 EXIF IFD0 的 orientation tag（0x0112，SHORT 内联值）；读不到/结构异常一律返回 0。
+// 只走 TIFF 头最简路径，不改写任何字节——纯读。
+function exifOrientation(buf, start, end) {
+  try {
+    if (end - start < 8) return 0;
+    const le = buf.toString('latin1', start, start + 2) === 'II';
+    const u16 = (p) => (le ? buf.readUInt16LE(p) : buf.readUInt16BE(p));
+    if (u16(start + 2) !== 0x2A) return 0;
+    const ifd = start + (le ? buf.readUInt32LE(start + 4) : buf.readUInt32BE(start + 4));
+    if (ifd + 2 > end) return 0;
+    const n = u16(ifd);
+    for (let i = 0; i < n; i++) {
+      const e = ifd + 2 + i * 12;
+      if (e + 12 > end) return 0;
+      if (u16(e) === 0x0112) return u16(e + 8);
+    }
+    return 0;
+  } catch { return 0; }
+}
+
+// 图片尺寸头解析（T12）：PNG 读 IHDR 固定偏移；JPEG 扫 SOF marker 段（跳过 DHT/JPG/DAC 非几何段）；
+// WebP 按 VP8X / VP8(lossy) / VP8L(lossless) 三子格式各读一次偏移。读不出返回 null——调用方跳过软校验、
+// 保持静默，不硬停（尺寸信息只喂 WARN，解析失败不升级为错误）。
+// JPEG 额外读 APP1 EXIF 的 orientation（T12 复查 #3）：值 5–8 = 拍摄时相机竖持、浏览器按 EXIF 旋转显示，
+// 存储宽高须交换——否则竖拍照片的比例 WARN 拿存储尺寸算反。
+function imageDims(buf) {
+  if (buf.length >= 24 && buf.toString('hex', 0, 8) === '89504e470d0a1a0a')
+    return { w: buf.readUInt32BE(16), h: buf.readUInt32BE(20) };
+  if (buf.length >= 3 && buf[0] === 0xFF && buf[1] === 0xD8) {
+    let o = 2, orientation = 0;
+    while (o + 9 < buf.length) {
+      if (buf[o] !== 0xFF) { o++; continue; }
+      const m = buf[o + 1];
+      if (m === 0xFF || m === 0x00) { o++; continue; }                       // 填充字节
+      if (m === 0xD8 || (m >= 0xD0 && m <= 0xD7) || m === 0x01) { o += 2; continue; } // 独立 marker
+      const segLen = buf.readUInt16BE(o + 2);
+      if (m === 0xE1 && segLen >= 8 && buf.toString('latin1', o + 4, o + 10) === 'Exif\u0000\u0000') {
+        const v = exifOrientation(buf, o + 10, o + 2 + segLen);
+        if (v >= 1 && v <= 8) orientation = v;   // 0=本段无 orientation tag，不清掉先前合法值（防多 Exif APP1 覆盖）
+      }
+      if (m >= 0xC0 && m <= 0xCF && m !== 0xC4 && m !== 0xC8 && m !== 0xCC) { // SOF 几何段
+        const w = buf.readUInt16BE(o + 7), h = buf.readUInt16BE(o + 5);
+        return orientation >= 5 && orientation <= 8 ? { w: h, h: w } : { w, h };
+      }
+      o += 2 + segLen;                                                       // 跳过段体
+    }
+    return null;
+  }
+  if (buf.length >= 30 && buf.toString('latin1', 8, 12) === 'WEBP') {
+    const cc = buf.toString('latin1', 12, 16);
+    if (cc === 'VP8X') return { w: buf.readUIntLE(24, 3) + 1, h: buf.readUIntLE(27, 3) + 1 };
+    if (cc === 'VP8 ' && buf[23] === 0x9D && buf[24] === 0x01 && buf[25] === 0x2A)
+      return { w: buf.readUIntLE(26, 2) & 0x3FFF, h: buf.readUIntLE(28, 2) & 0x3FFF };
+    if (cc === 'VP8L' && buf[20] === 0x2F) {
+      const bits = buf.readUIntLE(21, 4);
+      return { w: (bits & 0x3FFF) + 1, h: ((bits >>> 14) & 0x3FFF) + 1 };
+    }
+  }
+  return null;
+}
+
 function imgValue(v, where, errors, usedFiles, warns) {
   const spec = typeof v === 'string' ? { src: v } : v;
   if (!spec || typeof spec.src !== 'string' || !spec.src) { errors.push(`${where}: 图片值为空`); return null; }
   const file = path.resolve(taskDir, spec.src);
   const ext = path.extname(file).toLowerCase();
   if (!fs.existsSync(file)) { errors.push(`${where}: 图片不存在 ${spec.src}`); return null; }
-  if (!MIME[ext]) { errors.push(`${where}: 图片格式不符（仅 PNG/JPEG/WebP）${spec.src}`); return null; }
+  if (!MIME[ext]) { errors.push(`${where}: 图片格式不符（仅 PNG/JPEG/WebP）${spec.src}；请转为 PNG/JPEG/WebP 后重试`); return null; }
+  const buf = fs.readFileSync(file);
+  const actual = sniffMime(buf);
+  if (actual !== MIME[ext]) {
+    errors.push(`${where}: 图片扩展名与内容不符 ${spec.src}（扩展名声明 ${MIME[ext]}，实际内容${actual ? ' ' + actual : '无法识别'}）；请转为 PNG/JPEG/WebP 后重试`);
+    return null;
+  }
   usedFiles.push(file);
-  const dataUrl = 'data:' + MIME[ext] + ';base64,' + fs.readFileSync(file).toString('base64');
+  const dataUrl = 'data:' + MIME[ext] + ';base64,' + buf.toString('base64');
   let cropStyle = null;
   if (spec.crop) {
     const crop = parseCrop(spec.crop);
@@ -253,7 +330,7 @@ function imgValue(v, where, errors, usedFiles, warns) {
       ? `height:${(100 / crop.fraction).toFixed(1)}%;width:100%;${crop.align === 'end' ? 'bottom:0;' : crop.align === 'start' ? 'top:0;' : 'top:50%;transform:translateY(-50%);'}`
       : `width:${(100 / crop.fraction).toFixed(1)}%;height:100%;${crop.align === 'end' ? 'right:0;' : crop.align === 'start' ? 'left:0;' : 'left:50%;transform:translateX(-50%);'}`;
   }
-  return { dataUrl, cropStyle, spec };
+  return { dataUrl, cropStyle, spec, buf };
 }
 function parseCrop(desc) {
   const m = String(desc).match(/^(上|下|左|右|中)?\s*(\d{1,3})\s*%$/);
@@ -370,17 +447,19 @@ function fillSection(layout, body, fields, errors, warns, usedFiles, meta, nn, t
 
     // ratio 软校验：优先读母版 img 标签；img 上没写则回退读 .ph-img 容器（规范允许两处任写其一）
     const ratioM = origTag.match(/data-ratio="([0-9:]+)"/) || (lastOpen ? lastOpen[0].match(/data-ratio="([0-9:]+)"/) : null);
-    if (ratioM && imgSpec.spec.src) {
+    if (ratioM && imgSpec.spec.src && imgSpec.buf) {
       const [rw, rh] = ratioM[1].split(':').map(Number);
-      try {
-        const buf = fs.readFileSync(path.resolve(taskDir, imgSpec.spec.src));
-        // 只判 PNG（直接读 IHDR 宽高）；JPEG/WebP 读不到尺寸头，本软校验跳过——比例问题靠人审 PNG
-        if (buf.length > 24 && buf.toString('hex', 0, 8) === '89504e470d0a1a0a') {
-          const w = buf.readUInt32BE(16), h = buf.readUInt32BE(20);
-          const want = rw / rh, got = w / h;
-          if (Math.abs(got - want) / want > 0.45) warns.push(`${layout}: 图槽 ${id} 比例差异大（槽 ${ratioM[1]} vs 图 ${w}x${h}），裁切量大，建议 crop`);
+      // 复用 imgValue 已读的 buf（T14 后 buf 随返回值带回），不再二次 readFileSync
+      // 尺寸头解析 PNG/JPEG/WebP 全支持（imageDims，T12）；GIF 由 P1 预转换成真 PNG 后才走到这里
+      const dims = imageDims(imgSpec.buf);
+      if (dims) {
+        const want = rw / rh, got = dims.w / dims.h;
+        if (Math.abs(got - want) / want > 0.45) {
+          // 措辞按 data-fit 分流（T12 复查）：cover 差异=裁切量大；contain 差异=留白量大，不裁切
+          const fit = (lastOpen && lastOpen[0].match(/data-fit="([^"]*)"/)?.[1] || 'cover').toLowerCase();
+          warns.push(`${layout}: 图槽 ${id} 比例差异大（槽 ${ratioM[1]} vs 图 ${dims.w}x${dims.h}），${fit === 'contain' ? 'contain 留白量大，核对槽声明或换图' : 'cover 裁切量大，建议 crop'}`);
         }
-      } catch { /* 尺寸读取失败忽略 */ }
+      }
     }
 
     let newTag = origTag.replace(/\bsrc="[^"]*"/, `src="${imgSpec.dataUrl}"`);
@@ -573,6 +652,76 @@ if (!pages.length) fail('plan.json 无页面');
 const targets = ONLY ? pages.filter((p) => ONLY.some((o) => (p.nn || '').padStart(2, '0') === o.padStart(2, '0'))) : pages;
 if (!targets.length) fail('--only 过滤后无页面');
 
+// ---------- GIF 预转换（T14 P1 · 方案 A）----------
+// 只处理"老实声明 .gif"的输入：canvas 取第一帧转真 PNG，产物写任务运行区（.gif.png 后缀，不在交付白名单），
+// plan 内 src 原地改写指向新文件 → 主循环与 imgValue 走既有 PNG 通道，零改动。
+// 扩展名与内容不符的伪装（如 GIF 改名 .png）不由本 pass 处理，仍由 imgValue 魔数校验硬停。
+// 收集 fields 里的图片引用。契约两种形态都收（SKILL「图槽值=相对路径或 {src, crop}」）：
+// 对象形态记 spec 本体（改 spec.src 即生效）；字符串简写形态记宿主对象与键（改 host[key] 即生效）。
+// 缺字符串分支时，字符串引用的 GIF 走不到预转换、在 imgValue 被白名单硬停，与"老实声明 .gif 可自动转"的口径矛盾。
+function collectImageSpecs(v, out = []) {
+  if (Array.isArray(v)) { v.forEach((item) => collectImageSpecs(item, out)); return out; }
+  if (v && typeof v === 'object') {
+    if (typeof v.src === 'string' && v.src) out.push({ spec: v });
+    for (const [key, val] of Object.entries(v)) {
+      if (key === 'src') continue;   // spec 对象的 src 已按 {spec} 记录，防双记双写
+      if (typeof val === 'string' && val && path.extname(val).toLowerCase() === '.gif') out.push({ host: v, key });
+      else if (val && typeof val === 'object') collectImageSpecs(val, out);
+    }
+  }
+  return out;
+}
+
+let gifInst = null;   // 转换用浏览器实例；截图阶段复用，避免二次启动
+{
+  const byFile = new Map();   // 绝对路径 → 引用该文件的记录列表：同一 GIF 可被多槽引用，转换一次、全部改写
+  for (const ref of collectImageSpecs(targets.map((p) => p.fields || {}))) {
+    const src = ref.spec ? ref.spec.src : ref.host[ref.key];
+    const file = path.resolve(taskDir, src);
+    if (path.extname(file).toLowerCase() !== '.gif' || !fs.existsSync(file)) continue;
+    if (!byFile.has(file)) byFile.set(file, []);
+    byFile.get(file).push(ref);
+  }
+  if (byFile.size) {
+    console.log(`🖼 检测到 ${byFile.size} 个 GIF 输入，取首帧转 PNG…`);
+    try {
+      gifInst = await launchBrowser(createOptions({ width: 256, height: 256, dsf: 1 }));
+      for (const [file, refs] of byFile) {
+        const gifB64 = fs.readFileSync(file).toString('base64');
+        const dataUrl = await withPage(gifInst, 'about:blank',
+          { width: 256, height: 256, dsf: 1, timeout: 20000, fontTimeout: 1000 },
+          async (ctx) => evaluate(ctx.cdp, ctx.sessionId, `(async () => {
+            const img = new Image();
+            img.src = 'data:image/gif;base64,${gifB64}';
+            await img.decode();
+            const c = document.createElement('canvas');
+            c.width = img.naturalWidth; c.height = img.naturalHeight;
+            c.getContext('2d').drawImage(img, 0, 0);
+            return c.toDataURL('image/png');
+          })()`, { awaitPromise: true, timeoutMs: 20000 }));
+        if (typeof dataUrl !== 'string' || !dataUrl.startsWith('data:image/png;base64,'))
+          throw new Error(`未得到 PNG dataURL（Got ${typeof dataUrl}）`);
+        fs.writeFileSync(file + '.png', Buffer.from(dataUrl.slice('data:image/png;base64,'.length), 'base64'));
+        for (const ref of refs) {
+          if (ref.spec) ref.spec.src = ref.spec.src + '.png';
+          else ref.host[ref.key] = ref.host[ref.key] + '.png';
+        }
+        console.log(`   ✅ ${refs[0].spec ? refs[0].spec.src : refs[0].host[refs[0].key]}（${refs.length} 处引用）`);
+      }
+      // GIF 任务提前启动了浏览器：若主循环后续 fail() 直接退出，closeBrowser 的异步清理走不到——
+      // 同步 exit 兜底杀子进程并删临时目录，防 Chrome 进程/目录泄漏（正常路径仍由 finally closeBrowser 收尾）
+      const leaked = gifInst;
+      process.on('exit', () => {
+        try { leaked.child.kill('SIGKILL'); } catch { /* already exited */ }
+        try { fs.rmSync(leaked.userDataDir, { recursive: true, force: true }); } catch { /* busy */ }
+      });
+    } catch (e) {
+      if (gifInst) await closeBrowser(gifInst).catch(() => {});
+      fail(`GIF 首帧转换失败：${(e && e.message) || e}`);
+    }
+  }
+}
+
 const usedFiles = [];
 const allWarns = [];
 const built = [];
@@ -716,7 +865,7 @@ function printFontReport(rep, tag) {
 
 // ---------- 截图 ----------
 const opts = createOptions({ selector: '.artwork-page', waitSelector: '.artwork-page', timeout: 60000 });
-const inst = await launchBrowser(opts);
+const inst = gifInst || await launchBrowser(opts);   // GIF 预转换已启动浏览器时直接复用
 try {
   for (const b of built) {
     const file = path.join(taskDir, b.file || `P${b.nn}-${b.name}.html`);
@@ -725,6 +874,34 @@ try {
       if (DIAG_ONLY) return;   // 只读体检：不截图、不写 PNG
       const shot = await captureReadyPage(ctx, opts);
       fs.writeFileSync(path.join(taskDir, `P${b.nn}.png`), shot.buffer);
+      // 盒形比例诊断（T12 修法①，纯读态 WARN）：实测 .ph-img 容器盒 vs 声明 data-ratio。
+      // 须在 captureReadyPage 之后测（字体回流已稳定，与截图同帧）；只盯 cover 槽（contain 是留白非裁切）。
+      // ⚠ 用 offsetWidth/Height（变换前布局盒）而非 getBoundingClientRect——后者是旋转后 AABB：
+      // N04 后手机 rotate(-6deg) 会把 329x714 的真盒膨胀成 402x744（假阳性 17%）；cover 裁切发生在
+      // 元素自身坐标系，旋转不改变裁切量，布局盒才是正确参照。比例是尺度不变量，页面整体 scale 无影响。
+      const boxes = await evaluate(ctx.cdp, ctx.sessionId, `(() => {
+        const out = [];
+        document.querySelectorAll('[data-slot="image"]').forEach((img) => {
+          const box = img.closest('.ph-img');
+          if (!box) return;
+          if ((box.getAttribute('data-fit') || '').toLowerCase() !== 'cover') return;
+          const ratio = img.getAttribute('data-ratio') || box.getAttribute('data-ratio');
+          if (!ratio || !/^[0-9]+:[0-9]+$/.test(ratio)) return;
+          const w = box.offsetWidth, h = box.offsetHeight;
+          if (w < 8 || h < 8) return;
+          const [rw, rh] = ratio.split(':').map(Number);
+          if (!rw || !rh) return;
+          const want = rw / rh;
+          out.push({ id: img.getAttribute('data-layer') || '?', ratio, dev: Math.abs(w / h - want) / want, w, h });
+        });
+        return out;
+      })()`);
+      if (boxes.length) {
+        const bad = boxes.filter((c) => c.dev >= 0.15);
+        for (const c of bad)
+          console.warn(`⚠ P${b.nn} · ${b.name}: 图槽 ${c.id} 盒形比例偏差大（声明 ${c.ratio} vs 实测盒 ${c.w}x${c.h}，偏差 ${Math.round(c.dev * 100)}%），cover 裁切量大——核对声明值或加 crop`);
+        console.log(`📐 P${b.nn} 盒形比例: ${boxes.length} 槽 cover · 最大偏差 ${Math.round(Math.max(...boxes.map((c) => c.dev)) * 100)}%`);
+      }
     });
     if (DIAG_ONLY) { fs.rmSync(file); continue; }   // 临时 HTML 跑完即删，不做几何/出图日志
     if (b.custom && GEOM) {
