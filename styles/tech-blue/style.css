@@ -574,6 +574,10 @@ html,body{margin:0;padding:0;background:#ECEEF3;font-family:var(--sans);}
   flex:1;margin:3cqw 6.6cqw 2cqw;min-height:0;  /* 顶部 margin 加大，整体下移 */
   display:flex;flex-direction:column;gap:2.6cqw;
   }
+/* 通知卡条数自适应：容器子元素 = floating + notes，故第 4 条 note 是 :nth-child(5)。
+   4 条 → 常规起点 6cqw；2-3 条 → 下移到 10cqw 填补底部空隙（说明头 repeat ×2-4）。 */
+.n03 .content:has(.n03-notes > .note:nth-child(5)){margin-top:6cqw;}
+.n03 .content:not(:has(.n03-notes > .note:nth-child(5))){margin-top:10cqw;}
 
 /* ========== Hero 区 ========== */
 .n03 .hero{
@@ -711,7 +715,7 @@ html,body{margin:0;padding:0;background:#ECEEF3;font-family:var(--sans);}
 .n04-phone__screen{
   position:absolute;z-index:1;
   left:7.58%;top:3.82%;width:84.73%;height:92.30%;
-  overflow:hidden;
+  overflow:hidden;border-radius:10px;  /* 盖住壳图开口外的四个直角露出 */
   background:var(--paper-deep);
   }
 
@@ -816,18 +820,11 @@ html,body{margin:0;padding:0;background:#ECEEF3;font-family:var(--sans);}
   1.4fr       /* 03 shot-main 弹性 */
   auto        /* 04 para-2 */
   1fr         /* 05 twin 弹性 */
-  auto        /* 06 para-3 */
-  auto        /* 07 code-block */
-  auto;       /* 08 summary 钉底 */
+  auto;       /* 06 para-3（callout 落隐式行） */
   }
 
 /* ========== 步骤头 ========== */
 .n06 .step-head{display:flex;align-items:flex-start;gap:3.4cqw;}
-
-.n06 .step-cat{
-  font-family:var(--mono);font-size:1.72cqw;letter-spacing:.18em;
-  color:var(--muted);margin-bottom:1.2cqw;
-  }
 
 /* ========== 正文段落 ========== */
 .n06-para{
@@ -864,53 +861,14 @@ html,body{margin:0;padding:0;background:#ECEEF3;font-family:var(--sans);}
   }
 
 .n06-annotated-shot__caption{
-  padding:.6cqw 1.4cqw;border-top:1px solid var(--line);
-  font-size:1.56cqw;color:var(--ink-soft);font-style:italic;
-  background:var(--paper);flex:none;
+  position:absolute;left:1.2cqw;bottom:1.2cqw;z-index:3;
+  padding:.4cqw 1.1cqw;border-radius:var(--radius-md);
+  font-size:1.4cqw;color:#fff;font-style:italic;
+  background:rgba(38,42,50,.72);
   }
 
 /* twin 两图并排（各自也是弹性高度）*/
 .n06-twin{display:grid;grid-template-columns:1fr 1fr;gap:1.2cqw;min-height:0;}
-
-/* ========== 代码块 ========== */
-.n06-code-block{
-  border-radius:var(--radius-md);overflow:hidden;
-  background:var(--ink);color:var(--ink-paper);
-  font-family:var(--mono);font-size:1.72cqw;line-height:1.65;
-  }
-
-.n06-code-block__head{
-  padding:.6cqw 1.4cqw;border-bottom:1px solid rgba(255,255,255,.1);
-  font-size:1.3cqw;color:rgba(255,255,255,.4);letter-spacing:.1em;
-  display:flex;gap:.5cqw;align-items:center;
-  }
-
-.n06-code-block__head::before{
-  content:"";width:.5cqw;height:.5cqw;border-radius:50%;background:var(--accent);
-  }
-
-.n06-code-block pre{
-  margin:0;padding:1.2cqw 1.6cqw;white-space:pre-wrap;
-  }
-
-/* ========== 底部总结（钉住）========== */
-.n06-summary{
-  border:1px solid var(--accent);border-radius:var(--radius-md);overflow:hidden;
-  background:rgba(37,99,235,.04);
-  }
-
-.n06-summary__head{
-  padding:.9cqw 1.6cqw;border-bottom:1px solid var(--accent);
-  font-family:var(--mono);font-size:1.43cqw;color:var(--accent);letter-spacing:.14em;font-weight:bold;
-  }
-
-.n06-summary__body{
-  padding:1.2cqw 1.6cqw;font-size:1.85cqw;line-height:1.55;color:var(--ink);
-  display:flex;gap:.6cqw;
-  }
-
-.n06-summary__body .n06-dot{flex:none;width:.4cqw;height:.4cqw;border-radius:50%;background:var(--accent);margin-top:.7cqw;}
-
 
 
 /* ---- N07 · 单步骤概览 ---- */
@@ -922,11 +880,6 @@ html,body{margin:0;padding:0;background:#ECEEF3;font-family:var(--sans);}
 /* ========== 步骤大编号 + 标题 ========== */
 .n07 .step-head{
   flex:none;display:flex;align-items:flex-start;gap:3.4cqw;
-  }
-
-.n07 .step-cat{
-  font-family:var(--mono);font-size:1.72cqw;letter-spacing:.18em;
-  color:var(--muted);margin-bottom:1.6cqw;
   }
 
 /* ========== 主截图 ========== */
@@ -1129,11 +1082,6 @@ html,body{margin:0;padding:0;background:#ECEEF3;font-family:var(--sans);}
 /* 步骤编号 + 标题 */
 .n09 .step-head{
   flex:none;display:flex;align-items:flex-start;gap:3.4cqw;
-  }
-
-.n09 .step-cat{
-  font-family:var(--mono);font-size:1.72cqw;letter-spacing:.18em;
-  color:var(--muted);margin-bottom:1.6cqw;
   }
 
 /* 对比双栏 */
@@ -1563,6 +1511,10 @@ html,body{margin:0;padding:0;background:#ECEEF3;font-family:var(--sans);}
   font-family:var(--serif);font-weight:bold;font-size:1.98cqw;
   box-shadow:0 .4cqw 1.2cqw rgba(37,99,235,.35);
   }
+/* 默认隐藏钉号：钉位坐标是母版固定值，套任意截图都会错位遮内容。
+   必须写在基础规则之后——同Specificity后者胜，写在前面会被基础规则的 display:grid 覆盖。
+   确需显示时删掉下一行 display:none，再用下方坐标调位。 */
+.n22-pin{display:none;}
 /* 钉位坐标（L2 调整位置改这里） */
 .n22-pin--1{left:12%;top:42%;}
 .n22-pin--2{left:58%;top:55%;}
@@ -1635,10 +1587,19 @@ html,body{margin:0;padding:0;background:#ECEEF3;font-family:var(--sans);}
   display:flex;
   }
 
-/* 对话截图槽：1:1 方图（窗体内容区实测 ≈877×807，就近归入 1:1） */
-.n23-shot{
-  height:100%;aspect-ratio:1;max-width:100%;
-  margin:auto;
+/* 对话气泡：窗内直接排问答文本（不冒充截图） */
+.n23-msgs{margin:auto;display:flex;flex-direction:column;gap:1.8cqw;width:100%;}
+.n23-msg{
+  max-width:82%;padding:1.6cqw 2.2cqw;border-radius:1.4cqw;
+  font-size:2.38cqw;line-height:1.6;
+  }
+.n23-msg--user{
+  align-self:flex-end;background:var(--accent);color:#fff;
+  border-bottom-right-radius:.4cqw;
+  }
+.n23-msg--bot{
+  align-self:flex-start;background:var(--paper-deep);color:var(--ink);
+  border-bottom-left-radius:.4cqw;
   }
 
 /* 输入框 */
@@ -1859,7 +1820,7 @@ html,body{margin:0;padding:0;background:#ECEEF3;font-family:var(--sans);}
 
 .n26-price-area .n26-period{font-family:var(--mono);font-size:1.85cqw;color:var(--muted);letter-spacing:.14em;}
 
-.n26 .features{display:grid;grid-template-columns:repeat(4,1fr);border-top:2px solid var(--ink);border-bottom:1px solid var(--ink);}
+.n26 .features{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;border-top:2px solid var(--ink);border-bottom:1px solid var(--ink);}
 
 .n26-f{padding:2cqw 0;text-align:center;border-right:1px solid var(--line);}
 

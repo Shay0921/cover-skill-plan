@@ -510,7 +510,7 @@ function fillSection(layout, body, fields, errors, warns, usedFiles, meta, nn, t
 
   // 5) plan 多余字段。page-no 是 B' 类机械槽：plan 手填属违规（页码只由 render 生成），给专门提示并计入 consumed 防止重复报错。
   if (Object.prototype.hasOwnProperty.call(fields, 'page-no')) {
-    errors.push(`${layout}: plan 禁止手填 page-no 字段（页码由 render 按页序机械生成，见动态槽位规范）`);
+    errors.push(`${layout}: plan 禁止手填 page-no 字段（页码由 render 按页序机械生成，格式 nn / 总页数、封面 nn=01 隐藏；契约见 references/CONTRACT.md 系统槽）`);
     consumed.add('page-no');
   }
   for (const k of Object.keys(fields)) {
@@ -547,7 +547,7 @@ function getFrameDataUrl() {
 // 计数口径（母版说明头「限制」行的两种写法）：
 //   `≤N字`   = 视觉宽度单位（1 单位 ≈ 一个汉字宽）。汉字/全角 = 1；ASCII 四类宽度由 script/font-weights.json
 //              按「当前实际命中字体」查表决定（见下方 ACTIVE_WIDTH）；空白 0；HTML 标签 0；emoji 等 = 1。
-//              权重表缺失或无命中时退回内置兜底（见 FALLBACK_WIDTH，现值 0.69/0.61/0.61/0.61；
+//              权重表缺失或无命中时退回内置兜底（见 FALLBACK_WIDTH，现值 0.71/0.61/0.62/0.61；
 //              兜底须 ≥ 任何可能命中字体的上限）。宁可早告警，不放过溢出。
 //              换字体/换机 → 重跑 `node script/font-weights.mjs` 刷新权重表；`--font-report` 可核对命中 face。
 //   `≤N字符` = 实际字符个数（ASCII/数字槽的原始意图，如 big-num≤3字符、app≤14字符）。
@@ -556,14 +556,15 @@ function getFrameDataUrl() {
 const CHAR_TOLERANCE = 0.2;   // 超限 20% 以内不告警（同一字号下偶发换行可接受）
 // 内置兜底权重（权重表缺失/损坏时的最后防线）。
 // 判据：兜底必须 ≥ **任何可能命中字体、任何字重档**的实测上限，否则缺表时会低估宽度、让本该告警的文案静默通过。
-// 现值按 26 字母全量采样、覆盖两档：PingFang SC 700 档大写 0.6839 是三族最高项（serif 700 档 0.6712 / mono 恒 0.6021），
-// 取 0.69 留 0.006 余量；小写/数字/标点由 mono（等宽，两档恒 0.6021）主导，取 0.61。改字体栈时若引入更宽的字面，这里要跟着抬。
-const FALLBACK_WIDTH = { upper: 0.69, lower: 0.61, digit: 0.61, punct: 0.61 };
+// 现值按 26 字母全量采样、覆盖两档与全部候选族：微软雅黑 700 档大写 0.7048 为最高项（mac PingFang SC 700 0.6839、
+// Songti SC 700 0.6712、等宽族 0.6021 均低于它），取 0.71 留余量；数字最高为雅黑 700 档 0.6167，取 0.62；
+// 小写与半角标点由等宽族主导（Menlo 0.6021），取 0.61。改字体栈时若引入更宽的字面，这里要跟着抬。
+const FALLBACK_WIDTH = { upper: 0.71, lower: 0.61, digit: 0.62, punct: 0.61 };
 
 // 字宽权重表（script/font-weights.json，由 script/font-weights.mjs 生成；换字体/换机后重跑该脚本）。
-// 为什么不用浏览器运行时探测：字数校验发生在填槽阶段、浏览器尚未启动；且权重是「字体+机器」属性，
-// 换机/换字体时重跑生成器即可，不必每次出图付一次探测成本。
-// 降级语义：CSS 三栈各自按声明顺序找第一个「本机真装」的字体——
+// 为什么不用浏览器运行时探测：字数校验发生在填槽阶段、浏览器尚未启动；且「装没装某套字体」是机器属性、
+// 「某套字体的字宽」是字体属性——前者由本表 platforms 记、后者由 weights 记，换机只补 platforms，不必重测已有族。
+// 取用语义：CSS 三栈各自按声明顺序找第一个「本平台真装且有实测权重」的族——
 //   serif 走各平台系统宋体（mac Songti / win SimSun）、sans 走苹方/雅黑、mono 走 Menlo/Consolas；
 //   每族先在自身 400/700 两档里逐类取大（二档制两档都在用、真 Bold 面 advance 更宽，只量 400 会低估 bold），
 //   再三套命中字体每类取上限。全部按实际命中查表，换机/换字重字体时权重自动跟着变，无需装任何字体文件。
@@ -588,11 +589,19 @@ try {
         .filter((s) => s && !/^(serif|sans-serif|monospace)$/.test(s));
     };
     const generics = { serif: 'serif', sans: 'sans-serif', mono: 'monospace' };
+    // 跨平台累积表取用判据：该族「在本机平台真装」且有实测权重。
+    // 老表（没有 platforms 字段）退回 installed 判定，保证旧表仍可用。
+    const PLAT = process.platform;
+    const usableOnThisMachine = (p) => {
+      if (!p || !p.weights) return false;
+      if (p.platforms && typeof p.platforms === 'object') return p.platforms[PLAT] === true;
+      return !!p.installed;
+    };
     const pick = (role) => {
       for (const fam of roleStack(role)) {
         // 精确名或 family 首词匹配（表里 key = 完整族名，栈里也是完整族名）
         const p = table.profiles?.[fam];
-        if (!p?.installed || !p.weights) continue;
+        if (!usableOnThisMachine(p)) continue;
         // 表 weights = { "400": {...}, "700": {...} }（二档制全档位）：两档逐类取大——
         // 真 Bold 面 advance 可能比 400 宽（2026-11-18 实测 PingFang SC 大写 0.6689→0.6839、Songti SC 0.6625→0.6712），
         // 建模必须覆盖实际渲染会用到的最宽档，宁可早告警、不放过溢出

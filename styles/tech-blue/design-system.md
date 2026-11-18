@@ -1,7 +1,6 @@
 # tech-blue · design-system.md
 
 > tech-blue 风格规范：气质 / 设计令牌 / 组件语义表 / 自绘图形 / 即兴纪律 / 反例。
-> 与 style.css / templates.html 看板同源同步：改 token 三处一起改。
 
 ## 0. 一句话气质
 
@@ -21,14 +20,14 @@
 | `--accent` | #2563EB | 唯一强调色（blue-600）；语义/装饰常量除外（N25 降幅色、窗口红绿灯、N24 编辑器图标与代码高亮色） |
 | `--accent-deep` | #1D4ED8 | 强调深版 |
 | `--ink-bg` / `--ink-paper` | #0D0D12 / #ECECF2 | 深底变体（N30） |
-| `--serif` | 各平台系统宋体（mac Songti SC / win SimSun / 宋体） | 标题；真 Bold 面由系统提供，无需安装字体文件 |
-| `--sans` | 苹方族（mac PingFang SC / win 微软雅黑） | 正文 |
-| `--mono` | Menlo（mac）/ Consolas（win）+ 苹方回退 | 标签/页码/代码/等宽原文（含中文时汉字走回退） |
+| `--serif` | 系统衬线栈 | 标题（大标题唯一选择） |
+| `--sans` | 系统无衬线栈 | 正文 |
+| `--mono` | 系统等宽栈 | 标签/页码/代码/等宽原文（写中文时汉字走回退） |
 | 圆角 | .4 / .8 / 1.4cqw 三级 | 徽章 / 卡片 / 窗口 |
 
 层级区分靠字距/颜色/字号，等宽标签尤甚。
 
-字号层级：title-xl 9.94cqw · title-lg 7.18cqw · title-md 4.9cqw · num-large 12.96cqw · body 2.51cqw · label 1.98cqw · mono 1.85cqw · big-num 25.92cqw（N10/N11/N13/N14/N16/N17/N19 加大到 30.24cqw）。
+字号层级：title-xl 9.94cqw · title-lg 7.18cqw · title-md 4.9cqw · num-large 12.96cqw · body 2.51cqw · label 1.98cqw · mono 1.85cqw · big-num 25.92cqw。
 
 画布：1080×1440（3:4），边距 6.6cqw，`.artwork-page` 自带 `container-type:size`，cqw 全库可用。
 
@@ -42,31 +41,28 @@
 | `.mega-hero` | 超大数字 Hero（big-num + tag + title + sub） | 清单类页头；`.sub` 全宽副题。title 字号全库通用页统一 9.3cqw；每行字数随 big-num 位数变——单数字 8 字位、双数字 6 字位（写进母版说明头「限制」行）。封面、结尾与 N26/N27 居中变体不适用 |
 | `.mega-hero .tag` | 标题上方徽标（蓝底白字胶囊，`white-space:nowrap`） | 位于 `.hero-text` 内、独立成行、紧跟 `.title` 之上；限值 `tag≤12字`（设计规则，非容量线） |
 | `.after-hero` | 2px 墨色粗分割线 | hero 与内容的分界 |
-| `.pg-footer` | 底部页码条（署名 + 右侧页码） | 署名由 `plan.meta.brand.footer` 注入；页码由 render 生成（封面隐藏）。篇幅：署名 ≤24 字；页码固定 7 字符。页脚只允许这两个元素，不加第三个内容槽 |
-| `.num-list` | 编号条目列表 | N10/N11 清单骨架；实现为专属段分叉（N10 flex 行 / N11 grid 四列），无共享类 |
-| `.img-card` + `.ph-img` | 图片占位卡 | 结构与换图机制见 `references/CONTRACT.md` §3 |
+| `.pg-footer` | 底部页码条（署名 + 右侧页码） | 署名由 `plan.meta.brand.footer` 注入；页码按页序生成（封面隐藏）。篇幅：署名 ≤24 字；页码固定 7 字符。页脚只允许这两个元素，不加第三个内容槽 |
+| `.num-list` | 编号条目列表 | N10/N11 清单骨架 |
+| `.img-card` + `.ph-img` | 图片占位卡 | 结构与换图机制见 `references/CONTRACT.md`「图槽」 |
 | `.callout` | 底部补充说明条（白底细线 + 圆形图标） | 提示/Tip |
 | `.pill` / `.pill--fill` | 悬浮胶囊（描边 / 墨底两式，`.num` 是序号位） | 即兴词汇，当前母版未使用。CTA 组合：`<span class="pill"><span class="num">01</span>免费领取</span>`、`<span class="pill pill--fill">立即进入</span>`；可排成一行做「步骤/权益」横条 |
 | `.fine-line` / `.fine-border` / `.fine-card` | 极细分割线/边框/卡片 | 弱结构 |
 | `.accent-word` / `.accent-bg` / `.accent-line` / `.ink-bg` | 强调四式 | 关键词变色 / 蓝底白字 / 短横线 / 墨底白字 |
-| `.hl` | 富文本高亮（白名单） | 通用=变蓝；N01/N28/N30 的块状 .hl 在各自作用域 |
+| `.hl` / `.hl-line` | 富文本两种高亮 | `.hl` = 蓝字，正文小强调；`.hl-line` = 墨字 + 蓝条，标题/金句强调，条在字下、不用 strong 包裹。用哪个由母版说明头声明（N07 另有浅蓝底变体；N30/N31 深浅底各一版）。可用标签见 `references/CONTRACT.md`「富文本白名单」 |
 | `.title-xl/lg/md`、`.num-large`、`.body-text`、`.mono-text`、`.label` | 字级工具类 | 即兴时直接用 |
 
-> 本表是共享段词表，不是母版用量的镜像。表里当前母版没用的类（`.pill`、`.title-xl`、`.accent-bg`、`.ink-bg`、`.fine-card` 等）是刻意保留的 L3 即兴词汇，style.css 已有实现，不能当冗余清理。
+> 本表是共享段词表，不是母版用量的镜像。当前母版未使用的类（`.pill`、`.title-xl`、`.accent-bg`、`.ink-bg`、`.fine-card` 等）仍是可用的 L3 即兴词汇（style.css 已有实现），照常可用。
 
 > 专属段类要覆盖共享段属性，必须带共享段前缀。共享段规则多是「父类 + 子类」两段（`.brand-top .right`），专属段写单类（`.n26-limited`）会被压掉且无报错；要覆盖就写成 `.brand-top .right.n26-limited`。
 
-> 品牌三值（logo/品牌名/署名）不进 render 字数软校验，超限靠填写方自查与人审。表中篇幅按本风格栏宽标定，换风格须按自己栏宽重测，不跨风格沿用。
+> 品牌三值（logo/品牌名/署名）按表中篇幅自查；篇幅按本风格栏宽标定，不跨风格沿用。
 
-## 3. 自绘图形（`figure.mjs` 出 PNG 走图槽）
+## 3. 自绘图形（tech-blue 专属标定）
 
-母版内 SVG 只画固定步数的整齐结构。多轨、分支汇合、矩阵这类写不死的形状，按本页内容现画 HTML → `script/figure.mjs` 出 PNG → 落 `assets/` → 当普通图片塞进图槽。render 与母版零改动。
+通用机制（何时自绘、figure.mjs 流程、令牌单源、px 档、安全区、禁项）见 `references/FIGURE-GUIDE.md`；来源判断见 `references/IMAGE-WORKFLOW.md`。这里只给本风格的具体取值——换风格不要沿用。
 
-文件写 `runs/<任务>/figures/<名>.html`，与 `plan.json` 同级。风格目录不放图形样板。
-
-- 图形先于 plan 出发，且先定风格：`figure.mjs` 必须拿到 `--style=<风格>`（或同目录有 style.css），解析不到拒绝出图。
-- 令牌单源：禁写颜色/字体字面量，只用 `var(--token)`；引用本风格未声明的令牌直接报错退出。常用令牌：`--paper` / `--paper-deep` / `--ink` / `--ink-soft` / `--muted` / `--accent` / `--line` / `--line-strong` / `--serif` / `--sans` / `--mono`。不假设别的风格同名。
-- 字号写 px 档：图形页无 container，cqw 不可用。
+- 令牌单源：只写本风格「设计令牌」节声明的令牌（`--paper` / `--paper-deep` / `--ink` / `--ink-soft` / `--muted` / `--accent` / `--line` / `--line-strong` / `--serif` / `--sans` / `--mono`）。不假设别的风格同名。
+- 字号 px 档（图形页无 container，cqw 不可用；档位是本风格标定）：
 
   | 用途 | 字号 | 字体 / 处理 |
   |---|---|---|
@@ -78,11 +74,7 @@
   | 汇总条（深底反白） | 31 | sans，`--paper` 字色 |
   | 序号圆 | 18 | mono，43px 圆、1.5px 描边 |
 
-- 画布：尺寸写死 px（默认 1500×1000，3:2）。
-- 安全区：横向各留 10%（x=150..1350 / 1500），顶部留 48–60px 给 `img-tag` 角标。图槽 `cover` 按容器真实盒形裁切，`data-ratio` 只是声明，贴边内容必被切。
 - 线宽与圆角：细线 1px、卡片 1px 边框 + 圆角 14、序号圆 1.5px 描边，圆角不超 14；箭头用 CSS 三角或 `<marker>`，三角 5×7。
-- 输出：`dsf=2`，产物尺寸 = 画布 × 2。
-- 禁：`<script>`、外链、渐变/阴影/动画、第二个强调色。
 
 ## 4. 受控即兴纪律（L3）
 
@@ -90,7 +82,7 @@
 - 禁：内联样式、自造 CSS 变量、新类名、`<style>`、vh/vw、position:fixed、@media、动画/过渡。
 - cqw 优先于 px（画布内自适应）；间距用 0.4/0.8/1.4/2/3/6.6 的既有节奏。
 - 版式自适应用 flex/grid 弹性（`flex:1` 均分），不做固定高度堆叠。
-- 即兴页 layout 登记 `custom/<语义名>`，过形态校验；几何体检需显式 `--check-geometry`（仅 custom 页）；同名 custom 累计 ≥2 次走转正管道（SKILL.md「受控即兴与转正」）。
+- 即兴页 layout 登记 `custom/<语义名>`；几何体检需显式 `--check-geometry`（仅 custom 页）；同名 custom 累计 ≥2 次走转正管道（`SKILL.md`「受控即兴与转正」）。
 
 ## 5. 反例
 

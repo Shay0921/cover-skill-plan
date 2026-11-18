@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /* font-weights.mjs · 字宽权重表生成器（维护脚本：换字体/换机后重跑，不在出图链路上）
  * 用法：
- *   node script/font-weights.mjs                       # 量默认 8 套候选字体 → 写 script/font-weights.json
+ *   node script/font-weights.mjs                       # 量默认 7 套候选字体 → 合并写入 script/font-weights.json
  *   node script/font-weights.mjs --families="A,B"      # 指定字体族名（含空格用引号，逗号分隔）
  *   node script/font-weights.mjs --dry                 # 只打印不写文件
  *   node script/font-weights.mjs --json                # 以 JSON 输出（便于管道）
@@ -14,10 +14,13 @@
  *       选 file:// 是为了与出图页同构（同一个 document origin 语义），且日后若探针需要带 @font-face
  *       的相对 url，data: 页没有 base URL、解析不到；与「data: 页字体解析异常」的旧说法无关。
  *
- * 输出 script/font-weights.json：key = 字体族名，value = requested/matched/installed + 字宽五类×400/700 两档（另存 W/m 上界）
- * 与 weightSource，顶层另记 generatedAt。
- * render.mjs 出图时**不探测**字体，而是按 CSS 三栈的声明顺序，从本表取第一个 installed=true 的字体权重；
- * 表里没有可用的则回退到内置兜底值。
+ * 输出 script/font-weights.json：**跨平台累积表**——key = 字体族名，value = 字宽权重 + 平台标记。
+ *   weights 是「字体属性」不是「机器属性」：一旦在任一平台实测过就永久保留，不被后续别的平台的运行抹掉；
+ *   platforms 记「该族在各平台是否真装」（`{darwin:true, win32:false}`），render 按 process.platform 决定用哪个族。
+ *   合并语义：本机没装的族只把 `platforms[本平台]` 记为 false，**不覆盖已有权重**；换机重跑即补齐，不丢别的平台实测。
+ * 与 weightSource、本次探测的 installed/matched/measuredOn 同存，顶层记 generatedAt / generatedOn。
+ * render.mjs 出图时**不探测**字体，而是按 CSS 三栈的声明顺序，取第一个「本平台真装且有实测权重」的族；
+ * 表里没有可用项则回退到内置兜底值（偏宽，只会多报不会漏报）。
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -26,6 +29,14 @@ import { launchBrowser, closeBrowser, withPage, evaluate, createOptions, WIDTH_S
 
 const ROOT = path.resolve(path.dirname(url.fileURLToPath(import.meta.url)), '..');
 const OUT = path.join(ROOT, 'script', 'font-weights.json');
+// 本次探测所在平台：写进 platforms 映射与顶层 generatedOn，供 render 按 process.platform 取族
+const PLAT = process.platform;
+// 合并迁移用：本表第一版（Songti SC / PingFang SC / Menlo 三族实测）生成于 macOS，老结构没有 platforms 字段。
+// 只能按「installed=true ⇒ 生成它的那个平台装过」推断归属，否则那批实测会失去平台标记、在两边都不被取用。
+const LEGACY_PLATFORM = 'darwin';
+let prevReport = null;
+try { if (fs.existsSync(OUT)) prevReport = JSON.parse(fs.readFileSync(OUT, 'utf8')); } catch { prevReport = null; }
+const prevProfiles = prevReport?.profiles || {};
 const argv = process.argv.slice(2);
 const arg = (name, dflt) => {
   const i = argv.findIndex((a) => a === name || a.startsWith(name + '='));
@@ -118,7 +129,8 @@ try {
       matched[families[n.idx]] = fonts.map((f) => f.familyName).join('+') || '(none)';
     }
 
-    const profiles = {};
+    // 先继承旧表：本次没用 --families 缩范围时它等价于空操作；缩范围时未探测的族原样保留（早先直接覆盖会让表变小）
+    const profiles = { ...prevProfiles };
     // 「真装」判据：CDP 报的某个实际 face 与请求族名同名（或带 -Regular / Bold 之类后缀）。
     // 不能用「首词包含」——名字相近的两个族会因首词相同而互相误判为已装，
     // 于是把回退字体的宽度当成该族权重写进表里。
@@ -129,20 +141,32 @@ try {
     };
     for (const f of families) {
       const installed = isInstalled(f, matched[f]);
+      const prev = prevProfiles[f] || {};
+      // 平台归属：老结构（无 platforms）里 installed=true 的族来自首版 macOS 实测，按 LEGACY_PLATFORM 归属
+      const prevPlatforms = (prev.platforms && typeof prev.platforms === 'object')
+        ? prev.platforms
+        : (prev.installed ? { [LEGACY_PLATFORM]: true } : {});
+      // measuredOn 缺失时按 platforms 里第一个 true 的平台回填（老表迁移与手工改表都能自愈），否则打印不出权重来源
+      const prevMeasuredOn = prev.measuredOn || (prev.weights ? Object.keys(prevPlatforms).find((k) => prevPlatforms[k]) || null : null);
       profiles[f] = {
         requested: f,
         matched: matched[f] || '(unknown)',
-        // 只信任本机真装的 canvas 实测值：没装时 canvas 量到的是回退字体宽度，绝不能当本字体权重。
-        // 没装的字体 weights 置 null、不参与 render 校验；换机重跑本脚本会自动实测转正。
+        // 本次探测结论：本机是否真装（人读 / 打印用；取用与否看 platforms[当前平台]）
         installed,
+        // 跨平台累积：平台 → 该平台是否真装。本次结论覆盖本平台那一格，别的平台原样保留
+        platforms: { ...prevPlatforms, [PLAT]: installed },
+        measuredOn: installed ? PLAT : (prevMeasuredOn || null),
+        // 只信任「本机真装时」量到的 canvas 实测值：没装时 canvas 量的是回退字体宽度，绝不能当本字体权重。
+        // 但没装 ≠ 抹掉旧值——weights 是字体属性，保留原平台的实测（merge 语义），由 platforms 决定谁用得上。
         // weights 含 400/700 两档（二档制），render 逐类取两档较大值做建模值（保守，宁可早告警）
-        weights: installed ? widths[f] : null,
-        weightSource: installed ? 'canvas(本机实测·400/700 两档)' : null,
+        weights: installed ? widths[f] : (prev.weights || null),
+        weightSource: installed ? 'canvas(本机实测·400/700 两档)' : (prev.weightSource || null),
       };
     }
     report = {
       generatedAt: new Date().toISOString(),
-      note: 'canvas measureText 实测 em 比例，weights 含 400/700 两档（二档制）；W/m 为最宽大写/小写。render 按 CSS 栈顺序查表（只认 installed=true）、逐类取两档较大值；无可用时用内置兜底。installed=false 条目 weights=null，不参与本机校验。',
+      generatedOn: PLAT,
+      note: '跨平台累积表。weights = canvas measureText 实测 em 比例（含 400/700 两档，二档制；W/m 为最宽大写/小写），属「字体属性」，实测过就保留、不被别的平台重跑抹掉；platforms = 该族在各平台是否真装。render 按 CSS 栈顺序取第一个 platforms[本平台]=true 且有 weights 的族，逐类取两档较大值；无可用项时用内置兜底（偏宽，只多报不漏报）。installed/matched/measuredOn 是「最近一次探测」的结论，供人读与排查。',
       samples: Object.fromEntries(Object.entries(SAMPLES).map(([k, v]) => [k, v.length + ' chars'])),
       profiles,
     };
@@ -162,17 +186,18 @@ if (JSON_OUT) {
   console.log('字宽权重表（em 比例，越小越窄；400/700 两档 = 二档制全档位）：');
   console.log('  ' + padR('字体', 22) + padR('档', 5) + padR('汉字', 6) + padR('大写', 8) + padR('小写', 8) + padR('数字', 8) + padR('标点', 8) + padR('W', 8) + 'm');
   for (const [f, p] of Object.entries(report.profiles)) {
-    const mark = p.installed ? '✓' : '↩';
+    // ✓ 本机真装（本次实测）· ◦ 本机未装但表里留有别的平台实测（合并保留）· ↩ 无任何实测
+    const mark = p.installed ? '✓' : (p.weights ? '◦' : '↩');
     for (const wt of ['400', '700']) {
       const w = p.installed && p.weights?.[wt];
       const cells = w
         ? padR(w.han, 6) + padR(w.upper, 8) + padR(w.lower, 8) + padR(w.digit, 8) + padR(w.punct, 8) + padR(w.W, 8) + w.m
-        : (wt === '400' ? '(未装，无权重)' : '');
+        : (wt === '400' ? (p.weights ? `(本机未装，保留 ${p.measuredOn || '其他平台'} 实测)` : '(无实测，权重为空)') : '');
       if (!w && wt === '700') continue;
       console.log('  ' + padR(mark + f, 22) + padR(wt, 5) + cells);
     }
   }
-  console.log('\n  ✓=本机真装（face 名匹配，参与校验） ↩=未装/回退（weights=null，不参与本机校验）；render 建模值 = 两档逐类取大');
+  console.log('\n  ✓=本机真装（本次实测）◦=本机未装但保留其他平台实测 ↩=从无实测；render 只取 ✓ 且建模值 = 两档逐类取大');
 }
 
 if (!DRY && !JSON_OUT) {

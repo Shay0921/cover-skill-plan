@@ -1,6 +1,7 @@
 {
-  "generatedAt": "2026-11-18T09:00:06.288Z",
-  "note": "canvas measureText 实测 em 比例，weights 含 400/700 两档（二档制）；W/m 为最宽大写/小写。render 按 CSS 栈顺序查表（只认 installed=true）、逐类取两档较大值；无可用时用内置兜底。installed=false 条目 weights=null，不参与本机校验。",
+  "generatedAt": "2026-11-18T11:36:35.548Z",
+  "generatedOn": "win32",
+  "note": "跨平台累积表。weights = canvas measureText 实测 em 比例（含 400/700 两档，二档制；W/m 为最宽大写/小写），属「字体属性」，实测过就保留、不被别的平台重跑抹掉；platforms = 该族在各平台是否真装。render 按 CSS 栈顺序取第一个 platforms[本平台]=true 且有 weights 的族，逐类取两档较大值；无可用项时用内置兜底（偏宽，只多报不漏报）。installed/matched/measuredOn 是「最近一次探测」的结论，供人读与排查。",
   "samples": {
     "han": "22 chars",
     "upper": "26 chars",
@@ -11,8 +12,13 @@
   "profiles": {
     "Songti SC": {
       "requested": "Songti SC",
-      "matched": "Songti SC",
-      "installed": true,
+      "matched": "Noto Sans SC",
+      "installed": false,
+      "platforms": {
+        "darwin": true,
+        "win32": false
+      },
+      "measuredOn": "darwin",
       "weights": {
         "400": {
           "han": 1,
@@ -37,22 +43,54 @@
     },
     "SimSun": {
       "requested": "SimSun",
-      "matched": "PingFang SC",
-      "installed": false,
-      "weights": null,
-      "weightSource": null
+      "matched": "SimSun",
+      "installed": true,
+      "platforms": {
+        "win32": true
+      },
+      "measuredOn": "win32",
+      "weights": {
+        "400": {
+          "han": 1,
+          "upper": 0.5,
+          "lower": 0.5,
+          "digit": 0.5,
+          "punct": 0.5,
+          "W": 0.5,
+          "m": 0.5
+        },
+        "700": {
+          "han": 1.0195,
+          "upper": 0.5195,
+          "lower": 0.5195,
+          "digit": 0.5195,
+          "punct": 0.5195,
+          "W": 0.5195,
+          "m": 0.5195
+        }
+      },
+      "weightSource": "canvas(本机实测·400/700 两档)"
     },
     "宋体": {
       "requested": "宋体",
-      "matched": "PingFang SC",
+      "matched": "SimSun",
       "installed": false,
+      "platforms": {
+        "win32": false
+      },
+      "measuredOn": null,
       "weights": null,
       "weightSource": null
     },
     "PingFang SC": {
       "requested": "PingFang SC",
-      "matched": "PingFang SC",
-      "installed": true,
+      "matched": "Noto Sans SC",
+      "installed": false,
+      "platforms": {
+        "darwin": true,
+        "win32": false
+      },
+      "measuredOn": "darwin",
       "weights": {
         "400": {
           "han": 1,
@@ -77,15 +115,43 @@
     },
     "Microsoft YaHei": {
       "requested": "Microsoft YaHei",
-      "matched": "PingFang SC",
-      "installed": false,
-      "weights": null,
-      "weightSource": null
+      "matched": "Microsoft YaHei",
+      "installed": true,
+      "platforms": {
+        "win32": true
+      },
+      "measuredOn": "win32",
+      "weights": {
+        "400": {
+          "han": 1,
+          "upper": 0.667,
+          "lower": 0.538,
+          "digit": 0.5864,
+          "punct": 0.3295,
+          "W": 1.0176,
+          "m": 0.937
+        },
+        "700": {
+          "han": 1,
+          "upper": 0.7048,
+          "lower": 0.5735,
+          "digit": 0.6167,
+          "punct": 0.3694,
+          "W": 1.0762,
+          "m": 0.9819
+        }
+      },
+      "weightSource": "canvas(本机实测·400/700 两档)"
     },
     "Menlo": {
       "requested": "Menlo",
-      "matched": "PingFang SC+Menlo",
-      "installed": true,
+      "matched": "Noto Sans SC",
+      "installed": false,
+      "platforms": {
+        "darwin": true,
+        "win32": false
+      },
+      "measuredOn": "darwin",
       "weights": {
         "400": {
           "han": 1,
@@ -110,10 +176,33 @@
     },
     "Consolas": {
       "requested": "Consolas",
-      "matched": "PingFang SC",
-      "installed": false,
-      "weights": null,
-      "weightSource": null
+      "matched": "Consolas+Noto Sans SC",
+      "installed": true,
+      "platforms": {
+        "win32": true
+      },
+      "measuredOn": "win32",
+      "weights": {
+        "400": {
+          "han": 1,
+          "upper": 0.5498,
+          "lower": 0.5498,
+          "digit": 0.5498,
+          "punct": 0.5498,
+          "W": 0.5498,
+          "m": 0.5498
+        },
+        "700": {
+          "han": 1,
+          "upper": 0.5498,
+          "lower": 0.5498,
+          "digit": 0.5498,
+          "punct": 0.5498,
+          "W": 0.5498,
+          "m": 0.5498
+        }
+      },
+      "weightSource": "canvas(本机实测·400/700 两档)"
     }
   }
 }
