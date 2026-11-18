@@ -21,12 +21,12 @@
 | `--accent` | #2563EB | 唯一强调色（blue-600）；语义/装饰常量除外（N25 降幅色、窗口红绿灯、N24 编辑器图标与代码高亮色） |
 | `--accent-deep` | #1D4ED8 | 强调深版 |
 | `--ink-bg` / `--ink-paper` | #0D0D12 / #ECECF2 | 深底变体（N30） |
-| `--serif` | 各平台系统宋体（mac Songti SC / win SimSun / 宋体） | 标题，bold 走系统真 Bold 面，无需安装字体文件 |
+| `--serif` | 各平台系统宋体（mac Songti SC / win SimSun / 宋体） | 标题；真 Bold 面由系统提供，无需安装字体文件 |
 | `--sans` | 苹方族（mac PingFang SC / win 微软雅黑） | 正文 |
 | `--mono` | Menlo（mac）/ Consolas（win）+ 苹方回退 | 标签/页码/代码/等宽原文（含中文时汉字走回退） |
 | 圆角 | .4 / .8 / 1.4cqw 三级 | 徽章 / 卡片 / 窗口 |
 
-字重二档制：加粗 = `font-weight:bold`，不粗 = 不写 `font-weight`；无中间档。等宽标签靠字距/颜色/字号区分层级。
+层级区分靠字距/颜色/字号，等宽标签尤甚。
 
 字号层级：title-xl 9.94cqw · title-lg 7.18cqw · title-md 4.9cqw · num-large 12.96cqw · body 2.51cqw · label 1.98cqw · mono 1.85cqw · big-num 25.92cqw（N10/N11/N13/N14/N16/N17/N19 加大到 30.24cqw）。
 

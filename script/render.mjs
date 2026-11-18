@@ -10,6 +10,8 @@
  * 三级目录（技能安装目录只读，运行期零写入）：
  *   ① 技能安装目录 = 本文件所在仓库：styles/ + script/，只读资产与代码（开发期文档与施工台账不随生产包分发）
  *   ② 任务运行区 = agent 临时工作区：plan.json / 素材 / 过程件 / P 页 / PNG / assets / 日志（fields.json 与 editor.manifest.json 仅 --with-editor 时生成）；_preview.html 是拼总览用的临时页，截完即删
+ *   出图倍率：默认 2x（PNG 像素 2160×2880，画布逻辑尺寸仍 1080×1440）——小图位降采样糊的定案解；
+ *   COVER_DSF=1 可临时回退 1x，见 shared/cdp.mjs createOptions
  *   ③ 交付目录 = 用户选中的工作区（--delivery 或 plan.delivery，命名 YYYY-MM-DD-<小标题>）：校验+截图全过后按白名单拷贝
  * 交付白名单（默认，编辑器不在默认链路上）：P<nn>-<名>.html + P<nn>.png + preview.png
  *   --with-editor 追加：fields.json + editor.manifest.json + assets/（仅用户要开编辑器时才走）

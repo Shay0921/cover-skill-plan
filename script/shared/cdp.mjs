@@ -8,7 +8,10 @@ import path from 'node:path';
 import { findChrome } from './find-chrome.mjs';
 
 export function createOptions(overrides = {}) {
-  return { width: 1080, height: 1440, dsf: 1, selector: '.artwork-page', waitSelector: '.artwork-page',
+  // 出图倍率（2026-11-18 定案）：默认 2x——1x 下屏内截图等小图位只有 ~366 物理像素宽，
+  // 3.5 倍一步降采样双线性插值必然糊（N04 目检实锤，对比图用户已拍板）。2x 后 PNG 为
+  // 2160×2880，小图位细节可读。COVER_DSF=1 可临时回退 1x；GIF 预转换显式传 dsf:1 不受影响。
+  return { width: 1080, height: 1440, dsf: +(process.env.COVER_DSF || 2), selector: '.artwork-page', waitSelector: '.artwork-page',
     timeout: 30000, fontTimeout: 5000, noSandbox: false, ...overrides,
     chrome: overrides.chrome || findChrome() };
 }
@@ -73,7 +76,7 @@ async function launchOnce(opts) {
   const args = ['--headless=new', '--remote-debugging-pipe', '--no-first-run', '--no-default-browser-check',
     '--disable-background-networking', '--disable-breakpad', '--disable-component-update', '--disable-default-apps',
     '--disable-extensions', '--disable-sync', '--metrics-recording-only', '--mute-audio', '--hide-scrollbars',
-    '--disable-dev-shm-usage', '--force-device-scale-factor=1', `--user-data-dir=${userDataDir}`];
+    '--disable-dev-shm-usage', `--force-device-scale-factor=${opts.dsf}`, `--user-data-dir=${userDataDir}`];
   if (opts.noSandbox) args.push('--no-sandbox', '--disable-setuid-sandbox');
   args.push('about:blank');
   const child = spawn(opts.chrome, args, { detached: process.platform !== 'win32', stdio: ['ignore', 'ignore', 'pipe', 'pipe', 'pipe'] });
