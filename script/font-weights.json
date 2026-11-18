@@ -1,0 +1,119 @@
+{
+  "generatedAt": "2026-11-18T09:00:06.288Z",
+  "note": "canvas measureText 实测 em 比例，weights 含 400/700 两档（二档制）；W/m 为最宽大写/小写。render 按 CSS 栈顺序查表（只认 installed=true）、逐类取两档较大值；无可用时用内置兜底。installed=false 条目 weights=null，不参与本机校验。",
+  "samples": {
+    "han": "22 chars",
+    "upper": "26 chars",
+    "lower": "26 chars",
+    "digit": "10 chars",
+    "punct": "12 chars"
+  },
+  "profiles": {
+    "Songti SC": {
+      "requested": "Songti SC",
+      "matched": "Songti SC",
+      "installed": true,
+      "weights": {
+        "400": {
+          "han": 1,
+          "upper": 0.6625,
+          "lower": 0.455,
+          "digit": 0.469,
+          "punct": 0.2832,
+          "W": 0.888,
+          "m": 0.785
+        },
+        "700": {
+          "han": 1,
+          "upper": 0.6712,
+          "lower": 0.4556,
+          "digit": 0.469,
+          "punct": 0.2832,
+          "W": 0.901,
+          "m": 0.781
+        }
+      },
+      "weightSource": "canvas(本机实测·400/700 两档)"
+    },
+    "SimSun": {
+      "requested": "SimSun",
+      "matched": "PingFang SC",
+      "installed": false,
+      "weights": null,
+      "weightSource": null
+    },
+    "宋体": {
+      "requested": "宋体",
+      "matched": "PingFang SC",
+      "installed": false,
+      "weights": null,
+      "weightSource": null
+    },
+    "PingFang SC": {
+      "requested": "PingFang SC",
+      "matched": "PingFang SC",
+      "installed": true,
+      "weights": {
+        "400": {
+          "han": 1,
+          "upper": 0.6689,
+          "lower": 0.5125,
+          "digit": 0.5748,
+          "punct": 0.3636,
+          "W": 0.93,
+          "m": 0.855
+        },
+        "700": {
+          "han": 1,
+          "upper": 0.6839,
+          "lower": 0.5301,
+          "digit": 0.5763,
+          "punct": 0.369,
+          "W": 0.953,
+          "m": 0.884
+        }
+      },
+      "weightSource": "canvas(本机实测·400/700 两档)"
+    },
+    "Microsoft YaHei": {
+      "requested": "Microsoft YaHei",
+      "matched": "PingFang SC",
+      "installed": false,
+      "weights": null,
+      "weightSource": null
+    },
+    "Menlo": {
+      "requested": "Menlo",
+      "matched": "PingFang SC+Menlo",
+      "installed": true,
+      "weights": {
+        "400": {
+          "han": 1,
+          "upper": 0.6021,
+          "lower": 0.6021,
+          "digit": 0.6021,
+          "punct": 0.6021,
+          "W": 0.6021,
+          "m": 0.6021
+        },
+        "700": {
+          "han": 1,
+          "upper": 0.6021,
+          "lower": 0.6021,
+          "digit": 0.6021,
+          "punct": 0.6021,
+          "W": 0.6021,
+          "m": 0.6021
+        }
+      },
+      "weightSource": "canvas(本机实测·400/700 两档)"
+    },
+    "Consolas": {
+      "requested": "Consolas",
+      "matched": "PingFang SC",
+      "installed": false,
+      "weights": null,
+      "weightSource": null
+    }
+  }
+}

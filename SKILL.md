@@ -1,64 +1,56 @@
 ---
 name: cover-skill-plan
-description: 把产品说明、文案与真实截图提炼成小红书或公众号信息卡片，输出 1080×1440 PNG 多页长图（附可进编辑器的 HTML）。用户要做系列配图、功能介绍、干货或数据卡片、种草图文、截图整理成卡片时使用。不用于网站、PPT、演示文稿或单张 AI 生图封面。
-argument-hint: <原文素材路径或目录>
+description: 把产品说明、文案与真实截图提炼成小红书或公众号信息卡片，输出 1080×1440 PNG 多页长图与自包含 HTML。当用户要做系列配图、功能介绍、干货或数据卡片、种草图文、截图整理成卡片时使用。不用于网站、PPT、演示文稿或单张 AI 生图封面。
+agent_created: true
 ---
 
 # 信息卡片生成（固定母版制）
 
-> **权威声明**：本文件是生产 SOP 与跨风格机器契约（画布根类 `.artwork-page`、槽位命名、系统槽、运行环境）的唯一权威。生产环境只依赖本文件 + `styles/` + `script/`，不引用任何开发期文档（治理文档与施工台账在仓库外开发目录，生产零依赖）。
+版式由母版定死，内容由 AI 申报，出图由脚本完成：读素材 → 选风格 → 按 catalog 选母版 → 写 plan.json → render 出 HTML + PNG → 人审 → 交付 →（可选）编辑器微调。母版覆盖不了时用受控即兴，同一形态用顺两次转正入库。生成期不改版式结构、不自造样式。
 
-**版式由母版定死，内容由 AI 申报，出图由脚本完成**：AI 读素材 → 选风格 → 依该风格 catalog.md 选母版 → 写 plan.json → render 实例化出 HTML+PNG → 人审 → 交付 →（可选）编辑器微调。母版覆盖不了时允许**受控即兴**（只用该风格 style.css 的既有类），同一形态用顺两次建议转正入库。生成期不改版式结构、不自造样式。
+本文件是生产 SOP 的唯一权威；机器契约（画布根类、槽位命名、系统槽、图槽、repeat、字数校验）见 `references/CONTRACT.md`，实现以 `script/render.mjs` 为准。生产只依赖本文件 + `references/` + `styles/` + `script/`。
 
 ## 按需读取
 
 | 要做什么 | 读取什么 | 说明 |
 |---|---|---|
-| 定风格 | `styles/style-picker.md` | 公用·一份：选型动线 + 风格目录构成的权威定义 + 语义组名 + 每风格一行名片（气质/适合/反例/目录） |
-| 选母版 | `styles/<风格>/catalog.md` | 每风格一份：按语义组分节的四栏牌桌（适合/不适合/可以变+字数语义） |
-| 填内容 | `styles/<风格>/templates.html` | 选中母版的槽位（文字={{槽名}}=data-layer id；图槽=data-layer id）与 **repeat 注释=条数与字数联动的唯一配置点** |
-| 即兴或写新母版 | `styles/<风格>/design-system.md` | 风格规范：气质/tokens/组件表/图槽与标记契约/即兴纪律/反例——即兴只准用该风格 style.css 的既有类 |
-| 画图形（多轨/分支/矩阵） | `styles/<风格>/design-system.md` §3.1 + `script/figure.mjs` | 图形页没有 container，字号必须写 px 档、颜色只写 `var()`；写到 `runs/<任务>/figures/<名>.html` → 出 PNG → 当普通图片进图槽 |
-| 出图 | `script/render.mjs` | 填槽、校验、截图、交付全自动；AI 只负责把 plan.json 写对 |
+| 定风格 | `styles/style-picker.md` | 选型动线 + 风格目录构成定义 + 语义组名 + 每风格一行名片（气质/适合/反例/目录） |
+| 选母版 | `styles/<风格>/catalog.md` | 按语义组分节的四栏牌桌（适合/不适合/可以变+字数语义） |
+| 填内容 | `styles/<风格>/templates.html` | 选中母版的槽位（文字槽 = `{{槽名}}` = data-layer id；图槽 = data-layer id）与 repeat 注释（条数、字数联动的唯一配置点） |
+| 即兴或写新母版 | `styles/<风格>/design-system.md` | 气质/tokens/组件表/自绘图形/即兴纪律/反例 |
+| 画图形（多轨/分支/矩阵） | `styles/<风格>/design-system.md` §3 + `script/figure.mjs` | 图形页无 container，字号写 px 档、颜色只写 `var()`；写到 `runs/<任务>/figures/` 出 PNG 后当普通图片进图槽 |
+| 查机器契约（槽位/系统槽/图槽/repeat/字数校验） | `references/CONTRACT.md` | 风格无关的机器语义；实现以 `script/render.mjs` 为准 |
 
-只读当前阶段需要的文件；母版的视觉值全部在 style.css，规则语义全部在 catalog 与 design-system，别处文档不作为验收依据。
+只读当前步骤需要的文件。视觉值在 `style.css`，选型语义在 catalog，风格规范在 design-system，机器契约在 references/，别处文档不作为验收依据。
 
-## 工作流程（八步 · v2.1）
+## 工作流程（八步）
 
-1. **任务初始化**：在 agent 临时工作区建任务运行区 `runs/<日期-主题>/`（gitignore，非交付物），收集素材（文案 + 图片清单）。技能安装目录运行期只读，临时脚本与过程件都放运行区。
-2. **内容提炼**：整理/提炼/升格文案，定页数与每页语义（封面/清单/对比/数据/金句/收尾…）。**纪律：可润色不可编造**——数字与承诺必须有素材出处。
-3. **风格选择**：读 `style-picker.md` 推荐 1-2 种并说明理由，用户拍板；用户点名则跳过推荐。
-4. **素材盘点与识别**：按图片决策表逐张做资产属性分类（手机截图/窗口截图/干净图/杂乱图），产出素材清单。**此处只分类，不定处理决策**。
-5. **逐页选母版**：读 `styles/<风格>/catalog.md`，按语义组+四栏选版式；**同组内先按「素材形态」分叉**——这页有可用截图就选图槽母版，没截图或要讲的是结构（几步、什么关系）就选图形母版（如 N33 内置 SVG 流程，见「截图 vs 图形」）；**形状定不下来（多轨 / 分支汇合 / 矩阵）时改用图槽母版 + 自己画一张图**——按该风格 `design-system.md` §3.1 的规则（画布、安全区、px 字号档、线宽圆角）与 `style.css` 令牌，在 `runs/<任务>/figures/` 现写一份图形 HTML，`node script/figure.mjs <运行区>/figures/<名>.html <运行区>/assets/<名>.png --style=<风格>` 出 PNG，再当普通图片填进图槽。**图形必须先于写 plan 出发**，否则 plan 里的图键指向一个还不存在的文件；输入含 ④ 的素材类型分布（有手机截图的页才考虑手机壳母版）；精确条数与字数从选中母版的 repeat 注释与说明头读取。
-6. **图片×槽位匹配**：母版定完后再落地处理决策——手机截图→手机壳槽（框由 render 自动内嵌）/窗口截图→窗口槽（原图自带边框用无边框槽）/干净图→直接用/杂乱图→AI 读图选区写 `crop`；不符→换槽或换母版。**裁切由 CSS 机械完成，AI 不做像素级编辑**。
-7. **写 plan.json**：顶层 `meta.brand` 填整组统一的品牌身份件（logo 字/品牌名/页脚署名，一处定义全篇注入）；每页一条 `layout + fields`，fields 键=母版槽位（**文字槽={{槽名}}=data-layer id；图槽=图槽的 data-layer id**，值=相对路径或 `{src, crop}`）——期号 `issue` 逐页填，**页码不填**（自动生成）；条目传数组（render 按 repeat 注释克隆）；字段值允许受控富文本（仅 `span.hl`/`br`/`strong`），文案里的裸 `<` `>`（"年收入 > 10 万"、"A < B"）原样写即可，render 注入前转义显示；即兴页写 `layout: "custom/<语义名>"` 并附整页 markup。
-8. **跑 render → 三层校验（硬校验 → 软告警 → 即兴页专项）→ 交付**：`node script/render.mjs <任务运行区>/ --delivery=<YYYY-MM-DD-小标题>`；硬错误（槽位残留/图片缺失/标记重复）即停修 plan 重跑；软告警（字数超限/裁切量大）人决定；脚本先写运行区，校验与截图全过后才按白名单拷进交付目录（`P*.html` + `P*.png` + `preview.png`），人审 PNG 后交付。临时脚本、plan.json、过程件一律留运行区，技能安装目录只读。
+1. **任务初始化**：在 agent 临时工作区建 `runs/<日期-主题>/`（gitignore，非交付物），收集文案与图片清单。技能安装目录运行期只读，临时脚本与过程件放运行区。
+2. **内容提炼**：整理文案，定页数与每页语义（封面/清单/对比/数据/金句/收尾）。**可润色不可编造**——数字与承诺必须有素材出处。
+3. **风格选择**：按 `style-picker.md` 推荐 1-2 种并说明理由，由用户拍板；用户点名则跳过推荐。
+4. **素材盘点**：逐张按四类归档（手机截图/窗口截图/干净图/杂乱图），产出素材清单。此处只分类，不定处理决策。
+5. **逐页选母版**：读 `catalog.md`，按语义组与四栏选版式，再看素材形态分叉——有截图 → 图槽母版；讲结构 → 图形母版或图槽 + 自画（见「截图 vs 图形」）；都装不下 → 受控即兴（见文末）。条数与字数从母版 repeat 注释与说明头读取。
+6. **图片×槽位匹配**：手机截图 → 手机壳槽（框由 render 内嵌）；窗口截图 → 窗口槽（原图自带边框用无边框槽）；干净图 → 直接用；杂乱图 → 读图选区写 `crop`。不符则换槽或换母版。裁切由 CSS 完成，不做像素级编辑。
+7. **写 plan.json**：`meta.brand` 填整组统一品牌件；每页一条 `layout + fields`；`issue` 逐页填，页码不填；数组字段按 repeat 注释传条目；值允许受控富文本；即兴页写 `layout: "custom/<语义名>"` 并附整页 `markup`。
+8. **出图与交付**：`node script/render.mjs <任务运行区>/ --delivery=<YYYY-MM-DD-小标题>`。报错即修 plan 重跑，软告警由人判断；人审 PNG 后交付。要进编辑器时加 `--with-editor`。
 
-## 截图 vs 图形（配图类型判据）
+## 截图 vs 图形
 
-同一语义组里常有"图槽母版"和"图形母版"两种承载。**一个是证据，一个是结构，不能互相顶替**：
+同一语义组里「图槽母版」和「图形母版」都有，一个是证据，一个是结构，不能互相顶替：
 
-| 顺序 | 判断 | 结论 |
-|---|---|---|
-| ① 素材 | 用户给了能用的截图吗？ | 有 → 图槽母版（截图进图槽） |
-| ② 意图 | 这页要"证明真东西长这样"，还是"解释它们之间什么关系"？ | 证明 → 截图；解释 → 图形 |
-| ③ 红线 | — | **图形不得伪造界面**：禁止用 SVG/CSS 画假窗口、假对话框、假数据面板去冒充截图 |
+- **有可用截图 → 图槽母版**；要证明「真东西长这样」→ 截图，要解释「它们之间什么关系」→ 图形。
+- **反向判据**：把这张图换成纯文字表格，信息会不会丢？会丢 → 截图；不会丢 → 图形。
+- **红线**：图形不得伪造界面——禁止用 SVG/CSS 画假窗口、假对话框、假数据面板冒充截图。
 
-**反向判据**（拿不准时用）：把这张图换成一张纯文字表格，信息会不会丢？
+**图形怎么落地**：固定 3/4/5 步的整齐结构 → 图形母版（SVG 在母版里、节点字是文字槽，可改）；形状定不下来（多轨/分支汇合/矩阵）→ 图槽母版 + 自画一张图：按 design-system §3 的画布、安全区、px 字号档、线宽圆角规则，在 `runs/<任务>/figures/` 写图形 HTML，`node script/figure.mjs` 出 PNG 后当普通图片填槽。自画代价是文字变像素、交付后不能改字。**图形必须先于 plan 出发**，且先定风格——颜色与字体全部来自该风格 `style.css`。
 
-- 会丢（必须看到真实界面才成立）→ 截图
-- 不会丢（文字本可以说清，图形只是更好读）→ 图形
+**截图不合格时**（杂乱/含隐私/分辨率低/与语义无关）：先 `crop` 与换槽，不因「不好看」改画图形顶替；确实与本页语义无关就换图形或纯文字母版，把截图挪到展示类页面。
 
-**图形怎么落地**（两条路，按「交付后还要不要改字」分）：固定 3/4/5 步的整齐结构 → **图形母版**（N33，SVG 画在母版里、节点字是文字槽，可改）；形状定不下来（多轨 / 分支汇合 / 矩阵）→ **自己画一张图**（按该风格 design-system §3.1 现写图形 HTML 存运行区，`script/figure.mjs` 出 PNG，走普通图槽）——代价是文字变像素，交付后只能整张换、不能改字。两条路都**先有风格再画**：图形的颜色/字体全部来自该风格 style.css，`figure.mjs` 不给风格拒绝出图。
-
-**截图不合格时**（杂乱 / 含隐私 / 分辨率低 / 与这页语义无关）：先剪裁（`crop`）与换槽，**不要因为"图不好看"就改画图形顶替**；若截图确实与本页语义无关，本页改走图形或纯文字母版，把截图挪到「展示」类页面单独出现。
-
-
-## plan.json 格式
+## plan.json
 
 ```json
 { "style": "tech-blue",
-  "delivery": "2026-11-15-ai工具盘点",
+  "delivery": "YYYY-MM-DD-小标题",
   "meta": { "brand": { "logo": "AI", "name": "AI Efficiency Lab", "footer": "aiefficiencylab.cn" } },
   "pages": [
     { "nn": "01", "layout": "N02-dialog-cover",
@@ -68,50 +60,49 @@ argument-hint: <原文素材路径或目录>
   ] }
 ```
 
-**系统槽（跨风格机器契约，风格无关）**：`meta.brand` 是整组统一的品牌身份件（`logo` logo 字 / `name` 品牌名 / `footer` 页脚署名），一处定义、全篇注入，**不写进逐页 fields**；`meta` 整块可选，缺哪个键就保留母版默认。`fields.issue` = 逐页期号/栏目名，每页必填。**页码不填**（自动生成）。品牌三值的篇幅受品牌栏/页脚宽度约束，上限见所选风格 `design-system.md` 的组件表，超出须在交付说明里点明并请人确认。**`data-sys` 只登记系统槽**：A 类品牌三件（`meta.brand` 注入）+ B 类期号 `issue`（逐页 fields）+ B′ 类页码 `page-no`（自动生成），白名单固定五个值。其余逐页文案——按钮 `btn-*`、标题、副题——都是**普通文本槽**，与 `title`/`sub` 同一待遇（母版说明头登记键、plan 按名填、缺了即停），走 `{{槽名}}` ↔ `data-layer` 的常规路径，**不标 `data-sys`**。
+`pages` 顺序即页序，`nn` 是两位页码；`layout` 取 `catalog.md` 的母版名，一页一个母版、同一母版可跨页复用。
 
-`fields` 的键分两类：内容槽 = `{{槽名}}` = `data-layer` id（图槽同理）；repeat 数组元素内用**条目短名**（`n/t/d`…），clone 时由 render 加序号后缀。系统槽不套这条——A 类不进 fields、layer 带 `sys-` 前缀；B 类与内容槽同名但 layer 也带 `sys-`；C 类（按钮 `btn-*` 等逐页文案）**就是内容槽**，`data-layer` 用母版前缀（如 `n02-btn-1`），不标 `data-sys`。这是全库统一契约，与风格无关——换风格只换视觉资产，不自定命名规范。值允许受控富文本（`span.hl`/`br`/`strong`），**裸 `<`/`>` 是文案不是标签**：写 "5>3 倍提升"、"A < B"、"x<y 时" 直接出图；只有形如 `<b>`、`<div class="…">`、`</span>` 的完整标签才硬停。唯一要注意的是 `a<b>c` 这种字母包夹尖括号——它本身就是合法标签形态，请写成 `a < b`。即兴页 `layout` 写 `custom/<名>`、`markup` 字段附整页 HTML。`delivery` 可选，等价于 `--delivery`，命名 `YYYY-MM-DD-<文章小标题>`。
-
-**画布根类 `.artwork-page`（全库唯一权威机器锚点，本节即定义处）**：与风格无关——render 抽页、`editor.manifest.json` 的 `root`、截图 selector 三处都认它；所有风格的母版与即兴页必须用它，不得自造根类名。命名与根节点 `data-artwork` 属性对齐，指"一张 AI 生成的作品卡片页"，不是某个风格的标记。
+**系统槽**：`meta.brand` 填整组统一品牌件（logo/name/footer），逐页只填 `issue`，页码不填；品牌三值篇幅上限见该风格 design-system 组件表，超限须在交付说明里点明并请人确认。槽位命名、fields 键规则、图槽 `crop` 写法、富文本白名单、限值口径、画布根类 `.artwork-page` 的机器契约统一见 `references/CONTRACT.md`。
 
 ## 执行入口
 
 ```sh
-node script/figure.mjs <任务运行区>/figures/<名>.html <任务运行区>/assets/<名>.png --style=<风格>   # 图形→PNG；注入该风格 :root 令牌，风格必填、用到未声明令牌即报错退出
-node script/render.mjs <任务运行区>/ --delivery=<YYYY-MM-DD-小标题>   # 实例化+校验+截图+交付
-node script/render.mjs <任务运行区>/ --delivery=<...> --with-editor     # 交付区追加 fields/manifest/assets
-node script/render.mjs <任务运行区>/ --check-geometry                    # 即兴页几何体检
-node script/render.mjs <任务运行区>/ --only=N01,N02                     # 调试：只出指定页（也接受 02 / P02）
-node script/render.mjs <任务运行区>/ --delivery=<...> --force            # 重跑：允许覆盖已有交付目录
+node script/figure.mjs <任务运行区>/figures/<名>.html <任务运行区>/assets/<名>.png --style=<风格>   # 图形→PNG，风格必填
+node script/render.mjs <任务运行区>/ --delivery=<YYYY-MM-DD-小标题>   # 出 HTML + PNG 并交付
+node script/render.mjs <任务运行区>/ --delivery=<...> --with-editor     # 追加 fields / manifest / assets
+node script/render.mjs <任务运行区>/ --delivery=<...> --force           # 复用已存在的交付目录（只覆盖白名单文件）
+node script/render.mjs <任务运行区>/ --check-geometry                  # 即兴页几何体检
+node script/render.mjs <任务运行区>/ --only=01,03                      # 调试：只刷新指定页，按 plan 的 nn 编号
 ```
 
-`--delivery` 也可写成 plan.json 的 `delivery` 字段（相对路径按当前工作目录解析）；未指定时只写运行区、不产出交付目录。`--only` 是**调试开关，仅写运行区**，与 `--delivery` / `plan.delivery` 互斥（防止交付目录残留旧页、preview/manifest/fields 被单页覆盖）——正式交付一律跑完整页数。
+`--delivery` 也可写成 plan.json 的 `delivery` 字段（相对路径按当前工作目录解析）；未指定时只写运行区。`--only` 只用于调试、不与交付同用；跨页聚合件要刷新就完整渲染一次。
 
-## 运行环境
+### 编辑器微调（可选）
 
-- **Node ≥ 18**（实测 v22）：脚本只用内置模块，零依赖、不需要 `npm install`。
-- **Chrome / Chromium / Edge / Brave 任一**：`script/shared/find-chrome.mjs` 先看环境变量 `CHROME_PATH` / `CHROME_BIN`，再探各平台默认安装路径；受限环境（容器 / root / CI）若起不来会直接报错退出。
-- **全程离线**：不联网、不下载字体（本机字体栈）。字形与字宽由运行机器的已装字体决定，换机出图先目检首张 PNG 再批量出。
-
-编辑器微调（可选）：`cd <pageApp 仓库>/demo && node pack.mjs "<含 manifest 的目录>"`（可指向任务运行区，或带 `--with-editor` 的交付目录）→ `covers-edit.html`。pageApp 仓库本机两处：Windows `D:\AI\pageApp\demo`｜macOS `/Users/shay/Code/AI/pageApp/demo`。**【待开发】** 该命令依赖本机 pageApp 仓库，换环境（生产安装）不可用；待改造为随技能分发的可配置打包入口后移除此标记。**已知差异**：编辑器按自己的「适配方式」（默认填满裁切）重写图片的 `object-fit`，母版里 `data-fit="contain"` 的槽打开后即按 `cover` 渲染——**只在图与槽比例不同时才会看出裁切**（同比例则渲染一致、无差异）。对策：contain 槽只放与槽同比例（1:1）的图；已因塞了非等比图被裁的页，重跑 render 即恢复。交接时要向用户说明。
+`--with-editor` 完整渲染一次（生成 `fields.json` / `editor.manifest.json` / `assets/`），再 `cd <pageApp 仓库>/demo && node pack.mjs "<该目录>"`（可指向任务运行区，或带 `--with-editor` 的交付目录）→ `covers-edit.html`。pageApp 仓库：Windows `D:\AI\pageApp\demo`｜macOS `/Users/shay/Code/AI/pageApp/demo`。**【待开发】** 该命令依赖本机 pageApp 仓库，换环境不可用。`data-fit="contain"` 的槽会被编辑器按 `cover` 渲染，这类槽只放同比例图；已被裁的页重跑 render 即恢复。交接时向用户说明这一点。
 
 ## 交付（三级目录）
 
 | 层级 | 位置 | 内容 |
 |---|---|---|
-| ① 技能安装目录 | 本仓库 | 只读资产与代码；运行期零写入 |
-| ② 任务运行区 | agent 临时工作区 `runs/<任务>/` | plan.json、素材、过程件、P 页/PNG、preview、fields、manifest、日志、临时脚本 |
+| ① 技能安装目录 | 本仓库 | 只读资产与代码，运行期零写入 |
+| ② 任务运行区 | agent 临时工作区 `runs/<任务>/` | plan.json、素材、过程件、P 页/PNG、preview、日志、临时脚本 |
 | ③ 交付目录 | 用户选中的工作区；无则 agent 默认任务文件夹 | `YYYY-MM-DD-<文章小标题>/`，只含白名单成品 |
 
-白名单 = `P01-封面.html`、`P01.png`、…、`preview.png`（当次总览拼图）。`plan.json`、素材副本、过程件一律留运行区。**校验与截图全部通过后**才拷贝；目标目录已存在且非空即停（同一任务重跑加 `--force`）。交付页 HTML 自包含（CSS 内联、图片 dataURL 内嵌），故 `assets/` 只是素材副本，默认不进交付；日后接编辑器时用 `--with-editor` 追加 `fields.json` / `editor.manifest.json` / `assets/`。
+白名单 = 每页 `P<nn>-<名>.html` + `P<nn>.png`，加 `preview.png`（当次总览拼图）。`plan.json`、素材副本、过程件留运行区。交付页自包含（CSS 内联、图片 dataURL 内嵌），故 `assets/` 与编辑器材料默认不进交付，需要时见「编辑器微调」。
 
 ## 受控即兴与转正
 
-- 即兴边界：只用该风格 style.css 既有类 + 遵循其 design-system.md；禁内联样式、禁自造 CSS 变量、禁新类名（新类=风格演进=用户过目）。
-- 校验升级：即兴页必过形态校验（自动执行，不过即停）；几何体检不在默认流程内，需显式加 `--check-geometry`（仅对 custom 页执行）。
-- 转正：同一 `custom/<名>` 累计 ≥2 次 → 提示用户入库 → 按母版规范重整（标记/占位符/限制注释）→ 目检+一次真实任务回归。转正不是复制粘贴当次产物。
-- 同一内容即兴两次不满意 → 走转正，不无限即兴。
+- 即兴边界：只用该风格 `style.css` 既有类并遵循其 `design-system.md`；禁内联样式、禁自造 CSS 变量、禁新类名（新类 = 风格演进 = 用户过目）。
+- 几何体检：即兴页还要查排版是否越界，需显式加 `--check-geometry`（仅对 custom 页执行）。
+- 转正：同一 `custom/<名>` 累计 ≥2 次或两次即兴仍不满意 → 提示用户入库 → 按母版结构重整（槽位标记 / 占位符 / 说明头限制行）→ 目检 + 一次真实任务回归。转正不是复制粘贴当次产物。
 
 ## 边界
 
-机器只做防呆（残留/缺失/重复）与字数比对；**画面质量最终由人审 PNG 保证**；数字真实性靠"提炼纪律+人审"，无机器对账；字体默认走本机字体栈（源 CSS 不引外链；编辑器导出 PNG 只认本机已装字体与 base64 内嵌），规则见各风格 design-system.md。这些是执行契约，不是已通过测试的声明。
+机器只做防呆（残留 / 缺失 / 重复）与字数比对；画面质量由人审 PNG 保证，数字真实性由提炼纪律与人审保证。
+
+## 运行环境
+
+- **Node ≥ 18**：脚本只用内置模块，零依赖，不需要 `npm install`。
+- **Chrome / Chromium / Edge / Brave 任一**：`script/shared/find-chrome.mjs` 先看 `CHROME_PATH` / `CHROME_BIN`，再探各平台默认安装路径。
+- **字体零安装、全程离线**：不联网、不随包字体文件、不 `@import`、不引 CDN；字体由 `style.css` 指向系统默认，字数校验自动完成。换机后先目检首张 PNG 再批量出。

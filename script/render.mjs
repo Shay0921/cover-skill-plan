@@ -1,16 +1,18 @@
 #!/usr/bin/env node
 /* render.mjs · 实例化器——生产环境固定脚本，不是临时文件
  * 用法：node script/render.mjs <任务运行区>/ [--delivery=<交付目录>] [--with-editor] [--force] [--check-geometry] [--only=N01,N02] [--font-report]
- *   --font-report 是诊断开关（不进常规出图）：打印每页实际命中字体与三套字体栈的字宽实测，见 shared/cdp.mjs fontReport
+ *   --font-report 是诊断开关（不进常规出图）：打印每页实际命中字体、三套字体栈的字宽实测，
+ *                 并与权重表里的建模值逐族对照（实测≠建模时要能一眼看出原因），见 shared/cdp.mjs fontReport
  *   --only + --font-report = 只读诊断：只写临时 HTML 跑体检、跑完即删；不更新 P 页 / PNG / fields.json / manifest / preview.png。
- *     单独 --font-report（无 --only）= 出图时顺带体检；单独 --only（无 --font-report）= 调试出指定页，两者行为不变。
+ *     单独 --font-report（无 --only）= 出图时顺带体检；单独 --only（无 --font-report）= 只更新指定页的 P 页 HTML / PNG，
+ *     preview.png 与编辑器契约件（fields / manifest）一律不动——这三个是跨页聚合件，残缺版会覆盖运行区里的正式版。
  * 输入：<任务运行区>/plan.json + 素材图片（相对运行区）
  * 三级目录（技能安装目录只读，运行期零写入）：
  *   ① 技能安装目录 = 本文件所在仓库：styles/ + script/，只读资产与代码（开发期文档与施工台账不随生产包分发）
- *   ② 任务运行区 = agent 临时工作区：plan.json / 素材 / 过程件 / P 页 / PNG / assets / fields / manifest（_preview.html 是拼总览用的临时页，截完即删）
+ *   ② 任务运行区 = agent 临时工作区：plan.json / 素材 / 过程件 / P 页 / PNG / assets / 日志（fields.json 与 editor.manifest.json 仅 --with-editor 时生成）；_preview.html 是拼总览用的临时页，截完即删
  *   ③ 交付目录 = 用户选中的工作区（--delivery 或 plan.delivery，命名 YYYY-MM-DD-<小标题>）：校验+截图全过后按白名单拷贝
- * 交付白名单（默认）：P<nn>-<名>.html + P<nn>.png + preview.png
- *   --with-editor 追加：fields.json + editor.manifest.json + assets/
+ * 交付白名单（默认，编辑器不在默认链路上）：P<nn>-<名>.html + P<nn>.png + preview.png
+ *   --with-editor 追加：fields.json + editor.manifest.json + assets/（仅用户要开编辑器时才走）
  * 硬校验（即停）：{{ 残留 / 图片缺失或格式不符 / 根节点与画布 / data-layer 重复 / 必填槽为空 / plan 字段与槽位对不上 / repeat 区间 / 富文本白名单外标签
  *   / data-sys 白名单外取值 / plan 出现手填 page-no 字段
  *   文案里的裸 < > 不算标签（"年收入 > 10 万"、"A < B" 照常出图，注入前转义为实体显示）
@@ -52,6 +54,11 @@ if (onlyArg !== null) {
   ONLY = onlyArg.split(',').map((s) => s.trim().replace(/^[NPnp]/, '')).filter(Boolean);
   if (!ONLY.length) fail('--only 不能为空：请写 --only=N01,N02（也接受 02 / P02 写法）');
 }
+// 编辑器产物（fields.json / editor.manifest.json）按需生成，默认生图链路不产：
+//   ① 只有 --with-editor 才写——默认交付就是 P 页 HTML + PNG + preview.png，编辑器不在默认链路上；
+//   ② --only 单页调试不写——这两个是跨页聚合件，单页版会把多页运行区的正式版本覆盖掉；
+//   ③ 只读体检（DIAG_ONLY）不写——诊断不落任何正式文件。
+const EDITOR_OUT = WITH_EDITOR && !ONLY && !DIAG_ONLY;
 const deliveryArg = flagValue('--delivery');
 // 先解析带值参数，避免把 "--only N01,N02" / "--delivery <路径>" 的值误认成任务目录
 const taskDir = path.resolve(argv.find((a, i) => !a.startsWith('--') && !consumedIdx.has(i)) || '');
@@ -73,9 +80,10 @@ if (deliveryArg === '') fail('--delivery 不能为空：请写 --delivery=<目�
 // 否则带 delivery 的正式任务无法就地体检，与「可在正式运行区直接跑」的用法矛盾。
 const DELIVERY = DIAG_ONLY ? null : (DELIVERY_RAW ? path.resolve(DELIVERY_RAW) : null);
 if (DELIVERY && DELIVERY === taskDir) fail('交付目录不能等于任务运行区（过程件与成品必须分开）');
-// --only 是调试开关：只出部分页时，preview/manifest/fields 会被单页覆盖（形成新旧混装包），故禁止与交付同用。
+// --only 是调试开关：只出部分页会形成「新页 + 旧页」混装包，故禁止与交付同用。
 // 只读诊断（DIAG_ONLY）的 DELIVERY 已在上方置 null，因此不受这道守卫限制。
 if (ONLY && DELIVERY) fail('--only 仅用于运行区调试，不能与 --delivery（或 plan.delivery）同用；正式交付请跑完整页数');
+if (ONLY && !DIAG_ONLY) console.warn('⚠ --only 是单页调试：只更新指定页的 HTML / PNG；preview.png' + (WITH_EDITOR ? ' 与 fields.json / editor.manifest.json' : '') + ' 保持原样（这些是跨页聚合件，需完整渲染才刷新）');
 // 开工前先挡掉目录冲突，避免整轮截图跑完才报错（拷贝阶段再查一次，防并发期间被别的任务占用）
 if (DELIVERY && fs.existsSync(DELIVERY)) {
   if (!fs.statSync(DELIVERY).isDirectory()) fail(`交付路径已存在但不是目录：${DELIVERY}`);
@@ -136,7 +144,7 @@ function findUnitEnd(body, start) {
 
 // ---------- 富文本校验与转义 ----------
 // 白名单标签（双/单引号都认，允许标签内尾空格；hl 也是唯一带属性的白名单标签）
-const RICH_OK = /<span\s+class=["']hl["']\s*>|<\/span>|<br\s*\/?>|<strong>|<\/strong>/gi;
+const RICH_OK = /<span\s+class=["']hl-line["']\s*>|<span\s+class=["']hl["']\s*>|<\/span>|<br\s*\/?>|<strong>|<\/strong>/gi;
 // 只把「明确的标签形态」判为非法：<name> / </name> / <name attr="v"> / <!doctype> / <?xml?>
 //   文案里的裸 < > 不算标签（"年收入 > 10 万"、"A < B"、"x<y 时 5>3"）——
 //   标签名后只认「空格 + 字母属性名」（可带 =值），中文/数字跟在 < 后不构成标签。
@@ -146,7 +154,7 @@ function checkRich(value, where, errors) {
   const stripped = value.replace(RICH_OK, '');
   if (!TAG_LOOKING.test(stripped)) return;
   const hit = stripped.match(new RegExp(`[\\s\\S]{0,10}(?:${TAG_LOOKING.source})`));
-  errors.push(`${where}: 值含白名单外标签（只允许 span.hl / br / strong），检出错段 "${(hit ? hit[0] : '').trim()}"`);
+  errors.push(`${where}: 值含白名单外标签（只允许 span.hl / span.hl-line / br / strong），检出错段 "${(hit ? hit[0] : '').trim()}"`);
 }
 // 注入前转义：白名单标签原样保留，其余 & < > 转实体（已存在的实体不二次转义）。
 // 哨兵用私用区 U+E000/U+E001：正文不会出现，也不与字体/CSS 混淆。
@@ -535,29 +543,98 @@ function getFrameDataUrl() {
 
 // ---------- 字数软校验（解析说明头"限制"行） ----------
 // 计数口径（母版说明头「限制」行的两种写法）：
-//   `≤N字`   = 视觉宽度单位（1 单位 ≈ 一个汉字宽）。汉字/全角 = 1；ASCII 大写 0.68、小写 0.55、
-//              数字 0.58、半角标点/符号 0.45；空白 0；HTML 标签 0；emoji 等 = 1。
-//              建模值 ≥ `--font-report` 三档实测上限（serif 700 / sans 400 / mono 600：大写 ≤0.664、
-//              小写 ≤0.534、数字 ≤0.575、半角标点 ≤0.324）——宁可早告警，不放过溢出。
-//              这三档之外（如宋 900 / 苹方 600）脚本不测，复现不出来，不作为建模依据。
-//              实测可用 `--font-report` 复现（它打印三套栈实测值，判据：建模值 ≥ 实测）；
-//              换字体栈或换机器后必须重测，模型只对实测的那三档成立。
-// 【旧口径，已注释存档勿引用】建模值逐项 ≥ 本机全部字重实测上限（宋 700/900、苹方 400/600：
-//              大写 ≤0.674、小写 ≤0.547、数字 ≤0.576、半角标点 ≤0.332）。
+//   `≤N字`   = 视觉宽度单位（1 单位 ≈ 一个汉字宽）。汉字/全角 = 1；ASCII 四类宽度由 script/font-weights.json
+//              按「当前实际命中字体」查表决定（见下方 ACTIVE_WIDTH）；空白 0；HTML 标签 0；emoji 等 = 1。
+//              权重表缺失或无命中时退回内置兜底（见 FALLBACK_WIDTH，现值 0.69/0.61/0.61/0.61；
+//              兜底须 ≥ 任何可能命中字体的上限）。宁可早告警，不放过溢出。
+//              换字体/换机 → 重跑 `node script/font-weights.mjs` 刷新权重表；`--font-report` 可核对命中 face。
 //   `≤N字符` = 实际字符个数（ASCII/数字槽的原始意图，如 big-num≤3字符、app≤14字符）。
 //   为何区分：按码点算宽度会让「10 字的英文单词」独占 10 字位（实际只占约 5.2 字宽），
 //   而 ASCII 短槽（编号/型号/文件名）要的确实是字符个数，不能被宽度稀释。
 const CHAR_TOLERANCE = 0.2;   // 超限 20% 以内不告警（同一字号下偶发换行可接受）
-const ASCII_WIDTH = { upper: 0.68, lower: 0.55, digit: 0.58, punct: 0.45 };
+// 内置兜底权重（权重表缺失/损坏时的最后防线）。
+// 判据：兜底必须 ≥ **任何可能命中字体、任何字重档**的实测上限，否则缺表时会低估宽度、让本该告警的文案静默通过。
+// 现值按 26 字母全量采样、覆盖两档：PingFang SC 700 档大写 0.6839 是三族最高项（serif 700 档 0.6712 / mono 恒 0.6021），
+// 取 0.69 留 0.006 余量；小写/数字/标点由 mono（等宽，两档恒 0.6021）主导，取 0.61。改字体栈时若引入更宽的字面，这里要跟着抬。
+const FALLBACK_WIDTH = { upper: 0.69, lower: 0.61, digit: 0.61, punct: 0.61 };
+
+// 字宽权重表（script/font-weights.json，由 script/font-weights.mjs 生成；换字体/换机后重跑该脚本）。
+// 为什么不用浏览器运行时探测：字数校验发生在填槽阶段、浏览器尚未启动；且权重是「字体+机器」属性，
+// 换机/换字体时重跑生成器即可，不必每次出图付一次探测成本。
+// 降级语义：CSS 三栈各自按声明顺序找第一个「本机真装」的字体——
+//   serif 走各平台系统宋体（mac Songti / win SimSun）、sans 走苹方/雅黑、mono 走 Menlo/Consolas；
+//   每族先在自身 400/700 两档里逐类取大（二档制两档都在用、真 Bold 面 advance 更宽，只量 400 会低估 bold），
+//   再三套命中字体每类取上限。全部按实际命中查表，换机/换字重字体时权重自动跟着变，无需装任何字体文件。
+let ACTIVE_WIDTH = { ...FALLBACK_WIDTH };
+let WIDTH_SOURCE = { serif: '内置兜底', sans: '内置兜底', mono: '内置兜底' };
+let ROLE_WIDTH = { serif: null, sans: null, mono: null };
+try {
+  const wf = path.join(ROOT, 'script', 'font-weights.json');
+  // 表不在要明说：兜底是小写/数字/标点都偏宽的保守值，这次的字数校验会比平时更严
+  if (!fs.existsSync(wf)) {
+    const f = FALLBACK_WIDTH;
+    console.warn(`⚠ 未找到 script/font-weights.json：本次用内置兜底 ${f.upper}/${f.lower}/${f.digit}/${f.punct} 校验字宽（偏保守）；换字体或换机后请重跑 node script/font-weights.mjs`);
+  }
+  if (fs.existsSync(wf)) {
+    const table = JSON.parse(fs.readFileSync(wf, 'utf8'));
+    const cssText = fs.readFileSync(CSS_FILE, 'utf8');
+    // 解析 :root 里 --serif/--sans/--mono 的字体族声明顺序（去掉引号和关键字 serif/sans-serif/monospace）
+    const roleStack = (role) => {
+      const m = cssText.match(new RegExp('--' + role + '\\s*:\\s*([^;]+);'));
+      if (!m) return [];
+      return m[1].split(',').map((s) => s.trim().replace(/^["']|["']$/g, ''))
+        .filter((s) => s && !/^(serif|sans-serif|monospace)$/.test(s));
+    };
+    const generics = { serif: 'serif', sans: 'sans-serif', mono: 'monospace' };
+    const pick = (role) => {
+      for (const fam of roleStack(role)) {
+        // 精确名或 family 首词匹配（表里 key = 完整族名，栈里也是完整族名）
+        const p = table.profiles?.[fam];
+        if (!p?.installed || !p.weights) continue;
+        // 表 weights = { "400": {...}, "700": {...} }（二档制全档位）：两档逐类取大——
+        // 真 Bold 面 advance 可能比 400 宽（2026-11-18 实测 PingFang SC 大写 0.6689→0.6839、Songti SC 0.6625→0.6712），
+        // 建模必须覆盖实际渲染会用到的最宽档，宁可早告警、不放过溢出
+        const w = {};
+        for (const cat of ['upper', 'lower', 'digit', 'punct']) {
+          const vals = ['400', '700'].map((t) => p.weights[t]?.[cat]).filter((v) => typeof v === 'number');
+          if (vals.length) w[cat] = Math.max(...vals);
+        }
+        return { fam, w };
+      }
+      return null;
+    };
+    const picked = { serif: pick('serif'), sans: pick('sans'), mono: pick('mono') };
+    const cats = ['upper', 'lower', 'digit', 'punct'];
+    // 三套命中字体每类取上限：宁可早告警，不放过溢出（与旧模型口径一致）
+    for (const cat of cats) {
+      const vals = Object.values(picked).filter(Boolean).map((p) => p.w[cat]).filter((v) => typeof v === 'number');
+      if (vals.length) ACTIVE_WIDTH[cat] = Math.max(...vals);
+    }
+    for (const role of ['serif', 'sans', 'mono']) {
+      WIDTH_SOURCE[role] = picked[role]?.fam || generics[role] + '(未装/回退)';
+      ROLE_WIDTH[role] = picked[role]?.w || null;   // 仅供 --font-report 打印「建模值」对照
+    }
+    // 兜底自检：表里的值一旦超过内置兜底，说明兜底已过期——表缺失时会低估宽度、静默漏报超限。
+    // 这里不自动抬高兜底（兜底是常量，不该被数据反向改写），只把漂移喊出来，由人改常量。
+    for (const cat of cats) {
+      if (ACTIVE_WIDTH[cat] > FALLBACK_WIDTH[cat]) {
+        console.warn(`⚠ 字宽权重表 ${cat}=${ACTIVE_WIDTH[cat]} 已超过内置兜底 ${FALLBACK_WIDTH[cat]}：表缺失/损坏时会低估宽度、漏报超限。请同步提高 render.mjs 的 FALLBACK_WIDTH`);
+      }
+    }
+  }
+} catch (e) {
+  // 权重表损坏不该让整个出图崩掉——退回兜底并提示
+  console.warn('⚠ 字宽权重表读取失败，使用内置兜底：' + (e && e.message));
+}
 const isFullWidth = (ch) => /[\u1100-\u115F\u2E80-\u303F\u3041-\u33FF\u3400-\u4DBF\u4E00-\u9FFF\uA000-\uA4CF\uAC00-\uD7A3\uF900-\uFAFF\uFE10-\uFE6F\uFF01-\uFF60\uFFE0-\uFFE6]/.test(ch);
 function charWidth(ch) {
   const code = ch.codePointAt(0);
   if (code <= 0x20 || ch === '\u00a0') return 0;
   if (code < 0x7f) {
-    if (code >= 0x41 && code <= 0x5a) return ASCII_WIDTH.upper;
-    if (code >= 0x61 && code <= 0x7a) return ASCII_WIDTH.lower;
-    if (code >= 0x30 && code <= 0x39) return ASCII_WIDTH.digit;
-    return ASCII_WIDTH.punct;
+    if (code >= 0x41 && code <= 0x5a) return ACTIVE_WIDTH.upper;
+    if (code >= 0x61 && code <= 0x7a) return ACTIVE_WIDTH.lower;
+    if (code >= 0x30 && code <= 0x39) return ACTIVE_WIDTH.digit;
+    return ACTIVE_WIDTH.punct;
   }
   if (isFullWidth(ch)) return 1;
   return 1;   // emoji / 其他文字符号按一个汉字宽（保守）
@@ -588,10 +665,13 @@ function expandLimitKey(key) {
 }
 function matchesLimit(fieldKey, limitKey) {
   return expandLimitKey(limitKey).some((key) => {
+    // 通配键必须最先分流：`*` 不被 escapeRe 转义，若落入下方 `^key\d+$` 分支会构造出
+    // `^*-head\d+$` 这类以 * 开头的非法正则直接抛 SyntaxError（`*-` 开头必崩、字母前缀如
+    // `r*-label` 虽合法但语义错乱）——通配走专用匹配，其余键才走同名/族名/区间。
+    if (key.includes('*')) return new RegExp(`^${escapeRe(key).replace(/\*/g, '[-0-9]*')}$`).test(fieldKey);
     if (fieldKey === key) return true;
     if (fieldKey.split('-')[0] === key) return true;
     if (new RegExp(`^${escapeRe(key)}\\d+$`).test(fieldKey)) return true;
-    if (key.includes('*')) return new RegExp(`^${escapeRe(key).replace(/\*/g, '[-0-9]*')}$`).test(fieldKey);
     return false;
   });
 }
@@ -651,6 +731,9 @@ const pages = plan.pages || [];
 if (!pages.length) fail('plan.json 无页面');
 const targets = ONLY ? pages.filter((p) => ONLY.some((o) => (p.nn || '').padStart(2, '0') === o.padStart(2, '0'))) : pages;
 if (!targets.length) fail('--only 过滤后无页面');
+
+// 字数校验权重来源（诊断，便于换机/降级后核对；不写产物）
+console.log(`📏 字宽权重：serif=${WIDTH_SOURCE.serif} / sans=${WIDTH_SOURCE.sans} / mono=${WIDTH_SOURCE.mono} → 取上限 ${ACTIVE_WIDTH.upper}/${ACTIVE_WIDTH.lower}/${ACTIVE_WIDTH.digit}/${ACTIVE_WIDTH.punct}`);
 
 // ---------- GIF 预转换（T14 P1 · 方案 A）----------
 // 只处理"老实声明 .gif"的输入：canvas 取第一帧转真 PNG，产物写任务运行区（.gif.png 后缀，不在交付白名单），
@@ -772,13 +855,15 @@ for (const page of targets) {
 
 // ---------- 写产物 ----------
 // 只读体检不建 assets、不拷素材副本（与「只读」口径一致：诊断不消费图片文件）
-if (!DIAG_ONLY) {
+// 没用到图片时不建空目录（assets/ 只承载用了的素材副本；图形产物由 figure.mjs 自己建目录写 figures/）
+if (!DIAG_ONLY && usedFiles.length) {
   fs.mkdirSync(path.join(taskDir, 'assets'), { recursive: true });
   for (const f of new Set(usedFiles)) fs.copyFileSync(f, path.join(taskDir, 'assets', path.basename(f)));
 }
 
 // 交付页 CSS：防御性剥离 @import 行（默认字体策略为本机字体栈，源 CSS 已不含外链；编辑器打包器拒绝外链）
 const cssInline = cssText.split('\n').filter((l) => !/^\s*@import\b/.test(l)).join('\n');
+
 for (const b of built) {
   const pageHtml = `<!doctype html>
 <html lang="zh-CN">
@@ -801,15 +886,23 @@ ${b.html}
 }
 
 // fields.json（plan 转写：键 = 页面真实 data-layer id，编辑器契约初稿）
-// 注：图槽键的值仍为 plan 申报的 {src, crop} 对象——编辑器当前不读 fields.json（T6 未做），届时按 image 图层消费
+// 注：图槽键的值仍是 plan 申报的原值（`{src, crop}` 对象或路径字符串）——编辑器当前不读 fields.json（T6 未做），届时按 image 图层消费
 // repeat 条目短名经 unitLayerMaps 映射为单元元素的 data-layer，并加与克隆体一致的 -2/-3 后缀
-// 只读体检不写：诊断只跑 --only 指定页，写了会把多页的 fields/manifest 覆盖成单页版
-if (!DIAG_ONLY) {
-  // 图槽 src 统一转成交付区可解析的 `assets/<文件名>`：素材副本按 basename 平铺在 assets/，
-  // plan 里的 `shots/xxx.png` 只存在于运行区，交付目录没有 shots/（T6 注入时会找不到图）
-  const normField = (v) => (v && typeof v === 'object' && typeof v.src === 'string')
-    ? { ...v, src: `assets/${path.basename(v.src)}` }
-    : v;
+// 仅 --with-editor 生成（默认生图交付只给 HTML + PNG + preview.png，不产编辑器契约件）；
+// --only 单页调试与只读体检也不写——这两个文件是跨页聚合件，单页版会覆盖多页正式版
+if (EDITOR_OUT) {
+  // 图槽值统一落到交付区可解析的 `assets/<basename>`（与 editor.manifest.json.assetDirs 对齐）：
+  // 素材副本按 basename 平铺在 assets/，plan 里的 `shots/xxx.png` 只存在于运行区，交付目录没有 shots/。
+  // 两种写法都要改：对象形态 `{src, crop}` 与字符串形态 `"shots/x.png"`。
+  // 判据用「绝对路径命中已用素材表」，不靠键名猜槽类型——字符串槽（纯文案）永远命中不了，天然不受影响。
+  const assetMap = new Map();
+  for (const f of new Set(usedFiles)) assetMap.set(path.resolve(f), `assets/${path.basename(f)}`);
+  const toAssetRef = (src) => assetMap.get(path.resolve(taskDir, src)) || src;
+  const normField = (v) => {
+    if (typeof v === 'string') return toAssetRef(v);
+    if (v && typeof v === 'object' && typeof v.src === 'string') return { ...v, src: toAssetRef(v.src) };
+    return v;
+  };
   const pagesOut = [];
   for (const b of built) {
     const flat = {};
@@ -840,8 +933,8 @@ if (!DIAG_ONLY) {
   fs.writeFileSync(path.join(taskDir, 'fields.json'), JSON.stringify({ canvas: { width: 1080, height: 1440 }, pages: pagesOut }, null, 2));
 }
 
-// editor.manifest.json（只读体检不写，理由同上）
-if (!DIAG_ONLY) {
+// editor.manifest.json（同上：仅 --with-editor 生成，且 --only / 只读体检都不写）
+if (EDITOR_OUT) {
   fs.writeFileSync(path.join(taskDir, 'editor.manifest.json'), JSON.stringify({
     format: 'pageapp-editor-manifest', version: 1,
     root: '.artwork-page', canvas: { width: 1080, height: 1440 }, layerMode: 'markers',
@@ -858,7 +951,11 @@ function printFontReport(rep, tag) {
   console.log('   实际命中 face：' + ([...tally].map(([f, n]) => `${f}×${n}`).join(' · ') || '未读到'));
   for (const role of ['serif', 'sans', 'mono']) {
     const w = rep.widths?.[role];
-    if (w) console.log(`   字宽实测 ${role}(100px)：汉字 ${w.han} · 大写 ${w.upper} · 小写 ${w.lower} · 数字 ${w.digit} · 半角标点 ${w.punct}`);
+    for (const t of ['400', '700']) {
+      if (w?.[t]) console.log(`   字宽实测 ${role}(${t},100px)：汉字 ${w[t].han} · 大写 ${w[t].upper} · 小写 ${w[t].lower} · 数字 ${w[t].digit} · 半角标点 ${w[t].punct}`);
+    }
+    const m = ROLE_WIDTH[role];
+    if (m) console.log(`   建模值  ${role}（${WIDTH_SOURCE[role]}，两档取大）：大写 ${m.upper} · 小写 ${m.lower} · 数字 ${m.digit} · 半角标点 ${m.punct}`);
   }
   for (const warn of rep.warnings) console.warn('   ⚠ ' + warn);
 }
@@ -925,8 +1022,8 @@ try {
     console.log(`📸 P${b.nn} · ${b.name}`);
   }
 
-  // preview.png 总览（只读体检不生成：--only 只有单页，拼图会覆盖多页运行区的总览）
-  if (!DIAG_ONLY) {
+  // preview.png 总览：跨页聚合件，--only（含只读体检）只跑了部分页，拼图只会把多页总览覆盖成残缺版，故不写
+  if (!ONLY) {
     const files = built.map((b) => `P${b.nn}.png`);
     const gridHtml = `<!doctype html><html><head><meta charset="utf-8"><style>
       body{margin:0;background:#ECEEF3;font-family:sans-serif;padding:16px;}

@@ -1,5 +1,6 @@
 // Chrome 调试桥（零依赖 · CDP over pipe）：一个批次复用一个 browser 进程，每页新建一个 target，截完即关。
-// 调用方：script/render.mjs（createOptions / launchBrowser / withPage / captureReadyPage / closeBrowser / evaluate）。
+// 调用方：script/render.mjs（createOptions / launchBrowser / withPage / captureReadyPage / closeBrowser
+//         / evaluate / fontReport）、script/font-weights.mjs（量宽生成权重表）。
 import { spawn, spawnSync } from 'node:child_process';
 import fs from 'node:fs';
 import os from 'node:os';
@@ -156,15 +157,28 @@ export async function withPage(inst, navUrl, opts, fn) {
   }
 }
 
+// 字宽采样串（单一来源）：本文件的 fontReport 用它量宽，script/font-weights.mjs 反过来 import 它
+// 生成字宽权重表。为什么定义在这里、而不是各写一份：两处采样集不同（大写 26 字母 vs 6 字母）时，
+// 同一台机器、同一款字体会量出 0.705 与 0.69 两个数，核对时被误判成「某处算错了」。
+// 方向是「生成器依赖本文件」，不是「本文件依赖生成器」——cdp 仍是自包含的 Chrome 桥。
+export const WIDTH_SAMPLES = {
+  han: '中文测试字体大小宽高标题正文说明数据报告功能',
+  upper: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+  lower: 'abcdefghijklmnopqrstuvwxyz',
+  digit: '0123456789',
+  punct: '!,.:;?()[]/-',
+};
+
 // 字体体检（按需诊断，**不在每页热路径**：只有 render --font-report 才会调用）。
 // 回答三件事：
-//   ① 声明了 @font-face 却一个分片都没加载？——此时 document.fonts.status 照样是 loaded，
-//      文字其实全走系统回退，这是接入 webfont（styles/assets/fonts/ 分片）后最容易静默翻车的点。
+//   ① 声明了 @font-face 却一个 face 都没加载？——此时 document.fonts.status 照样是 loaded，
+//      文字其实全走系统回退。当前所有页面都不声明 @font-face（本机字体栈方案），这条恒为 0，
+//      是留给「将来若重新接入 webfont」的守门，不是现存故障。
 //   ② 每个文字层实际由哪个 face 渲染？——CSS.getPlatformFontsForNode 逐节点问 Chrome，
 //      用于换机出图前核对「声明栈 → 真实命中」，以及交付页字形回退排查。
 //   ③ 三套字体栈的字宽实测？——`≤N字` 的宽度模型绑定运行机器字面：本报告打印的是实测值，
-//      与 render.mjs 里 ASCII_WIDTH / 汉字 1.0 的建模值直接比（建模值必须 ≥ 实测，越接近越紧），
-//      换字体或换机后重跑本报告即可判断模型是否仍偏保守。
+//      与 render.mjs 查权重表得到的建模值（ACTIVE_WIDTH 与 --font-report 的「建模值」行）直接比，
+//      建模值必须 ≥ 实测、越接近越紧；换字体或换机后重跑本报告即可判断模型是否仍偏保守。
 // 成本：一次 DOM.getDocument(depth:-1) + 逐文字节点协议往返；默认关闭时零开销。
 export async function fontReport({ cdp, sessionId }) {
   const declared = await evaluate(cdp, sessionId, `(() => ({
@@ -175,7 +189,7 @@ export async function fontReport({ cdp, sessionId }) {
   report.loadedFaces = declared.faces.filter((f) => f.status === 'loaded').length;
   if (declared.status !== 'loaded') report.warnings.push(`document.fonts 状态 ${declared.status}：字体尚未就绪，实际字形可能中途换 face`);
   if (declared.faces.length && !report.loadedFaces)
-    report.warnings.push(`@font-face 声明 ${declared.faces.length} 个分片、加载成功 0 个：文字按系统回退渲染，核对下方实际 face`);
+    report.warnings.push(`@font-face 声明 ${declared.faces.length} 个、加载成功 0 个：文字按系统回退渲染，核对下方实际 face`);
   try {
     await cdp.send('DOM.enable', {}, sessionId);
     await cdp.send('CSS.enable', {}, sessionId);
@@ -200,19 +214,30 @@ export async function fontReport({ cdp, sessionId }) {
   } catch (error) { report.warnings.push(`读不到实际 face：${error.message}`); }
   if (!report.actual.length) report.warnings.push('未读到任何实际 face（页面无文字层，或 CSS 域不可用）');
   try {
-    // 用页面自身的字体栈量字宽：canvas measureText 逐字符，除以字号得 em 比例
+    // 用页面自身的字体栈量字宽：canvas measureText 逐字符，除以字号得 em 比例。
+    // 采样串用本文件的 WIDTH_SAMPLES（与 font-weights.mjs 同一组），否则两边数字对不上。
+    // 二档制（2026-11-18 定案）：全库只有 400/700 两档，且真 Bold 面 advance 与 400 不同
+    // （实测 Songti SC 大写 0.6625→0.6712、PingFang SC 0.6689→0.6839）——两档都量，
+    // 与权重表的 {400,700} 两档逐项对照；实测 > 建模 = 该重跑权重表的有效信号，不是 bug。
+    // mono 是等宽体、两档恒同值，可兼作测量管线的自检锚点。
     report.widths = await evaluate(cdp, sessionId, `(() => {
       const cs = getComputedStyle(document.documentElement);
       const stack = (name, fallback) => (cs.getPropertyValue(name) || '').trim() || fallback;
       const ctx = document.createElement('canvas').getContext('2d');
-      const avg = (font, text) => { ctx.font = font; let sum = 0; for (const ch of text) sum += ctx.measureText(ch).width; return +(sum / [...text].length / 100).toFixed(3); };
+      const avg = (font, text) => { ctx.font = font; let sum = 0; for (const ch of text) sum += ctx.measureText(ch).width; return +(sum / [...text].length / 100).toFixed(4); };
+      const samples = ${JSON.stringify(WIDTH_SAMPLES)};
       const out = {};
-      for (const [role, weight, family] of [['serif', 700, stack('--serif', 'serif')], ['sans', 400, stack('--sans', 'sans-serif')], ['mono', 600, stack('--mono', 'monospace')]]) {
-        const font = weight + ' 100px ' + family;
-        out[role] = { han: avg(font, '中文测试'), upper: avg(font, 'ABCDEF'), lower: avg(font, 'abcdef'), digit: avg(font, '0123456789'), punct: avg(font, ',.;:!?()') };
+      for (const [role, family] of [['serif', stack('--serif', 'serif')], ['sans', stack('--sans', 'sans-serif')], ['mono', stack('--mono', 'monospace')]]) {
+        out[role] = {};
+        for (const wt of [400, 700]) {
+          const font = wt + ' 100px ' + family;
+          const w = { weight: wt };
+          for (const [k, text] of Object.entries(samples)) w[k] = avg(font, text);
+          out[role][wt] = w;
+        }
       }
       return out;
-    })()`);
+    })()`);;
   } catch (error) { report.warnings.push(`字宽实测失败：${error.message}`); }
   return report;
 }
