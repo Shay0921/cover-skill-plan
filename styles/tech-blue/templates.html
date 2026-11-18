@@ -189,7 +189,7 @@ a{color:inherit;text-decoration:none;}
       <!-- ============ N02 · 对话框封面 ============
            用途：教程/Prompt 类封面——标题 + 浏览器窗口截图
            适合：有横版截图的开篇；不适合：无图可用、竖图（裁切严重）
-           可以变：按钮文案可变（btn-1/btn-2）；note 可省略
+           可以变：按钮文案可变（btn-1/btn-2）；note 可省略（无此内容走 L2 删元素）
            槽位：kicker / title / sub / note / 图×1（窗口 16:9 cover） / issue / page-no / btn-1 / btn-2
            限制：title≤14字(2行)；sub≤26字(1行)；note≤14字；issue≤14字；btn-1≤8字；btn-2≤10字
            hl：title 内 1 处（span.hl-line）
@@ -371,7 +371,7 @@ a{color:inherit;text-decoration:none;}
       <!-- ============ N05 · 时间线概览 ============
            用途：成长/历程类概览——时间线条目纵向排布
            适合：Day N 叙事、阶段复盘；不适合：无时间含义的并列内容
-           可以变：条目 3-5 条；末条强调款（is-hot + c-accent）需 L2 手工加；speed 标签可留空
+           可以变：条目 3-5 条；末条强调款（is-hot + c-accent）需 L2 手工加；speed 标签可留空（无此内容走 L2 删元素）
            槽位：big-num / tag / title / sub / timeline[]（when,head,note,speed） / issue / page-no
            限制：big-num≤3字符；title≤14字(2行;每行≤8字[big-num单数字] 或 ≤6字[big-num双数字])；sub≤20字(1行)；head≤14字(1行)；note≤22字(1行)；when≤3字符；speed≤8字符；issue≤14字；tag≤12字
 
@@ -428,6 +428,120 @@ a{color:inherit;text-decoration:none;}
       </section>
     </div>
   </div>
+
+
+    <div class="gal-item" id="n36">
+      <!-- ============ N36 · 架构关系图（内置 SVG） ============
+           用途：一个中枢 + 6 个并列模块的关系总览——中心圆 + 六边形分布节点，非图片槽
+           适合：功能地图、体系一览、围绕核心的 6 要素关系；不适合：模块数≠6（另开档或走 L3）、层级超过两层、要展示真实界面
+           可以变：中枢名/副题、六节点名/说明全部可改；节点数固定 6（SVG 无流式布局，repeat 克隆的节点会全部叠在同一坐标）
+           槽位：big-num / tag / title / sub / hub-name / hub-sub / s1..s6（name,desc）/ issue / page-no
+           限制：big-num≤1字符且=节点数；tag≤12字；title≤14字(2行;每行≤8字)；sub≤26字(1行)；hub-name≤8字(1行)；hub-sub≤12字(1行)；s*-name≤6字(1行)；s*-desc≤10字(1行)；issue≤14字
+           hl：无
+           图槽：无（图形由母版内 SVG 绘制，节点文字是普通文字槽；此页不支持换图）
+      -->
+      <section data-layout="N36-hub-map">
+    <div class="artwork-page n36" data-artwork data-size="1080x1440">
+
+  <div class="paper-noise"></div>
+
+  <div class="brand-top">
+    <div class="left">
+      <div class="logo"><div class="ph" data-sys="brand-logo" data-layer="sys-brand-logo" data-label="logo字" data-editable="text">AI</div></div>
+      <span class="brand-name" data-sys="brand-name" data-layer="sys-brand-name" data-label="品牌名" data-editable="text">AI Efficiency Lab</span>
+    </div>
+    <div class="right" data-sys="issue" data-layer="sys-issue" data-label="期号" data-editable="text">{{issue}}</div>
+  </div>
+
+  <div class="mega-hero">
+    <div class="mh-row">
+      <div class="big-num" data-layer="big-num" data-label="节点数大字" data-editable="text">{{big-num}}</div>
+      <div class="hero-text">
+        <span class="tag" data-layer="tag" data-label="标签" data-editable="text">{{tag}}</span>
+        <div class="title" data-layer="title" data-label="标题" data-editable="text">{{title}}</div>
+      </div>
+    </div>
+    <div class="sub" data-layer="sub" data-label="副题" data-editable="text">{{sub}}</div>
+  </div>
+
+  <div class="after-hero"></div>
+
+  <div class="n36-figure" data-layer="n36-figure" data-label="架构关系图" data-type="group">
+    <svg class="n36-svg" viewBox="0 0 1000 740" preserveAspectRatio="xMidYMid meet" role="img" aria-label="中枢六节点架构图">
+      <text class="n36-hd" x="12" y="40">HUB MAP</text>
+      <text class="n36-hd" x="988" y="40" text-anchor="end">FIXED · 6 NODES</text>
+      <line class="n36-rule" x1="12" y1="66" x2="988" y2="66"/>
+
+      <!-- 辐条连线（先画，端点由节点盖住） -->
+      <line class="n36-spoke" x1="500" y1="420" x2="500" y2="153"/>
+      <line class="n36-spoke" x1="500" y1="420" x2="727" y2="284"/>
+      <line class="n36-spoke" x1="500" y1="420" x2="727" y2="546"/>
+      <line class="n36-spoke" x1="500" y1="420" x2="500" y2="677"/>
+      <line class="n36-spoke" x1="500" y1="420" x2="273" y2="546"/>
+      <line class="n36-spoke" x1="500" y1="420" x2="273" y2="284"/>
+
+      <!-- 轨道圈（装饰） -->
+      <circle class="n36-orbit" cx="500" cy="420" r="262"/>
+
+      <!-- 中枢 -->
+      <g data-layer="n36-hub" data-label="中枢" data-type="group">
+        <circle class="n36-hub-bg" cx="500" cy="420" r="96"/>
+        <text class="n36-hub-name" x="500" y="412" text-anchor="middle" data-layer="hub-name" data-label="中枢名" data-editable="text">{{hub-name}}</text>
+        <text class="n36-hub-sub" x="500" y="452" text-anchor="middle" data-layer="hub-sub" data-label="中枢副题" data-editable="text">{{hub-sub}}</text>
+      </g>
+
+      <!-- 节点 1（正上） -->
+      <g class="n36-lane" data-layer="n36-lane-1" data-label="节点1" data-type="group">
+        <rect class="n36-node" x="394" y="107" width="212" height="92" rx="16"/>
+        <text class="n36-name" x="500" y="147" text-anchor="middle" data-layer="s1-name" data-label="节点1名" data-editable="text">{{s1-name}}</text>
+        <text class="n36-desc" x="500" y="179" text-anchor="middle" data-layer="s1-desc" data-label="节点1说明" data-editable="text">{{s1-desc}}</text>
+      </g>
+
+      <!-- 节点 2（右上） -->
+      <g class="n36-lane" data-layer="n36-lane-2" data-label="节点2" data-type="group">
+        <rect class="n36-node" x="621" y="238" width="212" height="92" rx="16"/>
+        <text class="n36-name" x="727" y="278" text-anchor="middle" data-layer="s2-name" data-label="节点2名" data-editable="text">{{s2-name}}</text>
+        <text class="n36-desc" x="727" y="310" text-anchor="middle" data-layer="s2-desc" data-label="节点2说明" data-editable="text">{{s2-desc}}</text>
+      </g>
+
+      <!-- 节点 3（右下） -->
+      <g class="n36-lane" data-layer="n36-lane-3" data-label="节点3" data-type="group">
+        <rect class="n36-node" x="621" y="500" width="212" height="92" rx="16"/>
+        <text class="n36-name" x="727" y="540" text-anchor="middle" data-layer="s3-name" data-label="节点3名" data-editable="text">{{s3-name}}</text>
+        <text class="n36-desc" x="727" y="572" text-anchor="middle" data-layer="s3-desc" data-label="节点3说明" data-editable="text">{{s3-desc}}</text>
+      </g>
+
+      <!-- 节点 4（正下） -->
+      <g class="n36-lane" data-layer="n36-lane-4" data-label="节点4" data-type="group">
+        <rect class="n36-node" x="394" y="631" width="212" height="92" rx="16"/>
+        <text class="n36-name" x="500" y="671" text-anchor="middle" data-layer="s4-name" data-label="节点4名" data-editable="text">{{s4-name}}</text>
+        <text class="n36-desc" x="500" y="703" text-anchor="middle" data-layer="s4-desc" data-label="节点4说明" data-editable="text">{{s4-desc}}</text>
+      </g>
+
+      <!-- 节点 5（左下） -->
+      <g class="n36-lane" data-layer="n36-lane-5" data-label="节点5" data-type="group">
+        <rect class="n36-node" x="167" y="500" width="212" height="92" rx="16"/>
+        <text class="n36-name" x="273" y="540" text-anchor="middle" data-layer="s5-name" data-label="节点5名" data-editable="text">{{s5-name}}</text>
+        <text class="n36-desc" x="273" y="572" text-anchor="middle" data-layer="s5-desc" data-label="节点5说明" data-editable="text">{{s5-desc}}</text>
+      </g>
+
+      <!-- 节点 6（左上） -->
+      <g class="n36-lane" data-layer="n36-lane-6" data-label="节点6" data-type="group">
+        <rect class="n36-node" x="167" y="238" width="212" height="92" rx="16"/>
+        <text class="n36-name" x="273" y="278" text-anchor="middle" data-layer="s6-name" data-label="节点6名" data-editable="text">{{s6-name}}</text>
+        <text class="n36-desc" x="273" y="310" text-anchor="middle" data-layer="s6-desc" data-label="节点6说明" data-editable="text">{{s6-desc}}</text>
+      </g>
+    </svg>
+  </div>
+
+  <div class="pg-footer">
+    <span data-sys="footer-id" data-layer="sys-footer-id" data-label="页脚署名" data-editable="text">aiefficiencylab.cn</span>
+    <span class="page-no" data-sys="page-no" data-layer="sys-page-no" data-label="页码" data-editable="text">{{page-no}}</span>
+  </div>
+
+    </div>
+      </section>
+    </div>
 
   <div class="gal-group" id="g-steps">
     <div class="gal-group-head"><span class="num">G03</span><h2>步骤</h2><span class="count"></span></div>
@@ -855,6 +969,123 @@ a{color:inherit;text-decoration:none;}
     </div>
   </div>
 
+
+    <div class="gal-item" id="n35">
+      <!-- ============ N35 · 流程时间轴（内置 SVG） ============
+           用途：四段式流程时间轴——一条主线串 4 个节点，每节点挂名称/参数/时间，非图片槽
+           适合：按时间推进的流程总览（冲煮分段、操作时序）；不适合：段数≠4（另开档或走 L3）、分支/汇合流程、要展示真实界面
+           可以变：节点名/参数/时间、底部三项汇总全部可改；节点数固定 4（SVG 无流式布局，repeat 克隆的节点会全部叠在同一坐标）
+           槽位：big-num / tag / title / sub / f1..f4（name,water,time）/ sum-1..3（label,value）/ issue / page-no
+           限制：big-num≤1字符且=段数；tag≤12字；title≤14字(2行;每行≤8字)；sub≤26字(1行)；f*-name≤6字(1行)；f*-water≤10字(1行)；f*-time≤9字符(1行)；sum-*-label≤6字(1行)；sum-*-value≤10字(1行)；issue≤14字
+           hl：无
+           图槽：无（图形由母版内 SVG 绘制，节点文字是普通文字槽；此页不支持换图）
+      -->
+      <section data-layout="N35-flow-timeline">
+    <div class="artwork-page n35" data-artwork data-size="1080x1440">
+
+  <div class="paper-noise"></div>
+
+  <div class="brand-top">
+    <div class="left">
+      <div class="logo"><div class="ph" data-sys="brand-logo" data-layer="sys-brand-logo" data-label="logo字" data-editable="text">AI</div></div>
+      <span class="brand-name" data-sys="brand-name" data-layer="sys-brand-name" data-label="品牌名" data-editable="text">AI Efficiency Lab</span>
+    </div>
+    <div class="right" data-sys="issue" data-layer="sys-issue" data-label="期号" data-editable="text">{{issue}}</div>
+  </div>
+
+  <div class="mega-hero">
+    <div class="mh-row">
+      <div class="big-num" data-layer="big-num" data-label="段数大字" data-editable="text">{{big-num}}</div>
+      <div class="hero-text">
+        <span class="tag" data-layer="tag" data-label="标签" data-editable="text">{{tag}}</span>
+        <div class="title" data-layer="title" data-label="标题" data-editable="text">{{title}}</div>
+      </div>
+    </div>
+    <div class="sub" data-layer="sub" data-label="副题" data-editable="text">{{sub}}</div>
+  </div>
+
+  <div class="after-hero"></div>
+
+  <div class="n35-figure" data-layer="n35-figure" data-label="流程时间轴" data-type="group">
+    <svg class="n35-svg" viewBox="0 0 1000 640" preserveAspectRatio="xMidYMid meet" role="img" aria-label="四段流程时间轴">
+      <defs>
+        <marker id="n35-mk" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 Z"/></marker>
+      </defs>
+
+      <text class="n35-hd" x="12" y="40">TIMELINE</text>
+      <text class="n35-hd" x="988" y="40" text-anchor="end">FIXED · 4 STAGES</text>
+      <line class="n35-rule" x1="12" y1="66" x2="988" y2="66"/>
+
+      <!-- 主时间线 -->
+      <line class="n35-track" x1="70" y1="240" x2="930" y2="240"/>
+
+      <!-- 节点 01（起点强调） -->
+      <g class="n35-lane" data-layer="n35-lane-1" data-label="阶段1" data-type="group">
+        <circle class="n35-dot n35-dot--hot" cx="125" cy="240" r="54"/>
+        <text class="n35-idx n35-idx--hot" x="125" y="250" text-anchor="middle">01</text>
+        <text class="n35-name" x="125" y="345" text-anchor="middle" data-layer="f1-name" data-label="阶段1名" data-editable="text">{{f1-name}}</text>
+        <text class="n35-water" x="125" y="385" text-anchor="middle" data-layer="f1-water" data-label="阶段1参数" data-editable="text">{{f1-water}}</text>
+        <text class="n35-time" x="125" y="415" text-anchor="middle" data-layer="f1-time" data-label="阶段1时间" data-editable="text">{{f1-time}}</text>
+      </g>
+
+      <!-- 节点 02 -->
+      <g class="n35-lane" data-layer="n35-lane-2" data-label="阶段2" data-type="group">
+        <circle class="n35-dot" cx="375" cy="240" r="54"/>
+        <text class="n35-idx" x="375" y="250" text-anchor="middle">02</text>
+        <text class="n35-name" x="375" y="345" text-anchor="middle" data-layer="f2-name" data-label="阶段2名" data-editable="text">{{f2-name}}</text>
+        <text class="n35-water" x="375" y="385" text-anchor="middle" data-layer="f2-water" data-label="阶段2参数" data-editable="text">{{f2-water}}</text>
+        <text class="n35-time" x="375" y="415" text-anchor="middle" data-layer="f2-time" data-label="阶段2时间" data-editable="text">{{f2-time}}</text>
+      </g>
+
+      <!-- 节点 03 -->
+      <g class="n35-lane" data-layer="n35-lane-3" data-label="阶段3" data-type="group">
+        <circle class="n35-dot" cx="625" cy="240" r="54"/>
+        <text class="n35-idx" x="625" y="250" text-anchor="middle">03</text>
+        <text class="n35-name" x="625" y="345" text-anchor="middle" data-layer="f3-name" data-label="阶段3名" data-editable="text">{{f3-name}}</text>
+        <text class="n35-water" x="625" y="385" text-anchor="middle" data-layer="f3-water" data-label="阶段3参数" data-editable="text">{{f3-water}}</text>
+        <text class="n35-time" x="625" y="415" text-anchor="middle" data-layer="f3-time" data-label="阶段3时间" data-editable="text">{{f3-time}}</text>
+      </g>
+
+      <!-- 节点 04（终点反白收尾） -->
+      <g class="n35-lane n35-lane--last" data-layer="n35-lane-4" data-label="阶段4" data-type="group">
+        <circle class="n35-dot n35-dot--last" cx="875" cy="240" r="54"/>
+        <text class="n35-idx" x="875" y="250" text-anchor="middle">04</text>
+        <text class="n35-name" x="875" y="345" text-anchor="middle" data-layer="f4-name" data-label="阶段4名" data-editable="text">{{f4-name}}</text>
+        <text class="n35-water" x="875" y="385" text-anchor="middle" data-layer="f4-water" data-label="阶段4参数" data-editable="text">{{f4-water}}</text>
+        <text class="n35-time" x="875" y="415" text-anchor="middle" data-layer="f4-time" data-label="阶段4时间" data-editable="text">{{f4-time}}</text>
+      </g>
+
+      <!-- 走向箭头 -->
+      <line class="n35-flow" x1="192" y1="240" x2="308" y2="240" marker-end="url(#n35-mk)"/>
+      <line class="n35-flow" x1="442" y1="240" x2="558" y2="240" marker-end="url(#n35-mk)"/>
+      <line class="n35-flow" x1="692" y1="240" x2="808" y2="240" marker-end="url(#n35-mk)"/>
+
+      <!-- 底部三项汇总 -->
+      <line class="n35-rule" x1="12" y1="510" x2="988" y2="510"/>
+      <g data-layer="n35-sum-1" data-label="汇总1" data-type="group">
+        <text class="n35-sum-label" x="167" y="560" text-anchor="middle" data-layer="sum-1-label" data-label="汇总1名" data-editable="text">{{sum-1-label}}</text>
+        <text class="n35-sum-value" x="167" y="606" text-anchor="middle" data-layer="sum-1-value" data-label="汇总1值" data-editable="text">{{sum-1-value}}</text>
+      </g>
+      <g data-layer="n35-sum-2" data-label="汇总2" data-type="group">
+        <text class="n35-sum-label" x="500" y="560" text-anchor="middle" data-layer="sum-2-label" data-label="汇总2名" data-editable="text">{{sum-2-label}}</text>
+        <text class="n35-sum-value" x="500" y="606" text-anchor="middle" data-layer="sum-2-value" data-label="汇总2值" data-editable="text">{{sum-2-value}}</text>
+      </g>
+      <g data-layer="n35-sum-3" data-label="汇总3" data-type="group">
+        <text class="n35-sum-label" x="833" y="560" text-anchor="middle" data-layer="sum-3-label" data-label="汇总3名" data-editable="text">{{sum-3-label}}</text>
+        <text class="n35-sum-value" x="833" y="606" text-anchor="middle" data-layer="sum-3-value" data-label="汇总3值" data-editable="text">{{sum-3-value}}</text>
+      </g>
+    </svg>
+  </div>
+
+  <div class="pg-footer">
+    <span data-sys="footer-id" data-layer="sys-footer-id" data-label="页脚署名" data-editable="text">aiefficiencylab.cn</span>
+    <span class="page-no" data-sys="page-no" data-layer="sys-page-no" data-label="页码" data-editable="text">{{page-no}}</span>
+  </div>
+
+    </div>
+      </section>
+    </div>
+
   <div class="gal-group" id="g-lists">
     <div class="gal-group-head"><span class="num">G04</span><h2>清单</h2><span class="count"></span></div>
     <div class="gal-item" id="n10">
@@ -929,7 +1160,7 @@ a{color:inherit;text-decoration:none;}
       <!-- ============ N11 · 工具清单基础 ============
            用途：基础工具清单——编号行 + 名称/描述/分类标签，纯文字
            适合：3-7 条量级推荐；不适合：需配图、每条长说明
-           可以变：条目 3-7 条（行高自适应）；tag 可留空
+           可以变：条目 3-7 条（行高自适应）；tag 可留空（无此内容走 L2 删元素）
            槽位：big-num / tag / title / sub / items[]（num,name,desc,tag） / issue / page-no
            限制：big-num≤2字符且=条数；title≤12字(2行;每行≤8字[big-num单数字] 或 ≤6字[big-num双数字])；sub≤18字(1行)；name≤8字；desc≤12字(1行)；tag≤12字；issue≤14字
            hl：title 内 1 处（span.hl）
@@ -1111,7 +1342,7 @@ a{color:inherit;text-decoration:none;}
       <!-- ============ N14 · 误区避雷 ============
            用途：误区避雷页——✗误区 → 正解对照行 + 底部转发条
            适合：4-6 条认知纠偏；不适合：正面教程内容
-           可以变：条目 4-6 条；底部转发条可留空
+           可以变：条目 4-6 条；底部转发条可留空（无此内容走 L2 删元素）
            槽位：big-num / tag / title / sub / myths[]（wrong,right）/ cta-line / issue / page-no
            限制：big-num≤2字符且=条数；title≤16字(2行;每行≤8字[big-num单数字] 或 ≤6字[big-num双数字])；sub≤14字(1行)；wrong≤12字(1行)；right≤18字(1行)；cta-line≤18字；issue≤14字；tag≤12字
 
@@ -1231,7 +1462,7 @@ a{color:inherit;text-decoration:none;}
       <!-- ============ N16 · 分组图片展示 ============
            用途：分场景图片展示——3 组各带说明 + 横排 3 图
            适合：多场景对比、案例集；不适合：单图深度展示
-           可以变：组数固定 3 组（增减需 L2）；每组图 1-3 张
+           可以变：组数固定 3 组（增减需 L2）；每组 3 图固定（减图走 L2 删元素）
            槽位：big-num / tag / title / sub / g1-no/g1-name/g1-desc / 图×3 / g2-no/g2-name/g2-desc / 图×3 / g3-no/g3-name/g3-desc / 图×3 / issue / page-no
            限制：big-num≤2字符；tag≤12字；title≤10字(2行;每行≤8字[big-num单数字] 或 ≤6字[big-num双数字])；sub≤16字(1行)；g*-name≤6字；g*-desc≤20字(1行)；issue≤14字
            hl：无
@@ -1376,7 +1607,7 @@ a{color:inherit;text-decoration:none;}
       <!-- ============ N18 · Bento 生成展示 ============
            用途：Bento 网格生成展示——1 大 4 小图 + 角标签
            适合：5 件生成作品/工具展示；不适合：文字为主的内容
-           可以变：格子固定 5（1+4）；角标签可留空
+           可以变：格子固定 5（1+4）；角标签可留空（无此内容走 L2 删元素）
            槽位：big-num / tag / title / sub / 图×5（305:934、305:503×2、305:419×2 cover）/ b1-tag..b5-tag / issue / page-no
            限制：big-num≤2字符且=件数；title≤16字(2行;每行≤8字[big-num单数字] 或 ≤6字[big-num双数字])；sub≤18字(1行)；tag≤12字；b*-tag≤12字符；issue≤14字
            hl：title 内 1 处（span.hl）
@@ -1429,7 +1660,7 @@ a{color:inherit;text-decoration:none;}
       <!-- ============ N19 · 单大图深度解析 ============
            用途：单大图深度解析——横版大图 + 三要点拆解
            适合：一张核心截图/作品 + 拆解；不适合：多图
-           可以变：要点 2-4 条；图上角标可留空
+           可以变：要点 2-4 条；图上角标可留空（无此内容走 L2 删元素）
            槽位：big-num / tag / title / sub / 图×1（3:2 cover）/ img-tag / points[]（n,t,d）/ issue / page-no
            限制：big-num≤2字符；tag≤12字；title≤10字(2行;每行≤8字[big-num单数字] 或 ≤6字[big-num双数字])；sub≤16字(1行)；img-tag≤12字符；t≤8字(1行)；d≤24字(2行)；issue≤14字
            hl：无
@@ -2181,7 +2412,7 @@ a{color:inherit;text-decoration:none;}
       <!-- ============ N28 · CTA 导向结尾 ============
            用途：CTA 导向结尾——金句 + 三条记住 + 关注引导 + 下期预告
            适合：内容号固定收尾；不适合：正文中间页
-           可以变：takeaways 2-4 条；callout/下期预告可留空
+           可以变：takeaways 2-4 条；callout/下期预告可留空（无此内容走 L2 删元素）
            槽位：quote / takeaways[]（item）/ cta-t / tip / next-ep / issue / page-no
            限制：quote≤20字(4行,含 br)；item≤20字(1行)；cta-t≤10字；tip≤36字(2行)；next-ep≤16字；issue≤14字
            hl：quote 内 1 处（span.hl-line）

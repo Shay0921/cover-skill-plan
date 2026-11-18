@@ -51,7 +51,7 @@
 | `.hl` / `.hl-line` | 富文本两种高亮 | `.hl` = 蓝字，正文小强调；`.hl-line` = 墨字 + 蓝条，标题/金句强调，条在字下、不用 strong 包裹。用哪个由母版说明头声明（N07 另有浅蓝底变体；N30/N31 深浅底各一版）。可用标签见 `references/CONTRACT.md`「富文本白名单」 |
 | `.title-xl/lg/md`、`.num-large`、`.body-text`、`.mono-text`、`.label` | 字级工具类 | 即兴时直接用 |
 
-> 本表是共享段词表，不是母版用量的镜像。当前母版未使用的类（`.pill`、`.title-xl`、`.accent-bg`、`.ink-bg`、`.fine-card` 等）仍是可用的 L3 即兴词汇（style.css 已有实现），照常可用。
+> 本表是共享段词表，不是母版用量的镜像。当前母版未使用的类（`.pill`、`.title-xl`、`.accent-bg`、`.ink-bg`、`.fine-card` 等）仍是可用的即兴补空词汇（style.css 已有实现），照常可用。
 
 > 专属段类要覆盖共享段属性，必须带共享段前缀。共享段规则多是「父类 + 子类」两段（`.brand-top .right`），专属段写单类（`.n26-limited`）会被压掉且无报错；要覆盖就写成 `.brand-top .right.n26-limited`。
 
@@ -76,13 +76,14 @@
 
 - 线宽与圆角：细线 1px、卡片 1px 边框 + 圆角 14、序号圆 1.5px 描边，圆角不超 14；箭头用 CSS 三角或 `<marker>`，三角 5×7。
 
-## 4. 受控即兴纪律（L3）
+## 4. 即兴补空纪律（借壳补空）
 
-- 只用 style.css 既有类组合整页；根结构照抄：`.artwork-page.n<nn>` + `.paper-noise` + `.brand-top` + 内容 + `.pg-footer`。
+- 母版能套但留白/空框难看时，借母版骨架补空：触发、做法与硬约束见 `styles/improvisation.md`；本节只立风格纪律。
+- 只用 style.css 既有类；根结构照抄母版：`.artwork-page.n<nn>` + `.paper-noise` + `.brand-top` + 内容 + `.pg-footer`。
 - 禁：内联样式、自造 CSS 变量、新类名、`<style>`、vh/vw、position:fixed、@media、动画/过渡。
 - cqw 优先于 px（画布内自适应）；间距用 0.4/0.8/1.4/2/3/6.6 的既有节奏。
 - 版式自适应用 flex/grid 弹性（`flex:1` 均分），不做固定高度堆叠。
-- 即兴页 layout 登记 `custom/<语义名>`；几何体检需显式 `--check-geometry`（仅 custom 页）；同名 custom 累计 ≥2 次走转正管道（`SKILL.md`「受控即兴与转正」）。
+- 即兴页 layout 登记 `custom/<语义名>`；几何体检需显式 `--check-geometry`（仅 custom 页）；同名 custom 累计 ≥2 次走转正管道（`SKILL.md`「即兴补空与转正」）。
 
 ## 5. 反例
 

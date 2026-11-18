@@ -208,6 +208,8 @@ function injectMeta(body, meta, layout, errors) {
     // 用函数式 replace，逐节点处理（同一 sys 多次出现幂等全覆盖）。
     out = out.replace(/(<([a-z0-9]+)\b[^>]*\bdata-sys=(["'])([^"']*)\3[^>]*>)([\s\S]*?)(<\/\2>)/gi, (full, open, tag, _q, sysVal, inner, close) => {
       if (sysVal !== sys) return full;
+      // R9：注入整段替换节点内容，节点内含子元素会被静默清空——A 类系统槽只准纯文本，硬停
+      if (/<[a-z0-9!]/i.test(inner)) fail(`母版 ${layout}: data-sys="${sysVal}" 系统槽节点内含子元素——A 类系统槽只准纯文本（注入会整段替换并清空子元素）`);
       return open + replacement + close;
     });
   }
@@ -831,7 +833,10 @@ for (const page of targets) {
     const layers = [...page.markup.matchAll(/data-layer="([^"]+)"/g)].map((m) => m[1]);
     const dup = layers.filter((v, i) => layers.indexOf(v) !== i);
     if (dup.length) fail(`P${nn}: custom markup data-layer 重复 ${[...new Set(dup)].join(',')}`);
-    if (/position\s*:\s*fixed|@media|<script|animation\s*:|transition\s*:/.test(page.markup)) fail(`P${nn}: custom markup 含禁区属性`);
+    if (/position\s*:\s*fixed|@media|<script|<animate|animation\s*:|transition\s*:/.test(page.markup)) fail(`P${nn}: custom markup 含禁区属性（含 SVG 动画标签 <animate>）`);
+    // T13：custom 页不做槽位填充，{{}} 残留会原样印进成品——硬停；fields 对 custom 页无效，只提醒
+    if (/\{\{/.test(page.markup)) fail(`P${nn}: custom markup 含 {{占位符}} 残留——custom 页不做槽位填充，把文案直接写进 markup（一个 {{ 都不留），或转正为母版`);
+    if (page.fields && Object.keys(page.fields).length) allWarns.push(`P${nn} · ${page.name || `custom-${nn}`}: fields 对 custom 页无效（custom 页不做槽位填充，文案已写死在 markup；fields.json 不记录）`);
     built.push({ nn, name: page.name || `custom-${nn}`, html: page.markup, custom: true, fields: page.fields || {} });
     continue;
   }
@@ -917,7 +922,8 @@ if (EDITOR_OUT) {
   const pagesOut = [];
   for (const b of built) {
     const flat = {};
-    for (const [k, v] of Object.entries(b.fields)) {
+    // custom 页不做槽位填充，plan.fields 对它无效——不转写，避免 fields.json 记页面里不存在的值
+    for (const [k, v] of Object.entries(b.custom ? {} : b.fields)) {
       if (Array.isArray(v)) {
         const map = b.unitLayerMaps?.get(k);
         v.forEach((item, i) => {
