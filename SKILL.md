@@ -31,10 +31,10 @@ agent_created: true
 2. **内容提炼**：整理文案，定页数与每页语义（封面/清单/对比/数据/金句/收尾）。**可润色不可编造**——数字与承诺必须有素材出处。
 3. **风格选择**：按 `style-picker.md` 推荐 1-2 种并说明理由，由用户拍板；用户点名则跳过推荐。
 4. **识图盘点**：逐张打开看，按 `references/IMAGE-WORKFLOW.md` 判类型，记下主体位置，产出素材清单。此处只识别，不选槽、不定 crop。用户未给图而某页又需要画面时，先按该文档「判断顺序」三选一问清来源（提供素材/自绘/AI 生图），不默认生成。
-5. **逐页选母版**：读 `catalog.md`，按语义组选版式，再看素材形态分叉——有截图 → 图槽母版；讲结构 → 图形母版或自画；版式能套但内容撑不满 → 借壳补空（`styles/improvisation.md`）；都装不下 → 回炉提炼文案或换母版。图的来源与选型见 `references/IMAGE-WORKFLOW.md`。自绘若走 `figure.mjs`，**须先出 PNG 落运行区，再写 plan 引用该路径**。条数与字数从母版 repeat 注释与说明头读取。
+5. **逐页选母版**：读 `catalog.md`，按语义组选版式，再看素材形态分叉——有截图 → 图槽母版；讲结构 → 图形母版或自画；版式能套但内容撑不满 → 借壳补空（`styles/improvisation.md`）；都装不下 → 回炉提炼文案或换母版。**同一页换母版/借壳 ≥2 次仍不收敛 → 停下向用户报告**，不再自行迭代。图的来源与选型见 `references/IMAGE-WORKFLOW.md`。自绘若走 `figure.mjs`，**须先出 PNG 落运行区，再写 plan 引用该路径**。条数与字数从母版 repeat 注释与说明头读取。
 6. **定裁切**：图槽已随母版在第 5 步定下（母版「图槽」行写明形态与张数）。按 `references/IMAGE-WORKFLOW.md` 判断哪些图需要裁，只给需要裁的图写 `crop` 选区；**图与槽比例差很多时，先在运行区按槽的 `data-ratio` 预裁出新素材文件再引用**（原图保留、预裁件只落运行区、不进交付）；裁完仍不合适就换图或换母版。裁切只表达「取哪一段」，不做修图级像素加工。
-7. **写 plan.json**：`meta.brand` 填整组统一品牌件；每页一条 `layout + fields`；`issue` 逐页填，页码不填；数组字段按 repeat 注释传条目；值允许受控富文本。即兴页写 `layout: "custom/<语义名>"` 并附整页 `markup`——**整页成品 HTML，文案直接写进去，不写 `{{占位符}}`**（custom 页不做槽位填充，`{{` 残留即停）。
-8. **出图与交付**：`node script/render.mjs <任务运行区>/ --delivery=<YYYY-MM-DD-小标题>`。硬校验报错即修 plan 重跑；软告警由人判断；人审 PNG 后交付。要进编辑器时加 `--with-editor`。
+7. **写 plan.json**：`meta.brand` 填整组统一品牌件；每页一条 `layout + fields`；`issue` 逐页填，页码不填；数组字段按 repeat 注释传条目；值允许受控富文本。即兴页写 `layout: "custom/<语义名>"` 并附整页 `markup`——写法与机器禁区见「即兴补空与转正」，主链路页不涉及。
+8. **出图与交付**：`node script/render.mjs <任务运行区>/ --delivery=<YYYY-MM-DD-小标题>`。硬校验报错即修 plan 重跑；软告警由人判断；人审 PNG 后交付——**先看 `preview.png` 整篇风格统一**（截图/生图/自绘混用是否割裂），再逐页细看。要进编辑器时加 `--with-editor`。
 
 ## 图片与图形来源
 
@@ -54,14 +54,14 @@ agent_created: true
   ] }
 ```
 
-`pages` 顺序即页序，`nn` 是两位页码；`layout` 取 `catalog.md` 的母版名，一页一个母版、同一母版可跨页复用。键名照该母版说明头「槽位」行与模板抄：文字槽键 = `{{占位符}}`，图槽键 = `<img>` 的 `data-layer`；数组字段只在该母版有 repeat 注释时出现。
+`pages` 顺序即页序，`nn` 是两位页码；`layout` 取母版 slug——catalog 条目标题后反引号内的名字（如 `N01-shock-cover`），机器真源是 `templates.html` 的 `<section data-layout="…">`，两处须一致。一页一个母版、同一母版可跨页复用。键名照该母版说明头「槽位」行与模板抄：文字槽键 = `{{占位符}}`，图槽键 = `<img>` 的 `data-layer`；数组字段只在该母版有 repeat 注释时出现。
 
 **系统槽**：`meta.brand` 填整组统一品牌件（logo/name/footer），逐页只填 `issue`，页码不填；品牌三值篇幅上限见该风格 design-system 组件表，超限须在交付说明里点明并请人确认。其余机器契约见 `references/CONTRACT.md`。
 
 ## 执行入口
 
 ```sh
-node script/figure.mjs <任务运行区>/figures/<名>.html <任务运行区>/assets/<名>.png --style=<风格>   # 图形→PNG，风格必填
+node script/figure.mjs <任务运行区>/figures/<名>.html <任务运行区>/assets/<名>.png --style=<风格>   # 图形→PNG，风格必填；公众号封面等任意尺寸单图也走此命令（--width/--height 自定尺寸）
 node script/render.mjs <任务运行区>/ --delivery=<YYYY-MM-DD-小标题>   # 出 HTML + PNG 并交付
 node script/render.mjs <任务运行区>/ --delivery=<...> --with-editor     # 追加 fields / manifest / assets
 node script/render.mjs <任务运行区>/ --delivery=<...> --force           # 复用已存在的交付目录（只覆盖白名单文件）
@@ -69,7 +69,7 @@ node script/render.mjs <任务运行区>/ --check-geometry                  # �
 node script/render.mjs <任务运行区>/ --only=01,03                      # 调试：只刷新指定页，按 plan 的 nn 编号
 ```
 
-必须显式传的：`--style=<风格>`（figure，图形文件同级无 `style.css` 时必传）、`--check-geometry`（即兴页几何体检，不传不查）、`--with-editor`（编辑器材料，不传不产）、`--force`（交付目录已存在时）。`--delivery` 也可写成 plan.json 的 `delivery` 字段（相对路径按当前工作目录解析）；未指定时只写运行区。**`--only` 是调试开关，不与交付同用**；要刷新 `preview.png` 等跨页聚合件就完整渲染一次。
+必须显式传的：`--style=<风格>`（figure，图形文件同级无 `style.css` 时必传）、`--check-geometry`（即兴页几何体检，不传不查）、`--with-editor`（编辑器材料，不传不产）、`--force`（交付目录已存在时）。`--delivery` 也可写成 plan.json 的 `delivery` 字段（相对路径按当前工作目录解析），两者同给时 `--delivery` 优先；未指定时只写运行区。**`--only` 是调试开关，不与交付同用**；要刷新 `preview.png` 等跨页聚合件就完整渲染一次。
 
 ### 编辑器微调（可选）
 

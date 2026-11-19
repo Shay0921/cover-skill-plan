@@ -50,6 +50,13 @@ a{color:inherit;text-decoration:none;}
 .gal-card-head .gc-title{font-family:var(--serif);font-weight:bold;font-size:16px;margin:2px 0 4px;}
 .gal-card-head .gc-line{font-family:var(--mono);font-size:11px;color:var(--muted);line-height:1.7;}
 .gal-item section{box-shadow:0 18px 50px rgba(13,17,23,.14);border-radius:2px;}
+/* 编号空位占位（N32 已并入 N09）：无 section、不参与数量自算，仅看板视觉占位 */
+.gal-item--vacant{padding:0 0 30px;}
+.gal-item--vacant .vacant-note{
+  border:1px dashed var(--line-strong);border-radius:8px;
+  padding:26px 0;text-align:center;
+  font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--muted);
+  }
 .gal-foot{max-width:1180px;margin:0 auto;padding:30px 32px 60px;font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.1em;}
 </style>
 </head>
@@ -125,7 +132,7 @@ a{color:inherit;text-decoration:none;}
     </div>
     <div class="gal-bblock">
       <h4>IMG · 图槽契约</h4>
-      <p class="gal-note">图槽 = <b>.ph-img</b> 占位容器 + 内部 <b>&lt;img data-slot="image"&gt;</b> 实图层 + data-fit：<b>cover</b> 裁切填满 / <b>contain</b> 完整显示；占位标签 IMG·xx 未配置图时显示。手机框走 .n04-phone__frame 静态件。示例截图不进库，render 与编辑器只替换该 img 的 src（单通道）。</p>
+      <p class="gal-note">图槽 = <b>.ph-img</b> 占位容器 + 内部 <b>&lt;img data-slot="image"&gt;</b> 实图层 + data-fit：<b>cover</b> 裁切填满 / <b>contain</b> 完整显示；占位标签 IMG·xx 未配置图时显示。手机框 = <b>frame-img</b> 装饰槽（render 按 class 含 frame-img 识别、单源内嵌 styles/assets/iphone-frame.png）。示例截图不进库，render 与编辑器只替换该 img 的 src（单通道）。</p>
     </div>
   </section>
 
@@ -136,7 +143,7 @@ a{color:inherit;text-decoration:none;}
       <!-- ============ N01 · 金句震撼封面 ============
            用途：单句主张型封面——一句狠话 + 数据点撑场
            适合：观点/实测类开篇；不适合：多图内容、长标题
-           可以变：数据 1-4 项；标签 0-4 个；高亮词可移位
+           可以变：数据 1-4 项；标签 0-4 个（无标签走 L2 删元素）；高亮词可移位
            槽位：kicker / title / sub / stats[]（n,u）/ sub-note / tags[]（t） / issue / page-no
            限制：title≤12字(2行)；sub≤17字(1行)；n≤6字符 u≤4字；sub-note≤17字(1行)；issue≤14字；t≤8字
 
@@ -170,7 +177,7 @@ a{color:inherit;text-decoration:none;}
       <div class="n01-sub-note" data-layer="sub-note" data-label="按语" data-editable="text">{{sub-note}}</div>
 
       <div class="n01-tags">
-        <!-- repeat ×0-4: 标签 clone（flex 横排）；≤8字，超过 3 个由容器换行 -->
+        <!-- repeat ×1-4: 标签 clone（flex 横排）；≤8字，超过 3 个由容器换行；无标签走 L2 删元素（机器不支持空数组） -->
         <span class="t" data-repeat="tags" data-layer="tag-t" data-label="标签" data-editable="text">{{t}}</span>
       </div>
     </div>
@@ -676,7 +683,7 @@ a{color:inherit;text-decoration:none;}
       <div class="points">
         <div class="n07-points__head">· THREE KEY POINTS ·</div>
         <div class="n07-points__list">
-          <!-- repeat ×2-4: 要点条 clone（flex 纵向均分）；4 条时 point-text 收紧到一行 -->
+          <!-- repeat ×2-4: 要点条 clone（flex 纵向均分）；推荐 3-4 条 -->
           <div class="n07-points__item" data-repeat="points">
             <div class="n07-points__num" data-layer="point-num" data-label="序号" data-editable="text">{{n}}</div>
             <div class="n07-points__text" data-layer="point-text" data-label="要点" data-editable="text">{{point-text}}</div>
@@ -705,13 +712,13 @@ a{color:inherit;text-decoration:none;}
 
     <div class="gal-item" id="n08">
       <!-- ============ N08 · 双步骤同页 ============
-           用途：双步骤并列页——上下两个步骤卡，第 1 组带截图
+           用途：双步骤并列页——上下两个步骤卡，第 1 组带截图，底部 💡 提示条
            适合：教程前两步打包讲；不适合：超过 2 步（拆 N06/N07）
-           可以变：每组要点 2-3 条；进度小注可改
-           槽位：s1-num/s1-cat/s1-title / 图×1（16:9 cover）/ points-1[]（n,point）/ s2-num/s2-cat/s2-title / points-2[]（n,point）/ progress / issue / page-no
-           限制：s*-title≤14字(1行)；s*-cat≤18字符；point≤20字(1行)；progress≤10字符；issue≤14字
+           可以变：每组要点 2-3 条；提示条可留空（无此内容走 L2 删元素）
+           槽位：s1-num/s1-cat/s1-title / 图×1（16:9 cover）/ points-1[]（n,point）/ s2-num/s2-cat/s2-title / points-2[]（n,point）/ n08-callout / issue / page-no
+           限制：s*-title≤14字(1行)；s*-cat≤18字符；point≤20字(1行)；n08-callout≤30字(1行)；issue≤14字
            hl：point 内 strong 强调
-           图槽：横版 16:9 cover（仅第 1 组）；分隔条与"继续→"为装饰
+           图槽：横版 16:9 cover（仅第 1 组）；分隔条为装饰
       -->
       <section data-layout="N08-steps-pair">
     <div class="artwork-page n08" data-artwork data-size="1080x1440">
@@ -769,10 +776,13 @@ a{color:inherit;text-decoration:none;}
       </div>
     </div>
 
-    <!-- 底部进度 -->
-    <div class="n08-pair__foot">
-      <span data-layer="progress" data-label="进度" data-editable="text">{{progress}}</span>
-      <span>继续 →</span>
+    <!-- 💡 提示条（可留空：无此内容走 L2 删元素） -->
+    <div class="callout n08-callout">
+      <div class="callout__icon">💡</div>
+      <div class="callout__body">
+        <div class="callout__head">· 提醒 ·</div>
+        <div class="callout__text" data-layer="n08-callout" data-label="提醒" data-editable="text">{{n08-callout}}</div>
+      </div>
     </div>
   </div>
 
@@ -786,14 +796,14 @@ a{color:inherit;text-decoration:none;}
     </div>
 
     <div class="gal-item" id="n09">
-      <!-- ============ N09 · 步骤前后对比 ============
-           用途：步骤前后对比——旧方法 vs 新方法双栏 + 底部收获条
-           适合：改造/自动化前后对照；不适合：三项以上对比
-           可以变：收获条可省（L2 删除）
-           槽位：step-num / title / 图×2（16:10 cover）/ before-head/before-t/before-note / after-head/after-t/after-note / gain-num / gain-text / issue / page-no
-           限制：title≤10字(2行)；before-head≤14字(1行) after-head≤14字(1行)；before-t≤20字(2行) after-t≤20字(2行)；before-note≤16字(1行) after-note≤16字(1行)；gain-num≤4字符；gain-text≤17字(1行)；issue≤14字
-           hl：无（VS 与 before/after 自带对比强调）
-           图槽：横版 16:10 cover ×2
+      <!-- ============ N09 · 前后对比+收尾总结 ============
+           用途：前后对照 + 总结收尾——双图对比（BEFORE/AFTER 标签条）+ 墨底总结卡（原 N09/N32 合并）
+           适合：改造/自动化前后对照 + 经验收尾；不适合：三项以上对比
+           可以变：总结 2-4 条
+           槽位：step-num / tag / title / 图×2（1:1 cover）/ before-cap / after-cap / harvest-title / harvest[]（item）/ issue / page-no
+           限制：title≤10字(2行)；tag≤12字；before-cap≤24字(2行) after-cap≤24字(2行)；harvest-title≤12字；item≤20字(1行)；issue≤14字
+           hl：无（VS 与 BEFORE/AFTER 自带对比强调）
+           图槽：对照图 ×2 cover 1:1 基准（异形槽：flex 弹性随总结条数 2-4 条浮动，AI 按 crop 控制主体）
       -->
       <section data-layout="N09-step-compare">
     <div class="artwork-page n09" data-artwork data-size="1080x1440">
@@ -811,42 +821,40 @@ a{color:inherit;text-decoration:none;}
   <div class="after-hero"></div>
 
   <div class="content">
-    <!-- 步骤标题 -->
+    <!-- 步骤标题（tag 在标题上方） -->
     <div class="step-head" data-layer="n09-head" data-label="步骤头" data-type="group">
       <div class="step-num" data-layer="step-num" data-label="步骤号" data-editable="text">{{step-num}}</div>
       <div class="step-title-wrap">
+        <span class="tag" data-layer="tag" data-label="标签" data-editable="text">{{tag}}</span>
         <div class="step-title" data-layer="title" data-label="步骤标题" data-editable="text">{{title}}</div>
       </div>
     </div>
 
-    <!-- 对比双栏 -->
+    <!-- 对比双栏（BEFORE/AFTER 标签条 + 图 + 说明；窄缝，VS 压中） -->
     <div class="compare">
-      <div class="n09-leg n09-leg--before" data-layer="n09-leg-before" data-label="旧方法栏" data-type="group">
-        <div class="n09-leg__head" data-layer="before-head" data-label="旧方法标题" data-editable="text">{{before-head}}</div>
-        <div class="n09-leg__shot ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n09-img-1" data-label="旧流程截图" data-ratio="16:10" alt=""><span class="ph-img__label">IMG · 手动流程</span></div>
-        <div class="n09-leg__body">
-          <div class="n09-leg__t" data-layer="before-t" data-label="旧方法描述" data-editable="text">{{before-t}}</div>
-          <div class="n09-leg__note" data-layer="before-note" data-label="旧方法代价" data-editable="text">{{before-note}}</div>
-        </div>
+      <div class="n09-side n09-side--before" data-layer="n09-side-before" data-label="对照前栏" data-type="group">
+        <div class="n09-side__tag">· BEFORE ·</div>
+        <div class="n09-side__img ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n09-img-1" data-label="对照前图" data-ratio="1:1" alt=""><span class="ph-img__label">IMG · 之前</span></div>
+        <div class="n09-side__caption" data-layer="before-cap" data-label="对照前说明" data-editable="text">{{before-cap}}</div>
       </div>
 
       <span class="compare__vs">VS</span>
 
-      <div class="n09-leg n09-leg--after" data-layer="n09-leg-after" data-label="新方法栏" data-type="group">
-        <div class="n09-leg__head" data-layer="after-head" data-label="新方法标题" data-editable="text">{{after-head}}</div>
-        <div class="n09-leg__shot ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n09-img-2" data-label="新流程截图" data-ratio="16:10" alt=""><span class="ph-img__label">IMG · Agent 流程</span></div>
-        <div class="n09-leg__body">
-          <div class="n09-leg__t" data-layer="after-t" data-label="新方法描述" data-editable="text">{{after-t}}</div>
-          <div class="n09-leg__note" data-layer="after-note" data-label="新方法收益" data-editable="text">{{after-note}}</div>
-        </div>
+      <div class="n09-side n09-side--after" data-layer="n09-side-after" data-label="对照后栏" data-type="group">
+        <div class="n09-side__tag">· AFTER ·</div>
+        <div class="n09-side__img ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n09-img-2" data-label="对照后图" data-ratio="1:1" alt=""><span class="ph-img__label">IMG · 之后</span></div>
+        <div class="n09-side__caption" data-layer="after-cap" data-label="对照后说明" data-editable="text">{{after-cap}}</div>
       </div>
     </div>
 
-    <!-- 底部收获 -->
-    <div class="n09-gain">
-      <span class="n09-gain__label">· 这一步帮你省 ·</span>
-      <span class="n09-gain__num" data-layer="gain-num" data-label="省下量" data-editable="text">{{gain-num}}</span>
-      <span class="n09-gain__text" data-layer="gain-text" data-label="收获描述" data-editable="text">{{gain-text}}</span>
+    <!-- 墨底总结卡 -->
+    <div class="n09-harvest">
+      <div class="n09-harvest__label">· THREE TAKEAWAYS ·</div>
+      <div class="n09-harvest__title" data-layer="harvest-title" data-label="总结标题" data-editable="text">{{harvest-title}}</div>
+      <ul class="n09-harvest__list">
+        <!-- repeat ×2-4: 总结条 clone -->
+        <li data-repeat="harvest" data-layer="harvest-item" data-editable="text">{{item}}</li>
+      </ul>
     </div>
   </div>
 
@@ -1093,8 +1101,8 @@ a{color:inherit;text-decoration:none;}
            用途：工具/资源推荐——左编号清单 + 右 2×3 图格
            适合：3-8 条量级推荐 + 有截图素材；不适合：每条需长说明（d 一行）
            可以变：条目 3-8 条（行距自适应）；右栏图格固定 6 格，可 L2 减格
-           槽位：big-num / tag / title / sub / items[]（num,t,d）/ 图×6（3:4 cover）/ issue / page-no
-           限制：big-num≤2字符且=条数；title≤10字(2行;每行≤8字[big-num单数字] 或 ≤6字[big-num双数字])；sub≤16字(1行)；t≤8字；d≤12字(1行)；6-8条时 d 更短；issue≤14字；tag≤12字
+           槽位：big-num / title / sub / items[]（num,t,d）/ 图×6（竖版 3:4 cover）/ issue / page-no
+           限制：big-num≤2字符且=条数；title≤10字(2行;每行≤8字[big-num单数字] 或 ≤6字[big-num双数字])；sub≤16字(1行)；t≤8字；d≤12字(1行)；6-8条时 d 更短；issue≤14字
 
            hl：title 内 0-1 处
            图槽：竖版 3:4 cover ×6
@@ -1116,7 +1124,6 @@ a{color:inherit;text-decoration:none;}
     <div class="mh-row">
       <div class="big-num" data-layer="big-num" data-label="条数大数字" data-editable="text">{{big-num}}</div>
       <div class="hero-text">
-        <span class="tag" data-layer="tag" data-label="标签" data-editable="text">{{tag}}</span>
         <div class="title" data-layer="title" data-label="标题" data-editable="text">{{title}}</div>
       </div>
     </div>
@@ -1403,15 +1410,15 @@ a{color:inherit;text-decoration:none;}
   <div class="gal-group" id="g-showcase">
     <div class="gal-group-head"><span class="num">G05</span><h2>展示</h2><span class="count"></span></div>
     <div class="gal-item" id="n15">
-      <!-- ============ N15 · Agent 卡片网格 ============
-           用途：Agent/工具卡片纵列——分类+名称+描述+可抄 Prompt
-           适合：2-4 个 Agent 逐个安利；不适合：大图展示
-           可以变：卡片 2-4 张
-           槽位：big-num / tag / title / sub / cards[]（cat,name,desc,prompt） / issue / page-no
-           限制：big-num≤2字符且=条数；title≤16字(2行;每行≤8字[big-num单数字] 或 ≤6字[big-num双数字])；sub≤16字(1行)；cat≤8字符；name≤11字；desc≤22字(1行)；prompt≤22字符(1行)；issue≤14字；tag≤12字
+      <!-- ============ N15 · 作品卡片网格 ============
+           用途：作品/成果卡片网格——整卡图 + 左下可抄 Prompt 浮动卡
+           适合：2-4 个作品/成果逐个展示（图为主）；不适合：纯文字安利
+           可以变：卡片 2-4 张；图随卡
+           槽位：big-num / title / sub / cards[]（prompt） / card-img×N（随卡数） / issue / page-no
+           限制：big-num≤2字符且=条数；title≤16字(2行;每行≤8字[big-num单数字] 或 ≤6字[big-num双数字])；sub≤16字(1行)；prompt≤22字符(1行)；issue≤14字
 
            hl：title 内 1 处（span.hl）
-           图槽：无
+           图槽：方图 1:1 cover ×N（随卡片数，键 card-img / card-img-2…）
       -->
       <section data-layout="N15-agent-gallery">
     <div class="artwork-page n15" data-artwork data-size="1080x1440">
@@ -1430,7 +1437,6 @@ a{color:inherit;text-decoration:none;}
     <div class="mh-row">
       <div class="big-num" data-layer="big-num" data-label="条数大数字" data-editable="text">{{big-num}}</div>
       <div class="hero-text">
-        <span class="tag" data-layer="tag" data-label="标签" data-editable="text">{{tag}}</span>
         <div class="title" data-layer="title" data-label="标题" data-editable="text">{{title}}</div>
       </div>
     </div>
@@ -1440,11 +1446,11 @@ a{color:inherit;text-decoration:none;}
   <div class="after-hero"></div>
 
   <div class="content">
-    <!-- repeat ×2-4: Agent 卡 clone（flex:1 均分）；4 张时 desc 收一行 -->
+    <!-- repeat ×2-4: 作品卡 clone（flex:1 均分）；图槽键 card-img 随克隆加 -2/-3/-4 后缀 -->
     <div class="card" data-repeat="cards">
-      <div class="n15-cat" data-layer="card-cat" data-label="分类" data-editable="text">{{cat}}</div>
-      <div class="t" data-layer="card-t" data-label="名称" data-editable="text">{{name}}</div>
-      <div class="d" data-layer="card-d" data-label="描述" data-editable="text">{{desc}}</div>
+      <div class="ph-img" data-fit="cover">
+        <img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="card-img" data-label="IMG" data-ratio="1:1" alt="">
+      </div>
       <div class="prompt" data-layer="card-prompt" data-label="Prompt" data-editable="text">{{prompt}}</div>
     </div>
   </div>
@@ -1716,6 +1722,213 @@ a{color:inherit;text-decoration:none;}
     </div>
       </section>
     </div>
+    <div class="gal-item" id="n37">
+      <!-- ============ N37 · 单机聚焦 ============
+           用途：手机 App 单屏深度讲解——大手机 + 侧栏分条卖点
+           适合：一台手机的界面讲解、功能亮点逐条说明；不适合：多屏对比
+           可以变：卖点 2-4 条；手机内屏换截图（比例固定）；无 tag
+           槽位：title / sub / n37-img-1 / points[]（n,t,d） / issue / page-no / foot-tag / foot-chip / foot-slogan
+           限制：title≤14字(2行,每行≤7字)；sub≤22字(1行)；n≤3字符；t≤10字；d≤20字(2行)；issue≤14字；foot-tag≤18字符(1行)；foot-chip≤14字符；foot-slogan≤10字(1行)
+           hl：title 内 0-1 处
+           图槽：手机内屏 46:99 cover ×1（壳图 frame-img 装饰槽，render 单源内嵌）
+                 来源：本项目自研 · phonekit 手机模板 V1（单机聚焦）
+-->
+      <section data-layout="N37-phone-focus">
+    <div class="artwork-page n37" data-artwork data-size="1080x1440">
+  <div class="paper-noise"></div>
+  <div class="brand-top">
+    <div class="left">
+      <div class="logo"><div class="ph" data-sys="brand-logo" data-layer="sys-brand-logo" data-label="logo字" data-editable="text">AI</div></div>
+      <span class="brand-name" data-sys="brand-name" data-layer="sys-brand-name" data-label="品牌名" data-editable="text">AI Efficiency Lab</span>
+    </div>
+    <div class="right" data-sys="issue" data-layer="sys-issue" data-label="期号" data-editable="text">{{issue}}</div>
+  </div>
+  <div class="content pm-content">
+    <div class="hero pm-hero">
+      <div class="pm-title" data-layer="title" data-label="主标题" data-editable="text">{{title}}</div>
+      <div class="pm-sub" data-layer="sub" data-label="副题" data-editable="text">{{sub}}</div>
+    </div>
+    <div class="stage pm-stage n37-stage">
+      <div class="pm-phone n37-phone">
+        <img class="pm-frame frame-img" src="../assets/iphone-frame.png" alt="" draggable="false">
+        <div class="pm-screen"><div class="ph ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n37-img-1" data-label="手机内屏" data-ratio="46:99" alt=""></div></div>
+      </div>
+      <div class="n37-side">
+        <!-- repeat ×2-4: 卖点行 clone（flex:1 均分）；4 条时 d 收一行 -->
+        <div class="n37-row" data-repeat="points">
+          <div class="n37-row-no" data-layer="n" data-label="序号" data-editable="text">{{n}}</div>
+          <div class="n37-row-t" data-layer="t" data-label="卖点标题" data-editable="text">{{t}}</div>
+          <div class="n37-row-d" data-layer="d" data-label="卖点说明" data-editable="text">{{d}}</div>
+        </div>
+      </div>
+    </div>
+    <div class="pm-foot"><span data-layer="n37-foot-1" data-label="底部标识" data-editable="text">{{foot-tag}}</span><span class="pm-chip" data-layer="n37-foot-2" data-label="底部胶囊" data-editable="text">{{foot-chip}}</span><span data-layer="n37-foot-3" data-label="底部短语" data-editable="text">{{foot-slogan}}</span></div>
+  </div>
+  <div class="pg-footer">
+    <span data-sys="footer-id" data-layer="sys-footer-id" data-label="页脚署名" data-editable="text">aiefficiencylab.cn</span>
+    <span class="page-no" data-sys="page-no" data-layer="sys-page-no" data-label="页码" data-editable="text">{{page-no}}</span>
+  </div>
+    </div>
+      </section>
+    </div>
+
+    <div class="gal-item" id="n38">
+      <!-- ============ N38 · 双屏并列 ============
+           用途：手机 App 双屏并列展示——两屏各讲一件事，无对比徽章
+           适合：两张截图并列呈现不同功能/界面；不适合：单屏或三屏以上
+           可以变：两屏内容各自换截图（比例固定）；无 tag
+           槽位：title / sub / n38-img-1 / n38-img-2 / issue / page-no / foot-tag / foot-chip / foot-slogan
+           限制：title≤14字(2行,每行≤7字)；sub≤24字(1行)；issue≤14字；foot-tag≤18字符(1行)；foot-chip≤14字符；foot-slogan≤10字(1行)
+           hl：title 内 0-1 处
+           图槽：手机内屏 46:99 cover ×2（键 n38-img-1 / n38-img-2；壳图 frame-img 装饰槽）
+                 来源：本项目自研 · phonekit 手机模板 V2（双屏并列）
+-->
+      <section data-layout="N38-phone-duo">
+    <div class="artwork-page n38" data-artwork data-size="1080x1440">
+  <div class="paper-noise"></div>
+  <div class="brand-top">
+    <div class="left">
+      <div class="logo"><div class="ph" data-sys="brand-logo" data-layer="sys-brand-logo" data-label="logo字" data-editable="text">AI</div></div>
+      <span class="brand-name" data-sys="brand-name" data-layer="sys-brand-name" data-label="品牌名" data-editable="text">AI Efficiency Lab</span>
+    </div>
+    <div class="right" data-sys="issue" data-layer="sys-issue" data-label="期号" data-editable="text">{{issue}}</div>
+  </div>
+  <div class="content pm-content">
+    <div class="hero pm-hero pm-hero--c">
+      <div class="pm-title" data-layer="title" data-label="主标题" data-editable="text">{{title}}</div>
+      <div class="pm-sub" data-layer="sub" data-label="副题" data-editable="text">{{sub}}</div>
+    </div>
+    <div class="stage pm-stage n38-stage">
+      <div class="pm-phone n38-back">
+        <img class="pm-frame frame-img" src="../assets/iphone-frame.png" alt="" draggable="false">
+        <div class="pm-screen"><div class="ph ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n38-img-1" data-label="左屏截图" data-ratio="46:99" alt=""></div></div>
+      </div>
+      <div class="pm-phone n38-front">
+        <img class="pm-frame frame-img" src="../assets/iphone-frame.png" alt="" draggable="false">
+        <div class="pm-screen"><div class="ph ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n38-img-2" data-label="右屏截图" data-ratio="46:99" alt=""></div></div>
+      </div>
+    </div>
+    <div class="pm-foot"><span data-layer="n38-foot-1" data-label="底部标识" data-editable="text">{{foot-tag}}</span><span class="pm-chip" data-layer="n38-foot-2" data-label="底部胶囊" data-editable="text">{{foot-chip}}</span><span data-layer="n38-foot-3" data-label="底部短语" data-editable="text">{{foot-slogan}}</span></div>
+  </div>
+  <div class="pg-footer">
+    <span data-sys="footer-id" data-layer="sys-footer-id" data-label="页脚署名" data-editable="text">aiefficiencylab.cn</span>
+    <span class="page-no" data-sys="page-no" data-layer="sys-page-no" data-label="页码" data-editable="text">{{page-no}}</span>
+  </div>
+    </div>
+      </section>
+    </div>
+
+    <div class="gal-item" id="n39">
+      <!-- ============ N39 · 三机流程 ============
+           用途：手机 App 三屏流程切片——三台并排，每屏配序号+标题+说明
+           适合：三步操作流程（看豆→取方案→跟计时）；不适合：两步或四步以上
+           可以变：固定三屏（增减走 L2）；每屏内容换截图（比例固定）
+           槽位：title / sub / cols[]（n,t,d） / col-img×3 / issue / page-no / foot-tag / foot-chip / foot-slogan
+           限制：title≤14字(2行,每行≤7字)；sub≤24字(1行)；n≤8字符；t≤8字；d≤16字(2行)；issue≤14字；foot-tag≤18字符(1行)；foot-chip≤14字符；foot-slogan≤10字(1行)
+           hl：title 内 0-1 处
+           图槽：手机内屏 46:99 cover ×3（repeat 克隆键 col-img / col-img-2 / col-img-3；壳图 frame-img 装饰槽）
+                 来源：本项目自研 · phonekit 手机模板 V3（三机流程）
+-->
+      <section data-layout="N39-phone-trio">
+    <div class="artwork-page n39" data-artwork data-size="1080x1440">
+  <div class="paper-noise"></div>
+  <div class="brand-top">
+    <div class="left">
+      <div class="logo"><div class="ph" data-sys="brand-logo" data-layer="sys-brand-logo" data-label="logo字" data-editable="text">AI</div></div>
+      <span class="brand-name" data-sys="brand-name" data-layer="sys-brand-name" data-label="品牌名" data-editable="text">AI Efficiency Lab</span>
+    </div>
+    <div class="right" data-sys="issue" data-layer="sys-issue" data-label="期号" data-editable="text">{{issue}}</div>
+  </div>
+  <div class="content pm-content">
+    <div class="hero pm-hero">
+      <div class="pm-title" data-layer="title" data-label="主标题" data-editable="text">{{title}}</div>
+      <div class="pm-sub" data-layer="sub" data-label="副题" data-editable="text">{{sub}}</div>
+    </div>
+    <div class="stage pm-stage n39-stage">
+      <!-- repeat ×3-3: 三机切片 clone（flex:1 均分）；固定三屏，增减走 L2 -->
+      <div class="n39-col" data-repeat="cols">
+        <div class="pm-phone">
+          <img class="pm-frame frame-img" src="../assets/iphone-frame.png" alt="" draggable="false">
+          <div class="pm-screen"><div class="ph ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="col-img" data-label="屏截图" data-ratio="46:99" alt=""></div></div>
+        </div>
+        <div class="n39-cap">
+          <b data-layer="n" data-label="序号" data-editable="text">{{n}}</b>
+          <h3 data-layer="t" data-label="步骤标题" data-editable="text">{{t}}</h3>
+          <p data-layer="d" data-label="步骤说明" data-editable="text">{{d}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="pm-foot"><span data-layer="n39-foot-1" data-label="底部标识" data-editable="text">{{foot-tag}}</span><span class="pm-chip" data-layer="n39-foot-2" data-label="底部胶囊" data-editable="text">{{foot-chip}}</span><span data-layer="n39-foot-3" data-label="底部短语" data-editable="text">{{foot-slogan}}</span></div>
+  </div>
+  <div class="pg-footer">
+    <span data-sys="footer-id" data-layer="sys-footer-id" data-label="页脚署名" data-editable="text">aiefficiencylab.cn</span>
+    <span class="page-no" data-sys="page-no" data-layer="sys-page-no" data-label="页码" data-editable="text">{{page-no}}</span>
+  </div>
+    </div>
+      </section>
+    </div>
+
+    <div class="gal-item" id="n40">
+      <!-- ============ N40 · 浮动标注 ============
+           用途：手机 App 单屏 + 四角浮动标注卡——界面要点逐点讲解（无引导线）
+           适合：一张截图配四个要点说明；不适合：多屏或要点超过四个
+           可以变：四个卡文案可变；卡片钉位固定（随截图内容，换截图需 L2 调 CSS 钉位）
+           槽位：title / sub / n40-img-1 / n1-n/n1-t/n1-d / n2-n/n2-t/n2-d / n3-n/n3-t/n3-d / n4-n/n4-t/n4-d / issue / page-no / foot-tag / foot-chip / foot-slogan
+           限制：title≤14字(2行,每行≤7字)；sub≤24字(1行)；n*-n≤8字符；n*-t≤8字；n*-d≤14字(2行)；issue≤14字；foot-tag≤18字符(1行)；foot-chip≤14字符；foot-slogan≤10字(1行)
+           hl：title 内 0-1 处
+           图槽：手机内屏 46:99 cover ×1（壳图 frame-img 装饰槽）
+                 来源：本项目自研 · phonekit 手机模板 V4（浮动标注）
+-->
+      <section data-layout="N40-phone-annotate">
+    <div class="artwork-page n40" data-artwork data-size="1080x1440">
+  <div class="paper-noise"></div>
+  <div class="brand-top">
+    <div class="left">
+      <div class="logo"><div class="ph" data-sys="brand-logo" data-layer="sys-brand-logo" data-label="logo字" data-editable="text">AI</div></div>
+      <span class="brand-name" data-sys="brand-name" data-layer="sys-brand-name" data-label="品牌名" data-editable="text">AI Efficiency Lab</span>
+    </div>
+    <div class="right" data-sys="issue" data-layer="sys-issue" data-label="期号" data-editable="text">{{issue}}</div>
+  </div>
+  <div class="content pm-content">
+    <div class="hero pm-hero pm-hero--c">
+      <div class="pm-title" data-layer="title" data-label="主标题" data-editable="text">{{title}}</div>
+      <div class="pm-sub" data-layer="sub" data-label="副题" data-editable="text">{{sub}}</div>
+    </div>
+    <div class="stage pm-stage n40-stage">
+      <div class="pm-phone n40-phone">
+        <img class="pm-frame frame-img" src="../assets/iphone-frame.png" alt="" draggable="false">
+        <div class="pm-screen"><div class="ph ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n40-img-1" data-label="手机内屏" data-ratio="46:99" alt=""></div></div>
+      </div>
+      <div class="n40-note n40-n1 pm-card">
+        <b data-layer="n1-n" data-label="标注1序号" data-editable="text">{{n1-n}}</b>
+        <strong data-layer="n1-t" data-label="标注1标题" data-editable="text">{{n1-t}}</strong>
+        <span data-layer="n1-d" data-label="标注1说明" data-editable="text">{{n1-d}}</span>
+      </div>
+      <div class="n40-note n40-n2 pm-card">
+        <b data-layer="n2-n" data-label="标注2序号" data-editable="text">{{n2-n}}</b>
+        <strong data-layer="n2-t" data-label="标注2标题" data-editable="text">{{n2-t}}</strong>
+        <span data-layer="n2-d" data-label="标注2说明" data-editable="text">{{n2-d}}</span>
+      </div>
+      <div class="n40-note n40-n3 pm-card">
+        <b data-layer="n3-n" data-label="标注3序号" data-editable="text">{{n3-n}}</b>
+        <strong data-layer="n3-t" data-label="标注3标题" data-editable="text">{{n3-t}}</strong>
+        <span data-layer="n3-d" data-label="标注3说明" data-editable="text">{{n3-d}}</span>
+      </div>
+      <div class="n40-note n40-n4 pm-card">
+        <b data-layer="n4-n" data-label="标注4序号" data-editable="text">{{n4-n}}</b>
+        <strong data-layer="n4-t" data-label="标注4标题" data-editable="text">{{n4-t}}</strong>
+        <span data-layer="n4-d" data-label="标注4说明" data-editable="text">{{n4-d}}</span>
+      </div>
+    </div>
+    <div class="pm-foot"><span data-layer="n40-foot-1" data-label="底部标识" data-editable="text">{{foot-tag}}</span><span class="pm-chip" data-layer="n40-foot-2" data-label="底部胶囊" data-editable="text">{{foot-chip}}</span><span data-layer="n40-foot-3" data-label="底部短语" data-editable="text">{{foot-slogan}}</span></div>
+  </div>
+  <div class="pg-footer">
+    <span data-sys="footer-id" data-layer="sys-footer-id" data-label="页脚署名" data-editable="text">aiefficiencylab.cn</span>
+    <span class="page-no" data-sys="page-no" data-layer="sys-page-no" data-label="页码" data-editable="text">{{page-no}}</span>
+  </div>
+    </div>
+      </section>
+    </div>
   </div>
 
   <div class="gal-group" id="g-compare">
@@ -1724,9 +1937,9 @@ a{color:inherit;text-decoration:none;}
       <!-- ============ N20 · Before/After 大对比 ============
            用途：Before/After 大对比——双栏任务清单 + 底部数据格
            适合：两种路径/工具对照；不适合：三栏以上
-           可以变：两栏任务各 3-5 条；数据格固定 4
-           槽位：big-num / tag / title / sub / before-tag/before-t / before-tasks[]（task）/ after-tag/after-t / after-tasks[]（task）/ stat1-n..stat4-n / stat1-l..stat4-l / issue / page-no
-           限制：big-num≤2字符；tag≤12字；title≤16字(2行;每行≤8字[big-num单数字] 或 ≤6字[big-num双数字])；sub≤22字(1行)；before-tag≤16字符 after-tag≤16字符；before-t≤10字 after-t≤10字；task≤10字(1行)；stat*-n≤6字符 stat*-l≤4字；issue≤14字
+           可以变：两栏任务各 3-5 条（左右条数可不同）；数据格固定 4；底部对比提示条（callout）
+           槽位：big-num / tag / title / sub / before-tag/before-t / before-tasks[]（task）/ after-tag/after-t / after-tasks[]（task）/ stat1-n..stat4-n / stat1-l..stat4-l / n20-callout / issue / page-no
+           限制：big-num≤2字符；tag≤12字；title≤16字(2行;每行≤8字[big-num单数字] 或 ≤6字[big-num双数字])；sub≤22字(1行)；before-tag≤16字符 after-tag≤16字符；before-t≤10字 after-t≤10字；task≤10字(1行)；stat*-n≤6字符 stat*-l≤4字；n20-callout≤30字(1行)；issue≤14字
            hl：无（VS 与双栏自带强调）
            图槽：无
       -->
@@ -1774,6 +1987,14 @@ a{color:inherit;text-decoration:none;}
     <div class="n20-vs">VS</div>
 
     <div class="n20-stats">
+    <div class="callout">
+      <div class="callout__icon">💡</div>
+      <div class="callout__body">
+        <div class="callout__head">· 提示 ·</div>
+        <div class="callout__text" data-layer="n20-callout" data-label="对比提示" data-editable="text">{{n20-callout}}</div>
+      </div>
+    </div>
+
       <div class="n20-cell"><div class="n" data-layer="stat1-n" data-label="数据1" data-editable="text">{{stat1-n}}</div><div class="n20-l" data-layer="stat1-l" data-label="数据1说明" data-editable="text">{{stat1-l}}</div></div>
       <div class="n20-cell"><div class="n" data-layer="stat2-n" data-label="数据2" data-editable="text">{{stat2-n}}</div><div class="n20-l" data-layer="stat2-l" data-label="数据2说明" data-editable="text">{{stat2-l}}</div></div>
       <div class="n20-cell"><div class="n" data-layer="stat3-n" data-label="数据3" data-editable="text">{{stat3-n}}</div><div class="n20-l" data-layer="stat3-l" data-label="数据3说明" data-editable="text">{{stat3-l}}</div></div>
@@ -2040,12 +2261,12 @@ a{color:inherit;text-decoration:none;}
       <!-- ============ N24 · 代码编辑器 ============
            用途：代码展示页——编辑器窗口 + 高亮代码 + 状态栏
            适合：单段代码/命令展示；不适合：长代码（>12 行）
-           可以变：代码为高亮示例，换码走 L2（沿用 n24-tk-* span 手工包：k=关键字 f=函数 n=数字 s=字符串 c=注释 b=内置 p=标点）；标签页/状态栏/说明可改
-           槽位：big-num / tag / title / sub / tab1..tab3 / status-l / status-r / note / issue / page-no
-           限制：big-num≤3字符；title≤14字(2行;每行≤8字[big-num单数字] 或 ≤6字[big-num双数字])；sub≤24字(1行)；tab≤14字符；status-l≤26字符；status-r≤22字符；note≤40字符；issue≤14字；tag≤12字
+           可以变：代码为高亮示例，换码走 L2（沿用 n24-tk-* span 手工包：k=关键字 f=函数 n=数字 s=字符串 c=注释 b=内置 p=标点）；标签页/状态栏可改
+           槽位：big-num / tag / title / sub / tab1..tab3 / status-l / status-r / fx-img（图槽，可留空） / issue / page-no
+           限制：big-num≤3字符；title≤14字(2行;每行≤8字[big-num单数字] 或 ≤6字[big-num双数字])；sub≤24字(1行)；tab≤14字符；status-l≤26字符；status-r≤22字符；issue≤14字；tag≤12字
 
            hl：无（代码高亮为 tk-* 静态装饰，不在富文本白名单）
-           图槽：无
+           图槽：效果区图 10:3 cover ×1——可留空：填图 = 图形态（编辑器 flex:1 让位、图固定高）；不填走 L2 删元素删图槽 = 编辑器吃满（纯 code 形态，code 行数多时用）
       -->
       <section data-layout="N24-code-editor">
     <div class="artwork-page n24" data-artwork data-size="1080x1440">
@@ -2101,7 +2322,9 @@ a{color:inherit;text-decoration:none;}
         <div data-layer="status-r" data-label="状态栏右" data-editable="text">{{status-r}}</div>
       </div>
     </div>
-    <div class="n24-editor__note" data-layer="note" data-label="底部说明" data-editable="text">{{note}}</div>
+    <div class="n24-fx ph-img" data-fit="cover">
+      <img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="fx-img" data-label="效果区图" data-ratio="10:3" alt="">
+    </div>
   </div>
 
   <div class="pg-footer">
@@ -2341,9 +2564,9 @@ a{color:inherit;text-decoration:none;}
       <!-- ============ N27 · 社群招募 ============
            用途：社群/订阅招募页——身份卡 + 权益列表 + 人数 + CTA
            适合：社群/Newsletter 招募；不适合：硬卖货
-           可以变：权益 2-3 项；hero 大数字位留空（`n27-center-no-num` 居中制式，不是漏填）
-           槽位：tag / title / sub / name / desc / features[]（t,d）/ members-num / cta / issue / page-no
-           限制：title≤12字(2行)；sub≤26字(1行)；name≤12字；desc≤14字(1行)；feat t≤8字 d≤10字(1行)；members-num≤8字符；cta≤18字；issue≤14字；tag≤12字
+           可以变：权益 2-3 项；墨底主张块（motto + 3 胶囊 + CTA 一体）；hero 大数字位留空（`n27-center-no-num` 居中制式，不是漏填）
+           槽位：tag / title / sub / name / desc / features[]（t,d）/ members-num / motto / pill-t-1..3 / cta / issue / page-no
+           限制：title≤12字(2行)；sub≤26字(1行)；name≤12字；desc≤14字(1行)；feat t≤8字 d≤10字(1行)；members-num≤8字符；motto≤24字(2行;每行≤12字)；pill-t≤6字；cta≤18字；issue≤14字；tag≤12字
 
            hl：title 内 1 处（span.hl）
            图槽：无
@@ -2360,6 +2583,7 @@ a{color:inherit;text-decoration:none;}
     </div>
     <div class="right" data-sys="issue" data-layer="sys-issue" data-label="期号" data-editable="text">{{issue}}</div>
   </div>
+  <div class="n27-spacer"></div>
 
   <div class="mega-hero n27-center-no-num">
     <div class="mh-row">
@@ -2390,12 +2614,21 @@ a{color:inherit;text-decoration:none;}
       <div class="n27-members">已有 <span class="n" data-layer="members-num" data-label="人数" data-editable="text">{{members-num}}</span> 人加入</div>
     </div>
 
-    <div class="cta">
-      <span data-layer="cta" data-label="行动指引" data-editable="text">{{cta}}</span>
-      <span class="n27-small">LIMITED TIME</span>
+    <div class="ink-bg n27-ink">
+      <div class="n27-ink__t" data-layer="motto" data-label="主张金句" data-editable="text">{{motto}}</div>
+      <div class="n27-pills">
+        <div class="pill"><span class="num">01</span><span data-layer="pill-t-1" data-label="胶囊1" data-editable="text">{{pill-t-1}}</span></div>
+        <div class="pill"><span class="num">02</span><span data-layer="pill-t-2" data-label="胶囊2" data-editable="text">{{pill-t-2}}</span></div>
+        <div class="pill"><span class="num">03</span><span data-layer="pill-t-3" data-label="胶囊3" data-editable="text">{{pill-t-3}}</span></div>
+      </div>
+      <div class="n27-ink__cta">
+        <span data-layer="cta" data-label="行动指引" data-editable="text">{{cta}}</span>
+        <span class="n27-small">LIMITED TIME</span>
+      </div>
     </div>
   </div>
 
+  <div class="n27-spacer"></div>
   <div class="pg-footer">
     <span data-sys="footer-id" data-layer="sys-footer-id" data-label="页脚署名" data-editable="text">aiefficiencylab.cn</span>
     <span class="page-no" data-sys="page-no" data-layer="sys-page-no" data-label="页码" data-editable="text">{{page-no}}</span>
@@ -2477,7 +2710,7 @@ a{color:inherit;text-decoration:none;}
       <!-- ============ N29 · 卡片式结尾 ============
            用途：卡片式结尾——下期预告大卡 + 作者卡 + 社群二维码卡
            适合：系列内容固定收尾；不适合：中间页
-           可以变：预告标签 0-4 个；作者卡文案/社交账号可改
+           可以变：预告标签 0-4 个（无标签走 L2 删元素）；作者卡文案/社交账号可改
            槽位：outro-title / 图×2（4:5 cover、1:1 contain）/ next-num / next-title / next-tags[]（tag）/ author-name / bio / social-1 / social-2 / qr-hint / issue / page-no
            限制：outro-title≤10字(2行)；next-num≤4字符；next-title≤14字(2行)；tag≤12字；author-name≤16字(1行)；bio≤15字(1行)；social-1≤24字符；social-2≤24字符；qr-hint≤18字(1行)；issue≤14字
            hl：qr-hint 内 strong 1 处
@@ -2517,7 +2750,7 @@ a{color:inherit;text-decoration:none;}
           </div>
           <div class="n29-next-card__title" data-layer="next-title" data-label="下期标题" data-editable="text">{{next-title}}</div>
           <div class="n29-next-card__tags">
-            <!-- repeat ×0-4: 话题标签 clone -->
+            <!-- repeat ×1-4: 话题标签 clone；无标签走 L2 删元素（机器不支持空数组） -->
             <span data-repeat="next-tags" data-layer="next-tag" data-editable="text">{{tag}}</span>
           </div>
         </div>
@@ -2644,75 +2877,12 @@ a{color:inherit;text-decoration:none;}
       </section>
     </div>
 
-    <div class="gal-item" id="n32">
-      <!-- ============ N32 · 结尾对照 ============
-           用途：结尾对照——前后图对照 + 三句话总结
-           适合：系列收尾复盘；不适合：中间页
-           可以变：harvest 2-4 条
-           槽位：big-num / tag / title / 图×2（4:3 cover）/ before-cap / after-cap / harvest-title / harvest[]（item） / issue / page-no
-           限制：big-num≤4字符；title≤12字(2行)；before-cap≤24字(2行) after-cap≤24字(2行)；harvest-title≤12字；item≤20字(1行)；tag≤12字；issue≤14字
-           hl：无
-           图槽：横版对照图 ×2 cover
-      -->
-      <section data-layout="N32-ending-compare">
-    <div class="artwork-page n32" data-artwork data-size="1080x1440">
-
-  <div class="paper-noise"></div>
-
-  <div class="brand-top">
-    <div class="left">
-      <div class="logo"><div class="ph" data-sys="brand-logo" data-layer="sys-brand-logo" data-label="logo字" data-editable="text">AI</div></div>
-      <span class="brand-name" data-sys="brand-name" data-layer="sys-brand-name" data-label="品牌名" data-editable="text">AI Efficiency Lab</span>
+    <div class="gal-item gal-item--vacant" id="n32">
+      <!-- N32 编号空位（2026-11-19 已并入 N09-step-compare）：无独立母版、无 section，数量自算不计数 -->
+      <div class="vacant-note">N32 · MERGED INTO N09 · 编号空位（无独立母版）</div>
     </div>
-    <div class="right" data-sys="issue" data-layer="sys-issue" data-label="期号" data-editable="text">{{issue}}</div>
-  </div>
 
-  <div class="mega-hero">
-    <div class="mh-row">
-      <div class="big-num" data-layer="big-num" data-label="标识大字" data-editable="text">{{big-num}}</div>
-      <div class="hero-text">
-        <span class="tag" data-layer="tag" data-label="标签" data-editable="text">{{tag}}</span>
-        <div class="title" data-layer="title" data-label="标题" data-editable="text">{{title}}</div>
       </div>
-    </div>
-  </div>
-
-  <div class="after-hero"></div>
-
-  <div class="content">
-    <div class="compare">
-      <div class="n32-compare__side n32-compare__side--before" data-layer="n32-side-before" data-label="对照前栏" data-type="group">
-        <div class="n32-compare__side__tag">· BEFORE ·</div>
-        <div class="n32-compare__img ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n32-img-1" data-label="对照前图" data-ratio="4:3" alt=""><span class="ph-img__label">IMG · 之前</span></div>
-        <div class="n32-compare__caption" data-layer="before-cap" data-label="对照前说明" data-editable="text">{{before-cap}}</div>
-      </div>
-      <div class="compare__vs">VS</div>
-      <div class="n32-compare__side n32-compare__side--after" data-layer="n32-side-after" data-label="对照后栏" data-type="group">
-        <div class="n32-compare__side__tag">· AFTER ·</div>
-        <div class="n32-compare__img ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n32-img-2" data-label="对照后图" data-ratio="4:3" alt=""><span class="ph-img__label">IMG · 之后</span></div>
-        <div class="n32-compare__caption" data-layer="after-cap" data-label="对照后说明" data-editable="text">{{after-cap}}</div>
-      </div>
-    </div>
-
-    <div class="n32-harvest">
-      <div class="n32-harvest__label">· THREE TAKEAWAYS ·</div>
-      <div class="n32-harvest__title" data-layer="harvest-title" data-label="总结标题" data-editable="text">{{harvest-title}}</div>
-      <ul class="n32-harvest__list">
-        <!-- repeat ×2-4: 总结条 clone -->
-        <li data-repeat="harvest" data-layer="harvest-item" data-editable="text">{{item}}</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="pg-footer">
-    <span data-sys="footer-id" data-layer="sys-footer-id" data-label="页脚署名" data-editable="text">aiefficiencylab.cn</span>
-    <span class="page-no" data-sys="page-no" data-layer="sys-page-no" data-label="页码" data-editable="text">{{page-no}}</span>
-  </div>
-
-    </div>
-      </section>
-    </div>
-  </div>
   </main>
 
   <div class="gal-foot">TECH-BLUE · <span class="gal-num"></span> MASTERS · REPOSITORY = GALLERY = DESIGN BOARD · EDIT MASTERS HERE, STYLES IN style.css</div>

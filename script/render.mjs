@@ -339,8 +339,8 @@ function imgValue(v, where, errors, usedFiles, warns) {
     if (!crop) { errors.push(`${where}: crop 描述无法解析 "${spec.crop}"（例："下 55%" / "left 30%"）`); return null; }
     if (crop.raw < 5 || crop.raw > 99) warns.push(`${where}: crop "${spec.crop}" 百分比超出有效范围 5–99，已按 ${Math.round(crop.fraction * 100)}% 处理`);
     cropStyle = crop.axis === 'y'
-      ? `height:${(100 / crop.fraction).toFixed(1)}%;width:100%;${crop.align === 'end' ? 'bottom:0;' : crop.align === 'start' ? 'top:0;' : 'top:50%;transform:translateY(-50%);'}`
-      : `width:${(100 / crop.fraction).toFixed(1)}%;height:100%;${crop.align === 'end' ? 'right:0;' : crop.align === 'start' ? 'left:0;' : 'left:50%;transform:translateX(-50%);'}`;
+      ? `height:${(100 / crop.fraction).toFixed(1)}%;width:100%;${crop.align === 'end' ? 'bottom:0;top:auto;' : crop.align === 'start' ? 'top:0;bottom:auto;' : 'top:50%;bottom:auto;transform:translateY(-50%);'}`
+      : `width:${(100 / crop.fraction).toFixed(1)}%;height:100%;${crop.align === 'end' ? 'right:0;left:auto;' : crop.align === 'start' ? 'left:0;right:auto;' : 'left:50%;right:auto;transform:translateX(-50%);'}`;
   }
   return { dataUrl, cropStyle, spec, buf };
 }
@@ -434,6 +434,18 @@ function fillSection(layout, body, fields, errors, warns, usedFiles, meta, nn, t
       return html;
     });
     body = body.slice(0, u.start) + rendered.join('\n') + body.slice(u.end);
+  }
+
+  // 1.5) repeat 克隆体内的图槽：克隆体 data-layer 带数字后缀（基础键 ∈ 原 imgIds），补进 imgIds 一起走必填填充
+  {
+    const baseIds = new Set(imgIds);
+    for (const m of body.matchAll(/<img\b[^>]*>/g)) {
+      if (!/data-slot="image"/.test(m[0])) continue;
+      const lm = m[0].match(/data-layer="([^"]+)"/);
+      if (!lm || baseIds.has(lm[1])) continue;
+      const base = lm[1].replace(/-\d+$/, '');
+      if (baseIds.has(base)) imgIds.push(lm[1]);
+    }
   }
 
   // 2) 图槽：只替换 src（+ crop 外包），原 <img> 的 data-slot / data-layer / data-label / data-ratio 全部保留
@@ -828,8 +840,12 @@ for (const page of targets) {
   if (page.name && /[\\/:*?"<>|]/.test(String(page.name))) fail(`P${nn}: page.name 含文件名非法字符（/ \\ : * ? " < > |）："${page.name}"`);
   if (page.layout === 'custom/...' || String(page.layout).startsWith('custom/')) {
     if (!page.markup) fail(`P${nn}: custom 页需 markup`);
-    const rootM = page.markup.match(/<div class="artwork-page[^"]*"[^>]*>/);
-    if (!rootM || !/data-artwork/.test(rootM[0]) || !/data-size="1080x1440"/.test(rootM[0])) fail(`P${nn}: custom markup 根节点须为 .artwork-page + data-artwork + data-size`);
+    // 根节点校验复用 rootOf 单源（按 class 分词判含 artwork-page，属性顺序无关）；
+    // 不照抄旧严格正则（那要求 class 是首个属性且值以 artwork-page 开头，合规重排会被误停）
+    let rootTag = null;
+    try { rootTag = rootOf(page.markup).rootTag; }
+    catch (e) { fail(`P${nn}: custom markup 根节点异常：${e.message}`); }
+    if (!rootTag || !/data-artwork/.test(rootTag) || !/data-size="1080x1440"/.test(rootTag)) fail(`P${nn}: custom markup 根节点须为 .artwork-page + data-artwork + data-size`);
     const layers = [...page.markup.matchAll(/data-layer="([^"]+)"/g)].map((m) => m[1]);
     const dup = layers.filter((v, i) => layers.indexOf(v) !== i);
     if (dup.length) fail(`P${nn}: custom markup data-layer 重复 ${[...new Set(dup)].join(',')}`);
