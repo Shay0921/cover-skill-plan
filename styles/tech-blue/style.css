@@ -1519,14 +1519,13 @@ html,body{margin:0;padding:0;background:#ECEEF3;font-family:var(--sans);}
   font-family:var(--serif);font-weight:bold;font-size:1.98cqw;
   box-shadow:0 .4cqw 1.2cqw rgba(37,99,235,.35);
   }
-/* 默认隐藏钉号：钉位坐标是母版固定值，套任意截图都会错位遮内容。
-   必须写在基础规则之后——同Specificity后者胜，写在前面会被基础规则的 display:grid 覆盖。
-   确需显示时删掉下一行 display:none，再用下方坐标调位。 */
-.n22-pin{display:none;}
-/* 钉位坐标（L2 调整位置改这里） */
-.n22-pin--1{left:12%;top:42%;}
-.n22-pin--2{left:58%;top:55%;}
-.n22-pin--3{left:35%;top:78%;}
+/* 钉号默认显示（2026-11-19 用户拍板恢复）：图钉是 N22 标注语义的核心，标了点位读者才知道说明对应截图哪里。
+   钉位首选 plan 坐标槽 pin1-pos..pin3-pos（参照系 percent：{x,y}=截图框内百分比，钉子中心落在给点，
+   render 注入内联 left/top 覆盖此处）——不同截图都能钉准；不传坐标才落到下面这组兜底默认（当前校准 =
+   workbuddy.cn 文档中心 1600×900 真截图，值为钉子左上角、%相对截图框含窗口条）。 */
+.n22-pin--1{left:14.5%;top:12%;}
+.n22-pin--2{left:43.5%;top:13%;}
+.n22-pin--3{left:82%;top:19%;}
 
 .n22-pin::after{
   content:"";position:absolute;left:50%;top:100%;transform:translateX(-50%);
@@ -2363,8 +2362,8 @@ html,body{margin:0;padding:0;background:#ECEEF3;font-family:var(--sans);}
 
 /* ---- N38 · 双屏并列（专属段）---- */
 .n38-stage{align-items:center;justify-content:center;}
-.n38-back{width:40cqw;transform:rotate(-5deg) translateX(1cqw);}
-.n38-front{width:40cqw;transform:rotate(5deg) translateX(-1cqw);margin-left:-3cqw;z-index:2;}
+.n38-back{width:44cqw;transform:rotate(-5deg) translateX(1cqw);}
+.n38-front{width:44cqw;transform:rotate(5deg) translateX(-1cqw);margin-left:-3cqw;z-index:2;}
 
 /* ---- N39 · 三机流程（专属段）---- */
 .n39-stage{align-items:center;justify-content:space-between;gap:2.4cqw;}
@@ -2376,17 +2375,40 @@ html,body{margin:0;padding:0;background:#ECEEF3;font-family:var(--sans);}
 .n39-cap p{font-size:1.9cqw;line-height:1.5;color:var(--ink-soft);}
 
 /* ---- N40 · 浮动标注（专属段）---- */
-.n40-stage{align-items:center;justify-content:center;}
-.n40-phone{width:42cqw;}
+.n40-stage{align-items:center;justify-content:center;counter-reset:n40n;}
+.n40-phone{width:46cqw;}
+/* 标注覆盖层：repeat ×4-8 克隆，编号自动（CSS 计数器，卡片序号 01/02…）。
+   plan 坐标槽 note-pos / note-pos-2… 传 {x,y} = 内屏截图内目标功能点百分比（AI 看图给点）→
+   render 注入 --pin-y 与 data-pinned / data-side；呈现全由 CSS 决定：
+   卡片贴同侧外缘、纵向对齐目标点（translateY -50%）——卡片只在手机两侧空白，永不遮挡截图。
+   不传坐标 → 按条数默认旁置（1 左上 / 2 右上 / 3 左下 / 4 右下 / 5 左中 / 6 右中 / 7 左中上 / 8 右中下）；
+   ×7-8 单侧 4 张自动进紧凑形态（缩卡缩字号，:has 触发），保证默认位不重叠。
+   几何：stage 宽 86.8cqw，手机 46cqw 居中（左右缘各距 20.4cqw），卡列 19.5cqw，
+   内屏 38.98×84.26cqw；同侧两卡 y 宜间隔 >18%（卡高约 15cqw），y<10/>90 机器 WARN。 */
+.n40-pins{position:absolute;inset:0;z-index:6;pointer-events:none;}
+.n40-pin{position:absolute;inset:0;counter-increment:n40n;}
 .n40-note{
   position:absolute;z-index:6;width:19.5cqw;padding:1.3cqw 1.5cqw;
   display:flex;flex-direction:column;gap:.35cqw;
   }
 .n40-note b{font-family:var(--mono);font-size:1.42cqw;letter-spacing:.12em;color:var(--accent);}
-.n40-note strong{font-family:var(--serif);font-size:2.35cqw;font-weight:bold;color:var(--ink);}
-.n40-note span{font-size:1.72cqw;line-height:1.45;color:var(--ink-soft);}
-/* 四角钉位：相对 stage 固定，随手机内屏内容高度对齐；换截图走 L2 调这几处 */
-.n40-n1{left:0;top:12cqw;}
-.n40-n2{right:0;top:12cqw;}
-.n40-n3{left:0;bottom:9cqw;}
-.n40-n4{right:0;bottom:9cqw;}
+.n40-note b::before{content:counter(n40n,decimal-leading-zero);}
+.n40-note strong{font-family:var(--serif);font-size:3.3cqw;font-weight:bold;color:var(--ink);}
+.n40-note span{font-size:2cqw;line-height:1.45;color:var(--ink-soft);}
+/* 默认旁置位（不传坐标槽）：1 左上 / 2 右上 / 3 左下 / 4 右下 / 5 左中 / 6 右中 / 7 左中上 / 8 右中下，卡片永不进入手机区域 */
+.n40-pin:nth-of-type(1) .n40-note{left:0;top:9cqw;}
+.n40-pin:nth-of-type(2) .n40-note{right:0;top:9cqw;}
+.n40-pin:nth-of-type(3) .n40-note{left:0;bottom:9cqw;}
+.n40-pin:nth-of-type(4) .n40-note{right:0;bottom:9cqw;}
+.n40-pin:nth-of-type(5) .n40-note{left:0;top:50%;transform:translateY(-50%);}
+.n40-pin:nth-of-type(6) .n40-note{right:0;top:50%;transform:translateY(-50%);}
+.n40-pin:nth-of-type(7) .n40-note{left:0;top:34%;transform:translateY(-50%);}
+.n40-pin:nth-of-type(8) .n40-note{right:0;top:66%;transform:translateY(-50%);}
+/* ×7-8 紧凑形态：单侧 4 张放不下原尺寸卡，缩卡缩字保间距（:has 按克隆条数触发） */
+.n40-pins:has(.n40-pin:nth-of-type(7)) .n40-note{width:16.5cqw;padding:1cqw 1.2cqw;gap:.25cqw;}
+.n40-pins:has(.n40-pin:nth-of-type(7)) .n40-note b{font-size:1.3cqw;}
+.n40-pins:has(.n40-pin:nth-of-type(7)) .n40-note strong{font-size:2.05cqw;}
+.n40-pins:has(.n40-pin:nth-of-type(7)) .n40-note span{font-size:1.5cqw;line-height:1.38;}
+/* 钉位形态（传坐标槽时）：卡片贴同侧外缘、纵向对齐落点（4 类选择器，压过默认四角的 3 类） */
+.n40-pin[data-pinned][data-side="left"] .n40-note{left:0;right:auto;top:var(--pin-y);bottom:auto;transform:translateY(-50%);}
+.n40-pin[data-pinned][data-side="right"] .n40-note{left:auto;right:0;top:var(--pin-y);bottom:auto;transform:translateY(-50%);}

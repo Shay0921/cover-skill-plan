@@ -1731,7 +1731,6 @@ a{color:inherit;text-decoration:none;}
            限制：title≤14字(2行,每行≤7字)；sub≤22字(1行)；n≤3字符；t≤10字；d≤20字(2行)；issue≤14字；foot-tag≤18字符(1行)；foot-chip≤14字符；foot-slogan≤10字(1行)
            hl：title 内 0-1 处
            图槽：手机内屏 46:99 cover ×1（壳图 frame-img 装饰槽，render 单源内嵌）
-                 来源：本项目自研 · phonekit 手机模板 V1（单机聚焦）
 -->
       <section data-layout="N37-phone-focus">
     <div class="artwork-page n37" data-artwork data-size="1080x1440">
@@ -1781,7 +1780,6 @@ a{color:inherit;text-decoration:none;}
            限制：title≤14字(2行,每行≤7字)；sub≤24字(1行)；issue≤14字；foot-tag≤18字符(1行)；foot-chip≤14字符；foot-slogan≤10字(1行)
            hl：title 内 0-1 处
            图槽：手机内屏 46:99 cover ×2（键 n38-img-1 / n38-img-2；壳图 frame-img 装饰槽）
-                 来源：本项目自研 · phonekit 手机模板 V2（双屏并列）
 -->
       <section data-layout="N38-phone-duo">
     <div class="artwork-page n38" data-artwork data-size="1080x1440">
@@ -1827,7 +1825,6 @@ a{color:inherit;text-decoration:none;}
            限制：title≤14字(2行,每行≤7字)；sub≤24字(1行)；n≤8字符；t≤8字；d≤16字(2行)；issue≤14字；foot-tag≤18字符(1行)；foot-chip≤14字符；foot-slogan≤10字(1行)
            hl：title 内 0-1 处
            图槽：手机内屏 46:99 cover ×3（repeat 克隆键 col-img / col-img-2 / col-img-3；壳图 frame-img 装饰槽）
-                 来源：本项目自研 · phonekit 手机模板 V3（三机流程）
 -->
       <section data-layout="N39-phone-trio">
     <div class="artwork-page n39" data-artwork data-size="1080x1440">
@@ -1870,14 +1867,13 @@ a{color:inherit;text-decoration:none;}
 
     <div class="gal-item" id="n40">
       <!-- ============ N40 · 浮动标注 ============
-           用途：手机 App 单屏 + 四角浮动标注卡——界面要点逐点讲解（无引导线）
-           适合：一张截图配四个要点说明；不适合：多屏或要点超过四个
-           可以变：四个卡文案可变；卡片钉位固定（随截图内容，换截图需 L2 调 CSS 钉位）
-           槽位：title / sub / n40-img-1 / n1-n/n1-t/n1-d / n2-n/n2-t/n2-d / n3-n/n3-t/n3-d / n4-n/n4-t/n4-d / issue / page-no / foot-tag / foot-chip / foot-slogan
-           限制：title≤14字(2行,每行≤7字)；sub≤24字(1行)；n*-n≤8字符；n*-t≤8字；n*-d≤14字(2行)；issue≤14字；foot-tag≤18字符(1行)；foot-chip≤14字符；foot-slogan≤10字(1行)
+           用途：手机 App 单屏 + 旁注标注卡——界面要点逐点讲解，卡片在手机旁空白不遮挡截图
+           适合：一张截图配 4-8 个要点说明；不适合：多屏或要点超过八个
+           可以变：标注条数动态 ×4-8（repeat note，条目 {t,d}，编号自动）；卡片位置可配（坐标槽 note-pos / note-pos-2… 传 {x,y} = 内屏截图内目标功能点百分比，AI 看图给点；卡片贴同侧外缘、纵向对齐目标点；不传走默认旁置位）
+           槽位：title / sub / n40-img-1 / note（repeat ×4-8：t/d）/ note-pos、note-pos-2…（可选坐标槽 {x,y}，随条数）/ issue / page-no / foot-tag / foot-chip / foot-slogan
+           限制：title≤14字(2行,每行≤7字)；sub≤24字(1行)；t≤8字；d≤14字(2行)；issue≤14字；foot-tag≤18字符(1行)；foot-chip≤14字符；foot-slogan≤10字(1行)
            hl：title 内 0-1 处
            图槽：手机内屏 46:99 cover ×1（壳图 frame-img 装饰槽）
-                 来源：本项目自研 · phonekit 手机模板 V4（浮动标注）
 -->
       <section data-layout="N40-phone-annotate">
     <div class="artwork-page n40" data-artwork data-size="1080x1440">
@@ -1899,25 +1895,18 @@ a{color:inherit;text-decoration:none;}
         <img class="pm-frame frame-img" src="../assets/iphone-frame.png" alt="" draggable="false">
         <div class="pm-screen"><div class="ph ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n40-img-1" data-label="手机内屏" data-ratio="46:99" alt=""></div></div>
       </div>
-      <div class="n40-note n40-n1 pm-card">
-        <b data-layer="n1-n" data-label="标注1序号" data-editable="text">{{n1-n}}</b>
-        <strong data-layer="n1-t" data-label="标注1标题" data-editable="text">{{n1-t}}</strong>
-        <span data-layer="n1-d" data-label="标注1说明" data-editable="text">{{n1-d}}</span>
-      </div>
-      <div class="n40-note n40-n2 pm-card">
-        <b data-layer="n2-n" data-label="标注2序号" data-editable="text">{{n2-n}}</b>
-        <strong data-layer="n2-t" data-label="标注2标题" data-editable="text">{{n2-t}}</strong>
-        <span data-layer="n2-d" data-label="标注2说明" data-editable="text">{{n2-d}}</span>
-      </div>
-      <div class="n40-note n40-n3 pm-card">
-        <b data-layer="n3-n" data-label="标注3序号" data-editable="text">{{n3-n}}</b>
-        <strong data-layer="n3-t" data-label="标注3标题" data-editable="text">{{n3-t}}</strong>
-        <span data-layer="n3-d" data-label="标注3说明" data-editable="text">{{n3-d}}</span>
-      </div>
-      <div class="n40-note n40-n4 pm-card">
-        <b data-layer="n4-n" data-label="标注4序号" data-editable="text">{{n4-n}}</b>
-        <strong data-layer="n4-t" data-label="标注4标题" data-editable="text">{{n4-t}}</strong>
-        <span data-layer="n4-d" data-label="标注4说明" data-editable="text">{{n4-d}}</span>
+      <div class="n40-pins">
+        <!-- repeat ×4-8: 标注单元 clone（旁置卡）；编号自动（CSS 计数器 01/02…），条目 {t,d}；
+             卡片位置可选坐标槽 note-pos / note-pos-2…（顶层字段，{x,y}=内屏截图内目标功能点百分比，AI 看图给点）；
+             卡片贴同侧外缘、纵向对齐目标点，永不进入手机区域；不传坐标 → 按条数默认旁置。
+             同侧两卡 y 宜间隔 >18%（卡高约 15cqw） -->
+        <div class="n40-pin" data-repeat="note" data-pin="note-pos">
+          <div class="n40-note pm-card">
+            <b data-layer="n" data-label="序号" data-editable="text"></b>
+            <strong data-layer="t" data-label="标题" data-editable="text">{{t}}</strong>
+            <span data-layer="d" data-label="说明" data-editable="text">{{d}}</span>
+          </div>
+        </div>
       </div>
     </div>
     <div class="pm-foot"><span data-layer="n40-foot-1" data-label="底部标识" data-editable="text">{{foot-tag}}</span><span class="pm-chip" data-layer="n40-foot-2" data-label="底部胶囊" data-editable="text">{{foot-chip}}</span><span data-layer="n40-foot-3" data-label="底部短语" data-editable="text">{{foot-slogan}}</span></div>
@@ -2110,12 +2099,12 @@ a{color:inherit;text-decoration:none;}
       <!-- ============ N22 · 标注截图 ============
            用途：单图标注讲解——窗口截图 + 编号钉 + 对应说明列表
            适合：一张界面图的分步导览；不适合：多图
-           可以变：钉与说明固定 3 组（增减需 L2 同步钉位）；钉位坐标可 L2 调
-           槽位：big-num / tag / title / sub / shot-name / 图×1（16:9 cover）/ pin1-head/pin1-note .. pin3 / issue / page-no
+           可以变：钉与说明固定 3 组（增减需 L2 同步钉位）；钉位可配（坐标槽 pin1-pos..pin3-pos 传 {x,y} 截图框内百分比，AI 看图给点，不传保留母版默认校准）
+           槽位：big-num / tag / title / sub / shot-name / 图×1（16:9 cover）/ pin1-head/pin1-note .. pin3 / pin1-pos/pin2-pos/pin3-pos（可选坐标槽 {x,y}，参照系 percent=截图框）/ issue / page-no
            限制：big-num≤2字符；title≤12字(2行;每行≤8字[big-num单数字] 或 ≤6字[big-num双数字])；sub≤16字(1行)；shot-name≤24字符；pin*-head≤12字(1行)；pin*-note≤28字(2行)；issue≤14字；tag≤12字
 
            hl：无
-           图槽：横版 16:9 cover；钉号 1/2/3 默认隐藏（钉位是固定坐标，套任意图会错位；需显示时去掉 CSS .n22-pin 的 display:none 再调位），列表的 1/2/3 编号仍保留对应
+           图槽：横版 16:9 cover；钉号 1/2/3 默认显示（图钉是标注语义核心）；钉位建议走坐标槽（不同截图都能钉准），默认 CSS 坐标仅兜底，列表的 1/2/3 编号仍保留对应
       -->
       <section data-layout="N22-annotated-shot">
     <div class="artwork-page n22" data-artwork data-size="1080x1440">
@@ -2150,10 +2139,11 @@ a{color:inherit;text-decoration:none;}
         <div class="n22-shot__chrome__title" data-layer="shot-name" data-label="窗口标题" data-editable="text">{{shot-name}}</div>
       </div>
       <div class="n22-shot__img ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n22-img-1" data-label="标注截图" data-ratio="16:9" alt=""><span class="ph-img__label">截图占位 · 1280 × 720</span></div>
-      <!-- Pin 位置按比例 -->
-      <span class="n22-pin n22-pin--1">1</span>
-      <span class="n22-pin n22-pin--2">2</span>
-      <span class="n22-pin n22-pin--3">3</span>
+      <!-- 钉位可选配：plan 传 pin1-pos..pin3-pos = {x,y} 截图框内百分比（AI 看图给点，钉子中心落在点上）；
+           不传坐标则保留下方 CSS 默认校准位。参照系 percent 相对整个截图框（含窗口条）。 -->
+      <span class="n22-pin n22-pin--1" data-pin="pin1-pos" data-pin-frame="percent">1</span>
+      <span class="n22-pin n22-pin--2" data-pin="pin2-pos" data-pin-frame="percent">2</span>
+      <span class="n22-pin n22-pin--3" data-pin="pin3-pos" data-pin-frame="percent">3</span>
     </div>
 
     <div class="n22-pins">
@@ -2262,7 +2252,7 @@ a{color:inherit;text-decoration:none;}
            用途：代码展示页——编辑器窗口 + 高亮代码 + 状态栏
            适合：单段代码/命令展示；不适合：长代码（>12 行）
            可以变：代码为高亮示例，换码走 L2（沿用 n24-tk-* span 手工包：k=关键字 f=函数 n=数字 s=字符串 c=注释 b=内置 p=标点）；标签页/状态栏可改
-           槽位：big-num / tag / title / sub / tab1..tab3 / status-l / status-r / fx-img（图槽，可留空） / issue / page-no
+           槽位：big-num / tag / title / sub / tab1..tab3 / status-l / status-r / fx-img（图槽，可留空——无此内容走 L2 删元素） / issue / page-no
            限制：big-num≤3字符；title≤14字(2行;每行≤8字[big-num单数字] 或 ≤6字[big-num双数字])；sub≤24字(1行)；tab≤14字符；status-l≤26字符；status-r≤22字符；issue≤14字；tag≤12字
 
            hl：无（代码高亮为 tk-* 静态装饰，不在富文本白名单）

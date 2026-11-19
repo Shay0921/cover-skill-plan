@@ -31,8 +31,8 @@
 ## 三条硬约束
 
 1. **`{{…}}` 一个不留**：custom 页不做槽位填充，render 对 `{{` 残留即停（硬校验），留一个就是一页坏图出不来。
-2. **根类三件套**：`artwork-page` + `data-artwork` + `data-size="1080x1440"`；`data-layer` 页内唯一。这是 custom 分支仅有的机器检查，过不了直接停。
-3. **只用本风格已有的类**：`position:fixed` / `@media` / `<script>` / `animation` / `transition` 会被硬停；内联样式、自造 CSS 变量、新类名机器不拦但属违规，靠人审把关。
+2. **根类三件套**：`artwork-page` + `data-artwork` + `data-size="1080x1440"`；`data-layer` 页内唯一。这是 custom 分支机器硬检的其中两项（另有 `{{` 残留、禁区属性，见 CONTRACT「custom 页」一节），过不了直接停。
+3. **只用本风格已有的类**：`position:fixed` / `@media` / `<script>` / `<animate>`（及 SVG 同类 `<animateMotion>`/`<animateTransform>`/`<set>`）/ `animation:` / `transition:` 会被硬停（大小写不敏感，完整清单见 CONTRACT「custom 页」）；内联样式、自造 CSS 变量、新类名机器不拦但属违规，靠人审把关。
 
 ## 出图后自查
 
@@ -43,5 +43,7 @@
 ## 边界与转正
 
 - 同一类缺空在 ≥2 页出现 → 是母版本身该修，提请用户改母版，不逐页补。
-- 同一 `custom/<名>` 累计 ≥2 次 → 走转正入库（见 `SKILL.md`「即兴补空与转正」）。
+- **转正（本文件是唯一细则点，SKILL 只留指针）**：AI 是这件事的责任方——**主动识别、主动向用户提出**，不等用户开口。
+  - **触发判据**：同一 `custom/<名>` 在多次任务中反复出现，或同一处补空改了两版仍不满意。跨任务复用**无自动计数**（plan 每任务重建、运行区随用随清），靠 AI 凭跨任务记忆主动判断；判断成立即提出，不要求用户先发现。
+  - **转正四步**：① 向用户提出入库建议 → ② 按 `final/03-母版创建规范.md` 重整为正式母版（说明头七字段 + section + 专属 CSS + catalog 条目）→ ③ 目检 + 一次真实任务回归 → ④ 入库。转正是纯人工流程（无计数脚本、无 auto-promote）。
 - **不在即兴页里手绘 SVG**：即兴纪律禁内联样式、禁新类名，手绘 SVG 没有合法的样式通道（机器不拦）；要图走 `references/FIGURE-GUIDE.md` 出 PNG 填图槽。

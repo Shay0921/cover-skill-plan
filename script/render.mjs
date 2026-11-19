@@ -429,7 +429,8 @@ function fillSection(layout, body, fields, errors, warns, usedFiles, meta, nn, t
         // 白名单标签保留生效，裸 < > 转义显示（"A < B" 不会变成半个标签）
         html = html.split(`{{${ph}}}`).join(richHtml(sv));
       }
-      if (i > 0) html = html.replace(/data-layer="([^"]+)"/g, (_, id) => `data-layer="${id}-${i + 1}"`);
+      if (i > 0) html = html.replace(/data-layer="([^"]+)"/g, (_, id) => `data-layer="${id}-${i + 1}"`)
+        .replace(/\bdata-pin="([^"]+)"/g, (_, id) => `data-pin="${id}-${i + 1}"`); // 坐标槽随克隆加后缀，与 data-layer 同规则
       html = html.replace(/\s*data-repeat="[^"]*"/g, ''); // 克隆件是具体内容，不再携带 repeat 标记
       return html;
     });
@@ -445,6 +446,18 @@ function fillSection(layout, body, fields, errors, warns, usedFiles, meta, nn, t
       if (!lm || baseIds.has(lm[1])) continue;
       const base = lm[1].replace(/-\d+$/, '');
       if (baseIds.has(base)) imgIds.push(lm[1]);
+    }
+  }
+
+  // 1.6) 坐标槽：元素带 data-pin="<fields 键>"（钉位可配母版，如 N40 浮动标注卡）。
+  //      repeat 克隆体的 data-pin 已在步骤 1 随 data-layer 加 -2/-3 后缀，这里按后缀键分别收集。
+  const pinIds = [];
+  {
+    const seen = new Set();
+    for (const m of body.matchAll(/\bdata-pin="([^"]+)"/g)) {
+      const id = m[1];
+      if (seen.has(id)) { errors.push(`${layout}: 坐标槽 data-pin="${id}" 页内重复（须唯一）`); continue; }
+      seen.add(id); pinIds.push(id);
     }
   }
 
@@ -498,6 +511,51 @@ function fillSection(layout, body, fields, errors, warns, usedFiles, meta, nn, t
       prefix = before.slice(0, lastOpen.index) + filled + before.slice(lastOpen.index + lastOpen[0].length);
     }
     body = prefix + newTag + body.slice(at + origTag.length);
+  }
+
+  // 2.5) 坐标槽注入：元素带 data-pin="<fields 键>"，plan 传 {x, y}（0-100 百分比，AI 看图给出）。
+  //      参照系由母版 markup 上的 data-pin-frame 声明，render 不认母版名：
+  //      · stage（默认）＝手机内屏截图内的功能点 → 注入 CSS 变量 --pin-x/--pin-y（stage 中心 +
+  //        内屏 38.98×84.26cqw 换算）与 data-side；呈现形态（卡片旁置对齐）全由母版
+  //        CSS 消费变量完成，render 只算几何。几何常数来自 style.css 共享段：N40 phone 宽 46cqw、
+  //        内屏 w84.73% h92.30%、frame 1806/910，内屏中心≈stage 中心（flex 居中，边距差 <0.1%）。
+  //      · percent＝宿主定位容器（如截图框）内的目标点 → 直接注入 left/top 百分比 + transform
+  //        居中，元素钉在给点上；无变量、无 side。
+  //      不传坐标 → 跳过注入，元素保持母版默认形态；坐标槽是可选槽，不填不算缺槽。
+  let pinInjected = 0, pinMissing = 0;
+  for (const id of pinIds) {
+    consumed.add(id);
+    const v = fields[id];
+    if (v === undefined || v === null) { pinMissing++; continue; }
+    pinInjected++;
+    if (typeof v !== 'object' || Array.isArray(v) || !Number.isFinite(Number(v.x)) || !Number.isFinite(Number(v.y))) {
+      errors.push(`${layout}: 坐标槽 "${id}" 必须是 {x: 0-100, y: 0-100} 对象`); continue;
+    }
+    const x = Number(v.x), y = Number(v.y);
+    if (x < 0 || x > 100 || y < 0 || y > 100) warns.push(`${layout}: 坐标槽 "${id}" 的 x/y 超出 0-100，已钳制到边界`);
+    const cx = Math.max(0, Math.min(100, x)), cy = Math.max(0, Math.min(100, y));
+    const tagRe = new RegExp(`<([a-z0-9]+)\\b[^>]*\\bdata-pin="${id}"[^>]*>`);
+    const tagM = body.match(tagRe);
+    if (!tagM) { errors.push(`${layout}: 坐标槽 "${id}" 元素定位失败`); continue; }
+    const orig = tagM[0];
+    let pinStyle; let extraAttr;
+    if (/data-pin-frame="percent"/.test(orig)) {
+      pinStyle = `left:${cx.toFixed(2)}%;top:${cy.toFixed(2)}%;right:auto;bottom:auto;transform:translate(-50%,-50%);`;
+      extraAttr = 'data-pinned="1"';
+    } else {
+      const nx = (cx / 100 - 0.5).toFixed(4);
+      const ny = (cy / 100 - 0.5).toFixed(4);
+      pinStyle = `--pin-x:calc(50% + (${nx}) * 38.98cqw);--pin-y:calc(50% + (${ny}) * 84.26cqw);`;
+      if (y < 10 || y > 90) warns.push(`${layout}: 坐标槽 "${id}" 的 y=${Math.round(y)} 过贴上下边，标注卡可能溢出舞台（建议 y 在 10-90）`);
+      extraAttr = `data-pinned="1" data-side="${x < 50 ? 'left' : 'right'}"`;
+    }
+    const tagged = /\bstyle="([^"]*)"/.test(orig)
+      ? orig.replace(/\bstyle="([^"]*)"/, (_, s) => `style="${s};${pinStyle}"`).replace(/>$/, ` ${extraAttr}>`)
+      : orig.replace(/>$/, ` ${extraAttr} style="${pinStyle}">`);
+    body = body.replace(orig, tagged);
+  }
+  if (pinInjected > 0 && pinMissing > 0) {
+    warns.push(`${layout}: 坐标槽部分传入（${pinInjected} 注入 / ${pinMissing} 未传）——钉位形态将不一致，建议全部传入或全部不传`);
   }
 
   // 3) frame-img 手机框（单源内嵌：仅当本页真有手机框槽才读取共享 PNG 现场编码，缺文件即停）
@@ -838,6 +896,14 @@ for (const page of targets) {
   if (!nn || nn === '00') fail('每页需 nn 序号');
   // page.name 会拼进 P 页文件名与 manifest，含非法字符会在落盘/拷贝时炸出难查的错误——入口即拦
   if (page.name && /[\\/:*?"<>|]/.test(String(page.name))) fail(`P${nn}: page.name 含文件名非法字符（/ \\ : * ? " < > |）："${page.name}"`);
+  // custom 页禁区正则（i：HTML 标签/属性/媒体查询大小写不敏感，<SCRIPT>/@MEDIA/POSITION:FIXED 同样生效）
+  // 分三组，全覆盖不开口子：
+  //   ① 布局劫持：position:fixed、@media（响应断点会让静态卡片随屏漂移）
+  //   ② 脚本/动画标签：<script>、<animate> 及 SVG 同类 <animateMotion>/<animateTransform>/<set>
+  //      —— 标签后加 \b 边界，<scriptData> 这类同名前缀不会误伤；<\s* 容忍 < script 空格
+  //   ③ 动效 CSS：animation / transition（静态交付页不该有自主动效）
+  // 禁区语义的唯一权威在 CONTRACT「custom 页」；此处是实现，改动须同步该节。
+  const CUSTOM_FORBIDDEN_RE = /position\s*:\s*fixed|@media|<\s*\/?\s*(?:script|animate|animatetransform|animatemotion|set)\b|animation\s*:|transition\s*:/i;
   if (page.layout === 'custom/...' || String(page.layout).startsWith('custom/')) {
     if (!page.markup) fail(`P${nn}: custom 页需 markup`);
     // 根节点校验复用 rootOf 单源（按 class 分词判含 artwork-page，属性顺序无关）；
@@ -849,7 +915,7 @@ for (const page of targets) {
     const layers = [...page.markup.matchAll(/data-layer="([^"]+)"/g)].map((m) => m[1]);
     const dup = layers.filter((v, i) => layers.indexOf(v) !== i);
     if (dup.length) fail(`P${nn}: custom markup data-layer 重复 ${[...new Set(dup)].join(',')}`);
-    if (/position\s*:\s*fixed|@media|<script|<animate|animation\s*:|transition\s*:/.test(page.markup)) fail(`P${nn}: custom markup 含禁区属性（含 SVG 动画标签 <animate>）`);
+    if (CUSTOM_FORBIDDEN_RE.test(page.markup)) fail(`P${nn}: custom markup 含禁区属性（布局劫持 / 脚本动画标签 / 动效 CSS，大小写不敏感）`);
     // T13：custom 页不做槽位填充，{{}} 残留会原样印进成品——硬停；fields 对 custom 页无效，只提醒
     if (/\{\{/.test(page.markup)) fail(`P${nn}: custom markup 含 {{占位符}} 残留——custom 页不做槽位填充，把文案直接写进 markup（一个 {{ 都不留），或转正为母版`);
     if (page.fields && Object.keys(page.fields).length) allWarns.push(`P${nn} · ${page.name || `custom-${nn}`}: fields 对 custom 页无效（custom 页不做槽位填充，文案已写死在 markup；fields.json 不记录）`);

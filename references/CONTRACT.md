@@ -4,7 +4,7 @@
 
 ## 1. 槽位
 
-**填 plan 认两个锚点**：文字槽的 `fields` 键 = 母版里的 `{{占位符}}` 名；图槽的 `fields` 键 = `<img>` 的 `data-layer` 名（图槽没有占位符）。两者都是英文 kebab-case。
+**填 plan 认三个锚点**：文字槽的 `fields` 键 = 母版里的 `{{占位符}}` 名；图槽的 `fields` 键 = `<img>` 的 `data-layer` 名（图槽没有占位符）；坐标槽的 `fields` 键 = 元素上的 `data-pin` 名。三者都是英文 kebab-case。
 
 `data-layer` 是编辑器图层 id，与占位符**不必同名**——repeat 单元内改用条目短名（`{{t}}` ↔ `tool-t`），顶层也有带母版前缀的逐页槽（`{{btn-1}}` ↔ `data-layer="n02-btn-1"`）。所以**不要按 `data-layer` 猜键名**，以说明头「槽位」行与模板里的 `{{}}` 为准。`data-label` 是图层面板中文名，不参与键名。
 
@@ -18,9 +18,9 @@
 
 除这五个值外，其余逐页文案都是普通内容槽，不标 `data-sys`。`data-slot` 禁用于文字元素（仅 `<img>`，值恒为 `image`）。
 
-**fields 键规则**：repeat 数组元素内用条目短名（`n/t/d`…），克隆体的 `data-layer` 带 `-2/-3` 后缀；图槽值 = 相对任务运行区的路径或 `{src, crop}`。键与条数均以母版说明头与 repeat 注释为准。
+**fields 键规则**：repeat 数组元素内用条目短名（`n/t/d`…），克隆体的 `data-layer` 带 `-2/-3` 后缀；图槽值 = 相对任务运行区的路径或 `{src, crop}`；坐标槽值 = `{x, y}`（目标点百分比，参照系见「坐标槽」一节，可选）。键与条数均以母版说明头与 repeat 注释为准。
 
-**plan 填写行为（全部硬校验即停，机器不猜不补）**：fields 键与母版槽位对不上（报错点名占位符）、必填槽缺失或空值、repeat 数组为空、图槽路径不存在、图片扩展名与实际内容不符、markup 残留 `{{`——任一命中即停，改 plan 重跑。
+**plan 填写行为（全部硬校验即停，机器不猜不补）**：fields 键与母版槽位对不上（报错点名占位符）、必填槽缺失或空值、repeat 数组为空、图槽路径不存在、图片扩展名与实际内容不符、坐标槽非 `{x,y}` 对象或 x/y 非数值、markup 残留 `{{`——任一命中即停，改 plan 重跑。坐标越界只钳制并 WARN，不即停。
 
 **富文本白名单**：值内仅 `span.hl`（蓝字，正文小强调）/ `span.hl-line`（蓝字+淡蓝下划线，标题/金句强调）/ `br` / `strong`，其余标签被拒绝。裸 `<` `>` 按文案处理（`5>3`、`A < B` 照常出图），只有完整标签形态（`<b>`、`</span>`、带属性的标签）才算标签；`a<b>c` 这类字母紧贴尖括号的写法会被识别成标签，写成 `a < b`。
 
@@ -43,6 +43,11 @@
 - 图形页无图槽时，链路靠母版内 SVG 绘制：`data-layer` 落在 `<text>` 上、外层 `<g>` 标 `data-type="group"`，编辑器识别为 text/group。这类页不接受换图。
 - **母版内 SVG 绘制纪律**：颜色一律走令牌（`fill:var(--accent)` 等，经 class 设、不写死色值，禁第二个强调色）；几何用 viewBox 单位、不写 cqw/px 混排，靠 `preserveAspectRatio="xMidYMid meet"` 由容器等比缩放；箭头用 `<marker>`，线宽 1–1.5、圆角 10；禁渐变、阴影、动画。节点数固定——SVG 没有流式布局，repeat 克隆的节点会全部叠在同一坐标，步数可变的流程必须走 HTML + flex。
 
+**坐标槽（data-pin）**：钉位可配的母版（N40 浮动标注、N22 标注截图）在目标元素上标 `data-pin="<fields 键>"`，plan 传 `{x, y}` = **要标注的目标点**百分比坐标（0-100，x 从左到右、y 从上到下；AI 看图直接给点，无需手算）。参照系由母版 markup 上的 `data-pin-frame` 声明，render 不认母版名：
+- **stage**（N40，默认）：`{x,y}` = 手机内屏截图内功能点位置。render 只算几何：注入 `--pin-x/--pin-y`（换算后的 stage 坐标变量，本母版卡片仅用 y）与 `data-side`（点在左半 → left，右半 → right），呈现形态由母版 CSS 决定——卡片贴同侧外缘、纵向对齐目标点，卡片始终在手机两侧空白，不遮挡截图。同侧两卡的 y 宜拉开间隔（标注卡高约 15cqw），y<10 或 >90 机器 WARN（卡片可能溢出舞台）。
+- **percent**（N22）：`{x,y}` = 截图框内目标点位置，render 直接注入 `left/top` 百分比 + transform 居中，钉子中心落在给点上；无变量、无 side。
+**可选槽**：不传坐标则保留母版默认钉位，不算缺槽；仅母版页有效，custom 页不走坐标注入。repeat 单元内的坐标槽按克隆后缀在 plan 顶层传（`note-pos`、`note-pos-2`…）；部分条目传、部分不传机器 WARN（钉位形态会不一致）。截图按 `cover` 填入，源图比例明显偏离槽比例时按实际可见区给坐标。
+
 ## 4. 字数校验
 
 说明头「限制」行是机器字数校验的解析对象。
@@ -53,15 +58,23 @@
 
 ## 5. custom 页（即兴页）
 
-`layout` 以 `custom/<语义名>` 开头的页不走母版：整页 HTML 写在 plan 的 `markup` 字段（从最贴近的母版抄骨架改），**不做槽位填充**。机器校验七条，任一命中即停：
+`layout` 以 `custom/<语义名>` 开头的页不走母版：整页 HTML 写在 plan 的 `markup` 字段（从最贴近的母版抄骨架改），**不做槽位填充**。机器语义七条，分三档：
+
+**硬停（1–4，命中即停）**
 
 1. `markup` 必填；根节点必须为 `.artwork-page` + `data-artwork` + `data-size="1080x1440"`（根类三件套）。
 2. `markup` 内 `{{` 残留即停——文案直接写死，不留占位符。
 3. `data-layer` 页内唯一，重复即停。
-4. 禁区属性：`position:fixed` / `@media` / `<script>` / `<animate>` / `animation:` / `transition:`，命中即停；内联样式、自造类名与 CSS 变量机器不拦，属违规，靠人审把关。
+4. 禁区属性（大小写不敏感，命中即停）：① 布局劫持 `position:fixed` / `@media`；② 脚本与动画标签 `<script>` / `<animate>` 及 SVG 同类 `<animateMotion>` / `<animateTransform>` / `<set>`（含闭合标签与大小写变体）；③ 动效 CSS `animation:` / `transition:`。内联样式、自造类名与 CSS 变量机器不拦，属违规，靠人审把关。
+
+**WARN（5，不停）**
+
 5. `fields` 对 custom 页无效：非空只 WARN 不填充，也不转写进 fields.json（页面里没有这些槽，不记假值）。
-6. 图片不收集素材：`<img src>` 直接 base64 内嵌，容器补 `data-filled` 或删占位标签节点。
-7. 几何体检只对 custom 页生效，且需显式 `--check-geometry`。
+
+**不自动检查（6–7：6 靠人审 / 7 需显式 flag）**
+
+6. 图片不收集素材：`<img src>` 直接 base64 内嵌，容器补 `data-filled` 或删占位标签节点——机器不查，靠人审把关。
+7. 几何体检只对 custom 页生效，且需显式 `--check-geometry`；不传该 flag 不体检。
 
 操作路径（何时用、怎么抄、能借什么组件、三条硬约束之外的纪律）见 `styles/improvisation.md`；本节只登记机器语义。
 
