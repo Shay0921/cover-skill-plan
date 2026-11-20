@@ -13,16 +13,17 @@
  *   出图倍率：默认 2x（PNG 像素 2160×2880，画布逻辑尺寸仍 1080×1440）——小图位降采样糊的定案解；
  *   COVER_DSF=1 可临时回退 1x，见 shared/cdp.mjs createOptions
  *   ③ 交付目录 = 用户选中的工作区（--delivery 或 plan.delivery，命名 YYYY-MM-DD-<小标题>）：校验+截图全过后按白名单拷贝
- * 交付白名单（默认，编辑器不在默认链路上）：P<nn>-<名>.html + P<nn>.png + preview.png
+ * 交付白名单（默认，编辑器不在默认链路上）：P<nn>-<名>.html + P<nn>-<名>.png + preview.png
  *   --with-editor 追加：fields.json + editor.manifest.json + assets/（仅用户要开编辑器时才走）
  * 硬校验（即停）：{{ 残留 / 图片缺失或格式不符 / 根节点与画布 / data-layer 重复 / 必填槽为空 / plan 字段与槽位对不上 / repeat 区间 / 富文本白名单外标签
- *   / data-sys 白名单外取值 / plan 出现手填 page-no 字段
+ *   / data-sys 白名单外取值 / plan 出现手填 page-no / progress 字段
  *   文案里的裸 < > 不算标签（"年收入 > 10 万"、"A < B" 照常出图，注入前转义为实体显示）
  * 软校验（WARN）：字数超限（解析说明头"限制"行）/ 图片与槽位比例差异大 / crop 百分比超界（clamp 到 5–99）
  * 即兴页（layout: custom/*）：形态校验 + --check-geometry 几何体检
  * 动态槽位：按 data-sys 注入，与风格/class 无关——
  *   A 类 brand-logo/brand-name/footer-id 来自 plan.meta.brand（整组统一，meta 缺失保留母版默认）；
  *   B' 类 page-no 由 render 按页序机械生成 nn / 总页数（总页数取 plan.pages.length，与 --only 无关），封面 nn=01 注入 display:none 保留图层；
+ *   C' 类 progress 由 render 按本页伪随机勾选数机械生成 done/total（勾选分配见 assignRandDone，同 plan 可复现）；
  *   B 类 issue 与 C 类按钮是普通 {{占位符}}，走 per-page fields，无需新逻辑。
  */
 import fs from 'node:fs';
@@ -173,7 +174,7 @@ function richHtml(value) {
 // ---------- 动态槽位（A 类 meta + B' 页码）----------
 // data-sys 白名单：只认这些值；出现白名单外取值 = 硬错误即停（防拼错静默不填）。
 // A 类由 meta.brand 注入；page-no 由 render 机械生成；issue 是普通 {{占位符}} 走 fields，不在注入函数内。
-const SYS_WHITELIST = new Set(['brand-logo', 'brand-name', 'footer-id', 'issue', 'page-no']);
+const SYS_WHITELIST = new Set(['brand-logo', 'brand-name', 'footer-id', 'issue', 'page-no', 'progress']);
 const SYS_META_KEY = { 'brand-logo': 'logo', 'brand-name': 'name', 'footer-id': 'footer' };
 
 // 扫 body 里所有 data-sys 节点做白名单校验；返回计数（供 fields 展开与体检）。
@@ -241,6 +242,37 @@ function injectPageNo(body, nn, total, layout, errors) {
     return newOpen + newInner + close;
   });
   return { body: out, pageNoValue: value, hidden, found };
+}
+
+// 步骤 6.5 · 清单伪随机勾选（data-rand-done）：确定性分配 data-done="1"。
+// seed 混入页号与条目序——同 plan 每次渲染结果恒定，目检基准与 --only 重渲不漂移；比例约六成。
+// 机器只发属性、不认类名：勾选视觉由各风格 CSS 按属性选择器实现（tech-blue: .n12-checklist__item[data-done]）。
+function assignRandDone(body, nn) {
+  let i = 0, done = 0, total = 0;
+  const out = body.replace(/(<([a-z0-9]+)\b[^>]*\bdata-rand-done\b[^>]*>)/gi, (full, open) => {
+    total++;
+    let h = 2166136261;
+    const s = `${nn}:${i++}`;
+    for (const c of s) { h ^= c.charCodeAt(0); h = Math.imul(h, 16777619); }
+    if (((h >>> 0) % 100) < 60) { done++; return open.slice(0, -1) + ' data-done="1">'; }
+    return open;
+  });
+  return { body: out, done, total };
+}
+
+// 步骤 6.6 · 清单进度注入（data-sys="progress"，C' 类）：文本由 render 按勾选数机械生成 done/total。
+// plan 手填 progress 属违规（同 page-no）；节点内须有 {{progress}} 占位符。
+function injectProgress(body, done, total, layout, errors) {
+  const value = `${done}/${total}`;
+  let found = false;
+  const out = body.replace(/(<([a-z0-9]+)\b[^>]*\bdata-sys=["']progress["'][^>]*>)([\s\S]*?)(<\/\2>)/gi, (full, open, tag, inner, close) => {
+    found = true;
+    if (!/\{\{progress\}\}/.test(inner)) {
+      errors.push(`${layout}: data-sys="progress" 节点内未找到 {{progress}} 占位符（节点内容="${inner.trim()}"）`);
+    }
+    return open + inner.replace(/\{\{progress\}\}/g, value) + close;
+  });
+  return { body: out, progressValue: value, found };
 }
 
 // ---------- 图片处理 ----------
@@ -567,10 +599,10 @@ function fillSection(layout, body, fields, errors, warns, usedFiles, meta, nn, t
   }
 
   // 4) 文字槽（以 repeat 替换后 body 中残留的 {{}} 为准 = 顶层槽）
-  //    page-no 是 B' 类机械槽，不读 fields，留给步骤 6 单独注入；此处跳过避免误报"为空"。
+  //    page-no / progress 是机械槽，不读 fields，留给步骤 6/6.6 单独注入；此处跳过避免误报"为空"。
   const remaining = [...new Set([...body.matchAll(/\{\{([^}]+)\}\}/g)].map((m) => m[1].trim()))];
   for (const name of remaining) {
-    if (name === 'page-no') continue;
+    if (name === 'page-no' || name === 'progress') continue;
     consumed.add(name);
     const v = fields[name];
     if (v === undefined || v === null || v === '') { errors.push(`${layout}: 槽 "${name}" 为空（必填）`); continue; }
@@ -585,6 +617,10 @@ function fillSection(layout, body, fields, errors, warns, usedFiles, meta, nn, t
     errors.push(`${layout}: plan 禁止手填 page-no 字段（页码由 render 按页序机械生成，格式 nn / 总页数、封面 nn=01 隐藏；契约见 references/CONTRACT.md 系统槽）`);
     consumed.add('page-no');
   }
+  if (Object.prototype.hasOwnProperty.call(fields, 'progress')) {
+    errors.push(`${layout}: plan 禁止手填 progress 字段（清单进度由 render 按伪随机勾选数机械生成 done/total；契约见 references/CONTRACT.md 系统槽）`);
+    consumed.add('progress');
+  }
   for (const k of Object.keys(fields)) {
     if (!consumed.has(k)) errors.push(`${layout}: plan 字段 "${k}" 与母版槽位对不上`);
   }
@@ -594,6 +630,13 @@ function fillSection(layout, body, fields, errors, warns, usedFiles, meta, nn, t
   body = pg.body;
   if (sysTally['page-no'] && !pg.found) errors.push(`${layout}: 母版有 data-sys="page-no" 但注入定位失败`);
 
+  // 6.5/6.6) 清单伪随机勾选 + 进度注入（C' 类，同在残留校验之前）
+  const ck = assignRandDone(body, nn);
+  body = ck.body;
+  const pr = injectProgress(body, ck.done, ck.total, layout, errors);
+  body = pr.body;
+  if (sysTally['progress'] && !pr.found) errors.push(`${layout}: 母版有 data-sys="progress" 但注入定位失败`);
+
   // 7) {{ 残留 + layer 唯一
   const residual = body.match(/\{\{[^}]*\}\}/g);
   if (residual) errors.push(`${layout}: {{ 占位符残留: ${residual.slice(0, 4).join(' ')}${residual.length > 4 ? ' …' : ''}}`);
@@ -601,8 +644,8 @@ function fillSection(layout, body, fields, errors, warns, usedFiles, meta, nn, t
   const dup = layers.filter((v, i) => layers.indexOf(v) !== i);
   if (dup.length) errors.push(`${layout}: data-layer 重复 ${[...new Set(dup)].join(',')}`);
 
-  // 归档系统槽信息供 fields.json 转写：A 类值取 meta，page-no 取机械值
-  return { body, unitLayerMaps, sysTally, pageNoValue: pg.pageNoValue, pageNoHidden: pg.hidden };
+  // 归档系统槽信息供 fields.json 转写：A 类值取 meta，page-no/progress 取机械值
+  return { body, unitLayerMaps, sysTally, pageNoValue: pg.pageNoValue, pageNoHidden: pg.hidden, progressValue: pr.progressValue };
 }
 let _frame = null;
 function getFrameDataUrl() {
@@ -926,7 +969,7 @@ for (const page of targets) {
   if (!sections.has(layout)) fail(`P${nn}: layout "${layout}" 在 templates.html 中不存在`);
   const fields = page.fields || {};
   const errors = []; const warns = [];
-  const { body, unitLayerMaps, sysTally, pageNoValue, pageNoHidden } =
+  const { body, unitLayerMaps, sysTally, pageNoValue, pageNoHidden, progressValue } =
     fillSection(layout, sections.get(layout), fields, errors, warns, usedFiles, plan.meta, nn, pages.length);
   if (errors.length) {
     console.error(`\n❌ P${nn} · ${layout} 校验失败（即停）：`);
@@ -948,7 +991,7 @@ for (const page of targets) {
   const { rootTag, inner } = rootOf(body);
   const rootClose = '</div>';
   const masterHtml = `  ${rootTag}\n${inner}\n  ${rootClose}`;
-  built.push({ nn, name: page.name || layout, html: masterHtml, custom: false, layout, fields, unitLayerMaps, sysTally, pageNoValue, pageNoHidden });
+  built.push({ nn, name: page.name || layout, html: masterHtml, custom: false, layout, fields, unitLayerMaps, sysTally, pageNoValue, pageNoHidden, progressValue });
 }
 
 // ---------- 写产物 ----------
@@ -1026,6 +1069,7 @@ if (EDITOR_OUT) {
         }
       }
       if (b.sysTally['page-no']) flat['sys-page-no'] = b.pageNoValue;   // 封面为 ''，与 display:none 一致
+      if (b.sysTally['progress']) flat['sys-progress'] = b.progressValue;
     }
     pagesOut.push({ id: `p${b.nn}`, fields: flat });
   }
@@ -1069,7 +1113,7 @@ try {
       if (FONT_REPORT) printFontReport(await fontReport(ctx), `P${b.nn}`);
       if (DIAG_ONLY) return;   // 只读体检：不截图、不写 PNG
       const shot = await captureReadyPage(ctx, opts);
-      fs.writeFileSync(path.join(taskDir, `P${b.nn}.png`), shot.buffer);
+      fs.writeFileSync(path.join(taskDir, `P${b.nn}-${b.name}.png`), shot.buffer);
       // 盒形比例诊断（T12 修法①，纯读态 WARN）：实测 .ph-img 容器盒 vs 声明 data-ratio。
       // 须在 captureReadyPage 之后测（字体回流已稳定，与截图同帧）；只盯 cover 槽（contain 是留白非裁切）。
       // ⚠ 用 offsetWidth/Height（变换前布局盒）而非 getBoundingClientRect——后者是旋转后 AABB：
@@ -1123,7 +1167,7 @@ try {
 
   // preview.png 总览：跨页聚合件，--only（含只读体检）只跑了部分页，拼图只会把多页总览覆盖成残缺版，故不写
   if (!ONLY) {
-    const files = built.map((b) => `P${b.nn}.png`);
+    const files = built.map((b) => `P${b.nn}-${b.name}.png`);
     const gridHtml = `<!doctype html><html><head><meta charset="utf-8"><style>
       body{margin:0;background:#ECEEF3;font-family:sans-serif;padding:16px;}
       .g{display:grid;grid-template-columns:repeat(${Math.min(4, built.length)},1fr);gap:12px;}
@@ -1150,7 +1194,7 @@ if (DELIVERY) {
   }
   fs.mkdirSync(DELIVERY, { recursive: true });
   const white = [];
-  for (const b of built) white.push(`P${b.nn}-${b.name}.html`, `P${b.nn}.png`);
+  for (const b of built) white.push(`P${b.nn}-${b.name}.html`, `P${b.nn}-${b.name}.png`);
   white.push('preview.png');
   if (WITH_EDITOR) white.push('fields.json', 'editor.manifest.json');
   for (const f of white) {

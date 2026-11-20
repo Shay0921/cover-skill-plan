@@ -17,6 +17,7 @@ agent_created: true
 | 定风格 | `styles/style-picker.md` | 选型动线、语义组与每风格名片 |
 | 选母版 | `styles/<风格>/catalog.md` | 按语义组分节的选型牌桌 |
 | 填内容 | `styles/<风格>/templates.html` | 槽位键与 repeat 注释（条数、字数的唯一配置点）；键名按 `{{占位符}}` 与 `<img>` 的 `data-layer` 抄，不按 `data-label` 猜 |
+| 内容纪律（高亮/断行/emoji） | `styles/content-rules.md` | 跨风格共用：写 plan 时的选词、断行与符号决策 |
 | 即兴或写新母版 | `styles/<风格>/design-system.md` | 风格规范与即兴补空纪律 |
 | 画图形 | `references/FIGURE-GUIDE.md` + `styles/<风格>/design-system.md` | 跨风格机制在前者，风格专属标定在后者「自绘图形」节 |
 | 查机器契约 | `references/CONTRACT.md` | 风格无关的机器语义 |
@@ -28,7 +29,7 @@ agent_created: true
 ## 工作流程
 
 1. **任务初始化**：在 agent 临时工作区建 `runs/<日期-主题>/`（gitignore，非交付物），收集文案与图片清单。技能安装目录运行期只读，临时脚本与过程件放运行区。
-2. **内容提炼**：整理文案，定页数与每页语义（封面/清单/对比/数据/金句/收尾）。**可润色不可编造**——数字与承诺必须有素材出处。
+2. **内容提炼**：整理文案，定页数与每页语义（封面/清单/对比/数据/金句/收尾）。写内容的决策纪律（编造红线、高亮选词、断行位置、emoji）见 `styles/content-rules.md`。
 3. **风格选择**：按 `style-picker.md` 推荐 1-2 种并说明理由，由用户拍板；用户点名则跳过推荐。
 4. **识图盘点**：逐张打开看，按 `references/IMAGE-WORKFLOW.md` 判类型，记下主体位置，产出素材清单。此处只识别，不选槽、不定 crop。用户未给图而某页又需要画面时，先按该文档「判断顺序」三选一问清来源（提供素材/自绘/AI 生图），不默认生成。
 5. **逐页选母版**：读 `catalog.md`，按语义组选版式，再看素材形态分叉——有截图 → 图槽母版；讲结构 → 图形母版或自画；版式能套但内容撑不满 → 借壳补空（`styles/improvisation.md`）；都装不下 → 回炉提炼文案或换母版。**同一页换母版/借壳 ≥2 次仍不收敛 → 停下向用户报告**，不再自行迭代。图的来源与选型见 `references/IMAGE-WORKFLOW.md`。自绘若走 `figure.mjs`，**须先出 PNG 落运行区，再写 plan 引用该路径**。条数与字数从母版 repeat 注释与说明头读取。
@@ -54,7 +55,7 @@ agent_created: true
   ] }
 ```
 
-`pages` 顺序即页序，`nn` 是两位页码；`layout` 取母版 slug——catalog 条目标题后反引号内的名字（如 `N01-shock-cover`），机器真源是 `templates.html` 的 `<section data-layout="…">`，两处须一致。一页一个母版、同一母版可跨页复用。键名照该母版说明头「槽位」行与模板抄：文字槽键 = `{{占位符}}`，图槽键 = `<img>` 的 `data-layer`；数组字段只在该母版有 repeat 注释时出现。
+`pages` 顺序即页序，`nn` 是两位页码；`layout` 取母版 slug——catalog 条目标题后反引号内的名字（如 `N01-shock-cover`），机器真源是 `templates.html` 的 `<section data-layout="…">`，两处须一致。一页一个母版、同一母版可跨页复用。键名照该母版说明头「槽位」行与模板抄：文字槽键 = `{{占位符}}`，图槽键 = `<img>` 的 `data-layer`；数组字段只在该母版有 repeat 注释时出现。标题/金句的高亮选词与断行位置由 AI 按 `styles/content-rules.md` 决策。
 
 **系统槽**：`meta.brand` 填整组统一品牌件（logo/name/footer），逐页只填 `issue`，页码不填；品牌三值篇幅上限见该风格 design-system 组件表，超限须在交付说明里点明并请人确认。其余机器契约见 `references/CONTRACT.md`。
 
@@ -83,7 +84,7 @@ node script/render.mjs <任务运行区>/ --only=01,03                      # �
 | ② 任务运行区 | agent 临时工作区 `runs/<任务>/` | plan.json、素材、过程件、P 页/PNG、preview、日志、临时脚本 |
 | ③ 交付目录 | 用户选中的工作区；无则 agent 默认任务文件夹 | `YYYY-MM-DD-<文章小标题>/`，只含白名单成品 |
 
-白名单 = 每页 `P<nn>-<名>.html` + `P<nn>.png`，加 `preview.png`。`plan.json`、素材副本、过程件留运行区。交付页必须自包含、不依赖外链资源，故 `assets/` 与编辑器材料默认不进交付，需要时见「编辑器微调」。
+白名单 = 每页 `P<nn>-<名>.html` + `P<nn>-<名>.png`（HTML 与 PNG 同名，只是扩展名不同），加 `preview.png`。`plan.json`、素材副本、过程件留运行区。交付页必须自包含、不依赖外链资源，故 `assets/` 与编辑器材料默认不进交付，需要时见「编辑器微调」。
 
 ## 即兴补空与转正
 

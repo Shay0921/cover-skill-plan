@@ -8,15 +8,16 @@
 
 `data-layer` 是编辑器图层 id，与占位符**不必同名**——repeat 单元内改用条目短名（`{{t}}` ↔ `tool-t`），顶层也有带母版前缀的逐页槽（`{{btn-1}}` ↔ `data-layer="n02-btn-1"`）。所以**不要按 `data-layer` 猜键名**，以说明头「槽位」行与模板里的 `{{}}` 为准。`data-label` 是图层面板中文名，不参与键名。
 
-**系统槽**：`data-sys` 取值域五个，`data-layer` 一律 `sys-*`。
+**系统槽**：`data-sys` 取值域六个，`data-layer` 一律 `sys-*`。
 
 | `data-sys` | 值来源 | 写法 |
 |---|---|---|
 | `brand-logo` / `brand-name` / `footer-id` | `meta.brand` 的 `logo` / `name` / `footer` | 整组统一，一处定义全篇注入，不写逐页 fields；缺键保留母版默认 |
 | `issue` | 逐页 `fields.issue` | 每页必填 |
 | `page-no` | 按页序机械生成：`nn / 总页数`（总页数 = plan 的 pages 条数，两位补零）；封面页（首页）注入隐藏但图层保留 | 不填 |
+| `progress` | 按本页 `data-rand-done` 勾选数机械生成：`done/total`（勾选为确定性伪随机，seed 混入页号，同 plan 重渲结果恒定） | 不填 |
 
-除这五个值外，其余逐页文案都是普通内容槽，不标 `data-sys`。`data-slot` 禁用于文字元素（仅 `<img>`，值恒为 `image`）。
+除这六个值外，其余逐页文案都是普通内容槽，不标 `data-sys`。`data-slot` 禁用于文字元素（仅 `<img>`，值恒为 `image`）。机器勾选只发 `data-done` 属性、不认类名——勾选视觉由各风格 CSS 按属性选择器实现。
 
 **fields 键规则**：repeat 数组元素内用条目短名（`n/t/d`…），克隆体的 `data-layer` 带 `-2/-3` 后缀；图槽值 = 相对任务运行区的路径或 `{src, crop}`；坐标槽值 = `{x, y}`（目标点百分比，参照系见「坐标槽」一节，可选）。键与条数均以母版说明头与 repeat 注释为准。
 
