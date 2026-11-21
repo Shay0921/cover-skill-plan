@@ -29,6 +29,8 @@
 
 字号层级：title-xl 9.94cqw · title-lg 7.18cqw · title-md 4.9cqw · num-large 12.96cqw · body 2.51cqw · label 1.98cqw · mono 1.85cqw · big-num 25.92cqw。
 
+**字号豁免清单（2026-11-21 目检定版）**——以下允许低于字级档位，属机械 meta / 装饰 / 定版特例：机械 meta（页码、期号 1.72cqw；时间戳、序号 1.43–1.72cqw）；纯装饰（窗口 chrome、占位标签、分隔点 1.17–1.56cqw）；N40 ≥7 卡压缩态（1.42–1.5cqw）；图形页 px 档（见 §3）；用户定版特例（N18 角标签 1.8cqw）。条目密集型说明（清单 d/desc、表格值、标注卡说明等）定版于 1.98–2.51cqw 区间，真源 = style.css，改动须过目检；叙述型主体说明一律 body 档 2.51cqw。
+
 画布：1080×1440（3:4），边距 6.6cqw，`.artwork-page` 自带 `container-type:size`，cqw 全库可用。
 
 ## 2. 画布骨架与共享组件（style.css 共享段词汇表）
