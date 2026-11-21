@@ -7,26 +7,39 @@
 <style>
 /* ============================================================
    画廊家具（仅本文件使用 · 不进母版词汇 · 不随 render 出页）
-   与 style.css 同源约定：看板色值/字体/字号若改，三处同步
-   （style.css tokens / 本看板 / design-system.md 设计令牌），靠入库纪律保持。
+   布局语言参照 coverDemo/ai-covers：白底 + 白玻璃导航 + 三列母版卡；
+   母版 section 原样内嵌、transform 缩放成 3:4 卡预览；说明头注释卡转卡身。
+   与 style.css / design-system.md 同源约定：色值与字体若改，两处同步
+   （style.css tokens / design-system.md 设计令牌）。本看板只做视觉展示，
+   色块与字形取自前两处、不独立记数值；字号层级的权威见 design-system.md §1。
    ============================================================ */
 *{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:var(--sans);background:#DDE1E8;color:var(--ink);}
+html{scroll-behavior:smooth;}
+body{font-family:var(--sans);background:var(--paper);color:var(--ink);}
 a{color:inherit;text-decoration:none;}
-.gal-top{max-width:1180px;margin:0 auto;padding:56px 32px 20px;}
-.gal-top .tag{font-family:var(--mono);font-size:12px;color:var(--accent);font-weight:bold;letter-spacing:.3em;margin-bottom:14px;}
-.gal-top h1{font-family:var(--serif);font-weight:bold;font-size:44px;letter-spacing:-.02em;margin-bottom:12px;}
-.gal-top p{font-size:15px;color:var(--ink-soft);max-width:720px;line-height:1.7;}
-.gal-nav{position:sticky;top:0;z-index:50;background:rgba(238,240,245,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line-strong);}
-.gal-nav-inner{max-width:1180px;margin:0 auto;padding:0 32px;display:flex;gap:6px;align-items:center;height:52px;overflow-x:auto;scrollbar-width:none;}
+
+/* 导航：白玻璃 + 品牌标 + active 跟随滚动 */
+.gal-nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line-strong);}
+.gal-nav-inner{max-width:1200px;margin:0 auto;padding:0 32px;display:flex;gap:4px;align-items:center;height:60px;overflow-x:auto;scrollbar-width:none;}
 .gal-nav-inner::-webkit-scrollbar{display:none;}
-.gal-nav-inner .brand{font-family:var(--serif);font-weight:bold;font-size:14px;margin-right:10px;white-space:nowrap;}
-.gal-nav-inner a{font-family:var(--mono);font-size:12px;font-weight:bold;color:var(--muted);padding:6px 11px;border-radius:6px;letter-spacing:.08em;white-space:nowrap;}
+.gal-nav-inner .brand{font-family:var(--serif);font-weight:bold;font-size:18px;letter-spacing:-.02em;color:var(--ink);display:flex;align-items:center;gap:10px;margin-right:14px;white-space:nowrap;}
+.gal-nav-inner .brand::before{content:"";width:22px;height:22px;border-radius:6px;background:var(--ink);flex:none;}
+.gal-nav-inner .brand::after{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent);margin-left:-4px;flex:none;}
+.gal-nav-inner a{font-family:var(--mono);font-size:12px;font-weight:bold;color:var(--muted);padding:6px 12px;border-radius:6px;letter-spacing:.08em;white-space:nowrap;}
 .gal-nav-inner a:hover{color:var(--ink);background:var(--paper-deep);}
+.gal-nav-inner a.active{color:var(--accent);background:rgba(37,99,235,.08);}
 .gal-nav-inner a span{margin-left:4px;color:var(--dim);}
-.gal-board{max-width:1180px;margin:28px auto 8px;padding:0 32px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
-.gal-bblock{border:1px solid var(--line-strong);border-radius:10px;background:var(--paper);padding:16px 18px;}
-.gal-bblock h4{font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:.2em;margin-bottom:12px;}
+
+/* Hero */
+.gal-top{max-width:1200px;margin:0 auto;padding:72px 32px 48px;}
+.gal-top .tag{font-family:var(--mono);font-size:12px;color:var(--accent);font-weight:bold;letter-spacing:.3em;margin-bottom:22px;}
+.gal-top h1{font-family:var(--serif);font-weight:bold;font-size:54px;line-height:1.08;letter-spacing:-.03em;margin-bottom:18px;}
+.gal-top p{font-size:17px;color:var(--ink-soft);max-width:680px;line-height:1.7;}
+
+/* 设计看板：3 列 */
+.gal-board{max-width:1200px;margin:0 auto;padding:0 32px 24px;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.gal-bblock{border:1px solid var(--line-strong);border-radius:14px;background:var(--paper);padding:22px 20px;}
+.gal-bblock h4{font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.2em;margin-bottom:14px;}
 .gal-swatches{display:flex;flex-wrap:wrap;gap:8px;}
 .gal-sw{width:44px;}
 .gal-sw i{display:block;height:34px;border-radius:6px;background:var(--c);border:1px solid var(--line-strong);}
@@ -35,38 +48,46 @@ a{color:inherit;text-decoration:none;}
 .gal-frow b{font-size:15px;font-weight:bold;min-width:64px;}
 .gal-frow span{font-family:var(--mono);font-size:10.5px;color:var(--muted);}
 .gal-srow{display:flex;align-items:baseline;gap:10px;margin-bottom:6px;}
-.gal-srow .k{font-family:var(--mono);font-size:10px;color:var(--accent);min-width:86px;}
-.gal-srow .v{font-size:12.5px;color:var(--ink-soft);}
-.gal-note{font-size:11.5px;color:var(--muted);line-height:1.65;}
-.gal-note b{color:var(--ink);}
-.gal-group{max-width:1180px;margin:0 auto;padding:36px 32px 4px;}
-.gal-group-head{display:flex;align-items:baseline;gap:14px;border-bottom:2px solid var(--ink);padding-bottom:10px;margin-bottom:6px;}
+.gal-srow .k{font-family:var(--sans);font-size:12px;font-weight:bold;color:var(--ink);min-width:72px;}
+.gal-srow .v{font-size:12px;color:var(--ink-soft);}
+.gal-board-note{max-width:1200px;margin:0 auto;padding:0 32px 8px;font-size:11.5px;color:var(--muted);line-height:1.6;}
+.gal-board-note b{color:var(--ink-soft);}
+
+/* 语义组 + 三列母版卡（组头跨全行，母版卡 3 列） */
+.gal-group{max-width:1200px;margin:0 auto;padding:44px 32px 8px;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:stretch;}
+.gal-group-head{grid-column:1/-1;display:flex;align-items:baseline;gap:16px;border-bottom:2px solid var(--ink);padding-bottom:12px;margin-bottom:6px;}
 .gal-group-head .num{font-family:var(--mono);font-size:12px;color:var(--accent);font-weight:bold;letter-spacing:.12em;}
-.gal-group-head h2{font-family:var(--serif);font-weight:bold;font-size:24px;letter-spacing:-.02em;}
-.gal-group-head .count{font-family:var(--mono);font-size:11px;color:var(--muted);}
-.gal-item{width:1080px;margin:0 auto;padding:30px 0 54px;}
-.gal-card-head{max-width:1080px;margin:0 auto 14px;border:1px solid var(--line-strong);border-left:4px solid var(--accent);border-radius:8px;background:var(--paper);padding:12px 16px;}
+.gal-group-head h2{font-family:var(--serif);font-weight:bold;font-size:28px;letter-spacing:-.02em;}
+.gal-group-head .count{font-family:var(--mono);font-size:12px;color:var(--muted);font-weight:bold;}
+
+/* 母版卡：3:4 缩放预览（gal-thumb__fit 内 1080px 实景，JS 按 卡宽/1080 缩放）+ 说明头卡身 */
+.gal-item{border:1px solid var(--line-strong);border-radius:14px;overflow:hidden;background:var(--paper);transition:transform .2s,box-shadow .2s,border-color .2s;}
+.gal-item:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(13,17,23,.10);border-color:var(--accent);}
+.gal-thumb{aspect-ratio:3/4;background:var(--paper-deep);border-bottom:1px solid var(--line-strong);overflow:hidden;position:relative;}
+.gal-thumb__fit{width:1080px;transform-origin:top left;}
+.gal-item section{box-shadow:0 18px 50px rgba(13,17,23,.14);}
+
+/* 说明头卡 = 卡身（内容与样式还原旧版：细边框盒 + 4px 蓝色左标，仅外距适配卡内） */
+.gal-card-head{margin:12px 14px 16px;border:1px solid var(--line-strong);border-left:4px solid var(--accent);border-radius:8px;background:var(--paper);padding:12px 16px;}
 .gal-card-head .gc-id{font-family:var(--mono);font-size:10.5px;color:var(--accent);font-weight:bold;letter-spacing:.1em;}
 .gal-card-head .gc-title{font-family:var(--serif);font-weight:bold;font-size:16px;margin:2px 0 4px;}
-.gal-card-head .gc-line{font-family:var(--mono);font-size:11px;color:var(--muted);line-height:1.7;}
-.gal-item section{box-shadow:0 18px 50px rgba(13,17,23,.14);border-radius:2px;}
-/* 编号空位占位（N32 已并入 N09）：无 section、不参与数量自算，仅看板视觉占位 */
-.gal-item--vacant{padding:0 0 30px;}
-.gal-item--vacant .vacant-note{
-  border:1px dashed var(--line-strong);border-radius:8px;
-  padding:26px 0;text-align:center;
-  font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--muted);
-  }
-.gal-foot{max-width:1180px;margin:0 auto;padding:30px 32px 60px;font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.1em;}
+.gal-card-head .gc-line{font-family:var(--mono);font-size:11px;color:var(--ink);line-height:1.7;}
+
+/* N32 编号空位（虚线占位卡，网格内一个单元） */
+.gal-item--vacant{border-style:dashed;}
+.gal-item--vacant .vacant-note{padding:40px 20px;text-align:center;font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--muted);}
+
+/* 页脚 */
+.gal-foot{max-width:1200px;margin:40px auto 0;padding:28px 32px 48px;border-top:1px solid var(--line-strong);display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.1em;}
+
+@media(max-width:900px){
+  .gal-group{grid-template-columns:repeat(2,1fr);}
+  .gal-board{grid-template-columns:repeat(2,1fr);}
+  .gal-top h1{font-size:38px;}
+}
 </style>
 </head>
 <body>
-  <div class="gal-top">
-    <div class="tag">TECH-BLUE · MASTER REPOSITORY</div>
-    <h1>极简科技蓝 · 母版仓库画廊</h1>
-    <p>本文件即母版仓库（templates.html）：顶部为风格看板，下方按语义组平铺 <span class="gal-num"></span> 张母版。每张母版前的说明头注释由页尾脚本渲染成卡片。改母版直接改对应 section；一切样式进 style.css（双段制）。</p>
-  </div>
-
   <nav class="gal-nav"><div class="gal-nav-inner">
     <span class="brand">tech-blue</span>
       <a href="#g-cover">封面<span></span></a>
@@ -81,60 +102,45 @@ a{color:inherit;text-decoration:none;}
       <a href="#g-ending">结尾<span></span></a>
   </div></nav>
 
+  <div class="gal-top">
+    <div class="tag">TECH-BLUE · MASTER REPOSITORY</div>
+    <h1>极简科技蓝 · 母版仓库画廊</h1>
+    <p>本文件即母版仓库（templates.html）：顶部为风格看板，下方按语义组以三列卡片排布 <span class="gal-num"></span> 张母版——每张卡上半是母版实景缩放预览、下半是说明头。改母版直接改对应 section；一切样式进 style.css（双段制）。</p>
+  </div>
+
   <section class="gal-board" id="board">
     <div class="gal-bblock">
       <h4>COLOR · 色板</h4>
       <div class="gal-swatches">
-        <span class="gal-sw" style="--c:#FFFFFF"><i></i><span>--paper</span></span>
-        <span class="gal-sw" style="--c:#F4F5F7"><i></i><span>--paper-deep</span></span>
-        <span class="gal-sw" style="--c:#0D1117"><i></i><span>--ink</span></span>
-        <span class="gal-sw" style="--c:#484F58"><i></i><span>--ink-soft</span></span>
-        <span class="gal-sw" style="--c:#8B93A1"><i></i><span>--muted</span></span>
-        <span class="gal-sw" style="--c:#C5CBD6"><i></i><span>--dim</span></span>
-        <span class="gal-sw" style="--c:#2563EB"><i></i><span>--accent</span></span>
-        <span class="gal-sw" style="--c:#1D4ED8"><i></i><span>--accent-deep</span></span>
-        <span class="gal-sw" style="--c:#0D0D12"><i></i><span>--ink-bg</span></span>
-        <span class="gal-sw" style="--c:#ECECF2"><i></i><span>--ink-paper</span></span>
+        <span class="gal-sw" style="--c:#FFFFFF"><i></i><span>纯白底</span></span>
+        <span class="gal-sw" style="--c:#F4F5F7"><i></i><span>浅灰层</span></span>
+        <span class="gal-sw" style="--c:#0D1117"><i></i><span>墨黑</span></span>
+        <span class="gal-sw" style="--c:#484F58"><i></i><span>正文灰</span></span>
+        <span class="gal-sw" style="--c:#8B93A1"><i></i><span>次要灰</span></span>
+        <span class="gal-sw" style="--c:#C5CBD6"><i></i><span>装饰灰</span></span>
+        <span class="gal-sw" style="--c:#2563EB"><i></i><span>强调蓝</span></span>
+        <span class="gal-sw" style="--c:#1D4ED8"><i></i><span>深强调</span></span>
+        <span class="gal-sw" style="--c:#0D0D12"><i></i><span>深底</span></span>
+        <span class="gal-sw" style="--c:#ECECF2"><i></i><span>深底浅字</span></span>
       </div>
     </div>
     <div class="gal-bblock">
       <h4>TYPE · 字体</h4>
-      <div class="gal-frow"><b style="font-family:var(--serif)">标题 Aa</b><span>var(--serif) · 系统宋体（mac Songti / win SimSun）</span></div>
-      <div class="gal-frow"><span style="font-family:var(--sans)">正文 Aa</span><span>var(--sans) · 苹方族（mac 苹方 / win 雅黑）</span></div>
-      <div class="gal-frow"><b style="font-family:var(--mono);font-weight:bold">标签 Aa</b><span>var(--mono) · Menlo / Consolas（系统等宽）</span></div>
-      <p class="gal-note">强调色 <b>#2563EB</b>（blue-600）全库唯一；深底变体 --ink-bg / --ink-paper。</p>
+      <div class="gal-frow"><b style="font-family:var(--serif)">标题 Aa</b><span>系统宋体 · 大标题专用</span></div>
+      <div class="gal-frow"><span style="font-family:var(--sans)">正文 Aa</span><span>苹方 / 雅黑 · 正文默认</span></div>
+      <div class="gal-frow"><b style="font-family:var(--mono);font-weight:bold">标签 Aa</b><span>系统等宽 · 标签/页码/代码</span></div>
     </div>
     <div class="gal-bblock">
       <h4>CANVAS · 画布规格</h4>
-      <div class="gal-srow"><span class="k">1080×1440</span><span class="v">3:4 · .artwork-page 根 · container-type:size</span></div>
-      <div class="gal-srow"><span class="k">边距</span><span class="v">6.6cqw ≈ 71px</span></div>
-      <div class="gal-srow"><span class="k">底纹</span><span class="v">.paper-noise 40px 极淡网格</span></div>
-      <div class="gal-srow"><span class="k">圆角</span><span class="v">三级 .4 / .8 / 1.4cqw</span></div>
-      <div class="gal-srow"><span class="k">深底</span><span class="v">.artwork-page.dark（N30）</span></div>
-    </div>
-    <div class="gal-bblock">
-      <h4>SCALE · 字号层级</h4>
-      <div class="gal-srow"><span class="k">title-xl</span><span class="v">衬线 700 · 9.94cqw≈107px</span></div>
-      <div class="gal-srow"><span class="k">title-lg</span><span class="v">衬线 700 · 7.18cqw≈78px</span></div>
-      <div class="gal-srow"><span class="k">title-md</span><span class="v">衬线 700 · 4.9cqw≈53px</span></div>
-      <div class="gal-srow"><span class="k">num-large</span><span class="v">衬线 700 · 12.96cqw≈140px</span></div>
-      <div class="gal-srow"><span class="k">body-text</span><span class="v">黑体 400 · 2.51cqw≈27px</span></div>
-      <div class="gal-srow"><span class="k">label</span><span class="v">黑体 700 · 1.98cqw≈21px · 字距 .28em</span></div>
-      <div class="gal-srow"><span class="k">mono-text</span><span class="v">等宽 400 · 1.85cqw≈20px</span></div>
-    </div>
-    <div class="gal-bblock">
-      <h4>ACCENT · 强调手法</h4>
-      <div class="gal-srow"><span class="k">accent-word</span><span class="v">关键词变色</span></div>
-      <div class="gal-srow"><span class="k">accent-bg</span><span class="v">蓝底白字色块</span></div>
-      <div class="gal-srow"><span class="k">accent-line</span><span class="v">蓝色短横线</span></div>
-      <div class="gal-srow"><span class="k">ink-bg</span><span class="v">墨底白字色块</span></div>
-      <div class="gal-srow"><span class="k">.hl</span><span class="v">标题关键词底部色块（N01 系）</span></div>
-    </div>
-    <div class="gal-bblock">
-      <h4>IMG · 图槽契约</h4>
-      <p class="gal-note">图槽 = <b>.ph-img</b> 占位容器 + 内部 <b>&lt;img data-slot="image"&gt;</b> 实图层 + data-fit：<b>cover</b> 裁切填满 / <b>contain</b> 完整显示；占位标签 IMG·xx 未配置图时显示。手机框 = <b>frame-img</b> 装饰槽（render 按 class 含 frame-img 识别、单源内嵌 styles/assets/iphone-frame.png）。示例截图不进库，render 与编辑器只替换该 img 的 src（单通道）。</p>
+      <div class="gal-srow"><span class="k">1080×1440</span><span class="v">3:4 竖版 · 画布根</span></div>
+      <div class="gal-srow"><span class="k">边距</span><span class="v">四周约 71px</span></div>
+      <div class="gal-srow"><span class="k">底纹</span><span class="v">40px 极淡网格</span></div>
+      <div class="gal-srow"><span class="k">圆角</span><span class="v">小 / 中 / 大 三级</span></div>
+      <div class="gal-srow"><span class="k">深底</span><span class="v">深色版本（N30 使用）</span></div>
     </div>
   </section>
+
+  <div class="gal-board-note">卡内 <b>IMG·xx</b> 与 <b>{{占位符}}</b> 均为占位态——真实内容由 render 按 plan.json 注入，画廊与说明头不进交付页。设计令牌与字号层级的权威见 design-system.md §1，强调手法与图槽机制见 §2 与 references/CONTRACT.md。</div>
 
   <main>
   <div class="gal-group" id="g-cover">
@@ -859,9 +865,6 @@ a{color:inherit;text-decoration:none;}
     </div>
       </section>
     </div>
-  </div>
-
-
     <div class="gal-item" id="n35">
       <!-- ============ N35 · 流程时间轴（内置 SVG） ============
            用途：四段式流程时间轴——一条主线串 4 个节点，每节点挂名称/参数/时间，非图片槽
@@ -977,6 +980,8 @@ a{color:inherit;text-decoration:none;}
     </div>
       </section>
     </div>
+  </div>
+
 
   <div class="gal-group" id="g-lists">
     <div class="gal-group-head"><span class="num">G04</span><h2>清单</h2><span class="count"></span></div>
@@ -2762,7 +2767,11 @@ a{color:inherit;text-decoration:none;}
 
 <script>
 /* 画廊说明头渲染器：把每张母版 section 前的说明头注释渲染成可见卡片。
-   render 抽取 <section data-layout> 时不带走本脚本与本卡片。 */
+   render 抽取 <section data-layout> 时不带走本脚本与本卡片。
+   卡片展示「用途/适合/可以变」三行——纯选型语义，给人看的画廊。
+   「可以变」行含操作档位/类名/实现机制等黑话，由 clean() 统一洗成人话后再展示。
+   其余四行（槽位/限制/hl/图槽）是 skill 写 plan 的规则源或实现细节，
+   留在注释里供 skill 读，不上卡片；注释源码一行不动。 */
 (function () {
   var esc = function (s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); };
   document.querySelectorAll('section[data-layout]').forEach(function (sec) {
@@ -2777,7 +2786,38 @@ a{color:inherit;text-decoration:none;}
     var card = document.createElement('div');
     card.className = 'gal-card-head';
     var html = '<div class="gc-id">' + esc(mm ? mm[1] : '') + '</div><div class="gc-title">' + esc(mm ? mm[2] : head) + '</div>';
-    html += lines.map(function (l) { return '<div class="gc-line">' + esc(l) + '</div>'; }).join('');
+    // 展示三行选型语义；槽位/限制/hl/图槽是 skill 规则源或实现细节，留注释不上卡片。
+    var SHOW = /^(用途|适合|可以变)[：:]/;
+    // 只清洗展示字符串：档位/类名/实现机制/英文缩写一律转人话；注释源码不动。
+    var clean = function (s) {
+      return s
+        .replace(/cta 条文案自由/g, '关注条文案可改')            // 先于缩写替换，避免重复
+        .replace(/（[^）]*居中制式，不是漏填）/g, '（居中制式，不是漏填）') // 保护这段中文说明
+        .replace(/勾选态与进度为机器槽——勾选由 render 伪随机分配（data-rand-done），进度自动生成 done\/total，plan 不可填/g, '勾选态与进度自动生成')
+        .replace(/框图由 render 自动内嵌/g, '')                 // 括号外的实现细节
+        .replace(/（[^）]*(?:L[23]|CSS|render|repeat|SVG|data-|plan 不可填|手工包|类高度|br\/strong|坐标槽|n\d\d|is-hot|c-accent|checklist|btn-)[^）]*）/g, '') // 含黑话的整括号删
+        .replace(/（callout）/gi, '')
+        .replace(/三段 para 各带 strong 强调/g, '三段各带强调')
+        .replace(/换码走 L2/g, '可换码')
+        .replace(/需\s*L[23]\s*手工加/g, '可加')
+        .replace(/走\s*L[23]\s*删元素/g, '')
+        .replace(/需\s*L[23](?=[，；。]|$)/g, '需手工改')
+        .replace(/走\s*L[23]\s*/g, '')
+        .replace(/需\s*L[23]\s*/g, '')
+        .replace(/可\s*L[23]\s*/g, '可')
+        .replace(/L[23]\s*/g, '')
+        .replace(/\bcta\b/gi, '关注条')
+        .replace(/\bmotto\b/gi, '金句')
+        .replace(/\bbig-num\b/gi, '大数字')
+        .replace(/\btakeaways\b/gi, '要点')
+        .replace(/\bcallout\b/gi, '提示条')
+        .replace(/；\s*；/g, '；')
+        .replace(/[，；]\s*$/g, '')
+        .replace(/\s{2,}/g, ' ')
+        .replace(/([\u4e00-\u9fa5])\s+([\u4e00-\u9fa5])/g, '$1$2'); // 收掉中文间多余空格
+    };
+    html += lines.filter(function (l) { return SHOW.test(l); })
+      .map(function (l) { return '<div class="gc-line">' + esc(clean(l)) + '</div>'; }).join('');
     card.innerHTML = html;
     sec.parentNode.insertBefore(card, sec);
   });
@@ -2819,6 +2859,51 @@ a{color:inherit;text-decoration:none;}
     });
   }
   requestAnimationFrame(function () { shrinkPh(); requestAnimationFrame(shrinkPh); });
+
+  // 三列卡片化（仅画廊视觉，不进 section、render 不带走）：section 包进 3:4 缩放卡，说明头卡转卡身；
+  // 缩放 = 卡宽 / 1080，resize 重算。双 rAF 排在占位防溢出之后——shrinkPh 必须在未缩放坐标系测量
+  //（卡片化会改 getBoundingClientRect，先量后包才不破坏防溢出判断）。
+  (function () {
+    var AI_PAGE_W = 1080;
+    var fits = [];
+    var applyScale = function () {
+      fits.forEach(function (p) { p.fit.style.transform = 'scale(' + (p.thumb.clientWidth / AI_PAGE_W) + ')'; });
+    };
+    var build = function () {
+      document.querySelectorAll('.gal-item').forEach(function (item) {
+        var sec = item.querySelector('section[data-layout]');
+        if (!sec || item.querySelector('.gal-thumb')) return;   // N32 空位卡无 section，跳过
+        var fit = document.createElement('div');
+        fit.className = 'gal-thumb__fit';
+        sec.parentNode.insertBefore(fit, sec);
+        fit.appendChild(sec);
+        var thumb = document.createElement('div');
+        thumb.className = 'gal-thumb';
+        var head = item.querySelector('.gal-card-head');
+        if (head) item.insertBefore(thumb, head); else item.insertBefore(thumb, item.firstChild);
+        thumb.appendChild(fit);
+        fits.push({ thumb: thumb, fit: fit });
+      });
+      applyScale();
+    };
+    requestAnimationFrame(function () { requestAnimationFrame(build); });
+    window.addEventListener('resize', applyScale);
+  })();
+
+  // 导航 active 跟随滚动（参照 ai-covers 画廊）
+  (function () {
+    var links = document.querySelectorAll('.gal-nav-inner a[href^="#g-"]');
+    if (!links.length || !('IntersectionObserver' in window)) return;
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        links.forEach(function (a) { a.classList.remove('active'); });
+        var link = document.querySelector('.gal-nav-inner a[href="#' + e.target.id + '"]');
+        if (link) link.classList.add('active');
+      });
+    }, { rootMargin: '-40% 0px -55% 0px' });
+    document.querySelectorAll('.gal-group').forEach(function (g) { observer.observe(g); });
+  })();
 })();
 </script>
 </body>
