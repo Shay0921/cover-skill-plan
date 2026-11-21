@@ -394,6 +394,16 @@ function parseCrop(desc) {
 }
 
 // ---------- 填充一个 section ----------
+// 可选槽判定：{{name}} 首次出现处最近的未闭合开标签带 data-optional 属性
+// （母版大数字等标了 data-optional 的槽：plan 留空不算错，占位符清空后由 CSS :empty 隐藏）
+function isOptionalSlot(body, name) {
+  const at = body.indexOf(`{{${name}}}`);
+  if (at < 0) return false;
+  const opens = [...body.slice(0, at).matchAll(/<([a-z0-9]+)\b[^>]*>/g)];
+  const last = opens[opens.length - 1];
+  return !!(last && /\bdata-optional\b/.test(last[0]));
+}
+
 function fillSection(layout, body, fields, errors, warns, usedFiles, meta, nn, total) {
   const placeholders = [...body.matchAll(/\{\{([^}]+)\}\}/g)].map((m) => m[1].trim());
   const names = [...new Set(placeholders)];
@@ -555,6 +565,7 @@ function fillSection(layout, body, fields, errors, warns, usedFiles, meta, nn, t
   //        居中，元素钉在给点上；无变量、无 side。
   //      不传坐标 → 跳过注入，元素保持母版默认形态；坐标槽是可选槽，不填不算缺槽。
   let pinInjected = 0, pinMissing = 0;
+  const sidePins = []; // stage 型钉位 {id, side, y}：同侧重叠检测用（如 N40 浮动标注卡）
   for (const id of pinIds) {
     consumed.add(id);
     const v = fields[id];
@@ -580,6 +591,7 @@ function fillSection(layout, body, fields, errors, warns, usedFiles, meta, nn, t
       pinStyle = `--pin-x:calc(50% + (${nx}) * 38.98cqw);--pin-y:calc(50% + (${ny}) * 84.26cqw);`;
       if (y < 10 || y > 90) warns.push(`${layout}: 坐标槽 "${id}" 的 y=${Math.round(y)} 过贴上下边，标注卡可能溢出舞台（建议 y 在 10-90）`);
       extraAttr = `data-pinned="1" data-side="${x < 50 ? 'left' : 'right'}"`;
+      sidePins.push({ id, side: x < 50 ? 'left' : 'right', y: cy });
     }
     const tagged = /\bstyle="([^"]*)"/.test(orig)
       ? orig.replace(/\bstyle="([^"]*)"/, (_, s) => `style="${s};${pinStyle}"`).replace(/>$/, ` ${extraAttr}>`)
@@ -588,6 +600,17 @@ function fillSection(layout, body, fields, errors, warns, usedFiles, meta, nn, t
   }
   if (pinInjected > 0 && pinMissing > 0) {
     warns.push(`${layout}: 坐标槽部分传入（${pinInjected} 注入 / ${pinMissing} 未传）——钉位形态将不一致，建议全部传入或全部不传`);
+  }
+  // 同侧卡片重叠检测（stage 型钉位，如 N40 浮动标注卡）：同侧两卡 y 间距 <18%（卡高约 15cqw，母版 CSS 标定）→ WARN。
+  // 卡片贴 side 外缘、纵向对齐 y，重叠只能靠拉开 y 或换侧（x ≥50→right / <50→left）消解，机器只提示不改动。
+  for (let i = 0; i < sidePins.length; i++) {
+    for (let j = i + 1; j < sidePins.length; j++) {
+      const a = sidePins[i], b = sidePins[j];
+      const gap = Math.abs(a.y - b.y);
+      if (a.side === b.side && gap < 18) {
+        warns.push(`${layout}: 同侧(${a.side})标注卡 "${a.id}" 与 "${b.id}" y 间距 ${gap.toFixed(0)}% < 18%，卡片可能重叠——拉开 y 或把其中一张换侧（x 改 ≥50 到右侧 / <50 到左侧）`);
+      }
+    }
   }
 
   // 3) frame-img 手机框（单源内嵌：仅当本页真有手机框槽才读取共享 PNG 现场编码，缺文件即停）
@@ -605,7 +628,11 @@ function fillSection(layout, body, fields, errors, warns, usedFiles, meta, nn, t
     if (name === 'page-no' || name === 'progress') continue;
     consumed.add(name);
     const v = fields[name];
-    if (v === undefined || v === null || v === '') { errors.push(`${layout}: 槽 "${name}" 为空（必填）`); continue; }
+    if (v === undefined || v === null || v === '') {
+      // 可选槽（元素带 data-optional）：留空合法，占位符清空，节点变空由 CSS :empty 隐藏（如大数字轻量标题）
+      if (isOptionalSlot(body, name)) { body = body.split(`{{${name}}}`).join(''); continue; }
+      errors.push(`${layout}: 槽 "${name}" 为空（必填）`); continue;
+    }
     const sv = String(v);
     checkRich(sv, `${layout}:${name}`, errors);
     // 白名单标签保留生效，裸 < > 转义显示（白名单外标签已在 checkRich 硬停）
@@ -814,8 +841,8 @@ function wordWarnings(headerText, filledValues, layout, warns) {
     }
   };
   const cmp = (n, ceiling) => n > ceiling;
-  // ① `key≤N行每行≤M字/字符`——行数与单行宽度都要管（code 槽用此写法；它不匹配 ② 的正则，必须单独解析，
-  //    否则这条限制会静默失效）
+  // ① `key≤N行每行≤M字/字符`——行数与单行宽度都要管（紧连写法，当前母版未使用；它不匹配 ② 的正则，
+  //    若未来某槽需要行数+单行双重校验用此写法，删除此分支会使该写法静默失效）
   for (const m of line.matchAll(/([A-Za-z0-9*.-]+)≤(\d+)行每行≤(\d+)(字符|字)/g)) {
     const [, key, maxLines, perLimit, unit] = m;
     const byWidth = unit === '字';

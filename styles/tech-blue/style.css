@@ -397,6 +397,11 @@ html,body{margin:0;padding:0;background:#ECEEF3;font-family:var(--sans);}
   color:var(--ink);
   }
 
+/* 可选大数字（母版节点标 data-optional，23 处）：plan 留空 → 占位符清空 → 节点空 → 隐藏，
+   同行标题侧 flex:1 自动占满（design-system §5 轻量标题；机器契约见 CONTRACT.md「plan 填写行为」）。
+   须排在 .mega-hero .big-num / .step-num 定义之后（同特异性按序胜出） */
+.big-num:empty,.step-num:empty{display:none;}
+
 /* ========== 共用结构 ========== */
 .thanks{
   flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
@@ -455,7 +460,12 @@ html,body{margin:0;padding:0;background:#ECEEF3;font-family:var(--sans);}
 /* 关键词强调：改用共享段 span.hl-line（蓝字+淡蓝条） */
 .n01 .sub{font-size:2.9cqw;color:var(--ink-soft);line-height:1.5;max-width:60cqw;}
 
-.n01-data{display:grid;grid-template-columns:auto auto;gap:6cqw;align-items:center;justify-content:center;}
+/* 1-3 项 flex 横排均分；4 项由 :has 自动切 2×2 网格（按实际子项数，无需改结构） */
+.n01-data{display:flex;flex-wrap:nowrap;align-items:center;justify-content:center;gap:5cqw;}
+.n01-data:has(.item:nth-child(4)){
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:3.2cqw 6cqw;justify-items:center;
+  }
 
 .n01 .n01-data .item{display:flex;align-items:baseline;gap:1cqw;}
 
@@ -2270,26 +2280,6 @@ html,body{margin:0;padding:0;background:#ECEEF3;font-family:var(--sans);}
 .n35-svg .n35-sum-value{font-family:var(--serif);font-size:33px;font-weight:bold;fill:var(--ink);}
 .n35-svg marker path{fill:var(--accent);}
 
-/* ===== N36 · 架构关系图（内置 SVG）===== */
-.n36 .n36-figure{
-  flex:1;min-height:0;
-  margin:0 4.4cqw 1.4cqw;
-  display:flex;align-items:center;justify-content:center;
-  }
-
-.n36 .n36-svg{width:100%;height:100%;display:block;}
-
-.n36-svg .n36-rule{stroke:var(--line-strong);stroke-width:1;}
-.n36-svg .n36-hd{font-family:var(--mono);font-size:16.9px;fill:var(--muted);letter-spacing:.22em;}
-.n36-svg .n36-spoke{stroke:var(--line-strong);stroke-width:1.5;}
-.n36-svg .n36-orbit{fill:none;stroke:var(--line);stroke-width:1.5;stroke-dasharray:6 8;}
-.n36-svg .n36-hub-bg{fill:var(--accent);}
-.n36-svg .n36-hub-name{font-family:var(--serif);font-size:40px;font-weight:bold;fill:#fff;}
-.n36-svg .n36-hub-sub{font-size:19px;fill:rgba(255,255,255,.82);}
-.n36-svg .n36-node{fill:var(--paper);stroke:var(--line-strong);stroke-width:1;}
-.n36-svg .n36-name{font-family:var(--serif);font-size:27px;font-weight:bold;fill:var(--ink);}
-.n36-svg .n36-desc{font-size:19px;fill:var(--ink-soft);}
-
 /* ==================== 手机模型展示家族（N37-N40）==================== */
 /* ---- 共享段：pm-* 手机展示家族通用组件（会被 N37-N40 复用）---- */
 .pm-content{
@@ -2367,7 +2357,9 @@ html,body{margin:0;padding:0;background:#ECEEF3;font-family:var(--sans);}
 
 /* ---- N40 · 浮动标注（专属段）---- */
 .n40-stage{align-items:center;justify-content:center;counter-reset:n40n;}
-.n40-phone{width:46cqw;}
+/* 手机按舞台高度自适应缩放：标题变高→stage 变矮→手机等比缩小，不挤压副题；
+   aspect-ratio 取壳图 910:1806，max-width 46cqw 是标题短时的原始上限 */
+.n40-phone{height:100%;width:auto;aspect-ratio:910/1806;max-width:46cqw;}
 /* 标注覆盖层：repeat ×4-8 克隆，编号自动（CSS 计数器，卡片序号 01/02…）。
    plan 坐标槽 note-pos / note-pos-2… 传 {x,y} = 内屏截图内目标功能点百分比（AI 看图给点）→
    render 注入 --pin-y 与 data-pinned / data-side；呈现全由 CSS 决定：
