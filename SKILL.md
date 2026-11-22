@@ -47,7 +47,7 @@ agent_created: true
 ```json
 { "style": "tech-blue",
   "delivery": "YYYY-MM-DD-小标题",
-  "meta": { "brand": { "logo": "AI", "name": "AI Efficiency Lab", "footer": "aiefficiencylab.cn" } },
+  "meta": { "brand": { "logo": "AI", "name": "Feiwan AI Lab", "footer": "Feiwan · AI Lab" } },
   "pages": [
     { "nn": "01", "layout": "N02-dialog-cover",
       "fields": { "issue": "年度盘点", "kicker": "AI 工具", "title": "…", "sub": "…",
