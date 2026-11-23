@@ -1520,7 +1520,7 @@ html,body{margin:0;padding:0;background:#ECEEF3;font-family:var(--sans);}
   font-family:var(--serif);font-weight:bold;font-size:1.98cqw;
   box-shadow:0 .4cqw 1.2cqw rgba(37,99,235,.35);
   }
-/* 钉号默认显示（2026-11-19 用户拍板恢复）：图钉是 N22 标注语义的核心，标了点位读者才知道说明对应截图哪里。
+/* 钉号默认显示：图钉是 N22 标注语义的核心，标了点位读者才知道说明对应截图哪里。
    钉位首选 plan 坐标槽 pin1-pos..pin3-pos（参照系 percent：{x,y}=截图框内百分比，钉子中心落在给点，
    render 注入内联 left/top 覆盖此处）——不同截图都能钉准；不传坐标才落到下面这组兜底默认（当前校准 =
    workbuddy.cn 文档中心 1600×900 真截图，值为钉子左上角、%相对截图框含窗口条）。 */

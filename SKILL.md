@@ -33,7 +33,7 @@ agent_created: true
 2. **内容提炼**：整理文案，定页数与每页语义（封面/清单/对比/数据/金句/收尾）。**先按 `references/content-refinement.md` 完成主张、承诺、要点、每页主角与钩子等决策，再填槽**；填入字段时的高亮/断行/符号纪律见 `styles/content-rules.md`。
 3. **风格选择**：按 `style-picker.md` 推荐 1-2 种并说明理由，由用户拍板；用户点名则跳过推荐。
 4. **识图盘点**：逐张打开看，按 `references/IMAGE-WORKFLOW.md` 判类型，记下主体位置，产出素材清单。此处只识别，不选槽、不定 crop。用户未给图而某页又需要画面时，先按该文档「判断顺序」三选一问清来源（提供素材/自绘/AI 生图），不默认生成。
-5. **逐页选母版**：读 `catalog.md`，按语义组选版式，再看素材形态分叉——有截图 → 图槽母版；讲结构 → 图形母版或自画；版式能套但内容撑不满 → 借壳补空（`styles/improvisation.md`）；都装不下 → 回炉按 `references/content-refinement.md` 提炼文案或换母版。**同一页换母版/借壳 ≥2 次仍不收敛 → 停下向用户报告**，不再自行迭代。图的来源与选型见 `references/IMAGE-WORKFLOW.md`。自绘若走 `figure.mjs`，**须先出 PNG 落运行区，再写 plan 引用该路径**。条数与字数从母版 repeat 注释与说明头读取。
+5. **逐页选母版**：读 `catalog.md`，按语义组选版式，再看素材形态分叉——有截图 → 图槽母版；讲结构 → 图形母版或自画；版式能套但内容撑不满 → 借壳补空（`styles/improvisation.md`）；都装不下 → 回炉按 `references/content-refinement.md` 提炼文案或换母版。**同一页换母版/借壳 ≥2 次仍不收敛 → 停下向用户报告**，不得自行迭代。图的来源与选型见 `references/IMAGE-WORKFLOW.md`。自绘若走 `figure.mjs`，**须先出 PNG 落运行区，再写 plan 引用该路径**。条数与字数从母版 repeat 注释与说明头读取。
 6. **定裁切**：图槽已随母版在第 5 步定下（母版「图槽」行写明形态与张数）。按 `references/IMAGE-WORKFLOW.md` 判断哪些图需要裁，只给需要裁的图写 `crop` 选区；**图与槽比例差很多时，先在运行区按槽的 `data-ratio` 预裁出新素材文件再引用**（原图保留、预裁件只落运行区、不进交付）；裁完仍不合适就换图或换母版。裁切只表达「取哪一段」，不做修图级像素加工。
 7. **写 plan.json**：`meta.brand` 填整组统一品牌件；每页一条 `layout + fields`；`issue` 逐页填，页码不填；数组字段按 repeat 注释传条目；值允许受控富文本。即兴页写 `layout: "custom/<语义名>"` 并附整页 `markup`——写法与机器禁区见「即兴补空与转正」，主链路页不涉及。
 8. **出图与交付**：`node script/render.mjs <任务运行区>/ --delivery=<YYYY-MM-DD-小标题>`。硬校验报错即修 plan 重跑；软告警由人判断；人审 PNG 后交付——**先看 `preview.png` 整篇风格统一**（截图/生图/自绘混用是否割裂），再逐页细看。要进编辑器时加 `--with-editor`。

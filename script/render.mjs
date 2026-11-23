@@ -10,7 +10,7 @@
  * 三级目录（技能安装目录只读，运行期零写入）：
  *   ① 技能安装目录 = 本文件所在仓库：styles/ + script/，只读资产与代码（开发期文档与施工台账不随生产包分发）
  *   ② 任务运行区 = agent 临时工作区：plan.json / 素材 / 过程件 / P 页 / PNG / assets / 日志（fields.json 与 editor.manifest.json 仅 --with-editor 时生成）；_preview.html 是拼总览用的临时页，截完即删
- *   出图倍率：默认 2x（PNG 像素 2160×2880，画布逻辑尺寸仍 1080×1440）——小图位降采样糊的定案解；
+ *   出图倍率：默认 2x（PNG 像素 2160×2880，画布逻辑尺寸仍 1080×1440）——小图位降采样糊的对策；
  *   COVER_DSF=1 可临时回退 1x，见 shared/cdp.mjs createOptions
  *   ③ 交付目录 = 用户选中的工作区（--delivery 或 plan.delivery，命名 YYYY-MM-DD-<小标题>）：校验+截图全过后按白名单拷贝
  * 交付白名单（默认，编辑器不在默认链路上）：P<nn>-<名>.html + P<nn>-<名>.png + preview.png
@@ -21,10 +21,10 @@
  * 软校验（WARN）：字数超限（解析说明头"限制"行）/ 图片与槽位比例差异大 / crop 百分比超界（clamp 到 5–99）
  * 即兴页（layout: custom/*）：形态校验 + --check-geometry 几何体检
  * 动态槽位：按 data-sys 注入，与风格/class 无关——
- *   A 类 brand-logo/brand-name/footer-id 来自 plan.meta.brand（整组统一，meta 缺失保留母版默认）；
- *   B' 类 page-no 由 render 按页序机械生成 nn / 总页数（总页数取 plan.pages.length，与 --only 无关），封面 nn=01 注入 display:none 保留图层；
- *   C' 类 progress 由 render 按本页伪随机勾选数机械生成 done/total（勾选分配见 assignRandDone，同 plan 可复现）；
- *   B 类 issue 与 C 类按钮是普通 {{占位符}}，走 per-page fields，无需新逻辑。
+ *   brand-logo/brand-name/footer-id 来自 plan.meta.brand（整组统一，meta 缺失保留母版默认）；
+ *   page-no 由 render 按页序机械生成 nn / 总页数（总页数取 plan.pages.length，与 --only 无关），封面 nn=01 注入 display:none 保留图层；
+ *   progress 由 render 按本页伪随机勾选数机械生成 done/total（勾选分配见 assignRandDone，同 plan 可复现）；
+ *   issue 与按钮是普通 {{占位符}}，走 per-page fields，无需新逻辑。
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -127,11 +127,10 @@ function rootOf(body) {
   return { rootTag, inner: body.slice(openEnd + 1, closeStart) };
 }
 
-// ---------- repeat 区间解析（注释↔单元按序配对，C2） ----------
-// 归属规则（2026-11-23 改）：第 i 条 repeat ×N-M 注释（文档顺序）配第 i 个 data-repeat 单元，
-// 一一配对、不向前搜索——旧实现「向前取最近一条注释」不限距离，某单元漏写注释会串用上一条的
-// 区间（可能误拦合法条数，也可能放过非法条数）。也不可用距离窗口：窗口太短说明头一变长就静默
-// 漏配、太长救不了漏写，按序配对两种情况都拦得住。数量不齐 / 注释落在对应单元之后 → fillSection 硬报错。
+// ---------- repeat 区间解析（注释↔单元按序配对） ----------
+// 归属规则：第 i 条 repeat ×N-M 注释（文档顺序）配第 i 个 data-repeat 单元，一一配对、不向前搜索
+// ——向前取最近注释会让漏写注释的单元串用上一条的区间（误拦或放过都有可能）；距离窗口则
+// 说明头一变长就漏配、太长救不了漏写，两种都拦不住。数量不齐 / 注释落在对应单元之后 → fillSection 硬报错。
 function collectRepeatRanges(body) {
   return [...body.matchAll(/repeat\s*×(\d+)-(\d+)/g)].map((m) => ({ at: m.index, min: +m[1], max: +m[2] }));
 }
@@ -171,9 +170,9 @@ function richHtml(value) {
   return esc.replace(/\uE000(\d+)\uE001/g, (_, i) => keep[+i]);
 }
 
-// ---------- 动态槽位（A 类 meta + B' 页码）----------
+// ---------- 动态槽位（meta 品牌 + 页码）----------
 // data-sys 白名单：只认这些值；出现白名单外取值 = 硬错误即停（防拼错静默不填）。
-// A 类由 meta.brand 注入；page-no 由 render 机械生成；issue 是普通 {{占位符}} 走 fields，不在注入函数内。
+// 品牌三槽由 meta.brand 注入；page-no 由 render 机械生成；issue 是普通 {{占位符}} 走 fields，不在注入函数内。
 const SYS_WHITELIST = new Set(['brand-logo', 'brand-name', 'footer-id', 'issue', 'page-no', 'progress']);
 const SYS_META_KEY = { 'brand-logo': 'logo', 'brand-name': 'name', 'footer-id': 'footer' };
 
@@ -192,7 +191,7 @@ function checkSysTags(body, layout, errors, warns) {
   return tally;
 }
 
-// 步骤 0 · A 类全局注入：用 plan.meta.brand.* 覆盖 data-sys=brand-logo/name/footer-id 节点的整段文本。
+// 步骤 0 · 品牌全局注入：用 plan.meta.brand.* 覆盖 data-sys=brand-logo/name/footer-id 节点的整段文本。
 // 只替换标签内的文本内容，保留节点所有属性（data-sys/data-layer/data-editable/class 等）。
 // meta 缺失的键跳过（保留母版默认文本，向后兼容旧 plan）。富文本按 checkRich 白名单校验后注入。
 function injectMeta(body, meta, layout, errors) {
@@ -209,15 +208,15 @@ function injectMeta(body, meta, layout, errors) {
     // 用函数式 replace，逐节点处理（同一 sys 多次出现幂等全覆盖）。
     out = out.replace(/(<([a-z0-9]+)\b[^>]*\bdata-sys=(["'])([^"']*)\3[^>]*>)([\s\S]*?)(<\/\2>)/gi, (full, open, tag, _q, sysVal, inner, close) => {
       if (sysVal !== sys) return full;
-      // R9：注入整段替换节点内容，节点内含子元素会被静默清空——A 类系统槽只准纯文本，硬停
-      if (/<[a-z0-9!]/i.test(inner)) fail(`母版 ${layout}: data-sys="${sysVal}" 系统槽节点内含子元素——A 类系统槽只准纯文本（注入会整段替换并清空子元素）`);
+      // R9：注入整段替换节点内容，节点内含子元素会被静默清空——系统槽只准纯文本，硬停
+      if (/<[a-z0-9!]/i.test(inner)) fail(`母版 ${layout}: data-sys="${sysVal}" 系统槽节点内含子元素——系统槽只准纯文本（注入会整段替换并清空子元素）`);
       return open + replacement + close;
     });
   }
   return out;
 }
 
-// 步骤 6 · 页码注入/隐藏（B' 类）：扫 data-sys="page-no" 节点。
+// 步骤 6 · 页码注入/隐藏：扫 data-sys="page-no" 节点。
 // 非封面：把 {{page-no}} 换为 `nn / 总页数`（总页数取 plan.pages.length，与 --only 无关）。
 // 封面（nn==="01"）：文本置空 + 注入 style="display:none"，不删节点（编辑器 markers 模式仍能扫到图层）。
 // 返回 { body, pageNoValue, hidden }，pageNoValue 供 fields.json 转写用。
@@ -260,7 +259,7 @@ function assignRandDone(body, nn) {
   return { body: out, done, total };
 }
 
-// 步骤 6.6 · 清单进度注入（data-sys="progress"，C' 类）：文本由 render 按勾选数机械生成 done/total。
+// 步骤 6.6 · 清单进度注入（data-sys="progress"）：文本由 render 按勾选数机械生成 done/total。
 // plan 手填 progress 属违规（同 page-no）；节点内须有 {{progress}} 占位符。
 function injectProgress(body, done, total, layout, errors) {
   const value = `${done}/${total}`;
@@ -279,7 +278,7 @@ function injectProgress(body, done, total, layout, errors) {
 // 只产出「dataURL + crop 样式」，不拼全新 <img> 标签。
 // 母版 img 上的 data-slot/data-layer/data-label/data-ratio 是编辑器图层的身份证，
 // 必须由 fillSection 在替换 src 时原样保留。
-// 魔数嗅探（T14 P0）：读文件头判真实格式，与扩展名声明的 MIME 交叉校验。
+// 魔数嗅探：读文件头判真实格式，与扩展名声明的 MIME 交叉校验。
 // GIF 伪装成白名单后缀（如改名 .png）会在此被拦——浏览器虽按内容解码能显示，但编辑器 pack.mjs 嗅探内容后整批拒绝。
 function sniffMime(buf) {
   if (buf.length >= 8 && buf.toString('hex', 0, 8) === '89504e470d0a1a0a') return 'image/png';
@@ -309,10 +308,10 @@ function exifOrientation(buf, start, end) {
   } catch { return 0; }
 }
 
-// 图片尺寸头解析（T12）：PNG 读 IHDR 固定偏移；JPEG 扫 SOF marker 段（跳过 DHT/JPG/DAC 非几何段）；
+// 图片尺寸头解析：PNG 读 IHDR 固定偏移；JPEG 扫 SOF marker 段（跳过 DHT/JPG/DAC 非几何段）；
 // WebP 按 VP8X / VP8(lossy) / VP8L(lossless) 三子格式各读一次偏移。读不出返回 null——调用方跳过软校验、
 // 保持静默，不硬停（尺寸信息只喂 WARN，解析失败不升级为错误）。
-// JPEG 额外读 APP1 EXIF 的 orientation（T12 复查 #3）：值 5–8 = 拍摄时相机竖持、浏览器按 EXIF 旋转显示，
+// JPEG 额外读 APP1 EXIF 的 orientation：值 5–8 = 拍摄时相机竖持、浏览器按 EXIF 旋转显示，
 // 存储宽高须交换——否则竖拍照片的比例 WARN 拿存储尺寸算反。
 function imageDims(buf) {
   if (buf.length >= 24 && buf.toString('hex', 0, 8) === '89504e470d0a1a0a')
@@ -350,7 +349,7 @@ function imageDims(buf) {
   return null;
 }
 
-// 图片路径边界校验（C5，2026-11-23）：plan 的 src 必须解析在任务运行区内。
+// 图片路径边界校验：plan 的 src 必须解析在任务运行区内。
 // 绝对路径与 ../ 逃逸会把本机任意文件 base64 内嵌进交付 HTML（数据外泄面），入口即拦；
 // Windows 盘符差异由 path.relative 天然兼容。越界只认 `..` 本身或 `../` 开头——
 // 用 startsWith('..') 会误拦 `..foo.png` / `...png` 这类合法文件名。
@@ -419,7 +418,7 @@ function isOptionalSlot(body, name) {
   return !!(last && /\bdata-optional\b/.test(last[0]));
 }
 
-// ---------- 未知字段最近匹配（T29 0a） ----------
+// ---------- 未知字段最近匹配 ----------
 // plan 键名打错时报「是不是 "X"？」，AI 不必回文档猜键名。候选 = 本母版全部合法槽位
 // （文字占位符 + repeat 数组名 + 图槽 data-layer）。编辑距离 ≤2 才建议，差太远不猜、维持原报错。
 function editDistance(a, b) {
@@ -455,7 +454,7 @@ function fillSection(layout, body, fields, errors, warns, usedFiles, meta, nn, t
   }
   const consumed = new Set();
 
-  // 0) 动态槽位：白名单校验 + A 类全局注入（最先，先于 repeat/图槽/文字槽）
+  // 0) 动态槽位：白名单校验 + 品牌注入（最先，先于 repeat/图槽/文字槽）
   const sysTally = checkSysTags(body, layout, errors, warns);
   body = injectMeta(body, meta, layout, errors);
 
@@ -471,7 +470,7 @@ function fillSection(layout, body, fields, errors, warns, usedFiles, meta, nn, t
       units.push({ idx: units.length, start, end, tag: m[1], arr: m[2], html: body.slice(start, end) });
     }
   }
-  // C2：注释↔单元按序配对。数量不齐 = 母版漏写/多写注释，硬报错；
+  // 注释↔单元按序配对。数量不齐 = 母版漏写/多写注释，硬报错；
   // 配齐时第 i 个单元（文档顺序）用第 i 条注释的 ×min-max 校验条数，另查「注释须在单元之前」。
   const repeatRanges = collectRepeatRanges(body);
   const rangesPaired = repeatRanges.length === units.length
@@ -518,7 +517,7 @@ function fillSection(layout, body, fields, errors, warns, usedFiles, meta, nn, t
       }
       if (i > 0) html = html.replace(/data-layer="([^"]+)"/g, (_, id) => `data-layer="${id}-${i + 1}"`)
         .replace(/\bdata-pin="([^"]+)"/g, (_, id) => `data-pin="${id}-${i + 1}"`); // 坐标槽随克隆加后缀，与 data-layer 同规则
-      html = html.replace(/\s*data-repeat="[^"]*"/g, ''); // 克隆件是具体内容，不再携带 repeat 标记
+      html = html.replace(/\s*data-repeat="[^"]*"/g, ''); // 克隆件是具体内容，不带 repeat 标记
       return html;
     });
     body = body.slice(0, u.start) + rendered.join('\n') + body.slice(u.end);
@@ -573,13 +572,13 @@ function fillSection(layout, body, fields, errors, warns, usedFiles, meta, nn, t
     const ratioM = origTag.match(/data-ratio="([0-9:]+)"/) || (lastOpen ? lastOpen[0].match(/data-ratio="([0-9:]+)"/) : null);
     if (ratioM && imgSpec.spec.src && imgSpec.buf) {
       const [rw, rh] = ratioM[1].split(':').map(Number);
-      // 复用 imgValue 已读的 buf（T14 后 buf 随返回值带回），不再二次 readFileSync
-      // 尺寸头解析 PNG/JPEG/WebP 全支持（imageDims，T12）；GIF 由 P1 预转换成真 PNG 后才走到这里
+      // 复用 imgValue 已读的 buf，避免二次 readFileSync
+      // 尺寸头解析 PNG/JPEG/WebP 全支持（imageDims）；GIF 预转换成真 PNG 后才走到这里
       const dims = imageDims(imgSpec.buf);
       if (dims) {
         const want = rw / rh, got = dims.w / dims.h;
         if (Math.abs(got - want) / want > 0.45) {
-          // 措辞按 data-fit 分流（T12 复查）：cover 差异=裁切量大；contain 差异=留白量大，不裁切
+          // 措辞按 data-fit 分流：cover 差异=裁切量大；contain 差异=留白量大，不裁切
           const fit = (lastOpen && lastOpen[0].match(/data-fit="([^"]*)"/)?.[1] || 'cover').toLowerCase();
           warns.push(`${layout}: 图槽 ${id} 比例差异大（槽 ${ratioM[1]} vs 图 ${dims.w}x${dims.h}），${fit === 'contain' ? 'contain 留白量大，核对槽声明或换图' : 'cover 裁切量大，建议 crop'}`);
         }
@@ -588,8 +587,8 @@ function fillSection(layout, body, fields, errors, warns, usedFiles, meta, nn, t
 
     let newTag = origTag.replace(/\bsrc="[^"]*"/, `src="${imgSpec.dataUrl}"`);
     if (imgSpec.cropStyle) {
-      // T29 0b：contain 槽（整图完整显示）与 crop（放大成条带再 cover）互斥。旧实现无条件套 crop
-      // 并强制 cover，contain 槽被静默毁图且无提示——现在直接 fail，二选一。
+      // 危险边界：contain 槽（整图完整显示）与 crop 互斥——crop 会把槽放大成条带再强制 cover，
+      // 毁掉整图显示且无提示，命中即 fail，二选一。
       const fitAttr = (lastOpen && lastOpen[0].match(/\bdata-fit="([^"]*)"/)?.[1] || 'cover').toLowerCase();
       if (fitAttr === 'contain') {
         errors.push(`${layout}: 图槽 ${id} 声明 data-fit="contain"（整图完整显示）但 plan 写了 crop——两者互斥（crop 会把该槽放大成条带再 cover，毁掉整图显示）；二选一：去掉 crop，或确认要裁切后改槽为 cover`);
@@ -691,7 +690,7 @@ function fillSection(layout, body, fields, errors, warns, usedFiles, meta, nn, t
     body = body.split(`{{${name}}}`).join(richHtml(sv));
   }
 
-  // 5) plan 多余字段。page-no 是 B' 类机械槽：plan 手填属违规（页码只由 render 生成），给专门提示并计入 consumed 防止重复报错。
+  // 5) plan 多余字段。page-no 是机械槽：plan 手填属违规（页码只由 render 生成），给专门提示并计入 consumed 防止重复报错。
   if (Object.prototype.hasOwnProperty.call(fields, 'page-no')) {
     errors.push(`${layout}: plan 禁止手填 page-no 字段（页码由 render 按页序机械生成，格式 nn / 总页数、封面 nn=01 隐藏；契约见 references/CONTRACT.md 系统槽）`);
     consumed.add('page-no');
@@ -702,18 +701,18 @@ function fillSection(layout, body, fields, errors, warns, usedFiles, meta, nn, t
   }
   for (const k of Object.keys(fields)) {
     if (!consumed.has(k)) {
-      // T29 0a：对未知键做一次最近匹配，直接告诉正确键名（候选含已消费槽，打错系统槽名也能纠）
+      // 对未知键做一次最近匹配，直接告诉正确键名（候选含已消费槽，打错系统槽名也能纠）
       const hit = nearestSlot(k, [...new Set([...names, ...repeatNames, ...imgIds, ...consumed])]);
       errors.push(`${layout}: plan 字段 "${k}" 与母版槽位对不上${hit ? `——是不是 "${hit}"？` : ''}`);
     }
   }
 
-  // 6) 页码注入/隐藏（B' 类，残留校验之前）：总页数取 plan.pages.length，与 --only 无关
+  // 6) 页码注入/隐藏（残留校验之前）：总页数取 plan.pages.length，与 --only 无关
   const pg = injectPageNo(body, nn, total, layout, errors);
   body = pg.body;
   if (sysTally['page-no'] && !pg.found) errors.push(`${layout}: 母版有 data-sys="page-no" 但注入定位失败`);
 
-  // 6.5/6.6) 清单伪随机勾选 + 进度注入（C' 类，同在残留校验之前）
+  // 6.5/6.6) 清单伪随机勾选 + 进度注入（同在残留校验之前）
   const ck = assignRandDone(body, nn);
   body = ck.body;
   const pr = injectProgress(body, ck.done, ck.total, layout, errors);
@@ -727,7 +726,7 @@ function fillSection(layout, body, fields, errors, warns, usedFiles, meta, nn, t
   const dup = layers.filter((v, i) => layers.indexOf(v) !== i);
   if (dup.length) errors.push(`${layout}: data-layer 重复 ${[...new Set(dup)].join(',')}`);
 
-  // 归档系统槽信息供 fields.json 转写：A 类值取 meta，page-no/progress 取机械值
+  // 归档系统槽信息供 fields.json 转写：品牌槽值取 meta，page-no/progress 取机械值
   return { body, unitLayerMaps, sysTally, pageNoValue: pg.pageNoValue, pageNoHidden: pg.hidden, progressValue: pr.progressValue };
 }
 let _frame = null;
@@ -801,7 +800,7 @@ try {
         const p = table.profiles?.[fam];
         if (!usableOnThisMachine(p)) continue;
         // 表 weights = { "400": {...}, "700": {...} }（二档制全档位）：两档逐类取大——
-        // 真 Bold 面 advance 可能比 400 宽（2026-11-18 实测 PingFang SC 大写 0.6689→0.6839、Songti SC 0.6625→0.6712），
+        // 真 Bold 面 advance 可能比 400 宽（实测 PingFang SC 大写 0.6689→0.6839、Songti SC 0.6625→0.6712），
         // 建模必须覆盖实际渲染会用到的最宽档，宁可早告警、不放过溢出
         const w = {};
         for (const cat of ['upper', 'lower', 'digit', 'punct']) {
@@ -849,7 +848,7 @@ function charWidth(ch) {
   return 1;   // emoji / 其他文字符号按一个汉字宽（保守）
 }
 function stripMarkup(value) {
-  // 只剥「标签形态」的片段，与 checkRich 的 TAG_LOOKING 同口径（C3，2026-11-23）：
+  // 只剥「标签形态」的片段，与 checkRich 的 TAG_LOOKING 同口径：
   // 裸尖括号（"A < B > C"）会被 richHtml 转义成可见文字，属可见字符——按标签剥掉会少算字数、漏报超限
   return String(value).replace(/<[^>]+>/g, (m) => (TAG_LOOKING.test(m) ? '' : m)).replace(/\s+/g, '');
 }
@@ -946,7 +945,7 @@ if (!targets.length) fail('--only 过滤后无页面');
 // 字数校验权重来源（诊断，便于换机/降级后核对；不写产物）
 console.log(`📏 字宽权重：serif=${WIDTH_SOURCE.serif} / sans=${WIDTH_SOURCE.sans} / mono=${WIDTH_SOURCE.mono} → 取上限 ${ACTIVE_WIDTH.upper}/${ACTIVE_WIDTH.lower}/${ACTIVE_WIDTH.digit}/${ACTIVE_WIDTH.punct}`);
 
-// ---------- GIF 预转换（T14 P1 · 方案 A）----------
+// ---------- GIF 预转换 ----------
 // 只处理"老实声明 .gif"的输入：canvas 取第一帧转真 PNG，产物写任务运行区（.gif.png 后缀，不在交付白名单），
 // plan 内 src 原地改写指向新文件 → 主循环与 imgValue 走既有 PNG 通道，零改动。
 // 扩展名与内容不符的伪装（如 GIF 改名 .png）不由本 pass 处理，仍由 imgValue 魔数校验硬停。
@@ -996,7 +995,7 @@ let gifInst = null;   // 转换用浏览器实例；截图阶段复用，避免�
           })()`, { awaitPromise: true, timeoutMs: 20000 }));
         if (typeof dataUrl !== 'string' || !dataUrl.startsWith('data:image/png;base64,'))
           throw new Error(`未得到 PNG dataURL（Got ${typeof dataUrl}）`);
-        // C8：产物名固定为 <file>.png，运行区已有同名文件时静默覆盖——存在即加数字后缀并 WARN
+        // 产物名固定为 <file>.png，同名已存在则加数字后缀并 WARN，避免静默覆盖
         let suffix = '.png';
         if (fs.existsSync(file + suffix)) {
           let n = 2;
@@ -1082,7 +1081,7 @@ for (const page of targets) {
   }
   wordWarnings(headerComments[layout.split('-')[0]], wordFields, `P${nn}`, warns);
   allWarns.push(...warns);
-  // C6：母版页 rootOf 与 custom 分支同样包 try/catch——画布根损坏时给友好 fail，不抛裸堆栈
+  // 母版页 rootOf 与 custom 分支同样包 try/catch——画布根损坏时给友好 fail，不抛裸堆栈
   let rootTag, inner;
   try { ({ rootTag, inner } = rootOf(body)); }
   catch (e) { fail(`P${nn}: 母版 "${layout}" 画布根异常：${e.message}`); }
@@ -1156,7 +1155,7 @@ if (EDITOR_OUT) {
         });
       } else flat[k] = normField(v);
     }
-    // 系统槽：A 类从 meta 展开、B' 页码取机械值，仅当该页母版确有对应 data-sys 槽时写入，
+    // 系统槽：品牌槽从 meta 展开、页码取机械值，仅当该页母版确有对应 data-sys 槽时写入，
     // 保证 fields.json 与页面可见内容一致、编辑器打开即见当前值（meta 缺失则该槽保留母版默认，不写）。
     if (!b.custom && b.sysTally) {
       const brand = plan.meta && plan.meta.brand ? plan.meta.brand : {};
@@ -1211,7 +1210,7 @@ try {
       if (DIAG_ONLY) return;   // 只读体检：不截图、不写 PNG
       const shot = await captureReadyPage(ctx, opts);
       fs.writeFileSync(path.join(taskDir, `P${b.nn}-${b.name}.png`), shot.buffer);
-      // 盒形比例诊断（T12 修法①，纯读态 WARN）：实测 .ph-img 容器盒 vs 声明 data-ratio。
+      // 盒形比例诊断（纯读态 WARN）：实测 .ph-img 容器盒 vs 声明 data-ratio。
       // 须在 captureReadyPage 之后测（字体回流已稳定，与截图同帧）；只盯 cover 槽（contain 是留白非裁切）。
       // ⚠ 用 offsetWidth/Height（变换前布局盒）而非 getBoundingClientRect——后者是旋转后 AABB：
       // N04 后手机 rotate(-6deg) 会把 329x714 的真盒膨胀成 402x744（假阳性 17%）；cover 裁切发生在

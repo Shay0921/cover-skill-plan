@@ -10,9 +10,9 @@
  *       并用 CDP getPlatformFontsForNode 报每个**候选族**的「实际命中 face」——写死的字体名
  *       不一定真命中（装没装、回退到谁），所以表里同时存 requested 与 matched。
  *       零依赖，复用 shared/cdp.mjs 的 Chrome 桥。
- * 为什么用 file:// 页面而不是 data: 页：2026-11-18 实测两者命中与字宽完全一致（同机同 Chrome），
+ * 为什么用 file:// 页面而不是 data: 页：实测两者命中与字宽完全一致（同机同 Chrome）。
  *       选 file:// 是为了与出图页同构（同一个 document origin 语义），且日后若探针需要带 @font-face
- *       的相对 url，data: 页没有 base URL、解析不到；与「data: 页字体解析异常」的旧说法无关。
+ *       的相对 url，data: 页没有 base URL、解析不到。
  *
  * 输出 script/font-weights.json：**跨平台累积表**——key = 字体族名，value = 字宽权重 + 平台标记。
  *   weights 是「字体属性」不是「机器属性」：一旦在任一平台实测过就永久保留，不被后续别的平台的运行抹掉；
@@ -81,8 +81,8 @@ try {
   fs.writeFileSync(PROBE_HTML, buildProbeHtml(), 'utf8');
   await withPage(inst, url.pathToFileURL(PROBE_HTML).href, opts, async (ctx) => {
     // 量宽：每个 family 用 canvas 直接指定族名量（不依赖 DOM 行的 class）。
-    // 二档制（2026-11-18 定案）：全库只有 400（不写）与 700（bold）两档字重，且真 Bold 面
-    // advance 与 400 不同（Songti SC upper 0.6625→0.6712、PingFang SC 0.6689→0.6839，2026-11-18 实测）——
+    // 字重二档制：全库只有 400（不写）与 700（bold）两档字重，且真 Bold 面
+    // advance 与 400 不同（Songti SC upper 0.6625→0.6712、PingFang SC 0.6689→0.6839 实测）——
     // 只量 400 会低估 bold 文本宽度、破「建模 ≥ 实测」不变量，所以两档都量，render 取较大值。
     const widths = await evaluate(ctx.cdp, ctx.sessionId, `(() => {
       const c = document.createElement('canvas').getContext('2d');

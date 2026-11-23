@@ -102,9 +102,9 @@ html,body{margin:0;padding:0;background:#171512;}
 .ck.done .box{background:var(--accent);border-color:var(--accent);}
 .ck.done .box::after{content:"";width:1.5cqw;height:.8cqw;border-left:.35cqw solid #FFFDF8;border-bottom:.35cqw solid #FFFDF8;transform:translateY(-.15cqw) rotate(-45deg);}
 .phone{position:relative;aspect-ratio:910/1806;height:100%;max-height:104cqw;width:auto;max-width:100%;align-self:center;flex:0 1 auto;min-height:48cqw;filter:drop-shadow(0 2cqw 3.4cqw rgba(23,21,18,.22));}
-/* 手机高度修饰类（2026-11-13 设计期增补，来源：画廊页43/44/45 实测内联值净化，波及页 43/44/45；骨架配方 phone01-duo-labeled / note02-phone-dcards / card02-centered 使用）。
-   h68 弹性档（2026-11-13 阶段A h68 溢出修复）：wall 区随 head 文案折行动态浮动，固定高度在长文案时会溢出（R1 双向越界），
-   故 h68 改为随 phone-cell 伸缩（max 68cqw / min 63.5cqw，触底即内容与配方不匹配，换配方或删文案）；h75 仍固定档。 */
+/* 手机高度修饰类（来源：画廊页 43/44/45 实测内联值净化；骨架配方 phone01-duo-labeled / note02-phone-dcards / card02-centered 使用）。
+   h68 弹性档：wall 区随 head 文案折行动态浮动，固定高度在长文案时会溢出，
+   故 h68 随 phone-cell 伸缩（max 68cqw / min 63.5cqw，触底即内容与配方不匹配，换配方或删文案）；h75 仍固定档。 */
 .phone.h68{height:auto;flex:1 1 auto;min-height:63.5cqw;max-height:68cqw;}
 .phone.h75{height:75cqw;}
 /* 最小高度档防止 flex 收缩把壳压到看不出界面；区域给不出这个高度是布局问题，
@@ -214,7 +214,7 @@ html,body{margin:0;padding:0;background:#171512;}
 .qa{border-bottom:1px solid var(--line);padding:2.2cqw 0;}
 .qa .question{font-size:2.8cqw;font-weight:900;}
 .p-page .qa .answer{font-size:2.2cqw;color:var(--muted);line-height:1.8;margin-top:1.3cqw;}
-/* 布局修饰档（2026-11-13 设计期增补：画廊 47 页内联几何净化迁移，波及页见 dev/02-recipe-registry.md 净化处置表；
+/* 布局修饰档（画廊 47 页内联几何净化迁移而来；
    几何语义命名防种子耦合注册表版本，配方↔类映射住登记卡，gate 凭该引用校验） */
 /* 区间隙档：覆盖 .region/.flow-col 默认 2.4cqw（来源页 03/05/14/16/17/18/19/29/41｜07/13/15/31/35/36｜38/39｜47｜30｜28/33｜08/11/34） */
 .region.tight,.flow-col.tight{gap:0;}
@@ -229,7 +229,7 @@ html,body{margin:0;padding:0;background:#171512;}
 .region.w09,.flow-col.w09{flex:0.9 1 0;}
 .region.w11,.flow-col.w11{flex:1.1 1 0;}
 .region.w12,.flow-col.w12{flex:1.2 1 0;}
-/* panel 内衬档（来源页 46；批次 C 甲案 2026-11-13 用户拍板：padding 4.5/5 + gap 4.5 恢复源页观感） */
+/* panel 内衬档（来源页 46；padding 4.5/5 + gap 4.5 保持源页观感） */
 .inset45{padding:4.5cqw 5cqw;gap:4.5cqw;}
 /* 图墙网格档（来源页 06/27｜24｜25/02｜32） */
 .flow-grid.g22{grid-template-rows:repeat(2,minmax(0,1fr));}
