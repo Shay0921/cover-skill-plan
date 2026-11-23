@@ -398,7 +398,7 @@ html,body{margin:0;padding:0;background:#ECEEF3;font-family:var(--sans);}
   }
 
 /* 可选大数字（母版节点标 data-optional，23 处）：plan 留空 → 占位符清空 → 节点空 → 隐藏，
-   同行标题侧 flex:1 自动占满（design-system §5 轻量标题；机器契约见 CONTRACT.md「plan 填写行为」）。
+   同行标题侧 flex:1 自动占满（design-system §5 轻量标题；机器契约见 CONTRACT.md）。
    须排在 .mega-hero .big-num / .step-num 定义之后（同特异性按序胜出） */
 .big-num:empty,.step-num:empty{display:none;}
 
