@@ -419,6 +419,28 @@ function isOptionalSlot(body, name) {
   return !!(last && /\bdata-optional\b/.test(last[0]));
 }
 
+// ---------- 未知字段最近匹配（T29 0a） ----------
+// plan 键名打错时报「是不是 "X"？」，AI 不必回文档猜键名。候选 = 本母版全部合法槽位
+// （文字占位符 + repeat 数组名 + 图槽 data-layer）。编辑距离 ≤2 才建议，差太远不猜、维持原报错。
+function editDistance(a, b) {
+  const m = a.length, n = b.length;
+  if (Math.abs(m - n) > 2) return 3; // 超出建议阈值，早退省算
+  const dp = Array.from({ length: m + 1 }, (_, i) => [i, ...Array(n).fill(0)]);
+  for (let j = 0; j <= n; j++) dp[0][j] = j;
+  for (let i = 1; i <= m; i++)
+    for (let j = 1; j <= n; j++)
+      dp[i][j] = Math.min(dp[i - 1][j] + 1, dp[i][j - 1] + 1, dp[i - 1][j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+  return dp[m][n];
+}
+function nearestSlot(k, candidates) {
+  let best = null, bestD = 3;
+  for (const c of candidates) {
+    const d = editDistance(k, c);
+    if (d < bestD) { bestD = d; best = c; }
+  }
+  return bestD <= 2 ? best : null;
+}
+
 function fillSection(layout, body, fields, errors, warns, usedFiles, meta, nn, total) {
   const placeholders = [...body.matchAll(/\{\{([^}]+)\}\}/g)].map((m) => m[1].trim());
   const names = [...new Set(placeholders)];
@@ -566,7 +588,14 @@ function fillSection(layout, body, fields, errors, warns, usedFiles, meta, nn, t
 
     let newTag = origTag.replace(/\bsrc="[^"]*"/, `src="${imgSpec.dataUrl}"`);
     if (imgSpec.cropStyle) {
-      newTag = `<span class="ph-img__crop" style="position:absolute;inset:0;overflow:hidden;display:block;">${newTag.replace('<img ', `<img style="position:absolute;object-fit:cover;${imgSpec.cropStyle}" `)}</span>`;
+      // T29 0b：contain 槽（整图完整显示）与 crop（放大成条带再 cover）互斥。旧实现无条件套 crop
+      // 并强制 cover，contain 槽被静默毁图且无提示——现在直接 fail，二选一。
+      const fitAttr = (lastOpen && lastOpen[0].match(/\bdata-fit="([^"]*)"/)?.[1] || 'cover').toLowerCase();
+      if (fitAttr === 'contain') {
+        errors.push(`${layout}: 图槽 ${id} 声明 data-fit="contain"（整图完整显示）但 plan 写了 crop——两者互斥（crop 会把该槽放大成条带再 cover，毁掉整图显示）；二选一：去掉 crop，或确认要裁切后改槽为 cover`);
+      } else {
+        newTag = `<span class="ph-img__crop" style="position:absolute;inset:0;overflow:hidden;display:block;">${newTag.replace('<img ', `<img style="position:absolute;object-fit:cover;${imgSpec.cropStyle}" `)}</span>`;
+      }
     }
 
     // 容器开标签补 data-filled（隐藏 .ph-img__label 占位文字）
@@ -672,7 +701,11 @@ function fillSection(layout, body, fields, errors, warns, usedFiles, meta, nn, t
     consumed.add('progress');
   }
   for (const k of Object.keys(fields)) {
-    if (!consumed.has(k)) errors.push(`${layout}: plan 字段 "${k}" 与母版槽位对不上`);
+    if (!consumed.has(k)) {
+      // T29 0a：对未知键做一次最近匹配，直接告诉正确键名（候选含已消费槽，打错系统槽名也能纠）
+      const hit = nearestSlot(k, [...new Set([...names, ...repeatNames, ...imgIds, ...consumed])]);
+      errors.push(`${layout}: plan 字段 "${k}" 与母版槽位对不上${hit ? `——是不是 "${hit}"？` : ''}`);
+    }
   }
 
   // 6) 页码注入/隐藏（B' 类，残留校验之前）：总页数取 plan.pages.length，与 --only 无关
