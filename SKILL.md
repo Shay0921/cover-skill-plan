@@ -56,7 +56,7 @@ agent_created: true
   ] }
 ```
 
-`pages` 顺序即页序，`nn` 是两位页码；`layout` 取母版 slug——catalog 条目标题后反引号内的名字（如 `N01-shock-cover`），机器真源是 `templates.html` 的 `<section data-layout="…">`，两处须一致。一页一个母版、同一母版可跨页复用。键名照该母版说明头「槽位」行与模板抄：文字槽键 = `{{占位符}}`，图槽键 = `<img>` 的 `data-layer`；数组字段只在该母版有 repeat 注释时出现。标题/金句的高亮选词与断行位置由 AI 按 `styles/content-rules.md` 决策。
+`pages` 顺序即页序，`nn` 是两位页码；`layout` 取母版 slug——catalog 条目标题后反引号内的名字（如 `N01-shock-cover`），机器真源是 `templates.html` 的 `<section data-layout="…">`，两处须一致。一页一个母版、同一母版可跨页复用。键名照该母版说明头「槽位」行与母版 markup 抄：文字槽键 = `{{占位符}}`，图槽键 = `<img>` 的 `data-layer`；数组字段只在该母版有 repeat 注释时出现。标题/金句的高亮选词与断行位置由 AI 按 `styles/content-rules.md` 决策。
 
 **系统槽**：`meta.brand` 填整组统一品牌件（logo/name/footer），逐页只填 `issue`，页码不填；品牌三值篇幅上限见该风格 design-system 组件表，超限须在交付说明里点明并请人确认。其余机器契约见 `references/CONTRACT.md`。
 
