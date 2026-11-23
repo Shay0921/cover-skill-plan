@@ -2284,14 +2284,16 @@ a{color:inherit;text-decoration:none;}
     <div class="gal-group-head"><span class="num">G08</span><h2>数据</h2><span class="count"></span></div>
     <div class="gal-item" id="n25">
       <!-- ============ N25 · 数据指标 ============
-           用途：数据指标页——主指标柱状图 + 双小指标卡
-           适合：实测数据汇报；不适合：无数据的观点页
-           可以变：柱状图 7 根为装饰（改值需手改 n25-h1..h7 类高度）；小指标 2 卡固定
-           槽位：big-num / tag / title / sub / main-label / main-val / main-unit / sm1-label/sm1-val/sm1-delta/sm1-r1l/sm1-r1v/sm1-r2l/sm1-r2v / sm2-label/sm2-val/sm2-delta/sm2-r1l/sm2-r1v/sm2-r2l/sm2-r2v / issue / page-no
-           限制：big-num≤3字符；title≤14字(2行;每行≤8字[big-num单数字] 或 ≤6字[big-num双数字])；sub≤18字(1行)；main-label≤14字；main-val≤5字符；sm*-label≤6字；sm*-val≤5字符；sm*-delta≤5字符；sm*-r*l≤4字 sm*-r*v≤6字符；issue≤14字；tag≤12字；big-num 可选（留空自动隐藏，数量是主角才留）
+           用途：数据指标页——主指标 + 周序列带 + 四指标矩阵 + 一条解读
+           适合：实测数据汇报、复盘，有「一组数字 + 一个解释」的页
+           不适合：无数据的观点页；只有一个数字的页（用 N02/N03）
+           可以变：周序列 5-7 列（末列自动标为本期）；四指标卡固定 4 个，凑不满时第 4 个填口径类指标（样本量/周期/成本）；解读可留空但需手删该 div
+           槽位：issue / big-num / tag / title / sub / main-label / main-val / main-unit / main-delta / main-note / series[]（w,v）/ sm1-4 各 label·val·delta·r1l·r1v·r2l·r2v / note-head / note / page-no
+           限制：big-num≤3字符；title≤14字(2行;每行≤8字[big-num单数字] 或 ≤6字[big-num双数字])；sub≤18字(1行)；main-label≤6字；main-val≤5字符；main-unit≤4字；main-delta≤5字符；main-note≤18字符；series w≤4字符 v≤4字符(数值列，别塞单位)；sm*-label≤6字；sm*-val≤6字符；sm*-delta≤5字符；sm*-r*l≤4字 sm*-r*v≤6字符；note-head≤6字；note≤38字(1行)；tag≤12字；issue≤14字；big-num 可选（留空自动隐藏）
 
-           hl：无（delta 自带涨跌色）
-           图槽：无；柱状图为装饰性数据可视化
+           hl：无；delta 不做涨跌着色（方向靠 +/− 号），颜色只是标注底
+           图槽：无。周序列带是文字条带（每列一个可填值），不承载图形、不吃图片；
+                 不要为「像图表」而手接柱状图——柱高无法按 plan 数据变，会变成假图表
       -->
       <section data-layout="N25-metrics">
     <div class="artwork-page n25" data-artwork data-size="1080x1440">
@@ -2320,48 +2322,88 @@ a{color:inherit;text-decoration:none;}
   <div class="after-hero"></div>
 
   <div class="content">
-    <!-- 主指标 -->
-    <div class="n25-metric-main" data-layer="n25-main" data-label="主指标卡" data-type="group">
-      <div class="n25-metric-main__label" data-layer="main-label" data-label="主指标名" data-editable="text">{{main-label}}</div>
-      <div>
-        <span class="n25-metric-main__val" data-layer="main-val" data-label="主指标值" data-editable="text">{{main-val}}</span>
-        <span class="n25-metric-main__unit" data-layer="main-unit" data-label="主指标单位" data-editable="text">{{main-unit}}</span>
-      </div>
-      <div class="n25-bars-wrap">
-        <div class="n25-mini-bars">
-          <i class="n25-h1"></i>
-          <i class="n25-h2"></i>
-          <i class="n25-h3"></i>
-          <i class="n25-h4"></i>
-          <i class="n25-h5"></i>
-          <i class="n25-h6"></i>
-          <i class="n25-h7"></i>
+    <!-- 主指标行：标签横排（不竖排，避免窄柱折断） -->
+    <div class="n25-kpi" data-layer="n25-kpi" data-label="主指标" data-type="group">
+      <div class="n25-kpi__left">
+        <div class="n25-kpi__label" data-layer="main-label" data-label="主指标名" data-editable="text">{{main-label}}</div>
+        <div class="n25-kpi__num">
+          <span class="n25-kpi__val" data-layer="main-val" data-label="主指标值" data-editable="text">{{main-val}}</span>
+          <span class="n25-kpi__unit" data-layer="main-unit" data-label="主指标单位" data-editable="text">{{main-unit}}</span>
         </div>
-        <div class="n25-mini-bars__axis">
-          <span>W1</span><span>W2</span><span>W3</span><span>W4</span>
-          <span>W5</span><span>W6</span><span>W7</span>
+      </div>
+      <div class="n25-kpi__right">
+        <span class="n25-kpi__delta" data-layer="main-delta" data-label="主指标涨幅" data-editable="text">{{main-delta}}</span>
+        <span class="n25-kpi__note" data-layer="main-note" data-label="主指标对照" data-editable="text">{{main-note}}</span>
+      </div>
+    </div>
+
+    <!-- 周序列带：一条横向数据条，每列一个可填值 + 周标签；末列自动标为本期 -->
+    <div class="n25-series" data-layer="n25-series" data-label="周序列" data-type="group">
+      <!-- repeat ×5-7: 周单元 clone（flex 等分）；最后一列自动高亮为「本期」 -->
+      <div class="n25-series__col" data-repeat="series">
+        <span class="n25-series__v" data-layer="series-v" data-label="周值" data-editable="text">{{v}}</span>
+        <span class="n25-series__w" data-layer="series-w" data-label="周标签" data-editable="text">{{w}}</span>
+      </div>
+    </div>
+
+    <!-- 四指标矩阵：2×2，每格 名 / 值 / 变化 / 两行拆分 -->
+    <div class="n25-grid">
+      <div class="n25-metric" data-layer="n25-sm1" data-label="小指标1" data-type="group">
+        <div class="n25-metric__top">
+          <span class="n25-metric__label" data-layer="sm1-label" data-label="指标1名" data-editable="text">{{sm1-label}}</span>
+          <span class="n25-metric__delta" data-layer="sm1-delta" data-label="指标1涨幅" data-editable="text">{{sm1-delta}}</span>
+        </div>
+        <div class="n25-metric__val" data-layer="sm1-val" data-label="指标1值" data-editable="text">{{sm1-val}}</div>
+        <div class="n25-metric__rows">
+          <div class="n25-metric__row"><span class="n25-metric__rl" data-layer="sm1-r1l" data-label="指标1行1名" data-editable="text">{{sm1-r1l}}</span><span class="n25-metric__rv" data-layer="sm1-r1v" data-label="指标1行1值" data-editable="text">{{sm1-r1v}}</span></div>
+          <div class="n25-metric__row"><span class="n25-metric__rl" data-layer="sm1-r2l" data-label="指标1行2名" data-editable="text">{{sm1-r2l}}</span><span class="n25-metric__rv" data-layer="sm1-r2v" data-label="指标1行2值" data-editable="text">{{sm1-r2v}}</span></div>
+        </div>
+      </div>
+
+      <div class="n25-metric" data-layer="n25-sm2" data-label="小指标2" data-type="group">
+        <div class="n25-metric__top">
+          <span class="n25-metric__label" data-layer="sm2-label" data-label="指标2名" data-editable="text">{{sm2-label}}</span>
+          <span class="n25-metric__delta" data-layer="sm2-delta" data-label="指标2降幅" data-editable="text">{{sm2-delta}}</span>
+        </div>
+        <div class="n25-metric__val" data-layer="sm2-val" data-label="指标2值" data-editable="text">{{sm2-val}}</div>
+        <div class="n25-metric__rows">
+          <div class="n25-metric__row"><span class="n25-metric__rl" data-layer="sm2-r1l" data-label="指标2行1名" data-editable="text">{{sm2-r1l}}</span><span class="n25-metric__rv" data-layer="sm2-r1v" data-label="指标2行1值" data-editable="text">{{sm2-r1v}}</span></div>
+          <div class="n25-metric__row"><span class="n25-metric__rl" data-layer="sm2-r2l" data-label="指标2行2名" data-editable="text">{{sm2-r2l}}</span><span class="n25-metric__rv" data-layer="sm2-r2v" data-label="指标2行2值" data-editable="text">{{sm2-r2v}}</span></div>
+        </div>
+      </div>
+
+      <div class="n25-metric" data-layer="n25-sm3" data-label="小指标3" data-type="group">
+        <div class="n25-metric__top">
+          <span class="n25-metric__label" data-layer="sm3-label" data-label="指标3名" data-editable="text">{{sm3-label}}</span>
+          <span class="n25-metric__delta" data-layer="sm3-delta" data-label="指标3涨幅" data-editable="text">{{sm3-delta}}</span>
+        </div>
+        <div class="n25-metric__val" data-layer="sm3-val" data-label="指标3值" data-editable="text">{{sm3-val}}</div>
+        <div class="n25-metric__rows">
+          <div class="n25-metric__row"><span class="n25-metric__rl" data-layer="sm3-r1l" data-label="指标3行1名" data-editable="text">{{sm3-r1l}}</span><span class="n25-metric__rv" data-layer="sm3-r1v" data-label="指标3行1值" data-editable="text">{{sm3-r1v}}</span></div>
+          <div class="n25-metric__row"><span class="n25-metric__rl" data-layer="sm3-r2l" data-label="指标3行2名" data-editable="text">{{sm3-r2l}}</span><span class="n25-metric__rv" data-layer="sm3-r2v" data-label="指标3行2值" data-editable="text">{{sm3-r2v}}</span></div>
+        </div>
+      </div>
+
+      <div class="n25-metric" data-layer="n25-sm4" data-label="小指标4" data-type="group">
+        <div class="n25-metric__top">
+          <span class="n25-metric__label" data-layer="sm4-label" data-label="指标4名" data-editable="text">{{sm4-label}}</span>
+          <span class="n25-metric__delta" data-layer="sm4-delta" data-label="指标4降幅" data-editable="text">{{sm4-delta}}</span>
+        </div>
+        <div class="n25-metric__val" data-layer="sm4-val" data-label="指标4值" data-editable="text">{{sm4-val}}</div>
+        <div class="n25-metric__rows">
+          <div class="n25-metric__row"><span class="n25-metric__rl" data-layer="sm4-r1l" data-label="指标4行1名" data-editable="text">{{sm4-r1l}}</span><span class="n25-metric__rv" data-layer="sm4-r1v" data-label="指标4行1值" data-editable="text">{{sm4-r1v}}</span></div>
+          <div class="n25-metric__row"><span class="n25-metric__rl" data-layer="sm4-r2l" data-label="指标4行2名" data-editable="text">{{sm4-r2l}}</span><span class="n25-metric__rv" data-layer="sm4-r2v" data-label="指标4行2值" data-editable="text">{{sm4-r2v}}</span></div>
         </div>
       </div>
     </div>
 
-    <!-- 小指标 1 -->
-    <div class="n25-metric-sm" data-layer="n25-sm1" data-label="小指标1" data-type="group">
-      <div class="n25-metric-sm__label" data-layer="sm1-label" data-label="指标1名" data-editable="text">{{sm1-label}}</div>
-      <div class="n25-metric-sm__val"><span data-layer="sm1-val" data-label="指标1值" data-editable="text">{{sm1-val}}</span>
-        <span class="n25-metric-sm__delta n25-up" data-layer="sm1-delta" data-label="指标1涨幅" data-editable="text">{{sm1-delta}}</span>
+    <!-- 解读条：数据页的结论，填一句「为什么」 -->
+    <div class="callout n25-note" data-layer="n25-note" data-label="解读条" data-type="group">
+      <div class="callout__icon">i</div>
+      <div class="callout__body">
+        <div class="callout__head" data-layer="note-head" data-label="解读标签" data-editable="text">{{note-head}}</div>
+        <div class="callout__text" data-layer="note" data-label="解读句" data-editable="text">{{note}}</div>
       </div>
-      <div class="n25-metric-row"><span class="n25-metric-row__label" data-layer="sm1-r1l" data-label="指标1行1名" data-editable="text">{{sm1-r1l}}</span><span class="n25-metric-row__val" data-layer="sm1-r1v" data-label="指标1行1值" data-editable="text">{{sm1-r1v}}</span></div>
-      <div class="n25-metric-row"><span class="n25-metric-row__label" data-layer="sm1-r2l" data-label="指标1行2名" data-editable="text">{{sm1-r2l}}</span><span class="n25-metric-row__val" data-layer="sm1-r2v" data-label="指标1行2值" data-editable="text">{{sm1-r2v}}</span></div>
-    </div>
-
-    <!-- 小指标 2 -->
-    <div class="n25-metric-sm" data-layer="n25-sm2" data-label="小指标2" data-type="group">
-      <div class="n25-metric-sm__label" data-layer="sm2-label" data-label="指标2名" data-editable="text">{{sm2-label}}</div>
-      <div class="n25-metric-sm__val"><span data-layer="sm2-val" data-label="指标2值" data-editable="text">{{sm2-val}}</span>
-        <span class="n25-metric-sm__delta n25-down" data-layer="sm2-delta" data-label="指标2降幅" data-editable="text">{{sm2-delta}}</span>
-      </div>
-      <div class="n25-metric-row"><span class="n25-metric-row__label" data-layer="sm2-r1l" data-label="指标2行1名" data-editable="text">{{sm2-r1l}}</span><span class="n25-metric-row__val" data-layer="sm2-r1v" data-label="指标2行1值" data-editable="text">{{sm2-r1v}}</span></div>
-      <div class="n25-metric-row"><span class="n25-metric-row__label" data-layer="sm2-r2l" data-label="指标2行2名" data-editable="text">{{sm2-r2l}}</span><span class="n25-metric-row__val" data-layer="sm2-r2v" data-label="指标2行2值" data-editable="text">{{sm2-r2v}}</span></div>
     </div>
   </div>
 

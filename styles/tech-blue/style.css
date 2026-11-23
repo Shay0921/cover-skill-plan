@@ -1712,92 +1712,74 @@ html,body{margin:0;padding:0;background:#ECEEF3;font-family:var(--sans);}
 
 
 /* ---- N25 · 数据指标 ---- */
-.n25 .content{flex:1;margin:1.5cqw 6.6cqw 2cqw;min-height:0;
-  display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto 1fr;gap:1.8cqw;}
+/* 三段式：主指标行 → 周序列带 → 四指标矩阵，末尾一条解读。
+   旧版的病根是「小卡被 1fr 拉高、内容只占上半」与「柱状图压成细带」，
+   故把竖向空间切成 主指标/条带/矩阵/解读 四段，每段都有内容顶住。 */
+.n25 .content{flex:1;min-height:0;margin:1.8cqw 6.6cqw 2cqw;display:flex;flex-direction:column;gap:1.8cqw;}
 
-/* 主指标卡 */
-.n25-metric-main{
-  grid-column:1/-1;grid-row:1;
-  padding:2.4cqw 3.2cqw;border:1px solid var(--line-strong);border-radius:var(--radius-md);overflow:hidden;
-  background:var(--paper);display:flex;align-items:center;gap:3cqw;
+/* 主指标行：标签横排（竖排会在大数字旁挤成窄柱、中文被裁） */
+.n25-kpi{flex:none;display:flex;align-items:flex-end;justify-content:space-between;gap:2.4cqw;}
+.n25-kpi__left{display:flex;flex-direction:column;gap:.8cqw;min-width:0;}
+.n25-kpi__label{font-family:var(--mono);font-size:1.85cqw;letter-spacing:.14em;color:var(--muted);}
+.n25-kpi__num{display:flex;align-items:baseline;gap:1.2cqw;}
+.n25-kpi__val{font-family:var(--serif);font-weight:bold;font-size:10.4cqw;line-height:.88;letter-spacing:-.04em;color:var(--accent);}
+.n25-kpi__unit{font-family:var(--sans);font-size:2.64cqw;font-weight:bold;color:var(--ink-soft);}
+.n25-kpi__right{flex:none;display:flex;flex-direction:column;align-items:flex-end;gap:1cqw;padding-bottom:.8cqw;}
+.n25-kpi__delta{
+  font-family:var(--mono);font-size:1.85cqw;font-weight:bold;color:var(--accent);
+  background:color-mix(in srgb,var(--accent) 8%,var(--paper));
+  padding:.5cqw 1.1cqw;border-radius:var(--radius-sm);
   }
+.n25-kpi__note{font-family:var(--mono);font-size:1.72cqw;color:var(--muted);letter-spacing:.06em;}
 
-/* 竖排标签：中文在 vertical-rl 下天然正立——加 rotate(180deg) 会把整字倒置 */
-.n25-metric-main__label{
-  flex:none;font-size:1.85cqw;color:var(--muted);font-family:var(--mono);
-  letter-spacing:.1em;writing-mode:vertical-rl;
+/* 周序列带：横向数据条，上下细线框住、列间竖线分栏；末列自动标为本期 */
+.n25-series{
+  flex:none;display:flex;
+  border-top:1px solid var(--line-strong);border-bottom:1px solid var(--line-strong);
   }
-
-.n25-metric-main__val{
-  flex:none;
-  font-family:var(--serif);font-weight:bold;font-size:10.8cqw;
-  line-height:.9;letter-spacing:-.04em;color:var(--accent);
+.n25-series__col{
+  flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;gap:.7cqw;
+  padding:1.1cqw .6cqw 1cqw;border-left:1px solid var(--line);
   }
-
-.n25-metric-main__unit{font-size:2.64cqw;color:var(--ink-soft);font-weight:bold;margin-left:.8cqw;}
-
-/* bars-wrap：把 mini-bars + axis 包在里面，纵向排 */
-.n25-bars-wrap{flex:1;display:flex;flex-direction:column;gap:.4cqw;min-width:0;}
-
-.n25-mini-bars{display:flex;align-items:flex-end;gap:.4cqw;height:3.2cqw;}
-
-.n25-mini-bars i{
-  flex:1;background:var(--ink);display:block;min-height:.3cqw;border-radius:.2cqw .2cqw 0 0;
+.n25-series__col:first-child{border-left:none;}
+.n25-series__v{
+  font-family:var(--serif);font-weight:bold;font-size:3.6cqw;line-height:1;
+  letter-spacing:-.02em;color:var(--ink);
   }
+.n25-series__w{font-family:var(--mono);font-size:1.5cqw;letter-spacing:.16em;color:var(--muted);}
+.n25-series__col:last-child .n25-series__v{font-size:4.4cqw;color:var(--accent);}
+.n25-series__col:last-child .n25-series__w{color:var(--accent);font-weight:bold;}
+/* 只有 5 列时列宽 17cqw，默认字号在宽列里显空 → 整体抬一档 */
+.n25-series:has(> .n25-series__col:nth-child(5):last-child) .n25-series__v{font-size:4.6cqw;}
+.n25-series:has(> .n25-series__col:nth-child(5):last-child) .n25-series__w{font-size:1.7cqw;}
+.n25-series:has(> .n25-series__col:nth-child(5):last-child) .n25-series__col:last-child .n25-series__v{font-size:5.6cqw;}
 
-.n25-mini-bars i:nth-child(7){background:var(--accent);}
-
-/* 柱高（改数据调整这些百分比） */
-.n25-h1{height:30%;}
-.n25-h2{height:45%;}
-.n25-h3{height:38%;}
-.n25-h4{height:65%;}
-.n25-h5{height:58%;}
-.n25-h6{height:80%;}
-.n25-h7{height:100%;}
-
-.n25-mini-bars__axis{display:flex;gap:.4cqw;}
-
-.n25-mini-bars__axis span{
-  flex:1;text-align:center;font-family:var(--mono);font-size:1.3cqw;color:var(--muted);
+/* 四指标矩阵 2×2：卡高等分，卡内明细用 margin-top:auto 沉底，不留半截空 */
+.n25-grid{flex:1;min-height:0;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:1.4cqw;}
+.n25-metric{
+  border:1px solid var(--line-strong);border-radius:var(--radius-md);
+  background:var(--paper);padding:1.4cqw 2.2cqw 1.3cqw;
+  display:flex;flex-direction:column;gap:.7cqw;min-height:0;
   }
-
-.n25-mini-bars__axis span:last-child{color:var(--accent);}
-
-/* 小指标卡 */
-.n25-metric-sm{
-  padding:2.4cqw 3cqw;border:1px solid var(--line-strong);border-radius:var(--radius-md);overflow:hidden;
-  background:var(--paper);display:flex;flex-direction:column;gap:.8cqw;
+.n25-metric__top{display:flex;align-items:center;justify-content:space-between;gap:1.2cqw;}
+.n25-metric__label{font-family:var(--mono);font-size:1.85cqw;letter-spacing:.1em;color:var(--muted);}
+/* 涨跌不做方向着色：plan 只能在文字里改值、切不了类，写死「蓝=涨/橙=跌」
+   会让「耗时下降」被染成橙色。方向交给 +/− 号，颜色只做标注底 */
+.n25-metric__delta{
+  font-family:var(--mono);font-size:1.72cqw;font-weight:bold;color:var(--ink-soft);
+  padding:.3cqw .9cqw;border-radius:var(--radius-sm);background:var(--paper-deep);
   }
-
-.n25-metric-sm__label{font-size:1.85cqw;color:var(--muted);font-family:var(--mono);letter-spacing:.08em;}
-
-.n25-metric-sm__val{
-  font-family:var(--serif);font-weight:bold;font-size:7.18cqw;
-  line-height:1.05;color:var(--ink);display:flex;align-items:baseline;gap:.8cqw;
-  }
-
-.n25-metric-sm__delta{
-  font-family:var(--mono);font-size:1.85cqw;
-  padding:.4cqw 1cqw;border-radius:.3cqw;background:var(--paper-deep);
-  }
-
-.n25-metric-sm__delta.n25-up{color:var(--accent);}
-
-.n25-metric-sm__delta.n25-down{color:#EA580C;}
-
-/* 小行指标 */
-.n25-metric-row{
+.n25-metric__val{font-family:var(--serif);font-weight:bold;font-size:4.8cqw;line-height:1;letter-spacing:-.02em;color:var(--ink);}
+.n25-metric__rows{display:flex;flex-direction:column;margin-top:auto;}
+.n25-metric__row{
   display:flex;align-items:center;justify-content:space-between;
-  padding:1.2cqw 0;border-top:1px solid var(--line);
-  font-size:2.11cqw;
+  padding:.7cqw 0;border-top:1px solid var(--line);font-size:1.98cqw;
   }
+.n25-metric__rl{color:var(--muted);}
+.n25-metric__rv{font-family:var(--mono);font-size:1.98cqw;color:var(--ink);}
 
-.n25-metric-row:first-child{border-top:none;}
-
-.n25-metric-row__label{color:var(--muted);}
-
-.n25-metric-row__val{color:var(--ink);font-family:var(--mono);font-size:1.98cqw;}
+/* 解读条：数据页的结论，压住最后一段空白 */
+.n25-note{flex:none;max-width:none;padding:1.45cqw 2cqw;background:var(--paper-deep);border-color:var(--line);}
 
 
 
