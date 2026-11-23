@@ -50,7 +50,7 @@
 | `.pill` / `.pill--fill` | 悬浮胶囊（描边 / 墨底两式，`.num` 是序号位） | 即兴词汇，当前母版未使用。CTA 组合：`<span class="pill"><span class="num">01</span>免费领取</span>`、`<span class="pill pill--fill">立即进入</span>`；可排成一行做「步骤/权益」横条 |
 | `.fine-line` / `.fine-border` / `.fine-card` | 极细分割线/边框/卡片 | 弱结构 |
 | `.accent-word` / `.accent-bg` / `.accent-line` / `.ink-bg` | 强调四式 | 关键词变色 / 蓝底白字 / 短横线 / 墨底白字 |
-| `.hl` / `.hl-line` | 富文本两种高亮 | `.hl` = 蓝字，正文小强调；`.hl-line` = 蓝字 + 淡蓝条，标题/金句强调，不用 strong 包裹。条是元素自身背景渐变的底部 38%（`color-mix` 取 `--accent` 三成透明，字条同蓝仍可读），跨行时按各自行盒绘制、不错位，圆角落在整段首行左/末行右、断行处直角。用哪个由母版说明头声明（N07 另有浅蓝底变体；N30 深底字为白、条实色，N31 浅底条更淡）。可用标签见 `references/CONTRACT.md`「富文本白名单」 |
+| `.hl` / `.hl-line` | 富文本两种高亮 | `.hl` = 蓝字，正文小强调；`.hl-line` = 蓝字 + 淡蓝条，标题/金句强调，不用 strong 包裹。条是元素自身背景渐变的底部 38%（`color-mix` 取 `--accent` 三成透明，字条同蓝仍可读），跨行时按各自行盒绘制、不错位，圆角落在整段首行左/末行右、断行处直角。用哪个由母版说明头声明（N07 另有浅蓝底变体；N30 深底字为白、条实色，N31 浅底条更淡）。可用标签见 `references/CONTRACT.md`「键名与系统槽」 |
 | `.title-xl/lg/md`、`.num-large`、`.body-text`、`.mono-text`、`.label` | 字级工具类 | 即兴时直接用 |
 | `.pm-content` / `.pm-hero` / `.pm-hero--c` / `.pm-kicker` / `.pm-title` / `.pm-sub` | 手机展示家族页头 | N37-N40 共用；`.pm-title` 用 8.64cqw（对齐 N04 手机封面标题私值，介于 title-lg 与 title-xl 之间）。`--c` 为居中变体 |
 | `.pm-phone` / `.pm-frame` / `.pm-screen` | 手机单元（壳压图） | N37-N40 共用，与 N04 同构：`frame-img` 装饰框（render 单源内嵌 `styles/assets/iphone-frame.png`）+ 内屏开口 7.58%/3.82%/84.73%/92.30%，`border-radius:10px` 盖住露角；内屏图槽 46:99 cover |
