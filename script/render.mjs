@@ -1038,7 +1038,7 @@ for (const page of targets) {
   //   ② 脚本/动画标签：<script>、<animate> 及 SVG 同类 <animateMotion>/<animateTransform>/<set>
   //      —— 标签后加 \b 边界，<scriptData> 这类同名前缀不会误伤；<\s* 容忍 < script 空格
   //   ③ 动效 CSS：animation / transition（静态交付页不该有自主动效）
-  // 禁区语义的唯一权威在 CONTRACT「custom 页」；此处是实现，改动须同步该节。
+  // 禁区清单与每条缘由见 styles/improvisation.md「三条硬约束」第 3 条；此处是实现，改动须同步该节。
   const CUSTOM_FORBIDDEN_RE = /position\s*:\s*fixed|@media|<\s*\/?\s*(?:script|animate|animatetransform|animatemotion|set)\b|animation\s*:|transition\s*:/i;
   if (page.layout === 'custom/...' || String(page.layout).startsWith('custom/')) {
     if (!page.markup) fail(`P${nn}: custom 页需 markup`);

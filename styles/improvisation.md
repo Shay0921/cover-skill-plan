@@ -27,8 +27,8 @@
 ## 三条硬约束
 
 1. **`{{…}}` 一个不留**：custom 页不做槽位填充，render 对 `{{` 残留即停（硬校验），留一个就是一页坏图出不来。
-2. **根类三件套**：`artwork-page` + `data-artwork` + `data-size="1080x1440"`；`data-layer` 页内唯一。这是 custom 分支机器硬检的其中两项（另有 `{{` 残留、禁区属性，见 CONTRACT「custom 页」一节），过不了直接停。
-3. **只用本风格已有的类**：`position:fixed` / `@media` / `<script>` / `<animate>`（及 SVG 同类 `<animateMotion>`/`<animateTransform>`/`<set>`）/ `animation:` / `transition:` 会被硬停（大小写不敏感，完整清单见 CONTRACT「custom 页」）；内联样式、自造 CSS 变量、新类名机器不拦但属违规，靠人审把关。
+2. **根类三件套**：`artwork-page` + `data-artwork` + `data-size="1080x1440"`；`data-layer` 页内唯一。这是 custom 分支机器硬检的其中两项（另有 `{{` 残留、禁区属性，见下条），过不了直接停。
+3. **只用本风格已有的类**：`position:fixed` / `@media` / `<script>` / `<animate>`（及 SVG 同类 `<animateMotion>`/`<animateTransform>`/`<set>`）/ `animation:` / `transition:` 会被硬停（大小写不敏感，机器报出具体命中项）；内联样式、自造 CSS 变量、新类名机器不拦但属违规，靠人审把关。
 
 ## 出图后自查
 
