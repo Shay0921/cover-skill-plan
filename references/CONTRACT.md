@@ -35,10 +35,11 @@
 
 ## 3. 图槽（ph-img）
 
-- 槽位 = `<img class="ph-img__img" data-slot="image" data-layer data-label src="1×1 占位 PNG">`，外层容器带 `.ph-img` + `data-fit`（`cover` 裁切填满 / `contain` 完整显示）。`data-ratio` 写 img 或容器其一，两处都写时以 img 为准，同一图槽只写一处。比值用固定常用比集声明（见各风格 `catalog.md`「图槽约定」），异形槽保留实测比。
+- 槽位 = `<img class="ph-img__img" data-slot="image" data-layer data-label src="1×1 占位 PNG">`，外层容器带 `.ph-img` + `data-fit`（`cover` 裁切填满 / `contain` 完整显示；取值只有这两者，母版必须写合法值、AI 不改此属性）。`data-ratio` 写 img 或容器其一，两处都写时以 img 为准，同一图槽只写一处。比值用固定常用比集声明（见各风格 `catalog.md`「图槽约定」），异形槽保留实测比。
+- 图槽值必须是**任务运行区内的相对路径**（如 `shots/a.png`）；绝对路径或 `../` 指向运行区外会硬停，不要把本机其它位置的文件写进 plan。
 - 占位用 1×1 PNG，不用 GIF；容器未填图时显示 `.ph-img__label`，布局与有图一致。
 - 手机框是装饰 `<img>`（N04 实物 `class="n04-phone__frame frame-img"`），**机器按 class 含 `frame-img` 识别**并单源注入 `styles/assets/iphone-frame.png`，母版不内嵌框图数据；新母版要手机框必须带 `frame-img` 类，只写样式类名不会被注入。
-- 图片格式 PNG/JPEG/WebP；裁切按 `data-fit` 执行，AI 只在 `plan.json` 写 `crop` 选区：方位词 + 百分比，值域 `上/下/左/右/中` 与 `top/bottom/left/right/center` + `N%`（5–99）——**「中」与 `center` 不是同义词**：「中」= 垂直居中的横条带（裁高度方向），`center` = 水平居中的竖条带（裁宽度方向），不同槽比例下两者可见区不同。「下 N%」= 保留图的底部 N%。不写则整图按 `data-fit` 裁切填满。**叠加模型**：`crop` 先把 img 放大成条带（如「下 55%」→ 高 181.8% 贴底），`object-fit:cover` 再在这个放大盒内二次适配裁切——写方位要针对**裁后净可见区**判断，不是原图整体；方位组合拿不准时以出图实测为准。裁切引擎是**中心/方位盲裁**——代码不做主体识别或显著度检测，主体位置由 AI 看图判断后落方位词（判据见 `IMAGE-WORKFLOW.md`「看图与裁图纪律」）；图槽与文案的语义对齐也在该文件核对。`crop` 只应配 **cover** 槽；`contain` 槽**禁止写 crop**——机器不拦截、会被同样注入并破坏整图显示。
+- 图片格式 PNG/JPEG/WebP（白名单，其它格式不要用）；裁切按 `data-fit` 执行，AI 只在 `plan.json` 写 `crop` 选区：方位词 + 百分比，值域 `上/下/左/右/中` 与 `top/bottom/left/right/center` + `N%`（5–99）——**「中」与 `center` 不是同义词**：「中」= 垂直居中的横条带（裁高度方向），`center` = 水平居中的竖条带（裁宽度方向），不同槽比例下两者可见区不同。「下 N%」= 保留图的底部 N%。**裸百分比 `N%`（不带方位词）等价于「下 N%」**（保留图的底部 N%）；建议仍写全「方位 + 百分比」，避免读 plan 的人猜默认。不写则整图按 `data-fit` 裁切填满。**叠加模型**：`crop` 先把 img 放大成条带（如「下 55%」→ 高 181.8% 贴底），`object-fit:cover` 再在这个放大盒内二次适配裁切——写方位要针对**裁后净可见区**判断，不是原图整体；方位组合拿不准时以出图实测为准。裁切引擎是**中心/方位盲裁**——代码不做主体识别或显著度检测，主体位置由 AI 看图判断后落方位词（判据见 `IMAGE-WORKFLOW.md`「看图与裁图纪律」）；图槽与文案的语义对齐也在该文件核对。`crop` 只应配 **cover** 槽；`contain` 槽**禁止写 crop**——机器不拦截、会被同样注入并破坏整图显示。
 - **预裁素材**：文件级比例校验读的是**原图尺寸**，plan 里的 `crop` 不参与该比对。图与槽 `data-ratio` 差很多（盒形/比例 WARN）时，在运行区按目标比例**预裁出新素材文件**再写进 plan（原图保留、预裁件只落运行区、不进交付），不靠拉伸或改版式迁就图。预裁属于素材准备，交付页仍由 CSS 按 `data-fit` 收尾裁切。
 - **单通道**：只替换 `<img>` 的 `src`，容器不写 `data-img`、CSS 不写 `--img` 变量。手写 `markup` 内嵌图片时须给容器补 `data-filled`，否则占位标签与图叠在一起。
 - 图形页无图槽时，链路靠母版内 SVG 绘制：`data-layer` 落在 `<text>` 上、外层 `<g>` 标 `data-type="group"`，编辑器识别为 text/group。这类页不接受换图。

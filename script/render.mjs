@@ -127,13 +127,13 @@ function rootOf(body) {
   return { rootTag, inner: body.slice(openEnd + 1, closeStart) };
 }
 
-// ---------- repeat 区间解析（单元前注释） ----------
-function repeatRange(body, unitStart) {
-  // 从单元起点向前取「最近一条」repeat 注释，不再限制 400 字符窗口（说明头变长会静默漏校验）
-  const before = body.slice(0, unitStart);
-  const all = [...before.matchAll(/repeat\s*×(\d+)-(\d+)/g)];
-  const m = all[all.length - 1];
-  return m ? { min: +m[1], max: +m[2] } : null;
+// ---------- repeat 区间解析（注释↔单元按序配对，C2） ----------
+// 归属规则（2026-11-23 改）：第 i 条 repeat ×N-M 注释（文档顺序）配第 i 个 data-repeat 单元，
+// 一一配对、不向前搜索——旧实现「向前取最近一条注释」不限距离，某单元漏写注释会串用上一条的
+// 区间（可能误拦合法条数，也可能放过非法条数）。也不可用距离窗口：窗口太短说明头一变长就静默
+// 漏配、太长救不了漏写，按序配对两种情况都拦得住。数量不齐 / 注释落在对应单元之后 → fillSection 硬报错。
+function collectRepeatRanges(body) {
+  return [...body.matchAll(/repeat\s*×(\d+)-(\d+)/g)].map((m) => ({ at: m.index, min: +m[1], max: +m[2] }));
 }
 function findUnitEnd(body, start) {
   const tagM = body.slice(start).match(/^<([a-z0-9]+)\b/i);
@@ -350,10 +350,25 @@ function imageDims(buf) {
   return null;
 }
 
+// 图片路径边界校验（C5，2026-11-23）：plan 的 src 必须解析在任务运行区内。
+// 绝对路径与 ../ 逃逸会把本机任意文件 base64 内嵌进交付 HTML（数据外泄面），入口即拦；
+// Windows 盘符差异由 path.relative 天然兼容。越界只认 `..` 本身或 `../` 开头——
+// 用 startsWith('..') 会误拦 `..foo.png` / `...png` 这类合法文件名。
+function resolveInTask(src, where, errors) {
+  const file = path.resolve(taskDir, src);
+  const relToTask = path.relative(taskDir, file);
+  if (relToTask === '..' || relToTask.startsWith(`..${path.sep}`) || path.isAbsolute(relToTask)) {
+    if (errors) errors.push(`${where}: 图片路径须在任务运行区内（写相对路径，如 shots/a.png）: ${src}`);
+    return null;
+  }
+  return file;
+}
+
 function imgValue(v, where, errors, usedFiles, warns) {
   const spec = typeof v === 'string' ? { src: v } : v;
   if (!spec || typeof spec.src !== 'string' || !spec.src) { errors.push(`${where}: 图片值为空`); return null; }
-  const file = path.resolve(taskDir, spec.src);
+  const file = resolveInTask(spec.src, where, errors);
+  if (!file) return null;
   const ext = path.extname(file).toLowerCase();
   if (!fs.existsSync(file)) { errors.push(`${where}: 图片不存在 ${spec.src}`); return null; }
   if (!MIME[ext]) { errors.push(`${where}: 图片格式不符（仅 PNG/JPEG/WebP）${spec.src}；请转为 PNG/JPEG/WebP 后重试`); return null; }
@@ -431,8 +446,16 @@ function fillSection(layout, body, fields, errors, warns, usedFiles, meta, nn, t
       const start = m.index;
       if (units.some((u) => start >= u.start && start < u.end)) continue;
       const end = findUnitEnd(body, start);
-      units.push({ start, end, tag: m[1], arr: m[2], html: body.slice(start, end) });
+      units.push({ idx: units.length, start, end, tag: m[1], arr: m[2], html: body.slice(start, end) });
     }
+  }
+  // C2：注释↔单元按序配对。数量不齐 = 母版漏写/多写注释，硬报错；
+  // 配齐时第 i 个单元（文档顺序）用第 i 条注释的 ×min-max 校验条数，另查「注释须在单元之前」。
+  const repeatRanges = collectRepeatRanges(body);
+  const rangesPaired = repeatRanges.length === units.length
+    && repeatRanges.every((r, i) => r.at < units[i].start);
+  if (!rangesPaired) {
+    errors.push(`${layout}: repeat ×N-M 注释 ${repeatRanges.length} 条与 data-repeat 单元 ${units.length} 个不按序一一对应——每条注释按文档顺序配一个单元且须写在单元之前，请逐单元核对注释`);
   }
   // repeat 单元的「条目短名 → 真实 data-layer id」映射，供 fields.json 转写为编辑器契约初稿
   const unitLayerMaps = new Map();
@@ -452,7 +475,7 @@ function fillSection(layout, body, fields, errors, warns, usedFiles, meta, nn, t
     consumed.add(u.arr);
     const arr = fields[u.arr];
     if (!Array.isArray(arr) || arr.length === 0) { errors.push(`${layout}: repeat 数组 "${u.arr}" 缺失或为空`); continue; }
-    const range = repeatRange(body, u.start);
+    const range = rangesPaired ? repeatRanges[u.idx] : null;
     if (range && (arr.length < range.min || arr.length > range.max)) {
       errors.push(`${layout}: repeat "${u.arr}" 条数 ${arr.length} 超出 ×${range.min}-${range.max}`);
       continue;
@@ -793,7 +816,9 @@ function charWidth(ch) {
   return 1;   // emoji / 其他文字符号按一个汉字宽（保守）
 }
 function stripMarkup(value) {
-  return String(value).replace(/<[^>]+>/g, '').replace(/\s+/g, '');
+  // 只剥「标签形态」的片段，与 checkRich 的 TAG_LOOKING 同口径（C3，2026-11-23）：
+  // 裸尖括号（"A < B > C"）会被 richHtml 转义成可见文字，属可见字符——按标签剥掉会少算字数、漏报超限
+  return String(value).replace(/<[^>]+>/g, (m) => (TAG_LOOKING.test(m) ? '' : m)).replace(/\s+/g, '');
 }
 function countWidth(value) {
   let sum = 0;
@@ -848,7 +873,7 @@ function wordWarnings(headerText, filledValues, layout, warns) {
     const byWidth = unit === '字';
     emit(key, byWidth, +perLimit, (k, v, bw, limit, ceiling) => {
       // 先按 <br> 切行，再剥其余标签——顺序反了会把 br 一起剥掉，多行被当成一行
-      const lines = String(v).split(/<br\s*\/?>|\n/i).map((s) => s.replace(/<[^>]+>/g, '').trim()).filter(Boolean);
+      const lines = String(v).split(/<br\s*\/?>|\n/i).map((s) => s.replace(/<[^>]+>/g, (m) => (TAG_LOOKING.test(m) ? '' : m)).trim()).filter(Boolean);
       if (lines.length > +maxLines) warns.push(`${layout}: "${k}" ${lines.length} 行超限（≤${maxLines} 行），可能溢出`);
       lines.forEach((ln, i) => {
         const n = bw ? countWidth(ln) : countChars(ln);
@@ -882,7 +907,7 @@ const headerComments = {};
 
 const pages = plan.pages || [];
 if (!pages.length) fail('plan.json 无页面');
-const targets = ONLY ? pages.filter((p) => ONLY.some((o) => (p.nn || '').padStart(2, '0') === o.padStart(2, '0'))) : pages;
+const targets = ONLY ? pages.filter((p) => ONLY.some((o) => String(p.nn || '').padStart(2, '0') === o.padStart(2, '0'))) : pages;
 if (!targets.length) fail('--only 过滤后无页面');
 
 // 字数校验权重来源（诊断，便于换机/降级后核对；不写产物）
@@ -913,7 +938,8 @@ let gifInst = null;   // 转换用浏览器实例；截图阶段复用，避免�
   const byFile = new Map();   // 绝对路径 → 引用该文件的记录列表：同一 GIF 可被多槽引用，转换一次、全部改写
   for (const ref of collectImageSpecs(targets.map((p) => p.fields || {}))) {
     const src = ref.spec ? ref.spec.src : ref.host[ref.key];
-    const file = path.resolve(taskDir, src);
+    const file = resolveInTask(src, null, null);
+    if (!file) continue;   // 越界路径不在预转换阶段读文件——交给 imgValue 硬报错（带完整槽位上下文）
     if (path.extname(file).toLowerCase() !== '.gif' || !fs.existsSync(file)) continue;
     if (!byFile.has(file)) byFile.set(file, []);
     byFile.get(file).push(ref);
@@ -937,10 +963,18 @@ let gifInst = null;   // 转换用浏览器实例；截图阶段复用，避免�
           })()`, { awaitPromise: true, timeoutMs: 20000 }));
         if (typeof dataUrl !== 'string' || !dataUrl.startsWith('data:image/png;base64,'))
           throw new Error(`未得到 PNG dataURL（Got ${typeof dataUrl}）`);
-        fs.writeFileSync(file + '.png', Buffer.from(dataUrl.slice('data:image/png;base64,'.length), 'base64'));
+        // C8：产物名固定为 <file>.png，运行区已有同名文件时静默覆盖——存在即加数字后缀并 WARN
+        let suffix = '.png';
+        if (fs.existsSync(file + suffix)) {
+          let n = 2;
+          while (fs.existsSync(file + `-${n}.png`)) n++;
+          suffix = `-${n}.png`;
+          console.warn(`⚠ GIF 预转换产物重名：${path.basename(file)}.png 已存在，本次产物改写为 ${path.basename(file)}${suffix}`);
+        }
+        fs.writeFileSync(file + suffix, Buffer.from(dataUrl.slice('data:image/png;base64,'.length), 'base64'));
         for (const ref of refs) {
-          if (ref.spec) ref.spec.src = ref.spec.src + '.png';
-          else ref.host[ref.key] = ref.host[ref.key] + '.png';
+          if (ref.spec) ref.spec.src = ref.spec.src + suffix;
+          else ref.host[ref.key] = ref.host[ref.key] + suffix;
         }
         console.log(`   ✅ ${refs[0].spec ? refs[0].spec.src : refs[0].host[refs[0].key]}（${refs.length} 处引用）`);
       }
@@ -1015,7 +1049,10 @@ for (const page of targets) {
   }
   wordWarnings(headerComments[layout.split('-')[0]], wordFields, `P${nn}`, warns);
   allWarns.push(...warns);
-  const { rootTag, inner } = rootOf(body);
+  // C6：母版页 rootOf 与 custom 分支同样包 try/catch——画布根损坏时给友好 fail，不抛裸堆栈
+  let rootTag, inner;
+  try { ({ rootTag, inner } = rootOf(body)); }
+  catch (e) { fail(`P${nn}: 母版 "${layout}" 画布根异常：${e.message}`); }
   const rootClose = '</div>';
   const masterHtml = `  ${rootTag}\n${inner}\n  ${rootClose}`;
   built.push({ nn, name: page.name || layout, html: masterHtml, custom: false, layout, fields, unitLayerMaps, sysTally, pageNoValue, pageNoHidden, progressValue });
