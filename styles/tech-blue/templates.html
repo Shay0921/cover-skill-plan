@@ -149,7 +149,7 @@ a{color:inherit;text-decoration:none;}
       <!-- ============ N01 · 金句震撼封面 ============
            用途：单句主张型封面——一句狠话 + 数据点撑场
            适合：观点/实测类开篇；不适合：多图内容、长标题
-           可以变：数据 1-4 项；标签 0-4 个（无标签走 L2 删元素）；高亮词可移位
+           可以变：数据 1-4 项；标签 0-4 个（0 个时删掉该行，plan 不支持空数组）；高亮词可移位
            槽位：kicker / title / sub / stats[]（n,u）/ sub-note / tags[]（t） / issue / page-no
            限制：title≤12字(2行)；sub≤17字(1行)；n≤6字符 u≤4字；sub-note≤17字(1行)；issue≤14字；t≤8字
 
@@ -183,7 +183,7 @@ a{color:inherit;text-decoration:none;}
       <div class="n01-sub-note" data-layer="sub-note" data-label="按语" data-editable="text">{{sub-note}}</div>
 
       <div class="n01-tags">
-        <!-- repeat ×1-4: 标签 clone（flex 横排）；≤8字，超过 3 个由容器换行；无标签走 L2 删元素（机器不支持空数组） -->
+        <!-- repeat ×1-4: 标签 clone（flex 横排）；≤8字，超过 3 个由容器换行；无标签需手删该行（机器不支持空数组） -->
         <span class="t" data-repeat="tags" data-layer="tag-t" data-label="标签" data-editable="text">{{t}}</span>
       </div>
     </div>
@@ -202,7 +202,7 @@ a{color:inherit;text-decoration:none;}
       <!-- ============ N02 · 对话框封面 ============
            用途：教程/Prompt 类封面——标题 + 浏览器窗口截图
            适合：有横版截图的开篇；不适合：无图可用、竖图（裁切严重）
-           可以变：按钮文案可变（btn-1/btn-2）；note 可省略（无此内容走 L2 删元素）
+           可以变：按钮文案可变（btn-1/btn-2）；note 可省略（没有就删掉该行）
            槽位：kicker / title / sub / note / 图×1（窗口 16:9 cover） / win-addr / issue / page-no / btn-1 / btn-2
            限制：title≤14字(2行)；sub≤26字(1行)；note≤14字；win-addr≤28字符；issue≤14字；btn-1≤8字；btn-2≤10字
            hl：title 内 1 处（span.hl-line）
@@ -317,7 +317,7 @@ a{color:inherit;text-decoration:none;}
       <!-- ============ N04 · 手机叠放封面 ============
            用途：手机 App 类封面——双手机叠放展示两张竖屏截图
            适合：竖屏手机截图素材；不适合：横图（裁切严重）
-           可以变：可减为一台手机（L2 删除一台）；框图由 render 自动内嵌
+           可以变：可只放一台手机（删掉多余的那台）；框图由 render 自动内嵌
            槽位：kicker / title / sub / 图×2（手机内屏 46:99 cover）/ corner-tag / caption-t / caption-d / issue / page-no
            限制：title≤14字(2行,每行≤7字)；sub≤22字(1行)；corner-tag≤20字符；caption-t≤12字；caption-d≤14字；issue≤14字
            hl：title 内 0-1 处（span.hl-line）
@@ -382,7 +382,7 @@ a{color:inherit;text-decoration:none;}
       <!-- ============ N05 · 时间线概览 ============
            用途：成长/历程类概览——时间线条目纵向排布
            适合：Day N 叙事、阶段复盘；不适合：无时间含义的并列内容
-           可以变：条目 3-5 条；末条强调款（is-hot + c-accent）需 L2 手工加；speed 标签可留空（无此内容走 L2 删元素）
+           可以变：条目 3-5 条；末条强调款（is-hot + c-accent）需手加类；speed 标签可留空（没有就删掉该行）
            槽位：big-num / tag / title / sub / timeline[]（when,head,note,speed） / issue / page-no
            限制：big-num≤3字符；title≤14字(2行;每行≤8字[big-num单数字] 或 ≤6字[big-num双数字])；sub≤20字(1行)；head≤14字(1行)；note≤22字(1行)；when≤3字符；speed≤8字符；issue≤14字；tag≤12字；big-num 可选（留空自动隐藏，数量是主角才留）
 
@@ -530,7 +530,7 @@ a{color:inherit;text-decoration:none;}
       <!-- ============ N07 · 单步骤概览 ============
            用途：单步教学页——步骤头 + 大截图 + 三要点 + Pro Tip
            适合：一张主截图讲一个动作；不适合：多步骤并列
-           可以变：要点 2-4 条；要点强调款（is-hot）需 L2 手工加
+           可以变：要点 2-4 条；要点强调款（is-hot）需手加类
            槽位：step-num / title / shot-name / 图×1（16:9 cover）/ points[]（n,point-text）/ tip-1 / tip-2 / issue / page-no
            限制：title≤10字(2行)；shot-name≤26字符；point-text*≤24字(2行)；tip-1≤22字(2行)；tip-2≤11字(1行)；issue≤14字；step-num 可选（留空自动隐藏，数量是主角才留）
            hl：point-text/tip-1 内 strong 或 span.hl 强调
@@ -605,7 +605,7 @@ a{color:inherit;text-decoration:none;}
       <!-- ============ N08 · 双步骤同页 ============
            用途：双步骤并列页——上下两个步骤卡，第 1 组带截图，底部 💡 提示条
            适合：教程前两步打包讲；不适合：超过 2 步（拆 N06/N07）
-           可以变：每组要点 2-3 条；提示条可留空（无此内容走 L2 删元素）
+           可以变：每组要点 2-3 条；提示条可留空（没有就删掉该行）
            槽位：s1-num/s1-cat/s1-title / 图×1（16:9 cover）/ points-1[]（n,point）/ s2-num/s2-cat/s2-title / points-2[]（n,point）/ n08-callout / issue / page-no
            限制：s*-title≤14字(1行)；s*-cat≤18字符；point≤20字(1行)；n08-callout≤30字(1行)；issue≤14字
            hl：point 内 strong 强调
@@ -666,7 +666,7 @@ a{color:inherit;text-decoration:none;}
       </div>
     </div>
 
-    <!-- 💡 提示条（可留空：无此内容走 L2 删元素） -->
+    <!-- 💡 提示条（可留空：没有就删掉该行） -->
     <div class="callout n08-callout">
       <div class="callout__icon">💡</div>
       <div class="callout__body">
@@ -760,7 +760,7 @@ a{color:inherit;text-decoration:none;}
     <div class="gal-item" id="n33">
       <!-- ============ N33 · 流程链路图（内置 SVG） ============
            用途：四步流程/链路总览——内置 SVG 画 2×2 节点与走向箭头，非图片槽
-           适合：方法论 4 步、内容生产链路、处理流水线；不适合：步数≠4（另开档或走 L3）、要展示真实界面
+           适合：方法论 4 步、内容生产链路、处理流水线；不适合：步数≠4（换母版或借壳补空）、要展示真实界面
            可以变：节点标题/说明、结尾一句话全部可改；节点数固定 4（SVG 无流式布局，repeat 克隆的节点会全部叠在同一坐标）
            槽位：big-num / tag / title / sub / s1-t..s4-t / s1-d..s4-d / fig-note / issue / page-no
            限制：big-num≤2字符；tag≤12字；title≤14字(2行;每行≤8字[big-num单数字] 或 ≤6字[big-num双数字])；sub≤26字(1行)；s*-t≤6字(1行)；s*-d≤12字(1行)；fig-note≤24字(1行)；issue≤14字；big-num 可选（留空自动隐藏，数量是主角才留）
@@ -868,7 +868,7 @@ a{color:inherit;text-decoration:none;}
     <div class="gal-item" id="n35">
       <!-- ============ N35 · 流程时间轴（内置 SVG） ============
            用途：四段式流程时间轴——一条主线串 4 个节点，每节点挂名称/参数/时间，非图片槽
-           适合：按时间推进的流程总览（冲煮分段、操作时序）；不适合：段数≠4（另开档或走 L3）、分支/汇合流程、要展示真实界面
+           适合：按时间推进的流程总览（冲煮分段、操作时序）；不适合：段数≠4（换母版或借壳补空）、分支/汇合流程、要展示真实界面
            可以变：节点名/参数/时间、底部三项汇总全部可改；节点数固定 4（SVG 无流式布局，repeat 克隆的节点会全部叠在同一坐标）
            槽位：big-num / tag / title / sub / f1..f4（name,water,time）/ sum-1..3（label,value）/ issue / page-no
            限制：big-num≤1字符且=段数；tag≤12字；title≤14字(2行;每行≤8字)；sub≤26字(1行)；f*-name≤6字(1行)；f*-water≤10字(1行)；f*-time≤9字符(1行)；sum-*-label≤6字(1行)；sum-*-value≤10字(1行)；issue≤14字；big-num 可选（留空自动隐藏，数量是主角才留）
@@ -989,7 +989,7 @@ a{color:inherit;text-decoration:none;}
       <!-- ============ N10 · 工具清单 ============
            用途：工具/资源推荐——左编号清单 + 右 2×3 图格
            适合：3-8 条量级推荐 + 有截图素材；不适合：每条需长说明（d 一行）
-           可以变：条目 3-8 条（行距自适应）；右栏图格固定 6 格，可 L2 减格
+           可以变：条目 3-8 条（行距自适应）；右栏图格固定 6 格，少图需手删格
            槽位：big-num / title / sub / items[]（num,t,d）/ 图×6（竖版 3:4 cover）/ issue / page-no
            限制：big-num≤2字符且=条数；title≤10字(2行;每行≤8字[big-num单数字] 或 ≤6字[big-num双数字])；sub≤16字(1行)；t≤8字；d≤12字(1行)；6-8条时 d 更短；issue≤14字；big-num 可选（留空自动隐藏，数量是主角才留）
 
@@ -1056,7 +1056,7 @@ a{color:inherit;text-decoration:none;}
       <!-- ============ N11 · 工具清单基础 ============
            用途：基础工具清单——编号行 + 名称/描述/分类标签，纯文字
            适合：3-7 条量级推荐；不适合：需配图、每条长说明
-           可以变：条目 3-7 条（行高自适应）；tag 可留空（无此内容走 L2 删元素）
+           可以变：条目 3-7 条（行高自适应）；tag 可留空（没有就删掉该行）
            槽位：big-num / tag / title / sub / items[]（num,name,desc,tag） / issue / page-no
            限制：big-num≤2字符且=条数；title≤12字(2行;每行≤8字[big-num单数字] 或 ≤6字[big-num双数字])；sub≤18字(1行)；name≤8字；desc≤12字(1行)；tag≤12字；issue≤14字；big-num 可选（留空自动隐藏，数量是主角才留）
            hl：title 内 1 处（span.hl-line）
@@ -1113,7 +1113,7 @@ a{color:inherit;text-decoration:none;}
       <!-- ============ N12 · 待办清单 ============
            用途：待办/打卡清单——勾选框条目 + 进度头
            适合：5-8 条行动清单；不适合：无勾选语义的纯列表（用 N11）
-           可以变：条目 5-8 条；角标（n12-checklist__tag）需 L2 手工加；勾选态与进度为机器槽——勾选由 render 伪随机分配（data-rand-done），进度自动生成 done/total，plan 不可填
+           可以变：条目 5-8 条；角标（n12-checklist__tag）需手加类；勾选态与进度为机器槽——勾选由 render 伪随机分配（data-rand-done），进度自动生成 done/total，plan 不可填
            槽位：big-num / tag / title / sub / list-title / items[]（t,note） / issue / page-no
            限制：big-num≤2字符且=条数；title≤14字(2行;每行≤8字[big-num单数字] 或 ≤6字[big-num双数字])；sub≤16字(1行)；list-title≤10字；t≤14字(1行)；note≤16字(1行)；issue≤14字；tag≤12字；big-num 可选（留空自动隐藏，数量是主角才留）
 
@@ -1238,7 +1238,7 @@ a{color:inherit;text-decoration:none;}
       <!-- ============ N14 · 误区避雷 ============
            用途：误区避雷页——✗误区 → 正解对照行 + 底部转发条
            适合：4-6 条认知纠偏；不适合：正面教程内容
-           可以变：条目 4-6 条；底部转发条可留空（无此内容走 L2 删元素）
+           可以变：条目 4-6 条；底部转发条可留空（没有就删掉该行）
            槽位：big-num / tag / title / sub / myths[]（wrong,right）/ cta-line / issue / page-no
            限制：big-num≤2字符且=条数；title≤16字(2行;每行≤8字[big-num单数字] 或 ≤6字[big-num双数字])；sub≤14字(1行)；wrong≤12字(1行)；right≤18字(1行)；cta-line≤18字；issue≤14字；tag≤12字；big-num 可选（留空自动隐藏，数量是主角才留）
 
@@ -1357,7 +1357,7 @@ a{color:inherit;text-decoration:none;}
       <!-- ============ N16 · 分组图片展示 ============
            用途：分场景图片展示——3 组各带说明 + 横排 3 图
            适合：多场景对比、案例集；不适合：单图深度展示
-           可以变：组数固定 3 组（增减需 L2）；每组 3 图固定（减图走 L2 删元素）
+           可以变：组数固定 3 组，不能增减；每组 3 图固定，少图需手删
            槽位：big-num / tag / title / sub / g1-no/g1-name/g1-desc / 图×3 / g2-no/g2-name/g2-desc / 图×3 / g3-no/g3-name/g3-desc / 图×3 / issue / page-no
            限制：big-num≤2字符；tag≤12字；title≤10字(2行;每行≤8字[big-num单数字] 或 ≤6字[big-num双数字])；sub≤16字(1行)；g*-name≤6字；g*-desc≤20字(1行)；issue≤14字；big-num 可选（留空自动隐藏，数量是主角才留）
            hl：无
@@ -1441,7 +1441,7 @@ a{color:inherit;text-decoration:none;}
       <!-- ============ N17 · 纯图片密集网格 ============
            用途：密集图片墙——4×3 十二宫格
            适合：批量生图/作品集展示；不适合：需要文字说明的图
-           可以变：12 格固定（减格需 L2）
+           可以变：12 格固定，不能减
            槽位：big-num / tag / title / sub / 图×12（3:4 cover）/ issue / page-no
            限制：big-num≤2字符且=图数；title≤10字(2行;每行≤8字[big-num单数字] 或 ≤6字[big-num双数字])；sub≤18字(1行)；issue≤14字；tag≤12字；big-num 可选（留空自动隐藏，数量是主角才留）
 
@@ -1502,7 +1502,7 @@ a{color:inherit;text-decoration:none;}
       <!-- ============ N18 · Bento 生成展示 ============
            用途：Bento 网格生成展示——1 大 4 小图 + 角标签
            适合：5 件生成作品/工具展示；不适合：文字为主的内容
-           可以变：格子固定 5（1+4）；角标签可留空（无此内容走 L2 删元素）
+           可以变：格子固定 5（1+4）；角标签可留空（没有就删掉该行）
            槽位：big-num / tag / title / sub / 图×5（1:2×5 cover）/ b1-tag..b5-tag / issue / page-no
            限制：big-num≤2字符且=件数；title≤16字(2行;每行≤8字[big-num单数字] 或 ≤6字[big-num双数字])；sub≤18字(1行)；tag≤12字；b*-tag≤12字符；issue≤14字；big-num 可选（留空自动隐藏，数量是主角才留）
            hl：title 内 1 处（span.hl-line）
@@ -1555,7 +1555,7 @@ a{color:inherit;text-decoration:none;}
       <!-- ============ N19 · 单大图深度解析 ============
            用途：单大图深度解析——横版大图 + 三要点拆解
            适合：一张核心截图/作品 + 拆解；不适合：多图
-           可以变：要点 2-4 条；图上角标可留空（无此内容走 L2 删元素）
+           可以变：要点 2-4 条；图上角标可留空（没有就删掉该行）
            槽位：big-num / tag / title / sub / 图×1（3:2 cover）/ img-tag / points[]（n,t,d）/ issue / page-no
            限制：big-num≤2字符；tag≤12字；title≤10字(2行;每行≤8字[big-num单数字] 或 ≤6字[big-num双数字])；sub≤16字(1行)；img-tag≤12字符；t≤8字(1行)；d≤20字(2行)；issue≤14字；big-num 可选（留空自动隐藏，数量是主角才留）
            hl：无
@@ -1709,7 +1709,7 @@ a{color:inherit;text-decoration:none;}
       <!-- ============ N39 · 三机流程 ============
            用途：手机 App 三屏流程切片——三台并排，每屏配序号+标题+说明
            适合：三步操作流程（看豆→取方案→跟计时）；不适合：两步或四步以上
-           可以变：固定三屏（增减走 L2）；每屏内容换截图（比例固定）
+           可以变：固定三屏，不能增减；每屏内容换截图（比例固定）
            槽位：title / sub / cols[]（n,t,d） / col-img×3 / issue / page-no / foot-tag / foot-chip / foot-slogan
            限制：title≤14字(2行,每行≤7字)；sub≤24字(1行)；n≤8字符；t≤8字；d≤16字(2行)；issue≤14字；foot-tag≤18字符(1行)；foot-chip≤14字符；foot-slogan≤10字(1行)
            hl：title 内 0-1 处（span.hl-line）
@@ -1731,7 +1731,7 @@ a{color:inherit;text-decoration:none;}
       <div class="pm-sub" data-layer="sub" data-label="副题" data-editable="text">{{sub}}</div>
     </div>
     <div class="stage pm-stage n39-stage">
-      <!-- repeat ×3-3: 三机切片 clone（flex:1 均分）；固定三屏，增减走 L2 -->
+      <!-- repeat ×3-3: 三机切片 clone（flex:1 均分）；固定三屏，不能增减 -->
       <div class="n39-col" data-repeat="cols">
         <div class="pm-phone">
           <img class="pm-frame frame-img" src="../assets/iphone-frame.png" alt="" draggable="false">
@@ -1892,7 +1892,7 @@ a{color:inherit;text-decoration:none;}
       <!-- ============ N21 · 对比表格 ============
            用途：横向对比表——4 列表头 + 5 行指标 + 结论条
            适合：3 选项 × 多指标横评；不适合：选项或行数更多
-           可以变：行文案自由；单元格色块按预设类（✓/—/△），改配色需 L2
+           可以变：行文案自由；单元格色块按预设类（✓/—/△），改配色需手改类名
            槽位：big-num / tag / title / sub / th1..th4 / r1-label..r5-label / r1-c1..r5-c3 / verdict / cta / issue / page-no
            限制：big-num≤2字符；title≤16字(2行;每行≤8字[big-num单数字] 或 ≤6字[big-num双数字])；sub≤20字(1行)；th1..th4≤6字；r*-label≤8字；r*-c*≤6字符；verdict≤26字(1行)；issue≤14字；tag≤12字；big-num 可选（留空自动隐藏，数量是主角才留）
 
@@ -1987,7 +1987,7 @@ a{color:inherit;text-decoration:none;}
       <!-- ============ N22 · 标注截图 ============
            用途：单图标注讲解——窗口截图 + 编号钉 + 对应说明列表
            适合：一张界面图的分步导览；不适合：多图
-           可以变：钉与说明固定 3 组（增减需 L2 同步钉位）；钉位可配（坐标槽 pin1-pos..pin3-pos 传 {x,y} 截图框内百分比，AI 看图给点，不传保留母版默认校准）
+           可以变：钉与说明固定 3 组，不能增减；钉位可配（坐标槽 pin1-pos..pin3-pos 传 {x,y} 截图框内百分比，AI 看图给点，不传保留母版默认校准）
            槽位：big-num / tag / title / sub / shot-name / 图×1（16:9 cover）/ pin1-head/pin1-note .. pin3 / pin1-pos/pin2-pos/pin3-pos（可选坐标槽 {x,y}，参照系 percent=截图框）/ issue / page-no
            限制：big-num≤2字符；title≤12字(2行;每行≤8字[big-num单数字] 或 ≤6字[big-num双数字])；sub≤16字(1行)；shot-name≤24字符；pin*-head≤12字(1行)；pin*-note≤28字(2行)；issue≤14字；tag≤12字；big-num 可选（留空自动隐藏，数量是主角才留）
 
@@ -2139,12 +2139,12 @@ a{color:inherit;text-decoration:none;}
       <!-- ============ N24 · 代码编辑器 ============
            用途：代码展示页——编辑器窗口 + 高亮代码 + 状态栏
            适合：单段代码/命令展示；不适合：长代码（>12 行）
-           可以变：代码为高亮示例，换码走 L2（沿用 n24-tk-* span 手工包：k=关键字 f=函数 n=数字 s=字符串 c=注释 b=内置 p=标点）；标签页/状态栏可改
-           槽位：big-num / tag / title / sub / tab1..tab3 / status-l / status-r / fx-img（图槽，可留空——无此内容走 L2 删元素） / issue / page-no
+           可以变：代码为高亮示例，换码需手改 span 类（沿用 n24-tk-* 手工包：k=关键字 f=函数 n=数字 s=字符串 c=注释 b=内置 p=标点）；标签页/状态栏可改
+           槽位：big-num / tag / title / sub / tab1..tab3 / status-l / status-r / fx-img（图槽，可留空——没有就删掉该槽） / issue / page-no
            限制：big-num≤3字符；title≤14字(2行;每行≤8字[big-num单数字] 或 ≤6字[big-num双数字])；sub≤24字(1行)；tab≤14字符；status-l≤26字符；status-r≤22字符；issue≤14字；tag≤12字；big-num 可选（留空自动隐藏，数量是主角才留）
 
            hl：无（代码高亮为 tk-* 静态装饰，不在富文本白名单）
-           图槽：效果区图 10:3 cover ×1——可留空：填图 = 图形态（编辑器 flex:1 让位、图固定高）；不填走 L2 删元素删图槽 = 编辑器吃满（纯 code 形态，code 行数多时用）
+           图槽：效果区图 10:3 cover ×1——可留空：填图 = 图形态（编辑器 flex:1 让位、图固定高）；不填就删掉图槽 = 编辑器吃满（纯 code 形态，code 行数多时用）
       -->
       <section data-layout="N24-code-editor">
     <div class="artwork-page n24" data-artwork data-size="1080x1440">
@@ -2286,7 +2286,7 @@ a{color:inherit;text-decoration:none;}
       <!-- ============ N25 · 数据指标 ============
            用途：数据指标页——主指标柱状图 + 双小指标卡
            适合：实测数据汇报；不适合：无数据的观点页
-           可以变：柱状图 7 根为装饰（改值走 L2 改 n25-h1..h7 类高度）；小指标 2 卡固定
+           可以变：柱状图 7 根为装饰（改值需手改 n25-h1..h7 类高度）；小指标 2 卡固定
            槽位：big-num / tag / title / sub / main-label / main-val / main-unit / sm1-label/sm1-val/sm1-delta/sm1-r1l/sm1-r1v/sm1-r2l/sm1-r2v / sm2-label/sm2-val/sm2-delta/sm2-r1l/sm2-r1v/sm2-r2l/sm2-r2v / issue / page-no
            限制：big-num≤3字符；title≤14字(2行;每行≤8字[big-num单数字] 或 ≤6字[big-num双数字])；sub≤18字(1行)；main-label≤14字；main-val≤5字符；sm*-label≤6字；sm*-val≤5字符；sm*-delta≤5字符；sm*-r*l≤4字 sm*-r*v≤6字符；issue≤14字；tag≤12字；big-num 可选（留空自动隐藏，数量是主角才留）
 
@@ -2523,7 +2523,7 @@ a{color:inherit;text-decoration:none;}
       <!-- ============ N28 · CTA 导向结尾 ============
            用途：CTA 导向结尾——金句 + 三条记住 + 关注引导 + 下期预告
            适合：内容号固定收尾；不适合：正文中间页
-           可以变：takeaways 2-4 条；callout/下期预告可留空（无此内容走 L2 删元素）
+           可以变：takeaways 2-4 条；callout/下期预告可留空（没有就删掉该行）
            槽位：quote / takeaways[]（item）/ cta-t / tip / next-ep / issue / page-no
            限制：quote≤20字(4行,含 br)；item≤20字(1行)；cta-t≤10字；tip≤36字(2行)；next-ep≤16字；issue≤14字
            hl：quote 内 1 处（span.hl-line）
@@ -2588,7 +2588,7 @@ a{color:inherit;text-decoration:none;}
       <!-- ============ N29 · 卡片式结尾 ============
            用途：卡片式结尾——下期预告大卡 + 作者卡 + 社群二维码卡
            适合：系列内容固定收尾；不适合：中间页
-           可以变：预告标签 0-4 个（无标签走 L2 删元素）；作者卡文案/社交账号可改
+           可以变：预告标签 0-4 个（0 个时删掉该行）；作者卡文案/社交账号可改
            槽位：outro-title / 图×2（4:5 cover、1:1 contain）/ next-num / next-title / next-tags[]（tag）/ author-name / bio / social-1 / social-2 / qr-hint / issue / page-no
            限制：outro-title≤10字(2行)；next-num≤4字符；next-title≤14字(2行)；tag≤12字；author-name≤16字(1行)；bio≤15字(1行)；social-1≤24字符；social-2≤24字符；qr-hint≤18字(1行)；issue≤14字
            hl：qr-hint 内 strong 1 处
@@ -2628,7 +2628,7 @@ a{color:inherit;text-decoration:none;}
           </div>
           <div class="n29-next-card__title" data-layer="next-title" data-label="下期标题" data-editable="text">{{next-title}}</div>
           <div class="n29-next-card__tags">
-            <!-- repeat ×1-4: 话题标签 clone；无标签走 L2 删元素（机器不支持空数组） -->
+            <!-- repeat ×1-4: 话题标签 clone；无标签需手删该行（机器不支持空数组） -->
             <span data-repeat="next-tags" data-layer="next-tag" data-editable="text">{{tag}}</span>
           </div>
         </div>
@@ -2800,17 +2800,9 @@ a{color:inherit;text-decoration:none;}
         .replace(/（[^）]*居中制式，不是漏填）/g, '（居中制式，不是漏填）') // 保护这段中文说明
         .replace(/勾选态与进度为机器槽——勾选由 render 伪随机分配（data-rand-done），进度自动生成 done\/total，plan 不可填/g, '勾选态与进度自动生成')
         .replace(/框图由 render 自动内嵌/g, '')                 // 括号外的实现细节
-        .replace(/（[^）]*(?:L[23]|CSS|render|repeat|SVG|data-|plan 不可填|手工包|类高度|br\/strong|坐标槽|n\d\d|is-hot|c-accent|checklist|btn-)[^）]*）/g, '') // 含黑话的整括号删
+        .replace(/（[^）]*(?:CSS|render|repeat|SVG|data-|plan 不可填|手工包|类高度|br\/strong|坐标槽|n\d\d|is-hot|c-accent|checklist|btn-)[^）]*）/g, '') // 含黑话的整括号删
         .replace(/（callout）/gi, '')
         .replace(/三段 para 各带 strong 强调/g, '三段各带强调')
-        .replace(/换码走 L2/g, '可换码')
-        .replace(/需\s*L[23]\s*手工加/g, '可加')
-        .replace(/走\s*L[23]\s*删元素/g, '')
-        .replace(/需\s*L[23](?=[，；。]|$)/g, '需手工改')
-        .replace(/走\s*L[23]\s*/g, '')
-        .replace(/需\s*L[23]\s*/g, '')
-        .replace(/可\s*L[23]\s*/g, '可')
-        .replace(/L[23]\s*/g, '')
         .replace(/\bcta\b/gi, '关注条')
         .replace(/\bmotto\b/gi, '金句')
         .replace(/\bbig-num\b/gi, '大数字')

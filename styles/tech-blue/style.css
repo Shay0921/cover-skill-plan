@@ -1747,7 +1747,7 @@ html,body{margin:0;padding:0;background:#ECEEF3;font-family:var(--sans);}
 
 .n25-mini-bars i:nth-child(7){background:var(--accent);}
 
-/* 柱高（改数据走 L2 调整这些百分比） */
+/* 柱高（改数据调整这些百分比） */
 .n25-h1{height:30%;}
 .n25-h2{height:45%;}
 .n25-h3{height:38%;}
