@@ -1,4 +1,4 @@
-# 内容提炼（写 plan 前的强制决策）
+# 内容提炼（CONTENT-REFINEMENT · 写 plan 前的强制决策）
 
 本文件是规则，不是建议清单。写 `plan.json` 之前必须完成下列决策；决策不落新文件，直接约束选母版与填字段。字段填写的高亮/断行/符号纪律见 `styles/content-rules.md`。
 

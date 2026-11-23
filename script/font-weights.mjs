@@ -15,9 +15,9 @@
  *       的相对 url，data: 页没有 base URL、解析不到。
  *
  * 输出 script/font-weights.json：**跨平台累积表**——key = 字体族名，value = 字宽权重 + 平台标记。
- *   weights 是「字体属性」不是「机器属性」：一旦在任一平台实测过就永久保留，不被后续别的平台的运行抹掉；
+ *   weights 是「字体属性」不是「机器属性」：实测过就永久保留，不被别的平台重跑抹掉；
  *   platforms 记「该族在各平台是否真装」（`{darwin:true, win32:false}`），render 按 process.platform 决定用哪个族。
- *   合并语义：本机没装的族只把 `platforms[本平台]` 记为 false，**不覆盖已有权重**；换机重跑即补齐，不丢别的平台实测。
+ *   合并语义：本机没装的族只把 `platforms[本平台]` 记为 false，换机重跑即补齐。
  * 与 weightSource、本次探测的 installed/matched/measuredOn 同存，顶层记 generatedAt / generatedOn。
  * render.mjs 出图时**不探测**字体，而是按 CSS 三栈的声明顺序，取第一个「本平台真装且有实测权重」的族；
  * 表里没有可用项则回退到内置兜底值（偏宽，只会多报不会漏报）。
@@ -31,8 +31,8 @@ const ROOT = path.resolve(path.dirname(url.fileURLToPath(import.meta.url)), '..'
 const OUT = path.join(ROOT, 'script', 'font-weights.json');
 // 本次探测所在平台：写进 platforms 映射与顶层 generatedOn，供 render 按 process.platform 取族
 const PLAT = process.platform;
-// 合并迁移用：本表第一版（Songti SC / PingFang SC / Menlo 三族实测）生成于 macOS，老结构没有 platforms 字段。
-// 只能按「installed=true ⇒ 生成它的那个平台装过」推断归属，否则那批实测会失去平台标记、在两边都不被取用。
+// 无 platforms 字段的旧表：只能按「installed=true ⇒ 生成它的那个平台装过」推断归属，
+// 否则那批实测会失去平台标记、在两边都不被取用。
 const LEGACY_PLATFORM = 'darwin';
 let prevReport = null;
 try { if (fs.existsSync(OUT)) prevReport = JSON.parse(fs.readFileSync(OUT, 'utf8')); } catch { prevReport = null; }
@@ -129,7 +129,7 @@ try {
       matched[families[n.idx]] = fonts.map((f) => f.familyName).join('+') || '(none)';
     }
 
-    // 先继承旧表：本次没用 --families 缩范围时它等价于空操作；缩范围时未探测的族原样保留（早先直接覆盖会让表变小）
+    // 先继承旧表：缩范围时未探测的族原样保留，避免表变小；未缩范围时等价于空操作
     const profiles = { ...prevProfiles };
     // 「真装」判据：CDP 报的某个实际 face 与请求族名同名（或带 -Regular / Bold 之类后缀）。
     // 不能用「首词包含」——名字相近的两个族会因首词相同而互相误判为已装，
@@ -142,7 +142,7 @@ try {
     for (const f of families) {
       const installed = isInstalled(f, matched[f]);
       const prev = prevProfiles[f] || {};
-      // 平台归属：老结构（无 platforms）里 installed=true 的族来自首版 macOS 实测，按 LEGACY_PLATFORM 归属
+      // 平台归属：无 platforms 的旧表里 installed=true 的族按 LEGACY_PLATFORM 归属
       const prevPlatforms = (prev.platforms && typeof prev.platforms === 'object')
         ? prev.platforms
         : (prev.installed ? { [LEGACY_PLATFORM]: true } : {});

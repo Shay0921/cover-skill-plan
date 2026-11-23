@@ -91,7 +91,7 @@ function parseTokens(block) {
 }
 
 // 注入令牌：取最后一个「真实」</head>——文件头注释里常会写到这个标签名，
-// 用 replace(/<\/head>/i 取第一个会把 <style> 塞进注释里（静默失效，曾踩过一次）
+// 用 replace(/<\/head>/i 取第一个会把 <style> 塞进注释里（静默失效）
 function injectTokens(doc, rootCss) {
   const tag = `<style id="__style_tokens__">\n${rootCss}\n</style>\n`;
   const idxs = [...doc.matchAll(/<\/head\s*>/gi)].map((m) => m.index);

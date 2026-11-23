@@ -81,7 +81,7 @@
 
 - 线宽与圆角：细线 1px、卡片 1px 边框 + 圆角 14、序号圆 1.5px 描边，圆角不超 14；箭头用 CSS 三角或 `<marker>`，三角 5×7。
 
-## 4. 即兴补空纪律（借壳补空）
+## 4. 即兴补空纪律
 
 - 母版能套但留白/空框难看时，借母版骨架补空：触发、做法与硬约束见 `styles/improvisation.md`；本节只立风格纪律。
 - 只用 style.css 既有类；根结构照抄母版：`.artwork-page.n<nn>` + `.paper-noise` + `.brand-top` + 内容 + `.pg-footer`。
@@ -111,4 +111,4 @@
 - 用 per-page `fields` 逐页填品牌名/logo/页脚署名；品牌三值走顶层 `plan.meta.brand.*`，期号 `issue` 逐页填，页码禁止手填。
 - 图槽塞 `<div style="background:url()">`；图槽必须走 `<img data-slot="image">`。
 - 把 `repeat ×min-max`、每槽 `≤N字` 精确限值写进 catalog；精确限值只在母版注释与说明头，catalog 只写选型量级语义。
-- 内容迁就版式大改文案；冲突时回炉内容提炼，规则见 `references/content-refinement.md`。
+- 内容迁就版式大改文案；冲突时回炉内容提炼，规则见 `references/CONTENT-REFINEMENT.md`。
