@@ -675,6 +675,7 @@ function fillSection(layout, body, fields, errors, warns, usedFiles, meta, nn, t
   // 4) 文字槽（以 repeat 替换后 body 中残留的 {{}} 为准 = 顶层槽）
   //    page-no / progress 是机械槽，不读 fields，留给步骤 6/6.6 单独注入；此处跳过避免误报"为空"。
   const remaining = [...new Set([...body.matchAll(/\{\{([^}]+)\}\}/g)].map((m) => m[1].trim()))];
+  const emptySlots = new Map(); // 必填空槽先收集后报：未知键同源合并时能撤掉对应条目（见步骤 5）
   for (const name of remaining) {
     if (name === 'page-no' || name === 'progress') continue;
     consumed.add(name);
@@ -682,7 +683,7 @@ function fillSection(layout, body, fields, errors, warns, usedFiles, meta, nn, t
     if (v === undefined || v === null || v === '') {
       // 可选槽（元素带 data-optional）：留空合法，占位符清空，节点变空由 CSS :empty 隐藏（如大数字轻量标题）
       if (isOptionalSlot(body, name)) { body = body.split(`{{${name}}}`).join(''); continue; }
-      errors.push(`${layout}: 槽 "${name}" 为空（必填）`); continue;
+      emptySlots.set(name, true); continue;
     }
     const sv = String(v);
     checkRich(sv, `${layout}:${name}`, errors);
@@ -703,9 +704,19 @@ function fillSection(layout, body, fields, errors, warns, usedFiles, meta, nn, t
     if (!consumed.has(k)) {
       // 对未知键做一次最近匹配，直接告诉正确键名（候选含已消费槽，打错系统槽名也能纠）
       const hit = nearestSlot(k, [...new Set([...names, ...repeatNames, ...imgIds, ...consumed])]);
-      errors.push(`${layout}: plan 字段 "${k}" 与母版槽位对不上${hit ? `——是不是 "${hit}"？` : ''}`);
+      // 同源合并：仅当命中槽确实因缺键而空（fields 无此键、且在待报空槽清单里）才把三条并成一条根因；
+      // fields 里有此键（拼错+真给了）、或距离太远无建议、或命中的是图槽/repeat 名——一律维持原样，不吞真错误。
+      const mergeable = hit && emptySlots.has(hit) && fields[hit] === undefined;
+      if (mergeable) {
+        emptySlots.delete(hit);
+        body = body.split(`{{${hit}}}`).join('');
+        errors.push(`${layout}: plan 字段 "${k}" 与母版槽位对不上——是不是 "${hit}"？——${hit} 因此为空、{{${hit}}} 残留，改对键名即可`);
+      } else {
+        errors.push(`${layout}: plan 字段 "${k}" 与母版槽位对不上${hit ? `——是不是 "${hit}"？` : ''}`);
+      }
     }
   }
+  for (const name of emptySlots.keys()) errors.push(`${layout}: 槽 "${name}" 为空（必填）`);
 
   // 6) 页码注入/隐藏（残留校验之前）：总页数取 plan.pages.length，与 --only 无关
   const pg = injectPageNo(body, nn, total, layout, errors);
