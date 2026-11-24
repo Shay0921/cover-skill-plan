@@ -27,6 +27,7 @@ work/
 *.tmp
 *.temp
 .cache/
+.trae-html-share-packages/
 
 # 本地会话数据（只忽略、不删除）
 .workbuddy/

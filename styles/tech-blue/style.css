@@ -567,8 +567,10 @@ html,body{margin:0;padding:0;background:#ECEEF3;font-family:var(--sans);}
 .n02 .n02-action-bar .note{
   font-size:1.98cqw;color:var(--muted);font-family:var(--mono);letter-spacing:.06em;
   }
+/* 可选槽：小注留空即隐藏，按钮靠 margin-left:auto 独自右贴 */
+.n02 .n02-action-bar .note:empty{display:none;}
 
-.n02-action-bar .n02-btns{display:flex;gap:1.2cqw;}
+.n02-action-bar .n02-btns{display:flex;gap:1.2cqw;margin-left:auto;}
 
 .n02-action-bar .n02-btn{
   padding:.9cqw 2.2cqw;border:1px solid var(--line-strong);
@@ -670,94 +672,6 @@ html,body{margin:0;padding:0;background:#ECEEF3;font-family:var(--sans);}
   line-height:1.4;
   display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden;
   }
-
-
-
-/* ---- N04 · 手机叠放封面 ---- */
-.n04 .content{
-  flex:1;margin:2cqw 6.6cqw 2cqw;min-height:0;
-  display:flex;flex-direction:column;gap:2.6cqw;  /* gap 加大 */
-  }
-
-/* ========== Hero ========== */
-.n04 .hero{
-  flex:none;display:flex;flex-direction:column;align-items:center;text-align:center;
-  gap:2cqw;
-  }
-
-.n04 .hero__title{
-  font-family:var(--serif);font-weight:bold;
-  font-size:9.3cqw;line-height:1.08;letter-spacing:-.03em;
-  color:var(--ink);max-width:80cqw;
-  }
-
-.n04 .hero__sub{
-  font-size:2.64cqw;color:var(--ink-soft);line-height:1.5;max-width:70cqw;font-style:italic;
-  }
-
-/* ========== 手机叠放 ========== */
-.n04-phones{
-  flex:1;min-height:0;display:flex;align-items:center;justify-content:center;
-  position:relative;gap:0;
-  }
-
-.n04-phones__corner-tag{
-  position:absolute;left:1.4cqw;top:1.4cqw;  /* 不要贴边角 */
-  font-family:var(--mono);font-size:1.72cqw;color:var(--accent);letter-spacing:.18em;font-weight:bold;
-  }
-
-
-/* 手机 */
-.n04-phone{
-  position:relative;width:40cqw;flex:none;transform-origin:center center;
-  }
-
-/* 壳压图：frame 必须成为定位元素且层级高于 absolute 的 screen，
-   否则 static 的 img 永远被 absolute 的 screen 盖住 */
-.n04-phone__frame{
-  position:relative;z-index:2;
-  width:100%;display:block;
-  filter:drop-shadow(0 .4cqw 1.6cqw rgba(0,0,0,.15));
-  }
-
-/* 内屏开口比例（910×1806 壳图实测透明区）：
-   left 7.58% top 3.82% width 84.73% height 92.30%；壳图自带圆角，overflow 裁切即可 */
-.n04-phone__screen{
-  position:absolute;z-index:1;
-  left:7.58%;top:3.82%;width:84.73%;height:92.30%;
-  overflow:hidden;border-radius:10px;  /* 盖住壳图开口外的四个直角露出 */
-  background:var(--paper-deep);
-  }
-
-/* 屏幕内占位（后期换成 <img>）*/
-.n04 .n04-phone__screen .ph{
-  width:100%;height:100%;display:grid;place-items:center;
-  font-family:var(--mono);font-size:1.56cqw;color:var(--dim);letter-spacing:.14em;
-  border:1px dashed var(--line-strong);
-  }
-
-/* 叠放位置 */
-.n04-phone.n04-phone--back{
-  transform:rotate(-6deg) translateX(-4cqw);
-  z-index:1;width:36cqw;
-  }
-
-.n04-phone.n04-phone--front{
-  transform:rotate(4deg) translateX(4cqw) translateY(2cqw);
-  z-index:2;
-  }
-
-/* ========== 底部说明 ========== */
-.n04-caption-row{
-  flex:none;display:flex;align-items:center;gap:2cqw;
-  font-family:var(--mono);font-size:1.85cqw;color:var(--muted);letter-spacing:.12em;
-  }
-
-.n04-caption-row::before{content:"";flex:1;height:1px;background:var(--line);}
-
-.n04-caption-row::after{content:"";flex:1;height:1px;background:var(--line);}
-
-.n04-caption-row strong{color:var(--ink);font-family:var(--serif);font-weight:bold;font-size:1.85cqw;letter-spacing:0;}
 
 
 
@@ -1200,6 +1114,8 @@ html,body{margin:0;padding:0;background:#ECEEF3;font-family:var(--sans);}
 .n11 .num-list .desc{font-size:2.38cqw;color:var(--ink-soft);}
 
 .n11 .num-list .tag{font-family:var(--mono);font-size:1.72cqw;font-weight:bold;letter-spacing:.1em;color:var(--accent);border:1px solid var(--accent);padding:.6cqw 1.6cqw;border-radius:.4cqw;}
+/* 可选槽：条目标签留空即隐藏，auto 列宽归 0，右端只余 1 个列间距 */
+.n11 .num-list .tag:empty{display:none;}
 
 
 
@@ -1376,6 +1292,8 @@ html,body{margin:0;padding:0;background:#ECEEF3;font-family:var(--sans);}
 .n18 .n18-g .ph{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--mono);font-size:2.9cqw;color:var(--muted);}
 
 .n18 .n18-g .label{position:absolute;bottom:1cqw;left:1cqw;font-family:var(--mono);font-size:1.8cqw;font-weight:bold;letter-spacing:.14em;background:rgba(38,42,50,.72);color:#fff;padding:.4cqw 1.2cqw;}
+/* 可选槽：角标签留空即隐藏（绝对定位，隐藏不影响格子） */
+.n18 .n18-g .label:empty{display:none;}
 
 
 
@@ -1388,8 +1306,10 @@ html,body{margin:0;padding:0;background:#ECEEF3;font-family:var(--sans);}
 .n19 .n19-hero-img .placeholder{font-family:var(--mono);font-size:2.11cqw;color:var(--dim);letter-spacing:.18em;}
 
 .n19-hero-img .n19-hero-tag{position:absolute;top:2cqw;left:2cqw;background:var(--accent);color:#fff;font-family:var(--sans);font-size:1.72cqw;font-weight:bold;padding:.8cqw 1.6cqw;letter-spacing:.12em;}
+/* 可选槽：图上角标留空即隐藏 */
+.n19-hero-img .n19-hero-tag:empty{display:none;}
 
-.n19 .points{flex:none;display:grid;grid-template-columns:repeat(3,1fr);gap:3cqw;}
+.n19 .points{flex:none;display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:3cqw;}
 
 .n19-point{border-top:2px solid var(--ink);padding-top:1.6cqw;display:flex;flex-direction:column;gap:.6cqw;}
 
@@ -1666,11 +1586,13 @@ html,body{margin:0;padding:0;background:#ECEEF3;font-family:var(--sans);}
 /* 行号 */
 .n24-editor__lines{
   flex:none;padding:1.6cqw 1.2cqw;text-align:right;
-  color:rgba(255,255,255,.25);font-size:1.72cqw;line-height:1.75;
+  /* 行高按代码行盒对齐：1.72cqw × 1.888 = 1.91cqw × 1.7，行号才与代码逐行同高 */
+  color:rgba(255,255,255,.25);font-size:1.72cqw;line-height:1.888;
   user-select:none;border-right:1px solid rgba(255,255,255,.06);
   }
 
-.n24-editor__code{flex:1;padding:1.6cqw 2cqw;font-size:1.91cqw;}
+/* pre 默认有 1em 上下外边距，会把代码整体压低约 20px，必须清零才能和行号首行对齐 */
+.n24-editor__code{flex:1;margin:0;padding:1.6cqw 2cqw;font-size:1.91cqw;}
 
 /* 语法高亮 token —— 在深色背景上 */
 .n24-tk-k{color:#FF7B72;}
@@ -1703,7 +1625,8 @@ html,body{margin:0;padding:0;background:#ECEEF3;font-family:var(--sans);}
 
 .n24 .n24-editor__status .ic{color:var(--accent);margin-right:.6cqw;}
 .n24-fx{
-  flex:none;height:26cqw;border-radius:var(--radius-lg);overflow:hidden;position:relative;
+  /* 图槽 8:3：内容区宽 87cqw → 高 = 87 ÷ 8/3 ≈ 32.6cqw，与 data-ratio 同源 */
+  flex:none;height:32.6cqw;border-radius:var(--radius-lg);overflow:hidden;position:relative;
   border:1px solid var(--line-strong);background:var(--paper-deep);
   }
 
@@ -2323,7 +2246,7 @@ html,body{margin:0;padding:0;background:#ECEEF3;font-family:var(--sans);}
 .n37-row-t{font-family:var(--serif);font-size:3.4cqw;font-weight:bold;margin:.6cqw 0;color:var(--ink);}
 .n37-row-d{font-size:2.51cqw;line-height:1.55;color:var(--ink-soft);}
 
-/* ---- N38 · 双屏并列（专属段）---- */
+/* ---- N38 · 双屏叠放（专属段）---- */
 .n38-stage{align-items:center;justify-content:center;}
 .n38-back{width:44cqw;transform:rotate(-5deg) translateX(1cqw);}
 .n38-front{width:44cqw;transform:rotate(5deg) translateX(-1cqw);margin-left:-3cqw;z-index:2;}

@@ -15,7 +15,7 @@
  *   ③ 交付目录 = 用户选中的工作区（--delivery 或 plan.delivery，命名 YYYY-MM-DD-<小标题>）：校验+截图全过后按白名单拷贝
  * 交付白名单（默认，编辑器不在默认链路上）：P<nn>-<名>.html + P<nn>-<名>.png + preview.png
  *   --with-editor 追加：fields.json + editor.manifest.json + assets/（仅用户要开编辑器时才走）
- * 硬校验（即停）：{{ 残留 / 图片缺失或格式不符 / 根节点与画布 / data-layer 重复 / 必填槽为空 / plan 字段与槽位对不上 / repeat 区间 / 富文本白名单外标签
+ * 硬校验（即停）：{{ 残留 / 图片缺失或格式不符 / 根节点与画布 / data-layer 重复 / 文字槽为空（可选槽除外） / plan 字段与槽位对不上 / repeat 区间 / 富文本白名单外标签
  *   / data-sys 白名单外取值 / plan 出现手填 page-no / progress 字段
  *   文案里的裸 < > 不算标签（"年收入 > 10 万"、"A < B" 照常出图，注入前转义为实体显示）
  * 软校验（WARN）：字数超限（解析说明头"限制"行）/ 图片与槽位比例差异大 / crop 百分比超界（clamp 到 5–99）
@@ -509,7 +509,12 @@ function fillSection(layout, body, fields, errors, warns, usedFiles, meta, nn, t
       let html = u.html;
       for (const ph of unitPh) {
         const v = item[ph];
-        if (v === undefined || v === null || v === '') errors.push(`${layout}: "${u.arr}[${i}].${ph}" 为空`);
+        if (v === undefined || v === null || v === '') {
+          // 单元内可选槽：母版节点带 data-optional 时留空合法，占位符清空后交给 CSS :empty 隐藏
+          if (isOptionalSlot(u.html, ph)) { html = html.split(`{{${ph}}}`).join(''); continue; }
+          errors.push(`${layout}: "${u.arr}[${i}].${ph}" 为空`);
+          continue;
+        }
         const sv = String(v ?? '');
         checkRich(sv, `${layout}:${u.arr}[${i}].${ph}`, errors);
         // 白名单标签保留生效，裸 < > 转义显示（"A < B" 不会变成半个标签）
@@ -1224,7 +1229,7 @@ try {
       // 盒形比例诊断（纯读态 WARN）：实测 .ph-img 容器盒 vs 声明 data-ratio。
       // 须在 captureReadyPage 之后测（字体回流已稳定，与截图同帧）；只盯 cover 槽（contain 是留白非裁切）。
       // ⚠ 用 offsetWidth/Height（变换前布局盒）而非 getBoundingClientRect——后者是旋转后 AABB：
-      // N04 后手机 rotate(-6deg) 会把 329x714 的真盒膨胀成 402x744（假阳性 17%）；cover 裁切发生在
+      // 旋转母版（如 N38 双屏 ±5deg 倾斜）会把真盒膨胀成更大的假阳性盒（17% 量级）；cover 裁切发生在
       // 元素自身坐标系，旋转不改变裁切量，布局盒才是正确参照。比例是尺度不变量，页面整体 scale 无影响。
       const boxes = await evaluate(ctx.cdp, ctx.sessionId, `(() => {
         const out = [];

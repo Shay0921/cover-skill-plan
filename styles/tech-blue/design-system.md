@@ -40,11 +40,10 @@
 | `.artwork-page` | 画布根 | 每母版唯一；深底加 `.dark`；根上另有 `n<nn>` 标记类与 `data-artwork data-size` |
 | `.paper-noise` | 40px 网格底纹 | 装饰，永远第一个子元素 |
 | `.brand-top` | 顶部品牌栏（logo 方块 + 品牌名 + 右侧期号） | 风格身份件，值由 `plan.meta.brand.*` 与逐页 `issue` 注入。篇幅：logo ≤2 字符、品牌名 ≤12 字 |
-| `.mega-hero` | 超大数字 Hero（big-num + tag + title + sub） | 清单类页头；`.sub` 全宽副题。title 字号全库通用页统一 9.3cqw；每行字数随 big-num 位数变——单数字 8 字位、双数字 6 字位（写进母版说明头「限制」行）。封面、结尾与 N26/N27 居中变体不适用 |
+| `.mega-hero` | 超大数字 Hero（big-num + tag + title + sub） | 清单类页头；`.sub` 全宽副题。title 字号全库通用页统一 9.3cqw；每行字数随 big-num 位数变——单数字 8 字位、双数字 6 字位（写进母版说明头「限制」行）。图组 N15–N19 与清单类是它的主场景；不适用：N01–N03 专用封面制式、结尾 N28–N31、N26/N27 居中变体 |
 | `.mega-hero .tag` | 标题上方徽标（蓝底白字胶囊，`white-space:nowrap`） | 位于 `.hero-text` 内、独立成行、紧跟 `.title` 之上；限值 `tag≤12字`（设计规则，非容量线） |
 | `.after-hero` | 2px 墨色粗分割线 | hero 与内容的分界 |
-| `.pg-footer` | 底部页码条（署名 + 右侧页码） | 署名由 `plan.meta.brand.footer` 注入；页码按页序生成（封面隐藏）。篇幅：署名 ≤24 字；页码固定 7 字符。页脚只允许这两个元素，不加第三个内容槽 |
-| `.num-list` | 编号条目列表 | N10/N11 清单骨架 |
+| `.pg-footer` | 底部页码条（署名 + 右侧页码） | 署名由 `plan.meta.brand.footer` 注入；页码按页序生成（仅第 1 页隐藏，与第 1 页用哪张母版无关）。篇幅：署名 ≤24 字；页码固定 7 字符。页脚只允许这两个元素，不加第三个内容槽 |
 | `.img-card` + `.ph-img` | 图片占位卡 | 结构与换图机制见 `references/CONTRACT.md`「图槽」 |
 | `.callout` | 底部补充说明条（白底细线 + 圆形图标） | 提示/Tip |
 | `.pill` / `.pill--fill` | 悬浮胶囊（描边 / 墨底两式，`.num` 是序号位） | 即兴词汇，当前母版未使用。CTA 组合：`<span class="pill"><span class="num">01</span>免费领取</span>`、`<span class="pill pill--fill">立即进入</span>`；可排成一行做「步骤/权益」横条 |
@@ -52,11 +51,13 @@
 | `.accent-word` / `.accent-bg` / `.accent-line` / `.ink-bg` | 强调四式 | 关键词变色 / 蓝底白字 / 短横线 / 墨底白字 |
 | `.hl` / `.hl-line` | 富文本两种高亮 | `.hl` = 蓝字，正文小强调；`.hl-line` = 蓝字 + 淡蓝条，标题/金句强调，不用 strong 包裹。条是元素自身背景渐变的底部 38%（`color-mix` 取 `--accent` 三成透明，字条同蓝仍可读），跨行时按各自行盒绘制、不错位，圆角落在整段首行左/末行右、断行处直角。用哪个由母版说明头声明（N07 另有浅蓝底变体；N30 深底字为白、条实色，N31 浅底条更淡）。可用标签见 `references/CONTRACT.md`「键名与系统槽」 |
 | `.title-xl/lg/md`、`.num-large`、`.body-text`、`.mono-text`、`.label` | 字级工具类 | 即兴时直接用 |
-| `.pm-content` / `.pm-hero` / `.pm-hero--c` / `.pm-kicker` / `.pm-title` / `.pm-sub` | 手机展示家族页头 | N37-N40 共用；`.pm-title` 用 8.64cqw（对齐 N04 手机封面标题私值，介于 title-lg 与 title-xl 之间）。`--c` 为居中变体 |
-| `.pm-phone` / `.pm-frame` / `.pm-screen` | 手机单元（壳压图） | N37-N40 共用，与 N04 同构：`frame-img` 装饰框（render 单源内嵌 `styles/assets/iphone-frame.png`）+ 内屏开口 7.58%/3.82%/84.73%/92.30%，`border-radius:10px` 盖住露角；内屏图槽 46:99 cover |
+| `.pm-content` / `.pm-hero` / `.pm-hero--c` / `.pm-kicker` / `.pm-title` / `.pm-sub` | 手机展示家族页头 | N37-N40 共用；`.pm-title` 用 8.64cqw（手机家族自立档，介于 title-lg 与 title-xl 之间）。`--c` 为居中变体 |
+| `.pm-phone` / `.pm-frame` / `.pm-screen` | 手机单元（壳压图） | N37-N40 共用：`frame-img` 装饰框（render 单源内嵌 `styles/assets/iphone-frame.png`）+ 内屏开口 7.58%/3.82%/84.73%/92.30%，`border-radius:10px` 盖住露角；内屏图槽 46:99 cover |
 | `.pm-card` / `.pm-foot` / `.pm-chip` | 标注卡 / 底部贯穿说明条 / 胶囊 | 家族共用弱结构；`.pm-foot` 两端细线 + 中央 `.pm-chip` |
 
 > 本表是共享段词表，不是母版用量的镜像。当前母版未使用的类（`.pill`、`.title-xl`、`.accent-bg`、`.ink-bg`、`.fine-card` 等）仍是可用的即兴补空词汇（style.css 已有实现），照常可用。
+
+> `.num-list` **不是共享类，故不在本表**：`style.css` 只有 `.n10 .num-list` 与 `.n11 .num-list`，两者完全分叉（flex 行 vs grid 四列，子类 `t/d` vs `name/desc`）。即兴页抄 N10/N11 整页时随之生效；不要当通用组件借到别的版式里，借了会落空。
 
 > 专属段类要覆盖共享段属性，必须带共享段前缀。共享段规则多是「父类 + 子类」两段（`.brand-top .right`），专属段写单类（`.n26-limited`）会被压掉且无报错；要覆盖就写成 `.brand-top .right.n26-limited`。
 
@@ -101,7 +102,7 @@
 - **判据**：能否用一句话把数量说成卖点——「6 条速览」「7 倍增长」「3 步搞定」？能 → 留大数字；不能（这一页讲的是一个主张、一张图、一组对比，数字只是条数的机械统计）→ 走轻量标题，去掉大数字。
 - **决策权**：由 AI 在选母版/写 plan 时按判据判断，**人审可否决**（人审说去掉就去掉，不辩论）。不逐页问用户——这属于内容判断，不是需要用户拍板的风格选择。
 - **实现**：big-num / step-num 槽已标 `data-optional`，plan 填 `""` 即隐藏（契约见 `references/CONTRACT.md`「键名与系统槽」）；标题侧 `flex:1` 占满整行、按实际宽度断行（字数校验只卡总量，与数字无关）。**例外**：N26 的 `n26-center-price` / N27 的 `n27-center-no-num` 是写死的居中特例——不可填，只可借其写法、不可照抄成可填槽。
-- **判据自检**：去掉大数字后标题若显得空、撑不起整行 → 说明这一页本就该有数量主角，改回留数字，或换一个本就无数字的母版（封面 N01-N04、结尾 N28-N31）。
+- **判据自检**：去掉大数字后标题若显得空、撑不起整行 → 说明这一页本就该有数量主角，改回留数字，或换一个本就无数字的母版（封面 N01–N03、结尾 N28–N31）。
 
 ## 6. 反例
 

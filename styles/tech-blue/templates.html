@@ -58,6 +58,7 @@ a{color:inherit;text-decoration:none;}
 .gal-group-head{grid-column:1/-1;display:flex;align-items:baseline;gap:16px;border-bottom:2px solid var(--ink);padding-bottom:12px;margin-bottom:6px;}
 .gal-group-head .num{font-family:var(--mono);font-size:12px;color:var(--accent);font-weight:bold;letter-spacing:.12em;}
 .gal-group-head h2{font-family:var(--serif);font-weight:bold;font-size:28px;letter-spacing:-.02em;}
+.gal-group-head .hint{font-size:13px;color:var(--muted);font-weight:normal;}
 .gal-group-head .count{font-family:var(--mono);font-size:12px;color:var(--muted);font-weight:bold;}
 
 /* 母版卡：3:4 缩放预览（gal-thumb__fit 内 1080px 实景，JS 按 卡宽/1080 缩放）+ 说明头卡身 */
@@ -91,10 +92,8 @@ a{color:inherit;text-decoration:none;}
   <nav class="gal-nav"><div class="gal-nav-inner">
     <span class="brand">tech-blue</span>
       <a href="#g-cover">封面<span></span></a>
-      <a href="#g-overview">概览<span></span></a>
       <a href="#g-steps">步骤<span></span></a>
       <a href="#g-lists">清单<span></span></a>
-      <a href="#g-showcase">展示<span></span></a>
       <a href="#g-compare">对比<span></span></a>
       <a href="#g-demo">演示<span></span></a>
       <a href="#g-data">数据<span></span></a>
@@ -144,12 +143,12 @@ a{color:inherit;text-decoration:none;}
 
   <main>
   <div class="gal-group" id="g-cover">
-    <div class="gal-group-head"><span class="num">G01</span><h2>封面</h2><span class="count"></span></div>
+    <div class="gal-group-head"><span class="num">G01</span><h2>封面</h2><span class="hint">开篇首选池 · 整图与手机界面页也从这里挑</span><span class="count"></span></div>
     <div class="gal-item" id="n01">
       <!-- ============ N01 · 金句震撼封面 ============
            用途：单句主张型封面——一句狠话 + 数据点撑场
            适合：观点/实测类开篇；不适合：多图内容、长标题
-           可以变：数据 1-4 项；标签 0-4 个（0 个时删掉该行，plan 不支持空数组）；高亮词可移位
+           可以变：数据 1-4 项；标签 1-4 个（至少 1 个，机器不支持空数组）；高亮词可移位
            槽位：kicker / title / sub / stats[]（n,u）/ sub-note / tags[]（t） / issue / page-no
            限制：title≤12字(2行)；sub≤17字(1行)；n≤6字符 u≤4字；sub-note≤17字(1行)；issue≤14字；t≤8字
 
@@ -183,7 +182,7 @@ a{color:inherit;text-decoration:none;}
       <div class="n01-sub-note" data-layer="sub-note" data-label="按语" data-editable="text">{{sub-note}}</div>
 
       <div class="n01-tags">
-        <!-- repeat ×1-4: 标签 clone（flex 横排）；≤8字，超过 3 个由容器换行；无标签需手删该行（机器不支持空数组） -->
+        <!-- repeat ×1-4: 标签 clone（flex 横排）；≤8字，超过 3 个由容器换行；至少 1 个（机器不支持空数组） -->
         <span class="t" data-repeat="tags" data-layer="tag-t" data-label="标签" data-editable="text">{{t}}</span>
       </div>
     </div>
@@ -202,7 +201,7 @@ a{color:inherit;text-decoration:none;}
       <!-- ============ N02 · 对话框封面 ============
            用途：教程/Prompt 类封面——标题 + 浏览器窗口截图
            适合：有横版截图的开篇；不适合：无图可用、竖图（裁切严重）
-           可以变：按钮文案可变（btn-1/btn-2）；note 可省略（没有就删掉该行）
+           可以变：按钮文案可变（btn-1/btn-2）；note 可选槽（留空自动隐藏）
            槽位：kicker / title / sub / note / 图×1（窗口 16:9 cover） / win-addr / issue / page-no / btn-1 / btn-2
            限制：title≤14字(2行)；sub≤26字(1行)；note≤14字；win-addr≤28字符；issue≤14字；btn-1≤8字；btn-2≤10字
            hl：title 内 1 处（span.hl-line）
@@ -240,7 +239,7 @@ a{color:inherit;text-decoration:none;}
 
     <!-- 按钮（窗口下方） -->
     <div class="n02-action-bar">
-      <span class="note" data-layer="note" data-label="小注" data-editable="text">{{note}}</span>
+      <span class="note" data-optional data-layer="note" data-label="小注" data-editable="text">{{note}}</span>
       <div class="n02-btns">
         <span class="n02-btn" data-layer="n02-btn-1" data-label="按钮1" data-editable="text">{{btn-1}}</span>
         <span class="n02-btn n02-btn--p" data-layer="n02-btn-2" data-label="按钮2" data-editable="text">{{btn-2}}</span>
@@ -313,84 +312,23 @@ a{color:inherit;text-decoration:none;}
       </section>
     </div>
 
-    <div class="gal-item" id="n04">
-      <!-- ============ N04 · 手机叠放封面 ============
-           用途：手机 App 类封面——双手机叠放展示两张竖屏截图
-           适合：竖屏手机截图素材；不适合：横图（裁切严重）
-           可以变：可只放一台手机（删掉多余的那台）；框图由 render 自动内嵌
-           槽位：kicker / title / sub / 图×2（手机内屏 46:99 cover）/ corner-tag / caption-t / caption-d / issue / page-no
-           限制：title≤14字(2行,每行≤7字)；sub≤22字(1行)；corner-tag≤20字符；caption-t≤12字；caption-d≤14字；issue≤14字
-           hl：title 内 0-1 处（span.hl-line）
-           图槽：竖屏截图 cover；内屏开口 = 壳图实测 7.58%/3.82%/84.73%/92.30%，壳压图（frame z-index 高于 screen）；手机框 = frame-img 装饰槽（render 单源内嵌 styles/assets/iphone-frame.png）
+    <div class="gal-item gal-item--vacant" id="n04">
+      <!-- N04 编号空位（原「手机叠放封面」，实测为两台手机反向倾斜拉开的并列构形；定稿删此牌，双机形态统一走 N38 双屏叠放）：无独立母版、无 section，数量自算不计数 -->
+      <div class="vacant-note">N04 · REMOVED · 编号空位（无独立母版）</div>
+    </div>
+    <div class="gal-item" id="n15">
+      <!-- ============ N15 · 作品卡片网格 ============
+           用途：作品/成果卡片网格——整卡图 + 左下可抄 Prompt 浮动卡
+           适合：4 个作品/成果逐个展示（图为主）；不适合：纯文字安利；作品数≠4
+           可以变：卡内 Prompt 文案与图可换；卡片数固定 4
+           槽位：big-num / title / sub / cards[]（prompt） / card-img×4（随卡数） / issue / page-no
+           限制：big-num=4；title≤16字(2行;每行≤8字[big-num单数字] 或 ≤6字[big-num双数字])；sub≤16字(1行)；prompt≤22字符(1行)；issue≤14字；big-num 可选（留空自动隐藏，数量是主角才留）
+
+           hl：title 内 1 处（span.hl-line）
+           图槽：方图 1:1 cover ×4（固定 4 张，键 card-img / card-img-2 / card-img-3 / card-img-4）
       -->
-      <section data-layout="N04-phone-stack-cover">
-    <div class="artwork-page n04" data-artwork data-size="1080x1440">
-
-  <div class="paper-noise"></div>
-
-  <div class="brand-top">
-    <div class="left">
-      <div class="logo"><div class="ph" data-sys="brand-logo" data-layer="sys-brand-logo" data-label="logo字" data-editable="text">AI</div></div>
-      <span class="brand-name" data-sys="brand-name" data-layer="sys-brand-name" data-label="品牌名" data-editable="text">Feiwan AI Lab</span>
-    </div>
-    <div class="right" data-sys="issue" data-layer="sys-issue" data-label="期号" data-editable="text">{{issue}}</div>
-  </div>
-
-  <div class="content">
-    <!-- Hero（居中） -->
-    <div class="hero">
-      <div class="hero__tag" data-layer="kicker" data-label="引题" data-editable="text">{{kicker}}</div>
-      <div class="hero__title" data-layer="title" data-label="主标题" data-editable="text">{{title}}</div>
-      <div class="hero__sub" data-layer="sub" data-label="副题" data-editable="text">{{sub}}</div>
-    </div>
-
-    <!-- 手机叠放 -->
-    <div class="n04-phones">
-      <div class="n04-phones__corner-tag" data-layer="corner-tag" data-label="角标" data-editable="text">{{corner-tag}}</div>
-
-      <div class="n04-phone n04-phone--back">
-        <img class="n04-phone__frame frame-img" src="../assets/iphone-frame.png" alt="" draggable="false">
-        <div class="n04-phone__screen">
-          <div class="ph ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n04-img-1" data-label="后屏截图" data-ratio="46:99" alt=""><span class="ph-img__label">IMG · Cursor 首页</span></div>
-        </div>
-      </div>
-
-      <div class="n04-phone n04-phone--front">
-        <img class="n04-phone__frame frame-img" src="../assets/iphone-frame.png" alt="" draggable="false">
-        <div class="n04-phone__screen">
-          <div class="ph ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n04-img-2" data-label="前屏截图" data-ratio="46:99" alt=""><span class="ph-img__label">IMG · Notion AI 对话</span></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="n04-caption-row"><strong data-layer="caption-t" data-label="看板标题" data-editable="text">{{caption-t}}</strong><span data-layer="caption-d" data-label="看板说明" data-editable="text">{{caption-d}}</span></div>
-  </div>
-
-  <div class="pg-footer">
-    <span data-sys="footer-id" data-layer="sys-footer-id" data-label="页脚署名" data-editable="text">Feiwan · AI Lab</span>
-    <span class="page-no" data-sys="page-no" data-layer="sys-page-no" data-label="页码" data-editable="text">{{page-no}}</span>
-  </div>
-
-    </div>
-      </section>
-    </div>
-  </div>
-
-  <div class="gal-group" id="g-overview">
-    <div class="gal-group-head"><span class="num">G02</span><h2>概览</h2><span class="count"></span></div>
-    <div class="gal-item" id="n05">
-      <!-- ============ N05 · 时间线概览 ============
-           用途：成长/历程类概览——时间线条目纵向排布
-           适合：Day N 叙事、阶段复盘；不适合：无时间含义的并列内容
-           可以变：条目 3-5 条；末条强调款（is-hot + c-accent）需手加类；speed 标签可留空（没有就删掉该行）
-           槽位：big-num / tag / title / sub / timeline[]（when,head,note,speed） / issue / page-no
-           限制：big-num≤3字符；title≤14字(2行;每行≤8字[big-num单数字] 或 ≤6字[big-num双数字])；sub≤20字(1行)；head≤14字(1行)；note≤22字(1行)；when≤3字符；speed≤8字符；issue≤14字；tag≤12字；big-num 可选（留空自动隐藏，数量是主角才留）
-
-           hl：无（speed 标签自带强调）
-           图槽：无
-      -->
-      <section data-layout="N05-timeline-overview">
-    <div class="artwork-page n05" data-artwork data-size="1080x1440">
+      <section data-layout="N15-agent-gallery">
+    <div class="artwork-page n15" data-artwork data-size="1080x1440">
 
   <div class="paper-noise"></div>
 
@@ -404,7 +342,61 @@ a{color:inherit;text-decoration:none;}
 
   <div class="mega-hero">
     <div class="mh-row">
-      <div class="big-num" data-optional data-layer="big-num" data-label="大数字" data-editable="text">{{big-num}}</div>
+      <div class="big-num" data-optional data-layer="big-num" data-label="条数大数字" data-editable="text">{{big-num}}</div>
+      <div class="hero-text">
+        <div class="title" data-layer="title" data-label="标题" data-editable="text">{{title}}</div>
+      </div>
+    </div>
+    <div class="sub" data-layer="sub" data-label="副题" data-editable="text">{{sub}}</div>
+  </div>
+
+  <div class="after-hero"></div>
+
+  <div class="content">
+    <!-- repeat ×4-4: 作品卡 clone（固定 4 张，flex:1 均分）；图槽键 card-img 随克隆加 -2/-3/-4 后缀 -->
+    <div class="card" data-repeat="cards">
+      <div class="ph-img" data-fit="cover">
+        <img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="card-img" data-label="IMG" data-ratio="1:1" alt="">
+      </div>
+      <div class="prompt" data-layer="card-prompt" data-label="Prompt" data-editable="text">{{prompt}}</div>
+    </div>
+  </div>
+
+  <div class="pg-footer">
+    <span data-sys="footer-id" data-layer="sys-footer-id" data-label="页脚署名" data-editable="text">Feiwan · AI Lab</span>
+    <span class="page-no" data-sys="page-no" data-layer="sys-page-no" data-label="页码" data-editable="text">{{page-no}}</span>
+  </div>
+
+    </div>
+      </section>
+    </div>
+
+    <div class="gal-item" id="n16">
+      <!-- ============ N16 · 分组图片展示 ============
+           用途：分场景图片展示——3 组各带说明 + 横排 3 图
+           适合：多场景对比、案例集；不适合：单图深度展示
+           可以变：组数固定 3 组；每组 3 图固定，共 9 张（图不够请换母版或走 custom）
+           槽位：big-num / tag / title / sub / g1-no/g1-name/g1-desc / 图×3 / g2-no/g2-name/g2-desc / 图×3 / g3-no/g3-name/g3-desc / 图×3 / issue / page-no
+           限制：big-num≤2字符；tag≤12字；title≤10字(2行;每行≤8字[big-num单数字] 或 ≤6字[big-num双数字])；sub≤16字(1行)；g*-name≤6字；g*-desc≤20字(1行)；issue≤14字；big-num 可选（留空自动隐藏，数量是主角才留）
+           hl：无
+           图槽：竖版 2:3 cover ×9（组内横排）
+      -->
+      <section data-layout="N16-group-showcase">
+    <div class="artwork-page n16" data-artwork data-size="1080x1440">
+
+  <div class="paper-noise"></div>
+
+  <div class="brand-top">
+    <div class="left">
+      <div class="logo"><div class="ph" data-sys="brand-logo" data-layer="sys-brand-logo" data-label="logo字" data-editable="text">AI</div></div>
+      <span class="brand-name" data-sys="brand-name" data-layer="sys-brand-name" data-label="品牌名" data-editable="text">Feiwan AI Lab</span>
+    </div>
+    <div class="right" data-sys="issue" data-layer="sys-issue" data-label="期号" data-editable="text">{{issue}}</div>
+  </div>
+
+  <div class="mega-hero">
+    <div class="mh-row">
+      <div class="big-num" data-optional data-layer="big-num" data-label="组数大数字" data-editable="text">{{big-num}}</div>
       <div class="hero-text">
         <span class="tag" data-layer="tag" data-label="标签" data-editable="text">{{tag}}</span>
         <div class="title" data-layer="title" data-label="标题" data-editable="text">{{title}}</div>
@@ -415,17 +407,41 @@ a{color:inherit;text-decoration:none;}
 
   <div class="after-hero"></div>
 
-  <div class="content">
-    <div class="n05-timeline">
-      <!-- repeat ×3-5: 时间线条目 clone（flex 纵向均分）；5 条时 note 收在一行，3 条时行距加大 -->
-      <div class="n05-timeline__item" data-repeat="timeline">
-        <div class="n05-timeline__dot"></div>
-        <div class="n05-timeline__when" data-layer="when" data-label="时间" data-editable="text">{{when}}</div>
-        <div class="n05-timeline__body">
-          <div class="n05-timeline__head" data-layer="head" data-label="条目标题" data-editable="text">{{head}}</div>
-          <div class="n05-timeline__note" data-layer="note" data-label="条目说明" data-editable="text">{{note}}</div>
-          <span class="n05-timeline__tag" data-layer="speed" data-label="提速标注" data-editable="text">{{speed}}</span>
-        </div>
+  <div class="n16-groups">
+    <div class="n16-group" data-layer="n16-group-1" data-label="组1" data-type="group">
+      <div class="n16-gname">
+        <span class="n16-mono" data-layer="g1-no" data-label="组1编号" data-editable="text">{{g1-no}}</span>
+        <span data-layer="g1-name" data-label="组1名" data-editable="text">{{g1-name}}</span>
+        <span class="desc" data-layer="g1-desc" data-label="组1说明" data-editable="text">{{g1-desc}}</span>
+      </div>
+      <div class="n16-gimgs">
+        <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n16-img-1" data-label="IMG" data-ratio="2:3" alt=""><div class="placeholder ph-img__label">IMG</div><div class="corner-num">01</div></div>
+        <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n16-img-2" data-label="IMG" data-ratio="2:3" alt=""><div class="placeholder ph-img__label">IMG</div><div class="corner-num">02</div></div>
+        <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n16-img-3" data-label="IMG" data-ratio="2:3" alt=""><div class="placeholder ph-img__label">IMG</div><div class="corner-num">03</div></div>
+      </div>
+    </div>
+    <div class="n16-group" data-layer="n16-group-2" data-label="组2" data-type="group">
+      <div class="n16-gname">
+        <span class="n16-mono" data-layer="g2-no" data-label="组2编号" data-editable="text">{{g2-no}}</span>
+        <span data-layer="g2-name" data-label="组2名" data-editable="text">{{g2-name}}</span>
+        <span class="desc" data-layer="g2-desc" data-label="组2说明" data-editable="text">{{g2-desc}}</span>
+      </div>
+      <div class="n16-gimgs">
+        <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n16-img-4" data-label="IMG" data-ratio="2:3" alt=""><div class="placeholder ph-img__label">IMG</div><div class="corner-num">01</div></div>
+        <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n16-img-5" data-label="IMG" data-ratio="2:3" alt=""><div class="placeholder ph-img__label">IMG</div><div class="corner-num">02</div></div>
+        <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n16-img-6" data-label="IMG" data-ratio="2:3" alt=""><div class="placeholder ph-img__label">IMG</div><div class="corner-num">03</div></div>
+      </div>
+    </div>
+    <div class="n16-group" data-layer="n16-group-3" data-label="组3" data-type="group">
+      <div class="n16-gname">
+        <span class="n16-mono" data-layer="g3-no" data-label="组3编号" data-editable="text">{{g3-no}}</span>
+        <span data-layer="g3-name" data-label="组3名" data-editable="text">{{g3-name}}</span>
+        <span class="desc" data-layer="g3-desc" data-label="组3说明" data-editable="text">{{g3-desc}}</span>
+      </div>
+      <div class="n16-gimgs">
+        <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n16-img-7" data-label="IMG" data-ratio="2:3" alt=""><div class="placeholder ph-img__label">IMG</div><div class="corner-num">01</div></div>
+        <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n16-img-8" data-label="IMG" data-ratio="2:3" alt=""><div class="placeholder ph-img__label">IMG</div><div class="corner-num">02</div></div>
+        <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n16-img-9" data-label="IMG" data-ratio="2:3" alt=""><div class="placeholder ph-img__label">IMG</div><div class="corner-num">03</div></div>
       </div>
     </div>
   </div>
@@ -438,11 +454,380 @@ a{color:inherit;text-decoration:none;}
     </div>
       </section>
     </div>
+
+    <div class="gal-item" id="n17">
+      <!-- ============ N17 · 纯图片密集网格 ============
+           用途：密集图片墙——4×3 十二宫格
+           适合：批量生图/作品集展示；不适合：需要文字说明的图
+           可以变：12 格固定，不能减
+           槽位：big-num / tag / title / sub / 图×12（3:4 cover）/ issue / page-no
+           限制：big-num≤2字符且=图数；title≤10字(2行;每行≤8字[big-num单数字] 或 ≤6字[big-num双数字])；sub≤18字(1行)；issue≤14字；tag≤12字；big-num 可选（留空自动隐藏，数量是主角才留）
+
+           hl：无
+           图槽：竖版 3:4 cover ×12
+      -->
+      <section data-layout="N17-grid-gallery">
+    <div class="artwork-page n17" data-artwork data-size="1080x1440">
+
+  <div class="paper-noise"></div>
+
+  <div class="brand-top">
+    <div class="left">
+      <div class="logo"><div class="ph" data-sys="brand-logo" data-layer="sys-brand-logo" data-label="logo字" data-editable="text">AI</div></div>
+      <span class="brand-name" data-sys="brand-name" data-layer="sys-brand-name" data-label="品牌名" data-editable="text">Feiwan AI Lab</span>
+    </div>
+    <div class="right" data-sys="issue" data-layer="sys-issue" data-label="期号" data-editable="text">{{issue}}</div>
   </div>
 
+  <div class="mega-hero">
+    <div class="mh-row">
+      <div class="big-num" data-optional data-layer="big-num" data-label="图数大数字" data-editable="text">{{big-num}}</div>
+      <div class="hero-text">
+        <span class="tag" data-layer="tag" data-label="标签" data-editable="text">{{tag}}</span>
+        <div class="title" data-layer="title" data-label="标题" data-editable="text">{{title}}</div>
+      </div>
+    </div>
+    <div class="sub" data-layer="sub" data-label="副题" data-editable="text">{{sub}}</div>
+  </div>
+
+  <div class="after-hero"></div>
+
+  <div class="n17-gallery">
+    <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n17-img-1" data-label="图 01" data-ratio="3:4" alt=""><div class="placeholder ph-img__label">IMG · 01</div><div class="corner-num">01</div></div>
+    <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n17-img-2" data-label="图 02" data-ratio="3:4" alt=""><div class="placeholder ph-img__label">IMG · 02</div><div class="corner-num">02</div></div>
+    <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n17-img-3" data-label="图 03" data-ratio="3:4" alt=""><div class="placeholder ph-img__label">IMG · 03</div><div class="corner-num">03</div></div>
+    <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n17-img-4" data-label="图 04" data-ratio="3:4" alt=""><div class="placeholder ph-img__label">IMG · 04</div><div class="corner-num">04</div></div>
+    <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n17-img-5" data-label="图 05" data-ratio="3:4" alt=""><div class="placeholder ph-img__label">IMG · 05</div><div class="corner-num">05</div></div>
+    <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n17-img-6" data-label="图 06" data-ratio="3:4" alt=""><div class="placeholder ph-img__label">IMG · 06</div><div class="corner-num">06</div></div>
+    <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n17-img-7" data-label="图 07" data-ratio="3:4" alt=""><div class="placeholder ph-img__label">IMG · 07</div><div class="corner-num">07</div></div>
+    <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n17-img-8" data-label="图 08" data-ratio="3:4" alt=""><div class="placeholder ph-img__label">IMG · 08</div><div class="corner-num">08</div></div>
+    <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n17-img-9" data-label="图 09" data-ratio="3:4" alt=""><div class="placeholder ph-img__label">IMG · 09</div><div class="corner-num">09</div></div>
+    <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n17-img-10" data-label="图 10" data-ratio="3:4" alt=""><div class="placeholder ph-img__label">IMG · 10</div><div class="corner-num">10</div></div>
+    <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n17-img-11" data-label="图 11" data-ratio="3:4" alt=""><div class="placeholder ph-img__label">IMG · 11</div><div class="corner-num">11</div></div>
+    <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n17-img-12" data-label="图 12" data-ratio="3:4" alt=""><div class="placeholder ph-img__label">IMG · 12</div><div class="corner-num">12</div></div>
+  </div>
+
+  <div class="pg-footer">
+    <span data-sys="footer-id" data-layer="sys-footer-id" data-label="页脚署名" data-editable="text">Feiwan · AI Lab</span>
+    <span class="page-no" data-sys="page-no" data-layer="sys-page-no" data-label="页码" data-editable="text">{{page-no}}</span>
+  </div>
+
+    </div>
+      </section>
+    </div>
+
+    <div class="gal-item" id="n18">
+      <!-- ============ N18 · Bento 生成展示 ============
+           用途：Bento 网格生成展示——1 大 4 小图 + 角标签
+           适合：5 件生成作品/工具展示；不适合：文字为主的内容
+           可以变：格子固定 5（1+4）；5 个角标签可选槽（留空自动隐藏）
+           槽位：big-num / tag / title / sub / 图×5（1:2×5 cover）/ b1-tag..b5-tag / issue / page-no
+           限制：big-num≤2字符且=件数；title≤16字(2行;每行≤8字[big-num单数字] 或 ≤6字[big-num双数字])；sub≤18字(1行)；tag≤12字；b*-tag≤12字符；issue≤14字；big-num 可选（留空自动隐藏，数量是主角才留）
+           hl：title 内 1 处（span.hl-line）
+           图槽：bento 五格 cover；格内占位字为装饰
+      -->
+      <section data-layout="N18-bento-showcase">
+    <div class="artwork-page n18" data-artwork data-size="1080x1440">
+
+  <div class="paper-noise"></div>
+
+  <div class="brand-top">
+    <div class="left">
+      <div class="logo"><div class="ph" data-sys="brand-logo" data-layer="sys-brand-logo" data-label="logo字" data-editable="text">AI</div></div>
+      <span class="brand-name" data-sys="brand-name" data-layer="sys-brand-name" data-label="品牌名" data-editable="text">Feiwan AI Lab</span>
+    </div>
+    <div class="right" data-sys="issue" data-layer="sys-issue" data-label="期号" data-editable="text">{{issue}}</div>
+  </div>
+
+  <div class="mega-hero">
+    <div class="mh-row">
+      <div class="big-num" data-optional data-layer="big-num" data-label="件数大数字" data-editable="text">{{big-num}}</div>
+      <div class="hero-text">
+        <span class="tag" data-layer="tag" data-label="标签" data-editable="text">{{tag}}</span>
+        <div class="title" data-layer="title" data-label="标题" data-editable="text">{{title}}</div>
+      </div>
+    </div>
+    <div class="sub" data-layer="sub" data-label="副题" data-editable="text">{{sub}}</div>
+  </div>
+
+  <div class="after-hero"></div>
+
+  <div class="content">
+    <div class="n18-g n18-big ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n18-img-1" data-label="大图" data-ratio="1:2" alt=""><div class="ph ph-img__label">MIDJOURNEY</div><div class="label" data-optional data-layer="b1-tag" data-label="大图角标" data-editable="text">{{b1-tag}}</div></div>
+    <div class="n18-g ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n18-img-2" data-label="右上格" data-ratio="1:2" alt=""><div class="ph ph-img__label">RUNWAY</div><div class="label" data-optional data-layer="b2-tag" data-label="右上角标" data-editable="text">{{b2-tag}}</div></div>
+    <div class="n18-g ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n18-img-3" data-label="右下格" data-ratio="1:2" alt=""><div class="ph ph-img__label">PIKA</div><div class="label" data-optional data-layer="b3-tag" data-label="右下角标" data-editable="text">{{b3-tag}}</div></div>
+    <div class="n18-g ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n18-img-4" data-label="左下格" data-ratio="1:2" alt=""><div class="ph ph-img__label">FLUX</div><div class="label" data-optional data-layer="b4-tag" data-label="左下角标" data-editable="text">{{b4-tag}}</div></div>
+    <div class="n18-g ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n18-img-5" data-label="中下格" data-ratio="1:2" alt=""><div class="ph ph-img__label">SORA</div><div class="label" data-optional data-layer="b5-tag" data-label="中下角标" data-editable="text">{{b5-tag}}</div></div>
+  </div>
+
+  <div class="pg-footer">
+    <span data-sys="footer-id" data-layer="sys-footer-id" data-label="页脚署名" data-editable="text">Feiwan · AI Lab</span>
+    <span class="page-no" data-sys="page-no" data-layer="sys-page-no" data-label="页码" data-editable="text">{{page-no}}</span>
+  </div>
+
+    </div>
+      </section>
+    </div>
+
+    <div class="gal-item" id="n19">
+      <!-- ============ N19 · 单大图深度解析 ============
+           用途：单大图深度解析——横版大图 + 要点拆解（2-4 条）
+           适合：一张核心截图/作品 + 拆解；不适合：多图
+           可以变：要点 2-4 条（等分同一行、不换行；4 条时 d 收两行内）；图上角标可选槽（留空自动隐藏）
+           槽位：big-num / tag / title / sub / 图×1（素材建议 3:2，盒高自适应 cover）/ img-tag / points[]（n,t,d）/ issue / page-no
+           限制：big-num≤2字符；tag≤12字；title≤10字(2行;每行≤8字[big-num单数字] 或 ≤6字[big-num双数字])；sub≤16字(1行)；img-tag≤12字符；t≤8字(1行)；d≤20字(2行；4 条时 ≤14字)；issue≤14字；big-num 可选（留空自动隐藏，数量是主角才留）
+           hl：无
+           图槽：横版大图（素材建议 3:2，盒高自适应）cover
+      -->
+      <section data-layout="N19-single-deep">
+    <div class="artwork-page n19" data-artwork data-size="1080x1440">
+
+  <div class="paper-noise"></div>
+
+  <div class="brand-top">
+    <div class="left">
+      <div class="logo"><div class="ph" data-sys="brand-logo" data-layer="sys-brand-logo" data-label="logo字" data-editable="text">AI</div></div>
+      <span class="brand-name" data-sys="brand-name" data-layer="sys-brand-name" data-label="品牌名" data-editable="text">Feiwan AI Lab</span>
+    </div>
+    <div class="right" data-sys="issue" data-layer="sys-issue" data-label="期号" data-editable="text">{{issue}}</div>
+  </div>
+
+  <div class="mega-hero">
+    <div class="mh-row">
+      <div class="big-num" data-optional data-layer="big-num" data-label="序号大数字" data-editable="text">{{big-num}}</div>
+      <div class="hero-text">
+        <span class="tag" data-layer="tag" data-label="标签" data-editable="text">{{tag}}</span>
+        <div class="title" data-layer="title" data-label="标题" data-editable="text">{{title}}</div>
+      </div>
+    </div>
+    <div class="sub" data-layer="sub" data-label="副题" data-editable="text">{{sub}}</div>
+  </div>
+
+  <div class="after-hero"></div>
+
+  <div class="main">
+    <div class="n19-hero-img ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n19-img-1" data-label="主图" alt="">
+      <span class="n19-hero-tag" data-optional data-layer="img-tag" data-label="图上角标" data-editable="text">{{img-tag}}</span>
+      <div class="placeholder ph-img__label">LARGE · IMAGE · PLACEHOLDER</div>
+    </div>
+
+    <div class="points">
+      <!-- repeat ×2-4: 要点行 clone（等分同一行，2-4 条不换行）；4 条时 d ≤14字（2 行内） -->
+      <div class="n19-point" data-repeat="points">
+        <div class="n19-pn" data-layer="point-num" data-label="序号" data-editable="text">{{n}}</div>
+        <div class="n19-pt" data-layer="point-t" data-label="要点名" data-editable="text">{{t}}</div>
+        <div class="n19-pd" data-layer="point-d" data-label="要点说明" data-editable="text">{{d}}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pg-footer">
+    <span data-sys="footer-id" data-layer="sys-footer-id" data-label="页脚署名" data-editable="text">Feiwan · AI Lab</span>
+    <span class="page-no" data-sys="page-no" data-layer="sys-page-no" data-label="页码" data-editable="text">{{page-no}}</span>
+  </div>
+
+    </div>
+      </section>
+    </div>
+    <div class="gal-item" id="n37">
+      <!-- ============ N37 · 单机聚焦 ============
+           用途：手机 App 单屏深度讲解——大手机 + 侧栏分条卖点
+           适合：一台手机的界面讲解、功能亮点逐条说明；不适合：多屏对比
+           可以变：卖点 2-4 条；手机内屏换截图（比例固定）；无 tag
+           槽位：title / sub / n37-img-1 / points[]（n,t,d） / issue / page-no / foot-tag / foot-chip / foot-slogan
+           限制：title≤14字(2行,每行≤7字)；sub≤22字(1行)；n≤3字符；t≤10字；d≤20字(2行)；issue≤14字；foot-tag≤18字符(1行)；foot-chip≤14字符；foot-slogan≤10字(1行)
+           hl：title 内 0-1 处（span.hl-line）
+           图槽：手机内屏 46:99 cover ×1（壳图 frame-img 装饰槽，render 单源内嵌）
+-->
+      <section data-layout="N37-phone-focus">
+    <div class="artwork-page n37" data-artwork data-size="1080x1440">
+  <div class="paper-noise"></div>
+  <div class="brand-top">
+    <div class="left">
+      <div class="logo"><div class="ph" data-sys="brand-logo" data-layer="sys-brand-logo" data-label="logo字" data-editable="text">AI</div></div>
+      <span class="brand-name" data-sys="brand-name" data-layer="sys-brand-name" data-label="品牌名" data-editable="text">Feiwan AI Lab</span>
+    </div>
+    <div class="right" data-sys="issue" data-layer="sys-issue" data-label="期号" data-editable="text">{{issue}}</div>
+  </div>
+  <div class="content pm-content">
+    <div class="hero pm-hero">
+      <div class="pm-title" data-layer="title" data-label="主标题" data-editable="text">{{title}}</div>
+      <div class="pm-sub" data-layer="sub" data-label="副题" data-editable="text">{{sub}}</div>
+    </div>
+    <div class="stage pm-stage n37-stage">
+      <div class="pm-phone n37-phone">
+        <img class="pm-frame frame-img" src="../assets/iphone-frame.png" alt="" draggable="false">
+        <div class="pm-screen"><div class="ph ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n37-img-1" data-label="手机内屏" data-ratio="46:99" alt=""></div></div>
+      </div>
+      <div class="n37-side">
+        <!-- repeat ×2-4: 卖点行 clone（flex:1 均分）；4 条时 d 收一行 -->
+        <div class="n37-row" data-repeat="points">
+          <div class="n37-row-no" data-layer="n" data-label="序号" data-editable="text">{{n}}</div>
+          <div class="n37-row-t" data-layer="t" data-label="卖点标题" data-editable="text">{{t}}</div>
+          <div class="n37-row-d" data-layer="d" data-label="卖点说明" data-editable="text">{{d}}</div>
+        </div>
+      </div>
+    </div>
+    <div class="pm-foot"><span data-layer="n37-foot-1" data-label="底部标识" data-editable="text">{{foot-tag}}</span><span class="pm-chip" data-layer="n37-foot-2" data-label="底部胶囊" data-editable="text">{{foot-chip}}</span><span data-layer="n37-foot-3" data-label="底部短语" data-editable="text">{{foot-slogan}}</span></div>
+  </div>
+  <div class="pg-footer">
+    <span data-sys="footer-id" data-layer="sys-footer-id" data-label="页脚署名" data-editable="text">Feiwan · AI Lab</span>
+    <span class="page-no" data-sys="page-no" data-layer="sys-page-no" data-label="页码" data-editable="text">{{page-no}}</span>
+  </div>
+    </div>
+      </section>
+    </div>
+
+    <div class="gal-item" id="n38">
+      <!-- ============ N38 · 双屏叠放 ============
+           用途：手机 App 双屏叠放展示——后屏略倾斜、前屏压盖其上，无对比徽章
+           适合：两张截图叠放呈现：可对等（两屏各讲一件事），也可主辅（前屏为主、后屏为辅）；不适合：单屏或三屏以上
+           可以变：两屏内容各自换截图（比例固定）；无 tag
+           槽位：title / sub / n38-img-1 / n38-img-2 / issue / page-no / foot-tag / foot-chip / foot-slogan
+           限制：title≤14字(2行,每行≤7字)；sub≤24字(1行)；issue≤14字；foot-tag≤18字符(1行)；foot-chip≤14字符；foot-slogan≤10字(1行)
+           hl：title 内 0-1 处（span.hl-line）
+           图槽：手机内屏 46:99 cover ×2（键 n38-img-1 / n38-img-2；壳图 frame-img 装饰槽）
+-->
+      <section data-layout="N38-phone-duo">
+    <div class="artwork-page n38" data-artwork data-size="1080x1440">
+  <div class="paper-noise"></div>
+  <div class="brand-top">
+    <div class="left">
+      <div class="logo"><div class="ph" data-sys="brand-logo" data-layer="sys-brand-logo" data-label="logo字" data-editable="text">AI</div></div>
+      <span class="brand-name" data-sys="brand-name" data-layer="sys-brand-name" data-label="品牌名" data-editable="text">Feiwan AI Lab</span>
+    </div>
+    <div class="right" data-sys="issue" data-layer="sys-issue" data-label="期号" data-editable="text">{{issue}}</div>
+  </div>
+  <div class="content pm-content">
+    <div class="hero pm-hero pm-hero--c">
+      <div class="pm-title" data-layer="title" data-label="主标题" data-editable="text">{{title}}</div>
+      <div class="pm-sub" data-layer="sub" data-label="副题" data-editable="text">{{sub}}</div>
+    </div>
+    <div class="stage pm-stage n38-stage">
+      <div class="pm-phone n38-back">
+        <img class="pm-frame frame-img" src="../assets/iphone-frame.png" alt="" draggable="false">
+        <div class="pm-screen"><div class="ph ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n38-img-1" data-label="左屏截图" data-ratio="46:99" alt=""></div></div>
+      </div>
+      <div class="pm-phone n38-front">
+        <img class="pm-frame frame-img" src="../assets/iphone-frame.png" alt="" draggable="false">
+        <div class="pm-screen"><div class="ph ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n38-img-2" data-label="右屏截图" data-ratio="46:99" alt=""></div></div>
+      </div>
+    </div>
+    <div class="pm-foot"><span data-layer="n38-foot-1" data-label="底部标识" data-editable="text">{{foot-tag}}</span><span class="pm-chip" data-layer="n38-foot-2" data-label="底部胶囊" data-editable="text">{{foot-chip}}</span><span data-layer="n38-foot-3" data-label="底部短语" data-editable="text">{{foot-slogan}}</span></div>
+  </div>
+  <div class="pg-footer">
+    <span data-sys="footer-id" data-layer="sys-footer-id" data-label="页脚署名" data-editable="text">Feiwan · AI Lab</span>
+    <span class="page-no" data-sys="page-no" data-layer="sys-page-no" data-label="页码" data-editable="text">{{page-no}}</span>
+  </div>
+    </div>
+      </section>
+    </div>
+
+    <div class="gal-item" id="n39">
+      <!-- ============ N39 · 三机流程 ============
+           用途：手机 App 三屏流程切片——三台并排，每屏配序号+标题+说明
+           适合：三步操作流程（看豆→取方案→跟计时）；不适合：两步或四步以上
+           可以变：固定三屏，不能增减；每屏内容换截图（比例固定）
+           槽位：title / sub / cols[]（n,t,d） / col-img×3 / issue / page-no / foot-tag / foot-chip / foot-slogan
+           限制：title≤14字(2行,每行≤7字)；sub≤24字(1行)；n≤8字符；t≤8字；d≤16字(2行)；issue≤14字；foot-tag≤18字符(1行)；foot-chip≤14字符；foot-slogan≤10字(1行)
+           hl：title 内 0-1 处（span.hl-line）
+           图槽：手机内屏 46:99 cover ×3（repeat 克隆键 col-img / col-img-2 / col-img-3；壳图 frame-img 装饰槽）
+-->
+      <section data-layout="N39-phone-trio">
+    <div class="artwork-page n39" data-artwork data-size="1080x1440">
+  <div class="paper-noise"></div>
+  <div class="brand-top">
+    <div class="left">
+      <div class="logo"><div class="ph" data-sys="brand-logo" data-layer="sys-brand-logo" data-label="logo字" data-editable="text">AI</div></div>
+      <span class="brand-name" data-sys="brand-name" data-layer="sys-brand-name" data-label="品牌名" data-editable="text">Feiwan AI Lab</span>
+    </div>
+    <div class="right" data-sys="issue" data-layer="sys-issue" data-label="期号" data-editable="text">{{issue}}</div>
+  </div>
+  <div class="content pm-content">
+    <div class="hero pm-hero">
+      <div class="pm-title" data-layer="title" data-label="主标题" data-editable="text">{{title}}</div>
+      <div class="pm-sub" data-layer="sub" data-label="副题" data-editable="text">{{sub}}</div>
+    </div>
+    <div class="stage pm-stage n39-stage">
+      <!-- repeat ×3-3: 三机切片 clone（flex:1 均分）；固定三屏，不能增减 -->
+      <div class="n39-col" data-repeat="cols">
+        <div class="pm-phone">
+          <img class="pm-frame frame-img" src="../assets/iphone-frame.png" alt="" draggable="false">
+          <div class="pm-screen"><div class="ph ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="col-img" data-label="屏截图" data-ratio="46:99" alt=""></div></div>
+        </div>
+        <div class="n39-cap">
+          <b data-layer="n" data-label="序号" data-editable="text">{{n}}</b>
+          <h3 data-layer="t" data-label="步骤标题" data-editable="text">{{t}}</h3>
+          <p data-layer="d" data-label="步骤说明" data-editable="text">{{d}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="pm-foot"><span data-layer="n39-foot-1" data-label="底部标识" data-editable="text">{{foot-tag}}</span><span class="pm-chip" data-layer="n39-foot-2" data-label="底部胶囊" data-editable="text">{{foot-chip}}</span><span data-layer="n39-foot-3" data-label="底部短语" data-editable="text">{{foot-slogan}}</span></div>
+  </div>
+  <div class="pg-footer">
+    <span data-sys="footer-id" data-layer="sys-footer-id" data-label="页脚署名" data-editable="text">Feiwan · AI Lab</span>
+    <span class="page-no" data-sys="page-no" data-layer="sys-page-no" data-label="页码" data-editable="text">{{page-no}}</span>
+  </div>
+    </div>
+      </section>
+    </div>
+
+    <div class="gal-item" id="n40">
+      <!-- ============ N40 · 浮动标注 ============
+           用途：手机 App 单屏 + 旁注标注卡——界面要点逐点讲解，卡片在手机旁空白不遮挡截图
+           适合：一张截图配 4-8 个要点说明；不适合：多屏或要点超过八个
+           可以变：标注条数动态 ×4-8（repeat note，条目 {t,d}，编号自动）；卡片位置可配（坐标槽 note-pos / note-pos-2… 传 {x,y} = 内屏截图内目标功能点百分比，AI 看图给点；卡片贴同侧外缘、纵向对齐目标点；不传走默认旁置位）
+           槽位：title / sub / n40-img-1 / note（repeat ×4-8：t/d）/ note-pos、note-pos-2…（可选坐标槽 {x,y}，随条数）/ issue / page-no
+           限制：title≤14字(2行,每行≤7字)；sub≤24字(1行)；t≤8字；d≤14字(2行)；issue≤14字
+           hl：title 内 0-1 处（span.hl-line）
+           图槽：手机内屏 46:99 cover ×1（壳图 frame-img 装饰槽）
+-->
+      <section data-layout="N40-phone-annotate">
+    <div class="artwork-page n40" data-artwork data-size="1080x1440">
+  <div class="paper-noise"></div>
+  <div class="brand-top">
+    <div class="left">
+      <div class="logo"><div class="ph" data-sys="brand-logo" data-layer="sys-brand-logo" data-label="logo字" data-editable="text">AI</div></div>
+      <span class="brand-name" data-sys="brand-name" data-layer="sys-brand-name" data-label="品牌名" data-editable="text">Feiwan AI Lab</span>
+    </div>
+    <div class="right" data-sys="issue" data-layer="sys-issue" data-label="期号" data-editable="text">{{issue}}</div>
+  </div>
+  <div class="content pm-content">
+    <div class="hero pm-hero pm-hero--c">
+      <div class="pm-title" data-layer="title" data-label="主标题" data-editable="text">{{title}}</div>
+      <div class="pm-sub" data-layer="sub" data-label="副题" data-editable="text">{{sub}}</div>
+    </div>
+    <div class="stage pm-stage n40-stage">
+      <div class="pm-phone n40-phone">
+        <img class="pm-frame frame-img" src="../assets/iphone-frame.png" alt="" draggable="false">
+        <div class="pm-screen"><div class="ph ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n40-img-1" data-label="手机内屏" data-ratio="46:99" alt=""></div></div>
+      </div>
+      <div class="n40-pins">
+        <!-- repeat ×4-8: 标注单元 clone（旁置卡）；编号自动（CSS 计数器 01/02…），条目 {t,d}；
+             卡片位置可选坐标槽 note-pos / note-pos-2…（顶层字段，{x,y}=内屏截图内目标功能点百分比，AI 看图给点）；
+             卡片贴同侧外缘、纵向对齐目标点，永不进入手机区域；不传坐标 → 按条数默认旁置。
+             同侧两卡 y 宜间隔 >18%（卡高约 15cqw），<18% 机器 WARN -->
+        <div class="n40-pin" data-repeat="note" data-pin="note-pos">
+          <div class="n40-note pm-card">
+            <b data-layer="n" data-label="序号" data-editable="text"></b>
+            <strong data-layer="t" data-label="标题" data-editable="text">{{t}}</strong>
+            <span data-layer="d" data-label="说明" data-editable="text">{{d}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pg-footer">
+    <span data-sys="footer-id" data-layer="sys-footer-id" data-label="页脚署名" data-editable="text">Feiwan · AI Lab</span>
+    <span class="page-no" data-sys="page-no" data-layer="sys-page-no" data-label="页码" data-editable="text">{{page-no}}</span>
+  </div>
+    </div>
+      </section>
+    </div>
+  </div>
 
   <div class="gal-group" id="g-steps">
-    <div class="gal-group-head"><span class="num">G03</span><h2>步骤</h2><span class="count"></span></div>
+    <div class="gal-group-head"><span class="num">G02</span><h2>步骤</h2><span class="count"></span></div>
     <div class="gal-item" id="n06">
       <!-- ============ N06 · 单步骤深度详情 ============
            用途：步骤详解页——步骤头 + 图文三段混排 + tip
@@ -605,7 +990,7 @@ a{color:inherit;text-decoration:none;}
       <!-- ============ N08 · 双步骤同页 ============
            用途：双步骤并列页——上下两个步骤卡，第 1 组带截图，底部 💡 提示条
            适合：教程前两步打包讲；不适合：超过 2 步（拆 N06/N07）
-           可以变：每组要点 2-3 条；提示条可留空（没有就删掉该行）
+           可以变：每组要点 2-3 条；底部提示条固定 1 条
            槽位：s1-num/s1-cat/s1-title / 图×1（16:9 cover）/ points-1[]（n,point）/ s2-num/s2-cat/s2-title / points-2[]（n,point）/ n08-callout / issue / page-no
            限制：s*-title≤14字(1行)；s*-cat≤18字符；point≤20字(1行)；n08-callout≤30字(1行)；issue≤14字
            hl：point 内 strong 强调
@@ -666,85 +1051,13 @@ a{color:inherit;text-decoration:none;}
       </div>
     </div>
 
-    <!-- 💡 提示条（可留空：没有就删掉该行） -->
+    <!-- 💡 提示条（固定 1 条） -->
     <div class="callout n08-callout">
       <div class="callout__icon">💡</div>
       <div class="callout__body">
         <div class="callout__head">· 提醒 ·</div>
         <div class="callout__text" data-layer="n08-callout" data-label="提醒" data-editable="text">{{n08-callout}}</div>
       </div>
-    </div>
-  </div>
-
-  <div class="pg-footer">
-    <span data-sys="footer-id" data-layer="sys-footer-id" data-label="页脚署名" data-editable="text">Feiwan · AI Lab</span>
-    <span class="page-no" data-sys="page-no" data-layer="sys-page-no" data-label="页码" data-editable="text">{{page-no}}</span>
-  </div>
-
-    </div>
-      </section>
-    </div>
-
-    <div class="gal-item" id="n09">
-      <!-- ============ N09 · 前后对比+收尾总结 ============
-           用途：前后对照 + 总结收尾——双图对比（BEFORE/AFTER 标签条）+ 墨底总结卡（原 N09/N32 合并）
-           适合：改造/自动化前后对照 + 经验收尾；不适合：三项以上对比
-           可以变：总结 2-4 条
-           槽位：step-num / tag / title / 图×2（1:1 cover）/ before-cap / after-cap / harvest-title / harvest[]（item）/ issue / page-no
-           限制：title≤10字(2行)；tag≤12字；before-cap≤24字(2行) after-cap≤24字(2行)；harvest-title≤12字；item≤20字(1行)；issue≤14字；step-num 可选（留空自动隐藏，数量是主角才留）
-           hl：无（VS 与 BEFORE/AFTER 自带对比强调）
-           图槽：对照图 ×2 cover 1:1 基准（异形槽：flex 弹性随总结条数 2-4 条浮动，AI 按 crop 控制主体）
-      -->
-      <section data-layout="N09-step-compare">
-    <div class="artwork-page n09" data-artwork data-size="1080x1440">
-
-  <div class="paper-noise"></div>
-
-  <div class="brand-top">
-    <div class="left">
-      <div class="logo"><div class="ph" data-sys="brand-logo" data-layer="sys-brand-logo" data-label="logo字" data-editable="text">AI</div></div>
-      <span class="brand-name" data-sys="brand-name" data-layer="sys-brand-name" data-label="品牌名" data-editable="text">Feiwan AI Lab</span>
-    </div>
-    <div class="right" data-sys="issue" data-layer="sys-issue" data-label="期号" data-editable="text">{{issue}}</div>
-  </div>
-
-  <div class="after-hero"></div>
-
-  <div class="content">
-    <!-- 步骤标题（tag 在标题上方） -->
-    <div class="step-head" data-layer="n09-head" data-label="步骤头" data-type="group">
-      <div class="step-num" data-optional data-layer="step-num" data-label="步骤号" data-editable="text">{{step-num}}</div>
-      <div class="step-title-wrap">
-        <span class="tag" data-layer="tag" data-label="标签" data-editable="text">{{tag}}</span>
-        <div class="step-title" data-layer="title" data-label="步骤标题" data-editable="text">{{title}}</div>
-      </div>
-    </div>
-
-    <!-- 对比双栏（BEFORE/AFTER 标签条 + 图 + 说明；窄缝，VS 压中） -->
-    <div class="compare">
-      <div class="n09-side n09-side--before" data-layer="n09-side-before" data-label="对照前栏" data-type="group">
-        <div class="n09-side__tag">· BEFORE ·</div>
-        <div class="n09-side__img ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n09-img-1" data-label="对照前图" data-ratio="1:1" alt=""><span class="ph-img__label">IMG · 之前</span></div>
-        <div class="n09-side__caption" data-layer="before-cap" data-label="对照前说明" data-editable="text">{{before-cap}}</div>
-      </div>
-
-      <span class="compare__vs">VS</span>
-
-      <div class="n09-side n09-side--after" data-layer="n09-side-after" data-label="对照后栏" data-type="group">
-        <div class="n09-side__tag">· AFTER ·</div>
-        <div class="n09-side__img ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n09-img-2" data-label="对照后图" data-ratio="1:1" alt=""><span class="ph-img__label">IMG · 之后</span></div>
-        <div class="n09-side__caption" data-layer="after-cap" data-label="对照后说明" data-editable="text">{{after-cap}}</div>
-      </div>
-    </div>
-
-    <!-- 墨底总结卡 -->
-    <div class="n09-harvest">
-      <div class="n09-harvest__label">· THREE TAKEAWAYS ·</div>
-      <div class="n09-harvest__title" data-layer="harvest-title" data-label="总结标题" data-editable="text">{{harvest-title}}</div>
-      <ul class="n09-harvest__list">
-        <!-- repeat ×2-4: 总结条 clone -->
-        <li data-repeat="harvest" data-layer="harvest-item" data-editable="text">{{item}}</li>
-      </ul>
     </div>
   </div>
 
@@ -984,12 +1297,73 @@ a{color:inherit;text-decoration:none;}
 
 
   <div class="gal-group" id="g-lists">
-    <div class="gal-group-head"><span class="num">G04</span><h2>清单</h2><span class="count"></span></div>
+    <div class="gal-group-head"><span class="num">G03</span><h2>清单</h2><span class="count"></span></div>
+    <div class="gal-item" id="n05">
+      <!-- ============ N05 · 时间线概览 ============
+           用途：成长/历程类概览——时间线条目纵向排布
+           适合：Day N 叙事、阶段复盘；不适合：无时间含义的并列内容
+           可以变：条目 3-5 条；末条强调款（is-hot + c-accent）需手加类；speed 可选槽（留空自动隐藏）
+           槽位：big-num / tag / title / sub / timeline[]（when,head,note,speed） / issue / page-no
+           限制：big-num≤3字符；title≤14字(2行;每行≤8字[big-num单数字] 或 ≤6字[big-num双数字])；sub≤20字(1行)；head≤14字(1行)；note≤22字(1行)；when≤3字符；speed≤8字符；issue≤14字；tag≤12字；big-num 可选（留空自动隐藏，数量是主角才留）
+
+           hl：无（speed 标签自带强调）
+           图槽：无
+      -->
+      <section data-layout="N05-timeline-overview">
+    <div class="artwork-page n05" data-artwork data-size="1080x1440">
+
+  <div class="paper-noise"></div>
+
+  <div class="brand-top">
+    <div class="left">
+      <div class="logo"><div class="ph" data-sys="brand-logo" data-layer="sys-brand-logo" data-label="logo字" data-editable="text">AI</div></div>
+      <span class="brand-name" data-sys="brand-name" data-layer="sys-brand-name" data-label="品牌名" data-editable="text">Feiwan AI Lab</span>
+    </div>
+    <div class="right" data-sys="issue" data-layer="sys-issue" data-label="期号" data-editable="text">{{issue}}</div>
+  </div>
+
+  <div class="mega-hero">
+    <div class="mh-row">
+      <div class="big-num" data-optional data-layer="big-num" data-label="大数字" data-editable="text">{{big-num}}</div>
+      <div class="hero-text">
+        <span class="tag" data-layer="tag" data-label="标签" data-editable="text">{{tag}}</span>
+        <div class="title" data-layer="title" data-label="标题" data-editable="text">{{title}}</div>
+      </div>
+    </div>
+    <div class="sub" data-layer="sub" data-label="副题" data-editable="text">{{sub}}</div>
+  </div>
+
+  <div class="after-hero"></div>
+
+  <div class="content">
+    <div class="n05-timeline">
+      <!-- repeat ×3-5: 时间线条目 clone（flex 纵向均分）；5 条时 note 收在一行，3 条时行距加大 -->
+      <div class="n05-timeline__item" data-repeat="timeline">
+        <div class="n05-timeline__dot"></div>
+        <div class="n05-timeline__when" data-layer="when" data-label="时间" data-editable="text">{{when}}</div>
+        <div class="n05-timeline__body">
+          <div class="n05-timeline__head" data-layer="head" data-label="条目标题" data-editable="text">{{head}}</div>
+          <div class="n05-timeline__note" data-layer="note" data-label="条目说明" data-editable="text">{{note}}</div>
+          <span class="n05-timeline__tag" data-optional data-layer="speed" data-label="提速标注" data-editable="text">{{speed}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pg-footer">
+    <span data-sys="footer-id" data-layer="sys-footer-id" data-label="页脚署名" data-editable="text">Feiwan · AI Lab</span>
+    <span class="page-no" data-sys="page-no" data-layer="sys-page-no" data-label="页码" data-editable="text">{{page-no}}</span>
+  </div>
+
+    </div>
+      </section>
+    </div>
+  
     <div class="gal-item" id="n10">
       <!-- ============ N10 · 工具清单 ============
            用途：工具/资源推荐——左编号清单 + 右 2×3 图格
            适合：3-8 条量级推荐 + 有截图素材；不适合：每条需长说明（d 一行）
-           可以变：条目 3-8 条（行距自适应）；右栏图格固定 6 格，少图需手删格
+           可以变：条目 3-8 条（行距自适应）；右栏图格固定 6 张（图不够请换母版或走 custom）
            槽位：big-num / title / sub / items[]（num,t,d）/ 图×6（竖版 3:4 cover）/ issue / page-no
            限制：big-num≤2字符且=条数；title≤10字(2行;每行≤8字[big-num单数字] 或 ≤6字[big-num双数字])；sub≤16字(1行)；t≤8字；d≤12字(1行)；6-8条时 d 更短；issue≤14字；big-num 可选（留空自动隐藏，数量是主角才留）
 
@@ -1056,7 +1430,7 @@ a{color:inherit;text-decoration:none;}
       <!-- ============ N11 · 工具清单基础 ============
            用途：基础工具清单——编号行 + 名称/描述/分类标签，纯文字
            适合：3-7 条量级推荐；不适合：需配图、每条长说明
-           可以变：条目 3-7 条（行高自适应）；tag 可留空（没有就删掉该行）
+           可以变：条目 3-7 条（行高自适应）；条目 tag 可选槽（留空自动隐藏），hero tag 必须给值
            槽位：big-num / tag / title / sub / items[]（num,name,desc,tag） / issue / page-no
            限制：big-num≤2字符且=条数；title≤12字(2行;每行≤8字[big-num单数字] 或 ≤6字[big-num双数字])；sub≤18字(1行)；name≤8字；desc≤12字(1行)；tag≤12字；issue≤14字；big-num 可选（留空自动隐藏，数量是主角才留）
            hl：title 内 1 处（span.hl-line）
@@ -1095,7 +1469,7 @@ a{color:inherit;text-decoration:none;}
         <div class="num" data-layer="tool-num" data-label="编号" data-editable="text">{{num}}</div>
         <div class="name" data-layer="tool-name" data-label="名称" data-editable="text">{{name}}</div>
         <div class="desc" data-layer="tool-desc" data-label="描述" data-editable="text">{{desc}}</div>
-        <div class="tag" data-layer="tool-tag" data-label="分类" data-editable="text">{{tag}}</div>
+        <div class="tag" data-optional data-layer="tool-tag" data-label="分类" data-editable="text">{{tag}}</div>
       </div>
     </div>
   </div>
@@ -1114,7 +1488,7 @@ a{color:inherit;text-decoration:none;}
            用途：待办/打卡清单——勾选框条目 + 进度头
            适合：5-8 条行动清单；不适合：无勾选语义的纯列表（用 N11）
            可以变：条目 5-8 条；角标（n12-checklist__tag）需手加类；勾选态与进度为机器槽——勾选由 render 伪随机分配（data-rand-done），进度自动生成 done/total，plan 不可填
-           槽位：big-num / tag / title / sub / list-title / items[]（t,note） / issue / page-no
+           槽位：big-num / tag / title / sub / list-title / items[]（t,note） / issue / page-no / progress
            限制：big-num≤2字符且=条数；title≤14字(2行;每行≤8字[big-num单数字] 或 ≤6字[big-num双数字])；sub≤16字(1行)；list-title≤10字；t≤14字(1行)；note≤16字(1行)；issue≤14字；tag≤12字；big-num 可选（留空自动隐藏，数量是主角才留）
 
            hl：无
@@ -1238,7 +1612,7 @@ a{color:inherit;text-decoration:none;}
       <!-- ============ N14 · 误区避雷 ============
            用途：误区避雷页——✗误区 → 正解对照行 + 底部转发条
            适合：4-6 条认知纠偏；不适合：正面教程内容
-           可以变：条目 4-6 条；底部转发条可留空（没有就删掉该行）
+           可以变：条目 4-6 条；底部转发条固定 1 条
            槽位：big-num / tag / title / sub / myths[]（wrong,right）/ cta-line / issue / page-no
            限制：big-num≤2字符且=条数；title≤16字(2行;每行≤8字[big-num单数字] 或 ≤6字[big-num双数字])；sub≤14字(1行)；wrong≤12字(1行)；right≤18字(1行)；cta-line≤18字；issue≤14字；tag≤12字；big-num 可选（留空自动隐藏，数量是主角才留）
 
@@ -1295,521 +1669,80 @@ a{color:inherit;text-decoration:none;}
       </section>
     </div>
   </div>
-
-  <div class="gal-group" id="g-showcase">
-    <div class="gal-group-head"><span class="num">G05</span><h2>展示</h2><span class="count"></span></div>
-    <div class="gal-item" id="n15">
-      <!-- ============ N15 · 作品卡片网格 ============
-           用途：作品/成果卡片网格——整卡图 + 左下可抄 Prompt 浮动卡
-           适合：4 个作品/成果逐个展示（图为主）；不适合：纯文字安利；作品数≠4
-           可以变：卡内 Prompt 文案与图可换；卡片数固定 4
-           槽位：big-num / title / sub / cards[]（prompt） / card-img×4（随卡数） / issue / page-no
-           限制：big-num=4；title≤16字(2行;每行≤8字[big-num单数字] 或 ≤6字[big-num双数字])；sub≤16字(1行)；prompt≤22字符(1行)；issue≤14字；big-num 可选（留空自动隐藏，数量是主角才留）
-
-           hl：title 内 1 处（span.hl-line）
-           图槽：方图 1:1 cover ×4（固定 4 张，键 card-img / card-img-2 / card-img-3 / card-img-4）
-      -->
-      <section data-layout="N15-agent-gallery">
-    <div class="artwork-page n15" data-artwork data-size="1080x1440">
-
-  <div class="paper-noise"></div>
-
-  <div class="brand-top">
-    <div class="left">
-      <div class="logo"><div class="ph" data-sys="brand-logo" data-layer="sys-brand-logo" data-label="logo字" data-editable="text">AI</div></div>
-      <span class="brand-name" data-sys="brand-name" data-layer="sys-brand-name" data-label="品牌名" data-editable="text">Feiwan AI Lab</span>
-    </div>
-    <div class="right" data-sys="issue" data-layer="sys-issue" data-label="期号" data-editable="text">{{issue}}</div>
-  </div>
-
-  <div class="mega-hero">
-    <div class="mh-row">
-      <div class="big-num" data-optional data-layer="big-num" data-label="条数大数字" data-editable="text">{{big-num}}</div>
-      <div class="hero-text">
-        <div class="title" data-layer="title" data-label="标题" data-editable="text">{{title}}</div>
-      </div>
-    </div>
-    <div class="sub" data-layer="sub" data-label="副题" data-editable="text">{{sub}}</div>
-  </div>
-
-  <div class="after-hero"></div>
-
-  <div class="content">
-    <!-- repeat ×4-4: 作品卡 clone（固定 4 张，flex:1 均分）；图槽键 card-img 随克隆加 -2/-3/-4 后缀 -->
-    <div class="card" data-repeat="cards">
-      <div class="ph-img" data-fit="cover">
-        <img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="card-img" data-label="IMG" data-ratio="1:1" alt="">
-      </div>
-      <div class="prompt" data-layer="card-prompt" data-label="Prompt" data-editable="text">{{prompt}}</div>
-    </div>
-  </div>
-
-  <div class="pg-footer">
-    <span data-sys="footer-id" data-layer="sys-footer-id" data-label="页脚署名" data-editable="text">Feiwan · AI Lab</span>
-    <span class="page-no" data-sys="page-no" data-layer="sys-page-no" data-label="页码" data-editable="text">{{page-no}}</span>
-  </div>
-
-    </div>
-      </section>
-    </div>
-
-    <div class="gal-item" id="n16">
-      <!-- ============ N16 · 分组图片展示 ============
-           用途：分场景图片展示——3 组各带说明 + 横排 3 图
-           适合：多场景对比、案例集；不适合：单图深度展示
-           可以变：组数固定 3 组，不能增减；每组 3 图固定，少图需手删
-           槽位：big-num / tag / title / sub / g1-no/g1-name/g1-desc / 图×3 / g2-no/g2-name/g2-desc / 图×3 / g3-no/g3-name/g3-desc / 图×3 / issue / page-no
-           限制：big-num≤2字符；tag≤12字；title≤10字(2行;每行≤8字[big-num单数字] 或 ≤6字[big-num双数字])；sub≤16字(1行)；g*-name≤6字；g*-desc≤20字(1行)；issue≤14字；big-num 可选（留空自动隐藏，数量是主角才留）
-           hl：无
-           图槽：竖版 2:3 cover ×9（组内横排）
-      -->
-      <section data-layout="N16-group-showcase">
-    <div class="artwork-page n16" data-artwork data-size="1080x1440">
-
-  <div class="paper-noise"></div>
-
-  <div class="brand-top">
-    <div class="left">
-      <div class="logo"><div class="ph" data-sys="brand-logo" data-layer="sys-brand-logo" data-label="logo字" data-editable="text">AI</div></div>
-      <span class="brand-name" data-sys="brand-name" data-layer="sys-brand-name" data-label="品牌名" data-editable="text">Feiwan AI Lab</span>
-    </div>
-    <div class="right" data-sys="issue" data-layer="sys-issue" data-label="期号" data-editable="text">{{issue}}</div>
-  </div>
-
-  <div class="mega-hero">
-    <div class="mh-row">
-      <div class="big-num" data-optional data-layer="big-num" data-label="组数大数字" data-editable="text">{{big-num}}</div>
-      <div class="hero-text">
-        <span class="tag" data-layer="tag" data-label="标签" data-editable="text">{{tag}}</span>
-        <div class="title" data-layer="title" data-label="标题" data-editable="text">{{title}}</div>
-      </div>
-    </div>
-    <div class="sub" data-layer="sub" data-label="副题" data-editable="text">{{sub}}</div>
-  </div>
-
-  <div class="after-hero"></div>
-
-  <div class="n16-groups">
-    <div class="n16-group" data-layer="n16-group-1" data-label="组1" data-type="group">
-      <div class="n16-gname">
-        <span class="n16-mono" data-layer="g1-no" data-label="组1编号" data-editable="text">{{g1-no}}</span>
-        <span data-layer="g1-name" data-label="组1名" data-editable="text">{{g1-name}}</span>
-        <span class="desc" data-layer="g1-desc" data-label="组1说明" data-editable="text">{{g1-desc}}</span>
-      </div>
-      <div class="n16-gimgs">
-        <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n16-img-1" data-label="IMG" data-ratio="2:3" alt=""><div class="placeholder ph-img__label">IMG</div><div class="corner-num">01</div></div>
-        <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n16-img-2" data-label="IMG" data-ratio="2:3" alt=""><div class="placeholder ph-img__label">IMG</div><div class="corner-num">02</div></div>
-        <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n16-img-3" data-label="IMG" data-ratio="2:3" alt=""><div class="placeholder ph-img__label">IMG</div><div class="corner-num">03</div></div>
-      </div>
-    </div>
-    <div class="n16-group" data-layer="n16-group-2" data-label="组2" data-type="group">
-      <div class="n16-gname">
-        <span class="n16-mono" data-layer="g2-no" data-label="组2编号" data-editable="text">{{g2-no}}</span>
-        <span data-layer="g2-name" data-label="组2名" data-editable="text">{{g2-name}}</span>
-        <span class="desc" data-layer="g2-desc" data-label="组2说明" data-editable="text">{{g2-desc}}</span>
-      </div>
-      <div class="n16-gimgs">
-        <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n16-img-4" data-label="IMG" data-ratio="2:3" alt=""><div class="placeholder ph-img__label">IMG</div><div class="corner-num">01</div></div>
-        <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n16-img-5" data-label="IMG" data-ratio="2:3" alt=""><div class="placeholder ph-img__label">IMG</div><div class="corner-num">02</div></div>
-        <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n16-img-6" data-label="IMG" data-ratio="2:3" alt=""><div class="placeholder ph-img__label">IMG</div><div class="corner-num">03</div></div>
-      </div>
-    </div>
-    <div class="n16-group" data-layer="n16-group-3" data-label="组3" data-type="group">
-      <div class="n16-gname">
-        <span class="n16-mono" data-layer="g3-no" data-label="组3编号" data-editable="text">{{g3-no}}</span>
-        <span data-layer="g3-name" data-label="组3名" data-editable="text">{{g3-name}}</span>
-        <span class="desc" data-layer="g3-desc" data-label="组3说明" data-editable="text">{{g3-desc}}</span>
-      </div>
-      <div class="n16-gimgs">
-        <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n16-img-7" data-label="IMG" data-ratio="2:3" alt=""><div class="placeholder ph-img__label">IMG</div><div class="corner-num">01</div></div>
-        <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n16-img-8" data-label="IMG" data-ratio="2:3" alt=""><div class="placeholder ph-img__label">IMG</div><div class="corner-num">02</div></div>
-        <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n16-img-9" data-label="IMG" data-ratio="2:3" alt=""><div class="placeholder ph-img__label">IMG</div><div class="corner-num">03</div></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="pg-footer">
-    <span data-sys="footer-id" data-layer="sys-footer-id" data-label="页脚署名" data-editable="text">Feiwan · AI Lab</span>
-    <span class="page-no" data-sys="page-no" data-layer="sys-page-no" data-label="页码" data-editable="text">{{page-no}}</span>
-  </div>
-
-    </div>
-      </section>
-    </div>
-
-    <div class="gal-item" id="n17">
-      <!-- ============ N17 · 纯图片密集网格 ============
-           用途：密集图片墙——4×3 十二宫格
-           适合：批量生图/作品集展示；不适合：需要文字说明的图
-           可以变：12 格固定，不能减
-           槽位：big-num / tag / title / sub / 图×12（3:4 cover）/ issue / page-no
-           限制：big-num≤2字符且=图数；title≤10字(2行;每行≤8字[big-num单数字] 或 ≤6字[big-num双数字])；sub≤18字(1行)；issue≤14字；tag≤12字；big-num 可选（留空自动隐藏，数量是主角才留）
-
-           hl：无
-           图槽：竖版 3:4 cover ×12
-      -->
-      <section data-layout="N17-grid-gallery">
-    <div class="artwork-page n17" data-artwork data-size="1080x1440">
-
-  <div class="paper-noise"></div>
-
-  <div class="brand-top">
-    <div class="left">
-      <div class="logo"><div class="ph" data-sys="brand-logo" data-layer="sys-brand-logo" data-label="logo字" data-editable="text">AI</div></div>
-      <span class="brand-name" data-sys="brand-name" data-layer="sys-brand-name" data-label="品牌名" data-editable="text">Feiwan AI Lab</span>
-    </div>
-    <div class="right" data-sys="issue" data-layer="sys-issue" data-label="期号" data-editable="text">{{issue}}</div>
-  </div>
-
-  <div class="mega-hero">
-    <div class="mh-row">
-      <div class="big-num" data-optional data-layer="big-num" data-label="图数大数字" data-editable="text">{{big-num}}</div>
-      <div class="hero-text">
-        <span class="tag" data-layer="tag" data-label="标签" data-editable="text">{{tag}}</span>
-        <div class="title" data-layer="title" data-label="标题" data-editable="text">{{title}}</div>
-      </div>
-    </div>
-    <div class="sub" data-layer="sub" data-label="副题" data-editable="text">{{sub}}</div>
-  </div>
-
-  <div class="after-hero"></div>
-
-  <div class="n17-gallery">
-    <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n17-img-1" data-label="图 01" data-ratio="3:4" alt=""><div class="placeholder ph-img__label">IMG · 01</div><div class="corner-num">01</div></div>
-    <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n17-img-2" data-label="图 02" data-ratio="3:4" alt=""><div class="placeholder ph-img__label">IMG · 02</div><div class="corner-num">02</div></div>
-    <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n17-img-3" data-label="图 03" data-ratio="3:4" alt=""><div class="placeholder ph-img__label">IMG · 03</div><div class="corner-num">03</div></div>
-    <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n17-img-4" data-label="图 04" data-ratio="3:4" alt=""><div class="placeholder ph-img__label">IMG · 04</div><div class="corner-num">04</div></div>
-    <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n17-img-5" data-label="图 05" data-ratio="3:4" alt=""><div class="placeholder ph-img__label">IMG · 05</div><div class="corner-num">05</div></div>
-    <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n17-img-6" data-label="图 06" data-ratio="3:4" alt=""><div class="placeholder ph-img__label">IMG · 06</div><div class="corner-num">06</div></div>
-    <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n17-img-7" data-label="图 07" data-ratio="3:4" alt=""><div class="placeholder ph-img__label">IMG · 07</div><div class="corner-num">07</div></div>
-    <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n17-img-8" data-label="图 08" data-ratio="3:4" alt=""><div class="placeholder ph-img__label">IMG · 08</div><div class="corner-num">08</div></div>
-    <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n17-img-9" data-label="图 09" data-ratio="3:4" alt=""><div class="placeholder ph-img__label">IMG · 09</div><div class="corner-num">09</div></div>
-    <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n17-img-10" data-label="图 10" data-ratio="3:4" alt=""><div class="placeholder ph-img__label">IMG · 10</div><div class="corner-num">10</div></div>
-    <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n17-img-11" data-label="图 11" data-ratio="3:4" alt=""><div class="placeholder ph-img__label">IMG · 11</div><div class="corner-num">11</div></div>
-    <div class="img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n17-img-12" data-label="图 12" data-ratio="3:4" alt=""><div class="placeholder ph-img__label">IMG · 12</div><div class="corner-num">12</div></div>
-  </div>
-
-  <div class="pg-footer">
-    <span data-sys="footer-id" data-layer="sys-footer-id" data-label="页脚署名" data-editable="text">Feiwan · AI Lab</span>
-    <span class="page-no" data-sys="page-no" data-layer="sys-page-no" data-label="页码" data-editable="text">{{page-no}}</span>
-  </div>
-
-    </div>
-      </section>
-    </div>
-
-    <div class="gal-item" id="n18">
-      <!-- ============ N18 · Bento 生成展示 ============
-           用途：Bento 网格生成展示——1 大 4 小图 + 角标签
-           适合：5 件生成作品/工具展示；不适合：文字为主的内容
-           可以变：格子固定 5（1+4）；角标签可留空（没有就删掉该行）
-           槽位：big-num / tag / title / sub / 图×5（1:2×5 cover）/ b1-tag..b5-tag / issue / page-no
-           限制：big-num≤2字符且=件数；title≤16字(2行;每行≤8字[big-num单数字] 或 ≤6字[big-num双数字])；sub≤18字(1行)；tag≤12字；b*-tag≤12字符；issue≤14字；big-num 可选（留空自动隐藏，数量是主角才留）
-           hl：title 内 1 处（span.hl-line）
-           图槽：bento 五格 cover；格内占位字为装饰
-      -->
-      <section data-layout="N18-bento-showcase">
-    <div class="artwork-page n18" data-artwork data-size="1080x1440">
-
-  <div class="paper-noise"></div>
-
-  <div class="brand-top">
-    <div class="left">
-      <div class="logo"><div class="ph" data-sys="brand-logo" data-layer="sys-brand-logo" data-label="logo字" data-editable="text">AI</div></div>
-      <span class="brand-name" data-sys="brand-name" data-layer="sys-brand-name" data-label="品牌名" data-editable="text">Feiwan AI Lab</span>
-    </div>
-    <div class="right" data-sys="issue" data-layer="sys-issue" data-label="期号" data-editable="text">{{issue}}</div>
-  </div>
-
-  <div class="mega-hero">
-    <div class="mh-row">
-      <div class="big-num" data-optional data-layer="big-num" data-label="件数大数字" data-editable="text">{{big-num}}</div>
-      <div class="hero-text">
-        <span class="tag" data-layer="tag" data-label="标签" data-editable="text">{{tag}}</span>
-        <div class="title" data-layer="title" data-label="标题" data-editable="text">{{title}}</div>
-      </div>
-    </div>
-    <div class="sub" data-layer="sub" data-label="副题" data-editable="text">{{sub}}</div>
-  </div>
-
-  <div class="after-hero"></div>
-
-  <div class="content">
-    <div class="n18-g n18-big ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n18-img-1" data-label="大图" data-ratio="1:2" alt=""><div class="ph ph-img__label">MIDJOURNEY</div><div class="label" data-layer="b1-tag" data-label="大图角标" data-editable="text">{{b1-tag}}</div></div>
-    <div class="n18-g ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n18-img-2" data-label="右上格" data-ratio="1:2" alt=""><div class="ph ph-img__label">RUNWAY</div><div class="label" data-layer="b2-tag" data-label="右上角标" data-editable="text">{{b2-tag}}</div></div>
-    <div class="n18-g ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n18-img-3" data-label="右下格" data-ratio="1:2" alt=""><div class="ph ph-img__label">PIKA</div><div class="label" data-layer="b3-tag" data-label="右下角标" data-editable="text">{{b3-tag}}</div></div>
-    <div class="n18-g ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n18-img-4" data-label="左下格" data-ratio="1:2" alt=""><div class="ph ph-img__label">FLUX</div><div class="label" data-layer="b4-tag" data-label="左下角标" data-editable="text">{{b4-tag}}</div></div>
-    <div class="n18-g ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n18-img-5" data-label="中下格" data-ratio="1:2" alt=""><div class="ph ph-img__label">SORA</div><div class="label" data-layer="b5-tag" data-label="中下角标" data-editable="text">{{b5-tag}}</div></div>
-  </div>
-
-  <div class="pg-footer">
-    <span data-sys="footer-id" data-layer="sys-footer-id" data-label="页脚署名" data-editable="text">Feiwan · AI Lab</span>
-    <span class="page-no" data-sys="page-no" data-layer="sys-page-no" data-label="页码" data-editable="text">{{page-no}}</span>
-  </div>
-
-    </div>
-      </section>
-    </div>
-
-    <div class="gal-item" id="n19">
-      <!-- ============ N19 · 单大图深度解析 ============
-           用途：单大图深度解析——横版大图 + 三要点拆解
-           适合：一张核心截图/作品 + 拆解；不适合：多图
-           可以变：要点 2-4 条；图上角标可留空（没有就删掉该行）
-           槽位：big-num / tag / title / sub / 图×1（3:2 cover）/ img-tag / points[]（n,t,d）/ issue / page-no
-           限制：big-num≤2字符；tag≤12字；title≤10字(2行;每行≤8字[big-num单数字] 或 ≤6字[big-num双数字])；sub≤16字(1行)；img-tag≤12字符；t≤8字(1行)；d≤20字(2行)；issue≤14字；big-num 可选（留空自动隐藏，数量是主角才留）
-           hl：无
-           图槽：横版大图 3:2 cover
-      -->
-      <section data-layout="N19-single-deep">
-    <div class="artwork-page n19" data-artwork data-size="1080x1440">
-
-  <div class="paper-noise"></div>
-
-  <div class="brand-top">
-    <div class="left">
-      <div class="logo"><div class="ph" data-sys="brand-logo" data-layer="sys-brand-logo" data-label="logo字" data-editable="text">AI</div></div>
-      <span class="brand-name" data-sys="brand-name" data-layer="sys-brand-name" data-label="品牌名" data-editable="text">Feiwan AI Lab</span>
-    </div>
-    <div class="right" data-sys="issue" data-layer="sys-issue" data-label="期号" data-editable="text">{{issue}}</div>
-  </div>
-
-  <div class="mega-hero">
-    <div class="mh-row">
-      <div class="big-num" data-optional data-layer="big-num" data-label="序号大数字" data-editable="text">{{big-num}}</div>
-      <div class="hero-text">
-        <span class="tag" data-layer="tag" data-label="标签" data-editable="text">{{tag}}</span>
-        <div class="title" data-layer="title" data-label="标题" data-editable="text">{{title}}</div>
-      </div>
-    </div>
-    <div class="sub" data-layer="sub" data-label="副题" data-editable="text">{{sub}}</div>
-  </div>
-
-  <div class="after-hero"></div>
-
-  <div class="main">
-    <div class="n19-hero-img ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n19-img-1" data-label="主图" data-ratio="3:2" alt="">
-      <span class="n19-hero-tag" data-layer="img-tag" data-label="图上角标" data-editable="text">{{img-tag}}</span>
-      <div class="placeholder ph-img__label">LARGE · IMAGE · PLACEHOLDER</div>
-    </div>
-
-    <div class="points">
-      <!-- repeat ×2-4: 要点行 clone（flex:1 均分）；4 条时 d 收一行 -->
-      <div class="n19-point" data-repeat="points">
-        <div class="n19-pn" data-layer="point-num" data-label="序号" data-editable="text">{{n}}</div>
-        <div class="n19-pt" data-layer="point-t" data-label="要点名" data-editable="text">{{t}}</div>
-        <div class="n19-pd" data-layer="point-d" data-label="要点说明" data-editable="text">{{d}}</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="pg-footer">
-    <span data-sys="footer-id" data-layer="sys-footer-id" data-label="页脚署名" data-editable="text">Feiwan · AI Lab</span>
-    <span class="page-no" data-sys="page-no" data-layer="sys-page-no" data-label="页码" data-editable="text">{{page-no}}</span>
-  </div>
-
-    </div>
-      </section>
-    </div>
-    <div class="gal-item" id="n37">
-      <!-- ============ N37 · 单机聚焦 ============
-           用途：手机 App 单屏深度讲解——大手机 + 侧栏分条卖点
-           适合：一台手机的界面讲解、功能亮点逐条说明；不适合：多屏对比
-           可以变：卖点 2-4 条；手机内屏换截图（比例固定）；无 tag
-           槽位：title / sub / n37-img-1 / points[]（n,t,d） / issue / page-no / foot-tag / foot-chip / foot-slogan
-           限制：title≤14字(2行,每行≤7字)；sub≤22字(1行)；n≤3字符；t≤10字；d≤20字(2行)；issue≤14字；foot-tag≤18字符(1行)；foot-chip≤14字符；foot-slogan≤10字(1行)
-           hl：title 内 0-1 处（span.hl-line）
-           图槽：手机内屏 46:99 cover ×1（壳图 frame-img 装饰槽，render 单源内嵌）
--->
-      <section data-layout="N37-phone-focus">
-    <div class="artwork-page n37" data-artwork data-size="1080x1440">
-  <div class="paper-noise"></div>
-  <div class="brand-top">
-    <div class="left">
-      <div class="logo"><div class="ph" data-sys="brand-logo" data-layer="sys-brand-logo" data-label="logo字" data-editable="text">AI</div></div>
-      <span class="brand-name" data-sys="brand-name" data-layer="sys-brand-name" data-label="品牌名" data-editable="text">Feiwan AI Lab</span>
-    </div>
-    <div class="right" data-sys="issue" data-layer="sys-issue" data-label="期号" data-editable="text">{{issue}}</div>
-  </div>
-  <div class="content pm-content">
-    <div class="hero pm-hero">
-      <div class="pm-title" data-layer="title" data-label="主标题" data-editable="text">{{title}}</div>
-      <div class="pm-sub" data-layer="sub" data-label="副题" data-editable="text">{{sub}}</div>
-    </div>
-    <div class="stage pm-stage n37-stage">
-      <div class="pm-phone n37-phone">
-        <img class="pm-frame frame-img" src="../assets/iphone-frame.png" alt="" draggable="false">
-        <div class="pm-screen"><div class="ph ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n37-img-1" data-label="手机内屏" data-ratio="46:99" alt=""></div></div>
-      </div>
-      <div class="n37-side">
-        <!-- repeat ×2-4: 卖点行 clone（flex:1 均分）；4 条时 d 收一行 -->
-        <div class="n37-row" data-repeat="points">
-          <div class="n37-row-no" data-layer="n" data-label="序号" data-editable="text">{{n}}</div>
-          <div class="n37-row-t" data-layer="t" data-label="卖点标题" data-editable="text">{{t}}</div>
-          <div class="n37-row-d" data-layer="d" data-label="卖点说明" data-editable="text">{{d}}</div>
-        </div>
-      </div>
-    </div>
-    <div class="pm-foot"><span data-layer="n37-foot-1" data-label="底部标识" data-editable="text">{{foot-tag}}</span><span class="pm-chip" data-layer="n37-foot-2" data-label="底部胶囊" data-editable="text">{{foot-chip}}</span><span data-layer="n37-foot-3" data-label="底部短语" data-editable="text">{{foot-slogan}}</span></div>
-  </div>
-  <div class="pg-footer">
-    <span data-sys="footer-id" data-layer="sys-footer-id" data-label="页脚署名" data-editable="text">Feiwan · AI Lab</span>
-    <span class="page-no" data-sys="page-no" data-layer="sys-page-no" data-label="页码" data-editable="text">{{page-no}}</span>
-  </div>
-    </div>
-      </section>
-    </div>
-
-    <div class="gal-item" id="n38">
-      <!-- ============ N38 · 双屏并列 ============
-           用途：手机 App 双屏并列展示——两屏各讲一件事，无对比徽章
-           适合：两张截图并列呈现不同功能/界面；不适合：单屏或三屏以上
-           可以变：两屏内容各自换截图（比例固定）；无 tag
-           槽位：title / sub / n38-img-1 / n38-img-2 / issue / page-no / foot-tag / foot-chip / foot-slogan
-           限制：title≤14字(2行,每行≤7字)；sub≤24字(1行)；issue≤14字；foot-tag≤18字符(1行)；foot-chip≤14字符；foot-slogan≤10字(1行)
-           hl：title 内 0-1 处（span.hl-line）
-           图槽：手机内屏 46:99 cover ×2（键 n38-img-1 / n38-img-2；壳图 frame-img 装饰槽）
--->
-      <section data-layout="N38-phone-duo">
-    <div class="artwork-page n38" data-artwork data-size="1080x1440">
-  <div class="paper-noise"></div>
-  <div class="brand-top">
-    <div class="left">
-      <div class="logo"><div class="ph" data-sys="brand-logo" data-layer="sys-brand-logo" data-label="logo字" data-editable="text">AI</div></div>
-      <span class="brand-name" data-sys="brand-name" data-layer="sys-brand-name" data-label="品牌名" data-editable="text">Feiwan AI Lab</span>
-    </div>
-    <div class="right" data-sys="issue" data-layer="sys-issue" data-label="期号" data-editable="text">{{issue}}</div>
-  </div>
-  <div class="content pm-content">
-    <div class="hero pm-hero pm-hero--c">
-      <div class="pm-title" data-layer="title" data-label="主标题" data-editable="text">{{title}}</div>
-      <div class="pm-sub" data-layer="sub" data-label="副题" data-editable="text">{{sub}}</div>
-    </div>
-    <div class="stage pm-stage n38-stage">
-      <div class="pm-phone n38-back">
-        <img class="pm-frame frame-img" src="../assets/iphone-frame.png" alt="" draggable="false">
-        <div class="pm-screen"><div class="ph ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n38-img-1" data-label="左屏截图" data-ratio="46:99" alt=""></div></div>
-      </div>
-      <div class="pm-phone n38-front">
-        <img class="pm-frame frame-img" src="../assets/iphone-frame.png" alt="" draggable="false">
-        <div class="pm-screen"><div class="ph ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n38-img-2" data-label="右屏截图" data-ratio="46:99" alt=""></div></div>
-      </div>
-    </div>
-    <div class="pm-foot"><span data-layer="n38-foot-1" data-label="底部标识" data-editable="text">{{foot-tag}}</span><span class="pm-chip" data-layer="n38-foot-2" data-label="底部胶囊" data-editable="text">{{foot-chip}}</span><span data-layer="n38-foot-3" data-label="底部短语" data-editable="text">{{foot-slogan}}</span></div>
-  </div>
-  <div class="pg-footer">
-    <span data-sys="footer-id" data-layer="sys-footer-id" data-label="页脚署名" data-editable="text">Feiwan · AI Lab</span>
-    <span class="page-no" data-sys="page-no" data-layer="sys-page-no" data-label="页码" data-editable="text">{{page-no}}</span>
-  </div>
-    </div>
-      </section>
-    </div>
-
-    <div class="gal-item" id="n39">
-      <!-- ============ N39 · 三机流程 ============
-           用途：手机 App 三屏流程切片——三台并排，每屏配序号+标题+说明
-           适合：三步操作流程（看豆→取方案→跟计时）；不适合：两步或四步以上
-           可以变：固定三屏，不能增减；每屏内容换截图（比例固定）
-           槽位：title / sub / cols[]（n,t,d） / col-img×3 / issue / page-no / foot-tag / foot-chip / foot-slogan
-           限制：title≤14字(2行,每行≤7字)；sub≤24字(1行)；n≤8字符；t≤8字；d≤16字(2行)；issue≤14字；foot-tag≤18字符(1行)；foot-chip≤14字符；foot-slogan≤10字(1行)
-           hl：title 内 0-1 处（span.hl-line）
-           图槽：手机内屏 46:99 cover ×3（repeat 克隆键 col-img / col-img-2 / col-img-3；壳图 frame-img 装饰槽）
--->
-      <section data-layout="N39-phone-trio">
-    <div class="artwork-page n39" data-artwork data-size="1080x1440">
-  <div class="paper-noise"></div>
-  <div class="brand-top">
-    <div class="left">
-      <div class="logo"><div class="ph" data-sys="brand-logo" data-layer="sys-brand-logo" data-label="logo字" data-editable="text">AI</div></div>
-      <span class="brand-name" data-sys="brand-name" data-layer="sys-brand-name" data-label="品牌名" data-editable="text">Feiwan AI Lab</span>
-    </div>
-    <div class="right" data-sys="issue" data-layer="sys-issue" data-label="期号" data-editable="text">{{issue}}</div>
-  </div>
-  <div class="content pm-content">
-    <div class="hero pm-hero">
-      <div class="pm-title" data-layer="title" data-label="主标题" data-editable="text">{{title}}</div>
-      <div class="pm-sub" data-layer="sub" data-label="副题" data-editable="text">{{sub}}</div>
-    </div>
-    <div class="stage pm-stage n39-stage">
-      <!-- repeat ×3-3: 三机切片 clone（flex:1 均分）；固定三屏，不能增减 -->
-      <div class="n39-col" data-repeat="cols">
-        <div class="pm-phone">
-          <img class="pm-frame frame-img" src="../assets/iphone-frame.png" alt="" draggable="false">
-          <div class="pm-screen"><div class="ph ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="col-img" data-label="屏截图" data-ratio="46:99" alt=""></div></div>
-        </div>
-        <div class="n39-cap">
-          <b data-layer="n" data-label="序号" data-editable="text">{{n}}</b>
-          <h3 data-layer="t" data-label="步骤标题" data-editable="text">{{t}}</h3>
-          <p data-layer="d" data-label="步骤说明" data-editable="text">{{d}}</p>
-        </div>
-      </div>
-    </div>
-    <div class="pm-foot"><span data-layer="n39-foot-1" data-label="底部标识" data-editable="text">{{foot-tag}}</span><span class="pm-chip" data-layer="n39-foot-2" data-label="底部胶囊" data-editable="text">{{foot-chip}}</span><span data-layer="n39-foot-3" data-label="底部短语" data-editable="text">{{foot-slogan}}</span></div>
-  </div>
-  <div class="pg-footer">
-    <span data-sys="footer-id" data-layer="sys-footer-id" data-label="页脚署名" data-editable="text">Feiwan · AI Lab</span>
-    <span class="page-no" data-sys="page-no" data-layer="sys-page-no" data-label="页码" data-editable="text">{{page-no}}</span>
-  </div>
-    </div>
-      </section>
-    </div>
-
-    <div class="gal-item" id="n40">
-      <!-- ============ N40 · 浮动标注 ============
-           用途：手机 App 单屏 + 旁注标注卡——界面要点逐点讲解，卡片在手机旁空白不遮挡截图
-           适合：一张截图配 4-8 个要点说明；不适合：多屏或要点超过八个
-           可以变：标注条数动态 ×4-8（repeat note，条目 {t,d}，编号自动）；卡片位置可配（坐标槽 note-pos / note-pos-2… 传 {x,y} = 内屏截图内目标功能点百分比，AI 看图给点；卡片贴同侧外缘、纵向对齐目标点；不传走默认旁置位）
-           槽位：title / sub / n40-img-1 / note（repeat ×4-8：t/d）/ note-pos、note-pos-2…（可选坐标槽 {x,y}，随条数）/ issue / page-no
-           限制：title≤14字(2行,每行≤7字)；sub≤24字(1行)；t≤8字；d≤14字(2行)；issue≤14字
-           hl：title 内 0-1 处（span.hl-line）
-           图槽：手机内屏 46:99 cover ×1（壳图 frame-img 装饰槽）
--->
-      <section data-layout="N40-phone-annotate">
-    <div class="artwork-page n40" data-artwork data-size="1080x1440">
-  <div class="paper-noise"></div>
-  <div class="brand-top">
-    <div class="left">
-      <div class="logo"><div class="ph" data-sys="brand-logo" data-layer="sys-brand-logo" data-label="logo字" data-editable="text">AI</div></div>
-      <span class="brand-name" data-sys="brand-name" data-layer="sys-brand-name" data-label="品牌名" data-editable="text">Feiwan AI Lab</span>
-    </div>
-    <div class="right" data-sys="issue" data-layer="sys-issue" data-label="期号" data-editable="text">{{issue}}</div>
-  </div>
-  <div class="content pm-content">
-    <div class="hero pm-hero pm-hero--c">
-      <div class="pm-title" data-layer="title" data-label="主标题" data-editable="text">{{title}}</div>
-      <div class="pm-sub" data-layer="sub" data-label="副题" data-editable="text">{{sub}}</div>
-    </div>
-    <div class="stage pm-stage n40-stage">
-      <div class="pm-phone n40-phone">
-        <img class="pm-frame frame-img" src="../assets/iphone-frame.png" alt="" draggable="false">
-        <div class="pm-screen"><div class="ph ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n40-img-1" data-label="手机内屏" data-ratio="46:99" alt=""></div></div>
-      </div>
-      <div class="n40-pins">
-        <!-- repeat ×4-8: 标注单元 clone（旁置卡）；编号自动（CSS 计数器 01/02…），条目 {t,d}；
-             卡片位置可选坐标槽 note-pos / note-pos-2…（顶层字段，{x,y}=内屏截图内目标功能点百分比，AI 看图给点）；
-             卡片贴同侧外缘、纵向对齐目标点，永不进入手机区域；不传坐标 → 按条数默认旁置。
-             同侧两卡 y 宜间隔 >18%（卡高约 15cqw），<18% 机器 WARN -->
-        <div class="n40-pin" data-repeat="note" data-pin="note-pos">
-          <div class="n40-note pm-card">
-            <b data-layer="n" data-label="序号" data-editable="text"></b>
-            <strong data-layer="t" data-label="标题" data-editable="text">{{t}}</strong>
-            <span data-layer="d" data-label="说明" data-editable="text">{{d}}</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="pg-footer">
-    <span data-sys="footer-id" data-layer="sys-footer-id" data-label="页脚署名" data-editable="text">Feiwan · AI Lab</span>
-    <span class="page-no" data-sys="page-no" data-layer="sys-page-no" data-label="页码" data-editable="text">{{page-no}}</span>
-  </div>
-    </div>
-      </section>
-    </div>
-  </div>
-
   <div class="gal-group" id="g-compare">
-    <div class="gal-group-head"><span class="num">G06</span><h2>对比</h2><span class="count"></span></div>
+    <div class="gal-group-head"><span class="num">G04</span><h2>对比</h2><span class="count"></span></div>
+    <div class="gal-item" id="n09">
+      <!-- ============ N09 · 前后对比+收尾总结 ============
+           用途：前后对照 + 总结收尾——双图对比（BEFORE/AFTER 标签条）+ 墨底总结卡（原 N09/N32 合并）
+           适合：改造/自动化前后对照 + 经验收尾；不适合：三项以上对比
+           可以变：总结 2-4 条
+           槽位：step-num / tag / title / 图×2（1:1 cover）/ before-cap / after-cap / harvest-title / harvest[]（item）/ issue / page-no
+           限制：title≤10字(2行)；tag≤12字；before-cap≤24字(2行) after-cap≤24字(2行)；harvest-title≤12字；item≤20字(1行)；issue≤14字；step-num 可选（留空自动隐藏，数量是主角才留）
+           hl：无（VS 与 BEFORE/AFTER 自带对比强调）
+           图槽：对照图 ×2 cover 1:1 基准（异形槽：flex 弹性随总结条数 2-4 条浮动，AI 按 crop 控制主体）
+      -->
+      <section data-layout="N09-step-compare">
+    <div class="artwork-page n09" data-artwork data-size="1080x1440">
+
+  <div class="paper-noise"></div>
+
+  <div class="brand-top">
+    <div class="left">
+      <div class="logo"><div class="ph" data-sys="brand-logo" data-layer="sys-brand-logo" data-label="logo字" data-editable="text">AI</div></div>
+      <span class="brand-name" data-sys="brand-name" data-layer="sys-brand-name" data-label="品牌名" data-editable="text">Feiwan AI Lab</span>
+    </div>
+    <div class="right" data-sys="issue" data-layer="sys-issue" data-label="期号" data-editable="text">{{issue}}</div>
+  </div>
+
+  <div class="after-hero"></div>
+
+  <div class="content">
+    <!-- 步骤标题（tag 在标题上方） -->
+    <div class="step-head" data-layer="n09-head" data-label="步骤头" data-type="group">
+      <div class="step-num" data-optional data-layer="step-num" data-label="步骤号" data-editable="text">{{step-num}}</div>
+      <div class="step-title-wrap">
+        <span class="tag" data-layer="tag" data-label="标签" data-editable="text">{{tag}}</span>
+        <div class="step-title" data-layer="title" data-label="步骤标题" data-editable="text">{{title}}</div>
+      </div>
+    </div>
+
+    <!-- 对比双栏（BEFORE/AFTER 标签条 + 图 + 说明；窄缝，VS 压中） -->
+    <div class="compare">
+      <div class="n09-side n09-side--before" data-layer="n09-side-before" data-label="对照前栏" data-type="group">
+        <div class="n09-side__tag">· BEFORE ·</div>
+        <div class="n09-side__img ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n09-img-1" data-label="对照前图" data-ratio="1:1" alt=""><span class="ph-img__label">IMG · 之前</span></div>
+        <div class="n09-side__caption" data-layer="before-cap" data-label="对照前说明" data-editable="text">{{before-cap}}</div>
+      </div>
+
+      <span class="compare__vs">VS</span>
+
+      <div class="n09-side n09-side--after" data-layer="n09-side-after" data-label="对照后栏" data-type="group">
+        <div class="n09-side__tag">· AFTER ·</div>
+        <div class="n09-side__img ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n09-img-2" data-label="对照后图" data-ratio="1:1" alt=""><span class="ph-img__label">IMG · 之后</span></div>
+        <div class="n09-side__caption" data-layer="after-cap" data-label="对照后说明" data-editable="text">{{after-cap}}</div>
+      </div>
+    </div>
+
+    <!-- 墨底总结卡 -->
+    <div class="n09-harvest">
+      <div class="n09-harvest__label">· THREE TAKEAWAYS ·</div>
+      <div class="n09-harvest__title" data-layer="harvest-title" data-label="总结标题" data-editable="text">{{harvest-title}}</div>
+      <ul class="n09-harvest__list">
+        <!-- repeat ×2-4: 总结条 clone -->
+        <li data-repeat="harvest" data-layer="harvest-item" data-editable="text">{{item}}</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="pg-footer">
+    <span data-sys="footer-id" data-layer="sys-footer-id" data-label="页脚署名" data-editable="text">Feiwan · AI Lab</span>
+    <span class="page-no" data-sys="page-no" data-layer="sys-page-no" data-label="页码" data-editable="text">{{page-no}}</span>
+  </div>
+
+    </div>
+      </section>
+    </div>
+
     <div class="gal-item" id="n20">
       <!-- ============ N20 · Before/After 大对比 ============
            用途：Before/After 大对比——双栏任务清单 + 底部数据格
@@ -1982,7 +1915,7 @@ a{color:inherit;text-decoration:none;}
   </div>
 
   <div class="gal-group" id="g-demo">
-    <div class="gal-group-head"><span class="num">G07</span><h2>演示</h2><span class="count"></span></div>
+    <div class="gal-group-head"><span class="num">G05</span><h2>演示</h2><span class="count"></span></div>
     <div class="gal-item" id="n22">
       <!-- ============ N22 · 标注截图 ============
            用途：单图标注讲解——窗口截图 + 编号钉 + 对应说明列表
@@ -2137,14 +2070,14 @@ a{color:inherit;text-decoration:none;}
 
     <div class="gal-item" id="n24">
       <!-- ============ N24 · 代码编辑器 ============
-           用途：代码展示页——编辑器窗口 + 高亮代码 + 状态栏
-           适合：单段代码/命令展示；不适合：长代码（>12 行）
-           可以变：代码为高亮示例，换码需手改 span 类（沿用 n24-tk-* 手工包：k=关键字 f=函数 n=数字 s=字符串 c=注释 b=内置 p=标点）；标签页/状态栏可改
-           槽位：big-num / tag / title / sub / tab1..tab3 / status-l / status-r / fx-img（图槽，可留空——没有就删掉该槽） / issue / page-no
+           用途：代码展示页——编辑器窗口 + 高亮代码 + 状态栏 + 底部效果图
+           适合：单段代码/命令展示（高亮示例 + 运行效果）；不适合：长代码（>9 行，改用 custom 自拼）
+           可以变：代码为高亮示例，换码需手改 span 类（沿用 n24-tk-* 手工包：k=关键字 f=函数 n=数字 s=字符串 c=注释 b=内置 p=标点）；标签页/状态栏可改；代码固定 ≤9 行（含空行；超出会滚出可视区，截屏看不到，不是自动缩排）
+           槽位：big-num / tag / title / sub / tab1..tab3 / status-l / status-r / fx-img / issue / page-no
            限制：big-num≤3字符；title≤14字(2行;每行≤8字[big-num单数字] 或 ≤6字[big-num双数字])；sub≤24字(1行)；tab≤14字符；status-l≤26字符；status-r≤22字符；issue≤14字；tag≤12字；big-num 可选（留空自动隐藏，数量是主角才留）
 
            hl：无（代码高亮为 tk-* 静态装饰，不在富文本白名单）
-           图槽：效果区图 10:3 cover ×1——可留空：填图 = 图形态（编辑器 flex:1 让位、图固定高）；不填就删掉图槽 = 编辑器吃满（纯 code 形态，code 行数多时用）
+           图槽：效果区图 8:3 cover ×1——编辑器 flex:1 让位、图固定高 32.6cqw（与 data-ratio 同源）；缺图即报错
       -->
       <section data-layout="N24-code-editor">
     <div class="artwork-page n24" data-artwork data-size="1080x1440">
@@ -2181,18 +2114,16 @@ a{color:inherit;text-decoration:none;}
       </div>
       <div class="n24-editor__body">
         <div class="n24-editor__lines">
-          1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10
+          1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9
         </div>
         <pre class="n24-editor__code"><span class="n24-tk-c">// AI 写的周报生成器</span>
 <span class="n24-tk-k">function</span> <span class="n24-tk-f">genWeekly</span>(<span class="n24-tk-k">const</span> notes: <span class="n24-tk-b">string</span>[]) {
   <span class="n24-tk-k">const</span> week = <span class="n24-tk-f">getWeekRange</span>();
   <span class="n24-tk-k">const</span> items = notes.<span class="n24-tk-f">map</span>(n => <span class="n24-tk-s">`• ${n}`</span>);
-  
   <span class="n24-tk-k">return</span> <span class="n24-tk-s">`## 周报 ${week}</span>
 <span class="n24-tk-s">${items.<span class="n24-tk-f">join</span>(<span class="n24-tk-s">'\n'</span>)}</span>
 <span class="n24-tk-s">`</span>;
 }
-
 <span class="n24-tk-k">export default</span> genWeekly;</pre>
       </div>
       <div class="n24-editor__status">
@@ -2201,7 +2132,7 @@ a{color:inherit;text-decoration:none;}
       </div>
     </div>
     <div class="n24-fx ph-img" data-fit="cover">
-      <img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="fx-img" data-label="效果区图" data-ratio="10:3" alt="">
+      <img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="fx-img" data-label="效果区图" data-ratio="8:3" alt="">
     </div>
   </div>
 
@@ -2281,13 +2212,13 @@ a{color:inherit;text-decoration:none;}
   </div>
 
   <div class="gal-group" id="g-data">
-    <div class="gal-group-head"><span class="num">G08</span><h2>数据</h2><span class="count"></span></div>
+    <div class="gal-group-head"><span class="num">G06</span><h2>数据</h2><span class="count"></span></div>
     <div class="gal-item" id="n25">
       <!-- ============ N25 · 数据指标 ============
            用途：数据指标页——主指标 + 周序列带 + 四指标矩阵 + 一条解读
            适合：实测数据汇报、复盘，有「一组数字 + 一个解释」的页
            不适合：无数据的观点页；只有一个数字的页（用 N02/N03）
-           可以变：周序列 5-7 列（末列自动标为本期）；四指标卡固定 4 个，凑不满时第 4 个填口径类指标（样本量/周期/成本）；解读可留空但需手删该 div
+           可以变：周序列 5-7 列（末列自动标为本期）；四指标卡固定 4 个，凑不满时第 4 个填口径类指标（样本量/周期/成本）；解读条固定 1 个
            槽位：issue / big-num / tag / title / sub / main-label / main-val / main-unit / main-delta / main-note / series[]（w,v）/ sm1-4 各 label·val·delta·r1l·r1v·r2l·r2v / note-head / note / page-no
            限制：big-num≤3字符；title≤14字(2行;每行≤8字[big-num单数字] 或 ≤6字[big-num双数字])；sub≤18字(1行)；main-label≤6字；main-val≤5字符；main-unit≤4字；main-delta≤5字符；main-note≤18字符；series w≤4字符 v≤4字符(数值列，别塞单位)；sm*-label≤6字；sm*-val≤6字符；sm*-delta≤5字符；sm*-r*l≤4字 sm*-r*v≤6字符；note-head≤6字；note≤38字(1行)；tag≤12字；issue≤14字；big-num 可选（留空自动隐藏）
 
@@ -2418,7 +2349,7 @@ a{color:inherit;text-decoration:none;}
   </div>
 
   <div class="gal-group" id="g-convert">
-    <div class="gal-group-head"><span class="num">G09</span><h2>转化</h2><span class="count"></span></div>
+    <div class="gal-group-head"><span class="num">G07</span><h2>转化</h2><span class="count"></span></div>
     <div class="gal-item" id="n26">
       <!-- ============ N26 · 限时福利 ============
            用途：限时福利/免费领取页——价格区 + 权益列表 + CTA
@@ -2560,12 +2491,12 @@ a{color:inherit;text-decoration:none;}
   </div>
 
   <div class="gal-group" id="g-ending">
-    <div class="gal-group-head"><span class="num">G10</span><h2>结尾</h2><span class="count"></span></div>
+    <div class="gal-group-head"><span class="num">G08</span><h2>结尾</h2><span class="count"></span></div>
     <div class="gal-item" id="n28">
       <!-- ============ N28 · CTA 导向结尾 ============
            用途：CTA 导向结尾——金句 + 三条记住 + 关注引导 + 下期预告
            适合：内容号固定收尾；不适合：正文中间页
-           可以变：takeaways 2-4 条；callout/下期预告可留空（没有就删掉该行）
+           可以变：takeaways 2-4 条；callout 与下期预告固定保留
            槽位：quote / takeaways[]（item）/ cta-t / tip / next-ep / issue / page-no
            限制：quote≤20字(4行,含 br)；item≤20字(1行)；cta-t≤10字；tip≤36字(2行)；next-ep≤16字；issue≤14字
            hl：quote 内 1 处（span.hl-line）
@@ -2630,7 +2561,7 @@ a{color:inherit;text-decoration:none;}
       <!-- ============ N29 · 卡片式结尾 ============
            用途：卡片式结尾——下期预告大卡 + 作者卡 + 社群二维码卡
            适合：系列内容固定收尾；不适合：中间页
-           可以变：预告标签 0-4 个（0 个时删掉该行）；作者卡文案/社交账号可改
+           可以变：预告标签 1-4 个（至少 1 个）；作者卡文案/社交账号可改
            槽位：outro-title / 图×2（4:5 cover、1:1 contain）/ next-num / next-title / next-tags[]（tag）/ author-name / bio / social-1 / social-2 / qr-hint / issue / page-no
            限制：outro-title≤10字(2行)；next-num≤4字符；next-title≤14字(2行)；tag≤12字；author-name≤16字(1行)；bio≤15字(1行)；social-1≤24字符；social-2≤24字符；qr-hint≤18字(1行)；issue≤14字
            hl：qr-hint 内 strong 1 处
@@ -2670,7 +2601,7 @@ a{color:inherit;text-decoration:none;}
           </div>
           <div class="n29-next-card__title" data-layer="next-title" data-label="下期标题" data-editable="text">{{next-title}}</div>
           <div class="n29-next-card__tags">
-            <!-- repeat ×1-4: 话题标签 clone；无标签需手删该行（机器不支持空数组） -->
+            <!-- repeat ×1-4: 话题标签 clone；至少 1 个（机器不支持空数组） -->
             <span data-repeat="next-tags" data-layer="next-tag" data-editable="text">{{tag}}</span>
           </div>
         </div>
