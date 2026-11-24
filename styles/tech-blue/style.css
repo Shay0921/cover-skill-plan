@@ -2300,3 +2300,144 @@ html,body{margin:0;padding:0;background:#ECEEF3;font-family:var(--sans);}
 /* 钉位形态（传坐标槽时）：卡片贴同侧外缘、纵向对齐落点（4 类选择器，压过默认四角的 3 类） */
 .n40-pin[data-pinned][data-side="left"] .n40-note{left:0;right:auto;top:var(--pin-y);bottom:auto;transform:translateY(-50%);}
 .n40-pin[data-pinned][data-side="right"] .n40-note{left:auto;right:0;top:var(--pin-y);bottom:auto;transform:translateY(-50%);}
+
+/* ==================== 新增五张（N41-N45）==================== */
+/* ---- N41 · 术语卡（专属段）---- */
+/* 内容页档：多卡矩阵页标题用 title-lg，避免 Hero 标题吃掉卡片高度 */
+.n41 .mega-hero .hero-text .title{font-size:7.18cqw;}
+.n41 .content{flex:1;min-height:0;display:flex;flex-direction:column;gap:1.4cqw;margin:2cqw 6.6cqw;}
+.n41-grid{flex:1;min-height:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.4cqw;}
+/* 2 张改上下两行；3/4 张维持 2 列，末位自然落单不空塌 */
+.n41-grid:has(> :nth-child(2):last-child){grid-template-columns:1fr;}
+.n41-card{
+  display:flex;flex-direction:column;gap:1.2cqw;
+  padding:2.4cqw 2.6cqw;border:1px solid var(--line-strong);
+  border-radius:var(--radius-md);background:var(--paper);
+  }
+.n41-card__en{font-family:var(--mono);font-size:1.85cqw;font-weight:bold;letter-spacing:.16em;color:var(--accent);}
+.n41-card__cn{font-family:var(--serif);font-size:4.9cqw;font-weight:bold;line-height:1.18;color:var(--ink);}
+.n41-card__d{font-size:2.51cqw;line-height:1.6;color:var(--ink-soft);}
+.n41-card__alias{
+  margin-top:auto;padding-top:1.2cqw;border-top:1px solid var(--line);
+  font-family:var(--mono);font-size:1.85cqw;color:var(--muted);letter-spacing:.06em;
+  }
+/* 别名可选槽：plan 填 "" → 占位符清空 → :empty 隐藏，不删节点、不留空壳 */
+.n41 .n41-card__alias:empty{display:none;}
+
+/* ---- N42 · 定义解析（专属段）---- */
+.n42 .content{flex:1;min-height:0;display:flex;flex-direction:column;gap:1cqw;margin:2cqw 6.6cqw;}
+/* 定义页块多（步骤 + 2:1 图 + 指标），标题降到 title-lg 档，避免指标卡压住页脚 */
+.n42 .mega-hero .hero-text .title{font-size:7.18cqw;}
+/* 副题只占一行：机器按说明头 sub≤1行每行≤30字 软校验，样式不折行 */
+.n42 .mega-hero .sub{white-space:nowrap;}
+.n42-steps{flex:none;display:flex;align-items:stretch;gap:1cqw;counter-reset:n42s;}
+.n42-step{flex:1;min-width:0;display:flex;align-items:center;gap:1cqw;counter-increment:n42s;}
+.n42-step-card{
+  flex:1;min-width:0;display:flex;flex-direction:column;gap:.6cqw;
+  padding:1.2cqw 1.4cqw;border:1px solid var(--line-strong);
+  border-radius:var(--radius-md);background:var(--paper);
+  }
+.n42-step__no{font-family:var(--mono);font-size:1.56cqw;font-weight:bold;letter-spacing:.12em;color:var(--accent);}
+.n42-step__no::before{content:"STEP " counter(n42s,decimal-leading-zero);}
+.n42-step__t{font-family:var(--serif);font-size:3.6cqw;font-weight:bold;line-height:1.15;color:var(--ink);}
+.n42-step__d{font-size:2.11cqw;line-height:1.45;color:var(--ink-soft);}
+.n42-arrow{flex:none;font-family:var(--mono);font-size:2.2cqw;color:var(--accent);}
+.n42-step:last-child .n42-arrow{display:none;}
+/* 固定比槽：2:1 由 aspect-ratio 定高，data-ratio 同源，不做 flex 填充 */
+.n42-shot{flex:none;width:100%;aspect-ratio:2/1;}
+.n42-cap{flex:none;display:flex;gap:.8cqw;align-items:baseline;font-size:1.98cqw;line-height:1.45;}
+.n42-cap__strong{font-weight:bold;color:var(--ink);}
+.n42-cap__note{color:var(--muted);}
+.n42-metrics{flex:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(0,1fr));gap:1.4cqw;}
+.n42-metric{padding:1.2cqw 1.4cqw;border:1px solid var(--line-strong);border-radius:var(--radius-md);background:var(--paper-deep);}
+.n42-metric__v{font-family:var(--serif);font-size:4.9cqw;font-weight:bold;line-height:1.1;color:var(--accent);}
+.n42-metric__c{margin-top:.6cqw;font-size:1.98cqw;line-height:1.45;color:var(--ink-soft);}
+
+/* ---- N43 · 人群适配（专属段）---- */
+/* 内容页档：人群卡信息密度高，标题用 title-lg */
+.n43 .mega-hero .hero-text .title{font-size:7.18cqw;}
+.n43 .content{flex:1;min-height:0;display:flex;flex-direction:column;gap:1.4cqw;margin:2cqw 6.6cqw;}
+.n43-grid{flex:1;min-height:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.4cqw;}
+.n43-grid:has(> :nth-child(2):last-child){grid-template-columns:1fr;}
+.n43-grid:has(> :nth-child(3):last-child){grid-template-columns:repeat(3,1fr);}
+.n43-card{
+  display:flex;flex-direction:column;gap:1.2cqw;
+  padding:2.4cqw 2.6cqw;border:1px solid var(--line-strong);
+  border-radius:var(--radius-md);background:var(--paper);
+  }
+/* 首卡固定主推：靠顺序而非 plan 手加类 */
+.n43-card:first-child{border:2px solid var(--accent);box-shadow:0 .4cqw 1.8cqw rgba(37,99,235,.10);}
+.n43-card__tag{font-family:var(--mono);font-size:1.85cqw;font-weight:bold;letter-spacing:.16em;color:var(--accent);}
+.n43-card__name{font-family:var(--serif);font-size:3.6cqw;font-weight:bold;line-height:1.18;color:var(--ink);}
+.n43-card__desc{font-size:2.51cqw;line-height:1.55;color:var(--ink-soft);}
+.n43-card__use{
+  margin-top:auto;padding:1.4cqw 1.6cqw;background:var(--paper-deep);
+  border-radius:var(--radius-sm);font-size:2.11cqw;line-height:1.5;color:var(--ink);
+  }
+.n43-card__use-k{font-family:var(--mono);font-size:1.56cqw;font-weight:bold;letter-spacing:.14em;color:var(--accent);margin-right:.8cqw;}
+.n43-note{flex:none;display:flex;gap:1cqw;align-items:baseline;font-family:var(--mono);font-size:1.85cqw;line-height:1.5;color:var(--muted);}
+.n43-note span:first-child{color:var(--accent);font-weight:bold;letter-spacing:.16em;}
+
+/* ---- N44 · 社证墙（专属段）---- */
+.n44 .content{flex:1;min-height:0;display:flex;flex-direction:column;gap:1.4cqw;margin:2cqw 6.6cqw;}
+/* 社证墙信息密度高，标题降到 title-lg 档；加下边距把标题与 after-hero 分割线分开 */
+.n44 .mega-hero{padding-bottom:4cqw;}
+.n44 .mega-hero .hero-text .title{font-size:7.18cqw;}
+.n44-wall{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;gap:1cqw;}
+/* 2-4 张统一在内容区垂直居中：条数少不空塌，条数多也不会顶到分割线 */
+.n44-review{
+  width:78%;padding:1.4cqw 1.8cqw;border:1px solid var(--line-strong);
+  border-radius:var(--radius-md);background:var(--paper);
+  }
+.n44-review:nth-child(2){margin-left:11%;}
+.n44-review:nth-child(3){margin-left:22%;}
+/* 4 张卡：缩宽 + 12% 等步进，保证末卡右缘不越内容区 */
+.n44-wall:has(> :nth-child(4)) .n44-review{width:64%;}
+.n44-wall:has(> :nth-child(4)) .n44-review:nth-child(2){margin-left:12%;}
+.n44-wall:has(> :nth-child(4)) .n44-review:nth-child(3){margin-left:24%;}
+.n44-wall:has(> :nth-child(4)) .n44-review:nth-child(4){margin-left:36%;}
+.n44-review__quote{font-family:var(--serif);font-size:2.51cqw;font-weight:bold;line-height:1.5;color:var(--ink);}
+.n44-review__who{display:flex;align-items:center;gap:1cqw;margin-top:.8cqw;}
+.n44-review__avatar{
+  flex:none;width:3.4cqw;height:3.4cqw;border-radius:50%;
+  display:grid;place-items:center;background:var(--paper-deep);
+  border:1px solid var(--accent);color:var(--accent);
+  font-family:var(--mono);font-size:1.56cqw;font-weight:bold;
+  }
+.n44-review__name{font-size:2.11cqw;font-weight:bold;color:var(--ink);}
+.n44-review__role{font-size:1.85cqw;color:var(--muted);}
+.n44-source{flex:none;display:flex;gap:1cqw;align-items:center;font-family:var(--mono);font-size:1.85cqw;line-height:1.5;color:var(--muted);}
+.n44-source span:first-child{color:var(--accent);font-weight:bold;letter-spacing:.16em;}
+.n44-note{flex:none;display:flex;gap:1cqw;font-size:1.85cqw;line-height:1.5;color:var(--ink-soft);}
+.n44-note span:first-child{flex:none;font-family:var(--mono);color:var(--muted);letter-spacing:.16em;}
+
+/* ---- N45 · Agent 入口（专属段）---- */
+/* 内容页档：标题 7.18cqw；块间距与正文放大到 body 档，用足页面高度而不是把信息挤在一起 */
+.n45 .content{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:space-between;gap:1.3cqw;margin:2cqw 6.6cqw;}
+.n45 .mega-hero .hero-text .title{font-size:7.18cqw;}
+.n45-resources{flex:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.6cqw;}
+.n45-res{padding:1.4cqw 1.8cqw;border:1px solid var(--line-strong);border-radius:var(--radius-md);background:var(--paper);}
+.n45-res__t{font-family:var(--mono);font-size:2.11cqw;font-weight:bold;letter-spacing:.08em;color:var(--accent);}
+.n45-res__d{margin-top:.7cqw;font-size:2.38cqw;line-height:1.45;color:var(--ink-soft);}
+.n45-flow{
+  flex:none;display:flex;gap:1.4cqw;align-items:center;
+  padding:1.4cqw 1.8cqw;background:var(--paper-deep);border-radius:var(--radius-sm);
+  font-family:var(--mono);font-size:2.38cqw;font-weight:bold;color:var(--accent-deep);
+  }
+.n45-flow__k{font-size:1.56cqw;letter-spacing:.16em;color:var(--accent);}
+.n45-decisions{flex:none;display:flex;flex-direction:column;}
+.n45-dec{display:flex;gap:2cqw;align-items:baseline;padding:1.1cqw .6cqw;border-bottom:1px solid var(--line-strong);}
+.n45-dec:last-child{border-bottom:0;}
+.n45-dec__k{flex:none;width:24cqw;font-family:var(--serif);font-size:2.64cqw;font-weight:bold;color:var(--ink);}
+.n45-dec__v{font-size:2.51cqw;line-height:1.45;color:var(--ink-soft);}
+.n45-disclaimer{
+  flex:none;display:flex;gap:1.4cqw;padding:1.4cqw 1.8cqw;
+  background:var(--paper-deep);border-left:3px solid var(--accent);border-radius:var(--radius-sm);
+  font-size:2.51cqw;line-height:1.5;color:var(--ink);
+  }
+.n45-disclaimer__k{flex:none;font-family:var(--mono);font-size:1.56cqw;font-weight:bold;letter-spacing:.16em;color:var(--accent);}
+.n45-links{flex:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(0,1fr));gap:1.6cqw;}
+.n45-link{padding:1.4cqw 1.8cqw;border:1px solid var(--line-strong);border-radius:var(--radius-md);background:var(--paper);}
+.n45-link__k{font-size:1.98cqw;color:var(--muted);}
+.n45-link__v{margin-top:.8cqw;font-family:var(--mono);font-size:1.85cqw;font-weight:bold;color:var(--ink);word-break:break-all;}
+.n45-closing{flex:none;font-size:2.11cqw;line-height:1.5;color:var(--ink-soft);}

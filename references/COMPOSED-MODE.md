@@ -10,10 +10,12 @@
 | 情况 | 走哪条路 |
 |---|---|
 | 有母版语义匹配、内容装得下 | 现成母版（默认） |
-| 母版语义匹配，但条目少、留白或空框难看 | 即兴补空（`styles/improvisation.md`，`layout: custom/<名>`，无 `layoutBase`） |
-| **37 个母版语义都不匹配，但风格内现成组件够用** | **自由组合（本文，`layout: custom/composed-<语义名>` + `layoutBase`）** |
+| 母版语义匹配，但固定槽位撑不满，且**必须保留该母版私有结构** | 即兴补空（`styles/improvisation.md`，`layout: custom/<名>`，无 `layoutBase`）——极窄兜底 |
+| **没有语义匹配的母版，或匹配但共享组件能重建** | **自由组合（本文，`layout: custom/composed-<语义名>` + `layoutBase`）** |
 | 内容装不下 | 回炉 `references/CONTENT-REFINEMENT.md` 重提炼，不是换版式能解决的 |
 | 需要专属 CSS / 动画 / 响应式 | 不在本通道；这是母版开发，不是内容生产 |
+
+**判定顺序**：先判「有没有语义匹配的母版」，再判「槽位填不填得满」，最后判「是否必须借私有结构」。没有匹配母版的页不经过补空，直接来本通道；补空页是极窄兜底，不是本通道的上一级。
 
 一页一判定。整篇自由组合超过一半时，先怀疑内容提炼出了问题，或该转正成新母版。
 
@@ -81,7 +83,7 @@
 | n20 | 纵列 gap 3 + relative | **`.n20 .callout` 被强制 `grid-column:1/-1;max-width:100%;width:100%;margin-bottom:1cqw`**——通栏化是静默的 |
 | n10 | 1fr 1.1fr | `.n10 .img-card` 多 `min-height:0`（无害） |
 | n14 | 纵列 2.6 | **`.n14 .mega-hero .tag` 背景变墨色**（`background:var(--ink)`），不是 accent 蓝 |
-| n30 | ⚠ 无 `.content` 骨架（模板用 `.thanks`），**不可作 layoutBase**；本行只记副作用 | **仅在根同时带 `.dark` 时**才命中 `.artwork-page.n30.dark` 系列（15 条，改品牌区 / 页脚 / thanks 全家配色）。**不加 `.dark` 是安全的**：浅色分支有 6 条 `.n30:not(.dark)`（tag / quote / sub / cta-bar / label / text），品牌区 / 页脚沿用浅色默认。别按「n30 天生有毒」理解 |
+| n30 | ⚠ 无 `.content` 骨架（模板用 `.thanks`），**不是骨架候选**；保留此行只为防止「n30 有毒」误读 | **仅在根同时带 `.dark` 时**才命中 `.artwork-page.n30.dark` 系列（15 条，改品牌区 / 页脚 / thanks 全家配色）。**不加 `.dark` 是安全的**：浅色分支有 6 条 `.n30:not(.dark)`（tag / quote / sub / cta-bar / label / text），品牌区 / 页脚沿用浅色默认。别按「n30 天生有毒」理解 |
 | n01 | 居中纵列 | **裸 `.title` 在非 mega-hero 结构下吃 `.n01 .title` = 11.34cqw；`.mega-hero .hero-text .title`（9.3cqw，特异性 0,3,0）结构对时可压住** |
 
 **中文引用类内容禁用非等宽列骨架**：n18 的 2fr 列把「自我反驳」挤成孤字（实跑踩坑）。中期方向是建中性骨架（c-1col / c-2col / c-3col / c-bento），列宽按最窄列 ≥ 4 汉字、内置填充机制——届时不再依赖 `layoutBase`。

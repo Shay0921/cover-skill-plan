@@ -99,6 +99,7 @@ a{color:inherit;text-decoration:none;}
       <a href="#g-data">数据<span></span></a>
       <a href="#g-convert">转化<span></span></a>
       <a href="#g-ending">结尾<span></span></a>
+      <a href="#g-content">内容<span></span></a>
   </div></nav>
 
   <div class="gal-top">
@@ -524,7 +525,7 @@ a{color:inherit;text-decoration:none;}
            槽位：big-num / tag / title / sub / 图×5（1:2×5 cover）/ b1-tag..b5-tag / issue / page-no
            限制：big-num≤2字符且=件数；title≤16字(2行;每行≤8字[big-num单数字] 或 ≤6字[big-num双数字])；sub≤18字(1行)；tag≤12字；b*-tag≤12字符；issue≤14字；big-num 可选（留空自动隐藏，数量是主角才留）
            hl：title 内 1 处（span.hl-line）
-           图槽：bento 五格 cover；格内占位字为装饰
+           图槽：bento 五格 1:2 cover ×5；格内占位字为装饰
       -->
       <section data-layout="N18-bento-showcase">
     <div class="artwork-page n18" data-artwork data-size="1080x1440">
@@ -824,6 +825,73 @@ a{color:inherit;text-decoration:none;}
     </div>
       </section>
     </div>
+
+    <div class="gal-item" id="n42">
+      <!-- ============ N42 · 定义解析 ============
+           用途：概念定义页——一句话定义 + 导语 + 步骤流 + 2:1 截图 + 指标卡
+           适合：一句话讲清概念 + 2-4 步上手 + 2-3 个关键数字；不适合：无截图纯概念、步数超过 4
+           可以变：步骤 2-4 条（箭头自动，末条不显示）；指标 2-3 列；截图固定 2:1 ×1；副题固定 1 行，不允许换行
+           槽位：tag / title / sub / steps[]（t,d）/ n42-shot / cap / cap-note / metrics[]（v,c）/ issue / page-no
+           限制：tag≤12字；title≤2行每行≤12字；sub≤1行每行≤30字；t≤8字；d≤16字；cap≤16字；cap-note≤28字；v≤6字符；c≤2行每行≤12字；issue≤14字
+           hl：title 内 0-1 处（span.hl-line）
+           图槽：横版 2:1 cover ×1
+      -->
+      <section data-layout="N42-what-it-is">
+    <div class="artwork-page n42" data-artwork data-size="1080x1440">
+  <div class="paper-noise"></div>
+  <div class="brand-top">
+    <div class="left">
+      <div class="logo"><div class="ph" data-sys="brand-logo" data-layer="sys-brand-logo" data-label="logo字" data-editable="text">AI</div></div>
+      <span class="brand-name" data-sys="brand-name" data-layer="sys-brand-name" data-label="品牌名" data-editable="text">Feiwan AI Lab</span>
+    </div>
+    <div class="right" data-sys="issue" data-layer="sys-issue" data-label="期号" data-editable="text">{{issue}}</div>
+  </div>
+
+  <div class="mega-hero">
+    <div class="mh-row">
+      <div class="hero-text">
+        <span class="tag" data-layer="tag" data-label="眉标" data-editable="text">{{tag}}</span>
+        <div class="title" data-layer="title" data-label="定义句标题" data-editable="text">{{title}}</div>
+      </div>
+    </div>
+    <div class="sub" data-layer="sub" data-label="副题（一行）" data-editable="text">{{sub}}</div>
+  </div>
+
+  <div class="after-hero"></div>
+
+  <div class="content n42-content">
+    <div class="n42-steps">
+      <!-- repeat ×2-4: 步骤卡 clone（flex 等分；箭头只在非末卡出现；序号由 CSS 计数器生成） -->
+      <div class="n42-step" data-repeat="steps">
+        <div class="n42-step-card">
+          <div class="n42-step__no"></div>
+          <div class="n42-step__t" data-layer="n42-step-t" data-label="步骤标题" data-editable="text">{{t}}</div>
+          <div class="n42-step__d" data-layer="n42-step-d" data-label="步骤说明" data-editable="text">{{d}}</div>
+        </div>
+        <span class="n42-arrow">→</span>
+      </div>
+    </div>
+
+    <div class="n42-shot img-card ph-img" data-fit="cover"><img class="ph-img__img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP4//8/AwAI/AL+eMSysAAAAABJRU5ErkJggg==" data-slot="image" data-layer="n42-shot" data-label="定义效果图" data-ratio="2:1" alt=""><div class="placeholder ph-img__label">IMG · 2:1</div></div>
+
+    <div class="n42-cap"><span class="n42-cap__strong" data-layer="cap" data-label="图注主句" data-editable="text">{{cap}}</span><span class="n42-cap__note" data-layer="cap-note" data-label="图注补充" data-editable="text">{{cap-note}}</span></div>
+
+    <div class="n42-metrics">
+      <!-- repeat ×2-3: 指标卡 clone（等分列；值为短标，说明两行内） -->
+      <div class="n42-metric" data-repeat="metrics">
+        <div class="n42-metric__v" data-layer="n42-metric-v" data-label="指标值" data-editable="text">{{v}}</div>
+        <div class="n42-metric__c" data-layer="n42-metric-c" data-label="指标说明" data-editable="text">{{c}}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pg-footer">
+    <span data-sys="footer-id" data-layer="sys-footer-id" data-label="页脚署名" data-editable="text">Feiwan · AI Lab</span>
+    <span class="page-no" data-sys="page-no" data-layer="sys-page-no" data-label="页码" data-editable="text">{{page-no}}</span>
+  </div>
+    </div>
+      </section>
+    </div>
   </div>
 
   <div class="gal-group" id="g-steps">
@@ -836,7 +904,7 @@ a{color:inherit;text-decoration:none;}
            槽位：step-num / title / para-1..3 / 图×3（281:100、97:50 cover）+ cap-1..3 / tip-body / issue / page-no
            限制：title≤10字(2行)；para≤44字(2行)；cap≤16字(1行)；tip-body≤40字(2行)；issue≤14字；step-num 可选（留空自动隐藏，数量是主角才留）
            hl：para/tip 内 strong 强调
-           图槽：横长条 cover；标注号 1/2/3 为装饰；说明文字悬浮左下角
+           图槽：281:100 cover ×1 + 97:50 cover ×2；标注号 1/2/3 为装饰；说明文字悬浮左下角
       -->
       <section data-layout="N06-step-detail">
     <div class="artwork-page n06" data-artwork data-size="1080x1440">
@@ -1668,6 +1736,8 @@ a{color:inherit;text-decoration:none;}
     </div>
       </section>
     </div>
+
+
   </div>
   <div class="gal-group" id="g-compare">
     <div class="gal-group-head"><span class="num">G04</span><h2>对比</h2><span class="count"></span></div>
@@ -2488,6 +2558,64 @@ a{color:inherit;text-decoration:none;}
     </div>
       </section>
     </div>
+
+    <div class="gal-item" id="n44">
+      <!-- ============ N44 · 社证墙 ============
+           用途：社证墙——2-4 条阶梯缩进评价卡（引文 / 头像字 / 名 / 身份）+ 来源声明
+           适合：2-4 条有名有身份的真实评价。不适合：无名无身份的模糊好评、评价短到撑不起卡片
+           可以变：卡 2-4 张（阶梯缩进自动）；来源声明与说明固定 1 条；来源行不加装饰线
+           槽位：tag / title / reviews[]（quote,avatar,name,role）/ source / note / issue / page-no
+           限制：tag≤12字；title≤2行每行≤8字；quote≤36字；avatar≤2字符；name≤10字；role≤18字；source≤40字；note≤40字；issue≤14字
+           hl：title 内 0-1 处（span.hl-line）
+           图槽：无
+      -->
+      <section data-layout="N44-ugc">
+    <div class="artwork-page n44" data-artwork data-size="1080x1440">
+  <div class="paper-noise"></div>
+  <div class="brand-top">
+    <div class="left">
+      <div class="logo"><div class="ph" data-sys="brand-logo" data-layer="sys-brand-logo" data-label="logo字" data-editable="text">AI</div></div>
+      <span class="brand-name" data-sys="brand-name" data-layer="sys-brand-name" data-label="品牌名" data-editable="text">Feiwan AI Lab</span>
+    </div>
+    <div class="right" data-sys="issue" data-layer="sys-issue" data-label="期号" data-editable="text">{{issue}}</div>
+  </div>
+
+  <div class="mega-hero">
+    <div class="mh-row">
+      <div class="hero-text">
+        <span class="tag" data-layer="tag" data-label="眉标" data-editable="text">{{tag}}</span>
+        <div class="title" data-layer="title" data-label="标题" data-editable="text">{{title}}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="after-hero"></div>
+
+  <div class="content n44-content">
+    <div class="n44-wall">
+      <!-- repeat ×2-4: 评价卡 clone（2/3 张 11% 缩进，4 张 12% 缩进且卡宽收窄）；条目 {quote,avatar,name,role} -->
+      <div class="n44-review" data-repeat="reviews">
+        <div class="n44-review__quote" data-layer="n44-quote" data-label="引文" data-editable="text">{{quote}}</div>
+        <div class="n44-review__who">
+          <span class="n44-review__avatar" data-layer="n44-avatar" data-label="头像字" data-editable="text">{{avatar}}</span>
+          <span class="n44-review__name" data-layer="n44-name" data-label="姓名" data-editable="text">{{name}}</span>
+          <span class="n44-review__role" data-layer="n44-role" data-label="身份" data-editable="text">{{role}}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="n44-source"><span>SOURCE</span><span data-layer="source" data-label="来源声明" data-editable="text">{{source}}</span></div>
+    <div class="n44-note"><span>NOTE</span><span data-layer="note" data-label="说明" data-editable="text">{{note}}</span></div>
+  </div>
+
+  <div class="pg-footer">
+    <span data-sys="footer-id" data-layer="sys-footer-id" data-label="页脚署名" data-editable="text">Feiwan · AI Lab</span>
+    <span class="page-no" data-sys="page-no" data-layer="sys-page-no" data-label="页码" data-editable="text">{{page-no}}</span>
+  </div>
+    </div>
+      </section>
+    </div>
+
   </div>
 
   <div class="gal-group" id="g-ending">
@@ -2565,7 +2693,7 @@ a{color:inherit;text-decoration:none;}
            槽位：outro-title / 图×2（4:5 cover、1:1 contain）/ next-num / next-title / next-tags[]（tag）/ author-name / bio / social-1 / social-2 / qr-hint / issue / page-no
            限制：outro-title≤10字(2行)；next-num≤4字符；next-title≤14字(2行)；tag≤12字；author-name≤16字(1行)；bio≤15字(1行)；social-1≤24字符；social-2≤24字符；qr-hint≤18字(1行)；issue≤14字
            hl：qr-hint 内 strong 1 处
-           图槽：下期封面 cover + 二维码 contain
+           图槽：下期封面 4:5 cover ×1 + 二维码 1:1 contain ×1
       -->
       <section data-layout="N29-ending-cards">
     <div class="artwork-page n29" data-artwork data-size="1080x1440">
@@ -2739,7 +2867,196 @@ a{color:inherit;text-decoration:none;}
     </div>
 
       </div>
-  </main>
+    <div class="gal-group" id="g-content">
+    <div class="gal-group-head"><span class="num">G09</span><h2>内容</h2><span class="hint">密集信息页 · 术语 / 人群 / Agent 入口</span><span class="count"></span></div>
+    <div class="gal-item" id="n41">
+      <!-- ============ N41 · 术语卡 ============
+           用途：术语速查——2 列术语卡矩阵，一卡一词（英文签 / 中文名 / 解释 / 别名可选槽）
+           适合：一篇里反复出现的 2-4 个核心概念；不适合：一句话讲不清的概念、超过 4 个术语
+           可以变：卡 2-4 张（2 张上下两行，3-4 张 2 列）；别名可选槽（留空自动隐藏）；说明条固定 1 条
+           槽位：tag / title / sub / terms[]（en,cn,d,alias）/ note-head / note / issue / page-no
+           限制：tag≤12字；title≤2行每行≤8字；sub≤30字；en≤14字符；cn≤2行每行≤7字；d≤40字；alias≤24字符；note-head≤8字；note≤40字；issue≤14字
+           hl：title 内 0-1 处（span.hl-line）
+           图槽：无
+      -->
+      <section data-layout="N41-glossary">
+    <div class="artwork-page n41" data-artwork data-size="1080x1440">
+  <div class="paper-noise"></div>
+  <div class="brand-top">
+    <div class="left">
+      <div class="logo"><div class="ph" data-sys="brand-logo" data-layer="sys-brand-logo" data-label="logo字" data-editable="text">AI</div></div>
+      <span class="brand-name" data-sys="brand-name" data-layer="sys-brand-name" data-label="品牌名" data-editable="text">Feiwan AI Lab</span>
+    </div>
+    <div class="right" data-sys="issue" data-layer="sys-issue" data-label="期号" data-editable="text">{{issue}}</div>
+  </div>
+
+  <div class="mega-hero">
+    <div class="mh-row">
+      <div class="hero-text">
+        <span class="tag" data-layer="tag" data-label="眉标" data-editable="text">{{tag}}</span>
+        <div class="title" data-layer="title" data-label="标题" data-editable="text">{{title}}</div>
+      </div>
+    </div>
+    <div class="sub" data-layer="sub" data-label="副题" data-editable="text">{{sub}}</div>
+  </div>
+
+  <div class="after-hero"></div>
+
+  <div class="content n41-content">
+    <div class="n41-grid">
+      <!-- repeat ×2-4: 术语卡 clone（2 张上下两行 / 3-4 张 2 列）；别名可选槽，留空自动隐藏 -->
+      <div class="n41-card" data-repeat="terms">
+        <div class="n41-card__en" data-layer="n41-en" data-label="英文术语签" data-editable="text">{{en}}</div>
+        <div class="n41-card__cn" data-layer="n41-cn" data-label="中文名" data-editable="text">{{cn}}</div>
+        <div class="n41-card__d" data-layer="n41-d" data-label="解释" data-editable="text">{{d}}</div>
+        <div class="n41-card__alias" data-optional data-layer="n41-alias" data-label="别名" data-editable="text">{{alias}}</div>
+      </div>
+    </div>
+
+    <div class="callout n41-note" data-layer="n41-note" data-label="说明条" data-type="group">
+      <div class="callout__icon">i</div>
+      <div class="callout__body">
+        <div class="callout__head" data-layer="note-head" data-label="说明标签" data-editable="text">{{note-head}}</div>
+        <div class="callout__text" data-layer="note" data-label="说明" data-editable="text">{{note}}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pg-footer">
+    <span data-sys="footer-id" data-layer="sys-footer-id" data-label="页脚署名" data-editable="text">Feiwan · AI Lab</span>
+    <span class="page-no" data-sys="page-no" data-layer="sys-page-no" data-label="页码" data-editable="text">{{page-no}}</span>
+  </div>
+    </div>
+      </section>
+    </div>
+    <div class="gal-item" id="n43">
+      <!-- ============ N43 · 人群适配 ============
+           用途：谁该用——2-4 张人群卡并列，首卡固定为主推样式，末行指向判断说明
+           适合：多人群产品对号入座、转化前的自我归类；不适合：单一人群、人群超过 4 个
+           可以变：卡 2-4 张（2 张上下两行 / 3 张三列 / 4 张 2×2）；首卡主推样式由 CSS 自动给
+           槽位：tag / title / sub / people[]（tag,name,desc,use）/ note / issue / page-no
+           限制：tag≤12字；title≤2行每行≤8字；sub≤30字；name≤12字；desc≤30字；use≤26字；note≤40字；issue≤14字
+           hl：title 内 0-1 处（span.hl-line）
+           图槽：无
+      -->
+      <section data-layout="N43-persona">
+    <div class="artwork-page n43" data-artwork data-size="1080x1440">
+  <div class="paper-noise"></div>
+  <div class="brand-top">
+    <div class="left">
+      <div class="logo"><div class="ph" data-sys="brand-logo" data-layer="sys-brand-logo" data-label="logo字" data-editable="text">AI</div></div>
+      <span class="brand-name" data-sys="brand-name" data-layer="sys-brand-name" data-label="品牌名" data-editable="text">Feiwan AI Lab</span>
+    </div>
+    <div class="right" data-sys="issue" data-layer="sys-issue" data-label="期号" data-editable="text">{{issue}}</div>
+  </div>
+
+  <div class="mega-hero">
+    <div class="mh-row">
+      <div class="hero-text">
+        <span class="tag" data-layer="tag" data-label="眉标" data-editable="text">{{tag}}</span>
+        <div class="title" data-layer="title" data-label="标题" data-editable="text">{{title}}</div>
+      </div>
+    </div>
+    <div class="sub" data-layer="sub" data-label="副题" data-editable="text">{{sub}}</div>
+  </div>
+
+  <div class="after-hero"></div>
+
+  <div class="content n43-content">
+    <div class="n43-grid">
+      <!-- repeat ×2-4: 人群卡 clone（2 张上下 / 3 张三列 / 4 张 2×2）；首卡自动主推描边，条目 {tag,name,desc,use} -->
+      <div class="n43-card" data-repeat="people">
+        <div class="n43-card__tag" data-layer="n43-tag" data-label="人群签" data-editable="text">{{tag}}</div>
+        <div class="n43-card__name" data-layer="n43-name" data-label="画像名" data-editable="text">{{name}}</div>
+        <div class="n43-card__desc" data-layer="n43-desc" data-label="画像说明" data-editable="text">{{desc}}</div>
+        <div class="n43-card__use"><span class="n43-card__use-k">HOW</span><span data-layer="n43-use" data-label="怎么用" data-editable="text">{{use}}</span></div>
+      </div>
+    </div>
+
+    <div class="n43-note"><span>NOTE</span><span data-layer="note" data-label="说明" data-editable="text">{{note}}</span></div>
+  </div>
+
+  <div class="pg-footer">
+    <span data-sys="footer-id" data-layer="sys-footer-id" data-label="页脚署名" data-editable="text">Feiwan · AI Lab</span>
+    <span class="page-no" data-sys="page-no" data-layer="sys-page-no" data-label="页码" data-editable="text">{{page-no}}</span>
+  </div>
+    </div>
+      </section>
+    </div>
+    <div class="gal-item" id="n45">
+      <!-- ============ N45 · Agent 入口 ============
+           用途：Agent 入口页——资源卡 + 流程条 + 人群决策行 + 免责块 + 链接列
+           适合：给 AI/Agent 的资料入口 + 多人群适配判断；不适合：单一人群、资源超过 4 个
+           可以变：资源卡 2-4；决策行 3-4；链接列 2-3；流程条与免责块固定 1 条
+           槽位：tag / title / resources[]（t,d）/ flow / decisions[]（k,v）/ disclaimer / links[]（lk,lv）/ closing / issue / page-no
+           限制：tag≤12字；title≤2行每行≤12字；t≤10字；d≤2行每行≤14字；flow≤60字；k≤12字；v≤2行每行≤18字；disclaimer≤60字；lk≤10字；lv≤24字符；closing≤40字；issue≤14字
+           hl：title 内 0-1 处（span.hl-line）
+           图槽：无
+      -->
+      <section data-layout="N45-agent-entry">
+    <div class="artwork-page n45" data-artwork data-size="1080x1440">
+  <div class="paper-noise"></div>
+  <div class="brand-top">
+    <div class="left">
+      <div class="logo"><div class="ph" data-sys="brand-logo" data-layer="sys-brand-logo" data-label="logo字" data-editable="text">AI</div></div>
+      <span class="brand-name" data-sys="brand-name" data-layer="sys-brand-name" data-label="品牌名" data-editable="text">Feiwan AI Lab</span>
+    </div>
+    <div class="right" data-sys="issue" data-layer="sys-issue" data-label="期号" data-editable="text">{{issue}}</div>
+  </div>
+
+  <div class="mega-hero">
+    <div class="mh-row">
+      <div class="hero-text">
+        <span class="tag" data-layer="tag" data-label="眉标" data-editable="text">{{tag}}</span>
+        <div class="title" data-layer="title" data-label="标题" data-editable="text">{{title}}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="after-hero"></div>
+
+  <div class="content n45-content">
+    <div class="n45-resources">
+      <!-- repeat ×2-4: 资源卡 clone（2 列等宽，按数组顺序排）；条目 {t,d} -->
+      <div class="n45-res" data-repeat="resources">
+        <div class="n45-res__t" data-layer="n45-res-t" data-label="资源名" data-editable="text">{{t}}</div>
+        <div class="n45-res__d" data-layer="n45-res-d" data-label="资源说明" data-editable="text">{{d}}</div>
+      </div>
+    </div>
+
+    <div class="n45-flow"><span class="n45-flow__k">FLOW</span><span data-layer="flow" data-label="流程条" data-editable="text">{{flow}}</span></div>
+
+    <div class="n45-decisions">
+      <!-- repeat ×3-4: 决策行 clone（k 固定列 + v 弹性列，末行无下边框）；条目 {k,v} -->
+      <div class="n45-dec" data-repeat="decisions">
+        <span class="n45-dec__k" data-layer="n45-dec-k" data-label="判断键" data-editable="text">{{k}}</span>
+        <span class="n45-dec__v" data-layer="n45-dec-v" data-label="判断值" data-editable="text">{{v}}</span>
+      </div>
+    </div>
+
+    <div class="n45-disclaimer"><span class="n45-disclaimer__k">NOTE</span><span data-layer="disclaimer" data-label="免责声明" data-editable="text">{{disclaimer}}</span></div>
+
+    <div class="n45-links">
+      <!-- repeat ×2-3: 链接列 clone（自动 2/3 列等分）；条目 {lk,lv} -->
+      <div class="n45-link" data-repeat="links">
+        <div class="n45-link__k" data-layer="n45-link-k" data-label="链接名" data-editable="text">{{lk}}</div>
+        <div class="n45-link__v" data-layer="n45-link-v" data-label="链接值" data-editable="text">{{lv}}</div>
+      </div>
+    </div>
+
+    <div class="n45-closing" data-layer="closing" data-label="收尾句" data-editable="text">{{closing}}</div>
+  </div>
+
+  <div class="pg-footer">
+    <span data-sys="footer-id" data-layer="sys-footer-id" data-label="页脚署名" data-editable="text">Feiwan · AI Lab</span>
+    <span class="page-no" data-sys="page-no" data-layer="sys-page-no" data-label="页码" data-editable="text">{{page-no}}</span>
+  </div>
+    </div>
+      </section>
+    </div>
+  </div>
+
+</main>
 
   <div class="gal-foot">TECH-BLUE · <span class="gal-num"></span> MASTERS · REPOSITORY = GALLERY = DESIGN BOARD · EDIT MASTERS HERE, STYLES IN style.css</div>
 
