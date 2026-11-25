@@ -8,7 +8,7 @@
 - `data-layer` 是编辑器图层 id，**可能与占位符不同名**（`{{t}}` ↔ `tool-t`、`{{btn-1}}` ↔ `n02-btn-1`）。**别按 `data-layer` 猜文字槽键名**，以说明头「槽位」行为准。
 - 系统槽 6 个：`brand-logo` / `brand-name` / `footer-id` 取 `meta.brand`（整组统一，不写逐页 fields）；`issue` 逐页填；`page-no` / `progress` 机械生成，填了会报错。
 - 字数超限只 WARN 不停（20% 容差内不报）；品牌三值不在 `fields`、不进字数校验，超限靠人审。富文本只认 `span.hl` / `span.hl-line` / `br` / `strong`。
-- 可选槽 = **文字槽** + 母版上标了 `data-optional`。填 `""` 即占位符清空、由 CSS `:empty` 隐藏节点——节点不删、版面不塌（大数字、角标签、小注这类"数量不定"的槽）。repeat 单元内的可选槽同样适用。
+- 可选槽 = **文字槽** + 母版上标了 `data-optional`。填 `""` 即占位符清空、由 CSS `:empty` 隐藏节点——节点不删、版面不塌（大数字、角标签、小注这类「数量不定」的槽）。repeat 单元内的可选槽同样适用。
 - 没标 `data-optional` 的文字槽空值报错；图槽缺失一律报错。机器不支持空数组，repeat 区间见说明头 `repeat ×min-max`。
 
 ## 2. 图槽 crop（唯一会静默毁图的一节）

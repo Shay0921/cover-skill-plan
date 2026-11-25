@@ -20,12 +20,12 @@
 
 | 值 | 强制 | 绑定字号 | 用途 |
 |---|---|---|---|
-| `cover-title` | 第 1 页必填（唯一） | 11.34cqw（待登记进 §1） | 封面主标题 |
+| `cover-title` | 第 1 页必填（唯一） | 10cqw（已登记进 §1，N01/N02/N03 统一） | 封面主标题 |
 | `page-title` | 非第 1 页必填（唯一） | 9.3cqw | 页面主标题 |
-| `body` | 可选 | 2.51cqw | 叙述正文 |
-| `label` | 可选 | 1.98cqw | 标签 / 眉标 |
+| `body` | 可选 | 2.5cqw | 叙述正文 |
+| `label` | 可选 | 2cqw | 标签 / 眉标 |
 | `quote` | 可选 | 等宽体独立档 | 原文引用块 |
-| `num` | 可选 | 12.96cqw | 大数字 |
+| `num` | 可选 | 13cqw | 大数字 |
 
 只强制主标题：主标题错档是最高频翻车（2026-11-23 已发生一次）；正文 / 标签的自造字号已被「全量字号 ∈ §1 档位集合」这条挡住，逐个标 `data-role` 边际收益低。
 
@@ -46,15 +46,15 @@
 
 | 语义 | 类 | 字号 | 单行量级 |
 |---|---|---|---|
-| 超大标题 | `.title-xl` | 9.94cqw | 约 8–9 字 |
-| 大标题 | `.title-lg` | 7.18cqw | 约 12 字 |
+| 超大标题 | `.title-xl` | 10cqw | 约 8–9 字 |
+| 大标题 | `.title-lg` | 7.2cqw | 约 12 字 |
 | 中标题 | `.title-md` | 4.9cqw | 约 18 字 |
-| 大数字 | `.num-large` | 12.96cqw | 2–3 位 |
-| 正文 | `.body-text` | 2.51cqw | 约 34 字（叙述型正文的唯一档） |
-| 等宽小字 | `.mono-text` | 1.85cqw | 约 40 字 |
-| 标签 | `.label` | 1.98cqw | 短标（字距 .28em，别写长句） |
-| 页内眉标 | `.hero__tag` | 1.85cqw | 短标 |
-| 页码字级 | `.page-no` | 1.72cqw | 固定 7 字符 |
+| 大数字 | `.num-large` | 13cqw | 2–3 位 |
+| 正文 | `.body-text` | 2.5cqw | 约 34 字（叙述型正文的唯一档） |
+| 等宽小字 | `.mono-text` | 2cqw | 约 40 字（与 label 同档，靠等宽字体区分） |
+| 标签 | `.label` | 2cqw | 短标（字距 .28em，别写长句） |
+| 页内眉标 | `.hero__tag` | 2cqw | 短标 |
+| 页码字级 | `.page-no` | 2cqw | 固定 7 字符 |
 
 > `.mega-hero .title` 与 `.step-title` 是固定 9.3cqw 的特例，不属于上表通用字级；用它们时连同父组件一起复制。
 
@@ -108,7 +108,7 @@
 </div>
 ```
 
-- `.big-num` 25.92cqw，`.tag` 蓝底白字，`.title` 9.3cqw，`.sub` 2.51cqw。
+- `.big-num` 25.9cqw，`.tag` 蓝底白字，`.title` 9.3cqw，`.sub` 2.5cqw。
 - 大数字去留判据见 `design-system.md` §5；去掉后标题侧自动 `flex:1` 占满整行。
 - 一句话说不出数量卖点（「6 条速览」这种）就删掉 `.big-num`。
 
@@ -124,8 +124,8 @@
 </div>
 ```
 
-- 白底细线 + 蓝色圆形图标；`max-width:78cqw`。
-- `.callout__head` 1.56cqw 等宽蓝字，`.callout__text` 1.98cqw。
+- 白底细线 + 蓝色圆形图标；默认满宽（`width:100%`，无 max-width 上限）。
+- `.callout__head` 2cqw 等宽蓝字，`.callout__text` 2cqw。
 - `callout strong` 有定义（墨色加粗），可在 text 内用 `<strong>`。
 
 ### 5.3 胶囊 Pill（CTA / 步骤条）
@@ -136,15 +136,15 @@
 ```
 
 - `.pill` 描边白底，`.pill--fill` 墨底白字；`.num` 是序号位，**必须挂在胶囊内层**，不能单独用。
-- 可横排成「步骤 / 权益」条；文字 1.85cqw。
+- 可横排成「步骤 / 权益」条；文字 2cqw。
 
 ### 5.4 感谢 / 金句收尾
 
 ```html
 <div class="thanks">
   <div class="thanks__rule"></div>
-  <div class="thanks__quote">金句写这里</div>     <!-- 9.07cqw，单行约 10 字 -->
-  <div class="thanks__sub">补充一句</div>          <!-- 2.64cqw 衬线斜体 -->
+  <div class="thanks__quote">金句写这里</div>     <!-- 9.3cqw，单行约 10 字 -->
+  <div class="thanks__sub">补充一句</div>          <!-- 2.5cqw 衬线斜体 -->
   <div class="cta-bar">
     <span class="cta-bar__label">· FOLLOW ·</span>
     <span class="cta-bar__text">关注我，持续更新</span>
@@ -152,7 +152,7 @@
 </div>
 ```
 
-- `.thanks` 自身 `flex:1` 居中；`.thanks__rule` 8cqw 蓝线；`.cta-bar__label` 1.43cqw，`.cta-bar__text` 2.64cqw。
+- `.thanks` 自身 `flex:1` 居中；`.thanks__rule` 8cqw 蓝线；`.cta-bar__label` 1.5cqw，`.cta-bar__text` 2.5cqw。
 - 金句断行要手动安排均衡两行，避免末行孤字。
 
 ### 5.5 步骤标题（大 step 数字）
@@ -164,7 +164,7 @@
 </div>
 ```
 
-- `.step-num` 23.76cqw，`.step-title` 9.3cqw；`.step-num:empty` 与 `.big-num:empty` 都会自动隐藏。
+- `.step-num` 23.8cqw，`.step-title` 9.3cqw；`.step-num:empty` 与 `.big-num:empty` 都会自动隐藏。
 
 ## 6. 图片槽（唯一合法写法）
 
@@ -181,7 +181,7 @@
 - `<img>` 绝对定位铺满容器；`data-fit="cover"` 裁切填满，`contain` 完整显示。
 - 有图后给容器补 `data-filled`，或删掉 `.ph-img__label`，否则占位文字浮在图上。
 - **容器尺寸没有共享定义**：宽高由 `layoutBase` 的网格 / flex 决定，或写在所在单元容器内；词表不提供「万能图框」。
-- `data-ratio` 用常用比（16:9 / 16:10 / 4:3 / 3:2 / 1:1 / 4:5 / 3:4 / 2:3 / 9:16）；图与槽比例差很多时先预裁。
+- `data-ratio` 用常用比（清单唯一收在 `catalog.md` 头部「图槽约定」，此处不复制）；图与槽比例差很多时先预裁。
 
 ### 图片卡（带占位与角标）
 
@@ -203,7 +203,7 @@
 
 | 项 | 原因 |
 |---|---|
-| `.num-list` | CSS 注释明确为专属段实现：N10/N11 样式完全分叉（flex 行 vs grid 四列，子类 `t/d` vs `name/desc`），**没有共享定义**。`design-system.md` §2 原误列进共享表，**已修正为表下注记**（DESIGN-HANDOVER 2026-11-23 批次，见该文件 §7）；两处现已一致，不要再按旧状态说「待修订」 |
+| `.num-list` | CSS 注释明确为专属段实现：N10/N11 样式完全分叉（flex 行 vs grid 四列，子类 `t/d` vs `name/desc`），**没有共享定义**。`design-system.md` §2 原误列进共享表，**已修正为表下注记**；两处现已一致，不要再按旧状态说「待修订」 |
 | 任何 `n<nn>-` 前缀类 | 专属段，需要对应根类；`custom/composed-*` 页禁用（根上的 `layoutBase` 只用来取 `.content` 骨架） |
 | 裸 `.content` | 无共享 CSS，必须靠 `layoutBase` |
 | 自造类 / 内联样式 / 自造变量 | 风格一致性红线，机器尚未拦，人审把关 |
