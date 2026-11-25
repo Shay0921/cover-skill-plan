@@ -17,7 +17,9 @@
 
 **判定顺序**：先判「有没有语义匹配的母版」，再判「槽位填不填得满」，最后判「是否必须借私有结构」。没有匹配母版的页不经过补空，直接来本通道；补空页是极窄兜底，不是本通道的上一级。
 
-一页一判定。整篇自由组合超过一半时，先怀疑内容提炼出了问题，或该转正成新母版。
+**「必须私有结构」的硬判据**：依赖 `n<nn>-*` 私有类 / `.pm-*` 手机族 / 母版专属 SVG / 私有图槽定位——满足任一才进补空页，都不满足就留在这里。
+
+一页一判定。整篇自由组合超过一半时，先怀疑内容提炼出了问题，或该转正成新母版；例外：全篇原文引用密度型且形态各异时，高占比合法。
 
 **战略定位（决定何时才该用它）**：母版在清单 / 对比 / 时间线 / 展示等形态上更稳，本通道不重复建设。它专攻母版做不到的一件事：**原文完整引用的密度**——引用型原文装不进母版固定槽位。页面模式库见 §8。
 
@@ -84,7 +86,7 @@
 | n10 | 1fr 1.1fr | `.n10 .img-card` 多 `min-height:0`（无害） |
 | n14 | 纵列 2.6 | **`.n14 .mega-hero .tag` 背景变墨色**（`background:var(--ink)`），不是 accent 蓝 |
 | n30 | ⚠ 无 `.content` 骨架（模板用 `.thanks`），**不是骨架候选**；保留此行只为防止「n30 有毒」误读 | **仅在根同时带 `.dark` 时**才命中 `.artwork-page.n30.dark` 系列（15 条，改品牌区 / 页脚 / thanks 全家配色）。**不加 `.dark` 是安全的**：浅色分支有 6 条 `.n30:not(.dark)`（tag / quote / sub / cta-bar / label / text），品牌区 / 页脚沿用浅色默认。别按「n30 天生有毒」理解 |
-| n01 | 居中纵列 | **裸 `.title` 在非 mega-hero 结构下吃 `.n01 .title` = 11.34cqw；`.mega-hero .hero-text .title`（9.3cqw，特异性 0,3,0）结构对时可压住** |
+| n01 | 居中纵列 | **裸 `.title` 在非 mega-hero 结构下吃 `.n01 .title` = 10cqw（2026-11-24 三封面统一）；`.mega-hero .hero-text .title`（9.3cqw，特异性 0,3,0）结构对时可压住** |
 
 **中文引用类内容禁用非等宽列骨架**：n18 的 2fr 列把「自我反驳」挤成孤字（实跑踩坑）。中期方向是建中性骨架（c-1col / c-2col / c-3col / c-bento），列宽按最窄列 ≥ 4 汉字、内置填充机制——届时不再依赖 `layoutBase`。
 
@@ -122,7 +124,7 @@
 
 - **只能用 `styles/tech-blue/components.md` 登记的共享类**。词表外的类名一律不许出现（含 `n<nn>-` 专属类）。
 - 间距只用既有节奏：0.4 / 0.8 / 1.4 / 2 / 3 / 6.6cqw；尺寸用 cqw，不用 vw/vh/px 硬值。
-- 字号只用 `design-system.md` §1 的档位或豁免清单；叙述型正文走 body 档 2.51cqw。
+- 字号只用 `design-system.md` §1 的档位或豁免清单；叙述型正文走 body 档 2.5cqw。
 - 强调色只有 `--accent` / `--accent-deep`；令牌只用设计令牌表内的，不自造变量。
 - 大标题必须衬线（`--serif`）；不用无衬线粗体当大标题。
 - 富文本高亮：标题/金句用 `span.hl-line`，正文小强调用 `span.hl`。
@@ -177,7 +179,7 @@
 2. **类名白名单**：全 markup 类名 ⊆（自动派生共享词表 ∪ 结构类白名单 `artwork-page` / `paper-noise` / `brand-top` / `after-hero` / `content` / `pg-footer` ∪ 根 layoutBase 类）。`.content` 必须显式豁免（无裸定义，派生法会判成私有）。不用「`n\d\d-` 前缀」启发式——它漏判 `.n01 .item` 的 `item` 这类作用域私有泛名。
 3. 四件套齐全、禁区正则、`{{` 残留、`data-layer` 唯一。
 4. 填充机制声明——**前置**：§4.3 两枚类先落地。
-5. 字号档（两段）：① 全量文本节点 computedStyle 字号 ∈ `design-system` §1 档位集合；② 主标题（`data-role="page-title"` / `"cover-title"`）字号命中映射档（page-title 9.3 / cover-title 11.34cqw）。**前置**：11.34cqw 先登记进 §1。须走 CDP `evaluate` 读 DOM，**不能用正则**（`span.hl` 嵌套会破结构）。
+5. 字号档（两段）：① 全量文本节点 computedStyle 字号 ∈ `design-system` §1 档位集合；② 主标题（`data-role="page-title"` / `"cover-title"`）字号命中映射档（page-title 9.3 / cover-title 10cqw）。封面三制式 N01/N02/N03 已于 2026-11-24 统一为 10cqw 并登记进 §1。须走 CDP `evaluate` 读 DOM，**不能用正则**（`span.hl` 嵌套会破结构）。
 6. 编辑器标注：可编辑文本带 `data-layer`（唯一）+ `data-editable="text"`；品牌块带 `data-sys` 三槽。
 
 **WARN（需审美，不误杀）**：填充是否恰当 / 塌陷组合黑名单（`fine-line` 在居中 flex 塌成点）/ 孤字检测 / 字数越档。
