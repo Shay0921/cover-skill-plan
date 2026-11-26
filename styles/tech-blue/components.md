@@ -1,16 +1,15 @@
 # tech-blue · 组件语义词表
 
-> **状态：已拍板（形态 B / 护栏 fail 为主），未接入。** 供自由组合页（`custom/composed-*` + `layoutBase`）选用；`SKILL.md` 未引用本文，当前生产不按它验收。
-> **真源**：`styles/tech-blue/style.css` 共享段 + `design-system.md` §1/§2 + `templates.html` 实际骨架。本文只是把「按语义找部件」的索引建起来；**类名、字号、结构与真源冲突时以 `style.css` 为准**，发现冲突应修本文，不改 CSS。
-> **范围**：只登记**不挂母版类也生效**的共享类。`n<nn>-` 前缀的专属类不进词表——自由组合页禁用。
+> 供自由组合页（`custom/composed-*` + `layoutBase`）选用。**真源**是 `style.css` 共享段 + `design-system.md` §1/§2 + `templates.html` 实际骨架：本文只是「按语义找部件」的索引，类名、字号、结构与真源冲突时以 `style.css` 为准，发现冲突改本文不改 CSS（类名词表由 `script/composed.mjs` 现场派生，不手抄）。
+> **范围**：只登记**不挂母版类也生效**的共享类；母版专属类不进词表——自由组合页原样搬用会静默失效。
 > **自包含**：本文不指向仓库外文件；运行规则见 `references/COMPOSED-MODE.md`。
 
 ## 0. 怎么用
 
-1. 先定这页的语义角色（封面 / 清单 / 对比 / 数据 / 金句 / 收尾），再按「语义 → 部件」表挑组件。
-2. 从下表复制骨架，把文案写死（**不留 `{{`**），尺寸交给 `layoutBase` 的 `.content` 骨架与 flex/grid 弹性。
+1. 先定这页的语义角色（封面 / 清单 / 对比 / 数据 / 金句 / 收尾），再按「语义 → 部件」表挑组件。**组件的三个来源**（详见 `references/COMPOSED-MODE.md` §5）：① 下表共享类直接用；② 复制现有母版组件的结构——把它的专属类名改成自造名、样式在页内 `<style>` 重写（值走令牌）；③ 完全自造。原样搬用母版专属类名不行（本页无其 CSS 定义），但复制结构本身完全合法。
+2. 从下表复制骨架，把文案写死——**只有注入通道认的两个占位符可留：页码节点里的 `{{page-no}}`、清单进度节点里的 `{{progress}}`**，其余 `{{` 一律不留。尺寸交给 `layoutBase` 的 `.content` 骨架与 flex/grid 弹性。品牌三槽与两个机械槽建议带 `data-sys`（`brand-logo` / `brand-name` / `footer-id` / `page-no` / `progress`），render 会按 `plan.meta.brand`、页序与勾选数自动填，不写就保留你手写的字面量。
 3. 给主标题加 `data-role="page-title"`（第 1 页用 `cover-title`），**每页有且只有一个**——字号档校验靠它定位。
-4. 组合完检查四件事：根三件套齐全、每个 `data-layer` 页内唯一、没有词表外的类名、填充机制已用 `.fill-grow` / `.fill-sink` 声明。
+4. 组合完先跑 `node script/composed.mjs <任务工作区>/plan.json` 自检（静态规则、通用项、页面级令牌），再按 `references/COMPOSED-MODE.md`「校验与自检」逐页过出图后的清单。根三件套、类名定义、填充声明、`data-sys` 拼写与占位符、页内 CSS 令牌由机器校验并报出具体位置，不在此枚举。
 
 **字数一栏是起稿量级估算**（按 1080 画布、6.6cqw 边距、内容宽约 86.8cqw 折算），**不是机器校验线**；精确上限只在母版说明头，自由组合页靠几何体检 + 目检。
 
@@ -20,14 +19,19 @@
 
 | 值 | 强制 | 绑定字号 | 用途 |
 |---|---|---|---|
-| `cover-title` | 第 1 页必填（唯一） | 10cqw（已登记进 §1，N01/N02/N03 统一） | 封面主标题 |
-| `page-title` | 非第 1 页必填（唯一） | 9.3cqw | 页面主标题 |
-| `body` | 可选 | 2.5cqw | 叙述正文 |
-| `label` | 可选 | 2cqw | 标签 / 眉标 |
-| `quote` | 可选 | 等宽体独立档 | 原文引用块 |
-| `num` | 可选 | 13cqw | 大数字 |
+| `cover-title` | 第 1 页必填（唯一） | `--fs-10` | 封面主标题 |
+| `page-title` | 中间页必填（唯一，与 `page-title-compact` 二选一）；末页可与 `closing-quote` 二选一 | `--fs-9-3` | 页面主标题 |
+| `page-title-compact` | 同上，密集页用它 | `--fs-7-2` | 条目多、正文重、或一页要塞两三个块时：标题降一档，把高度让给内容 |
+| `closing-quote` | 末页可选（与 `page-title` 二选一） | `--fs-9-3`（与页标题同档） | 收尾金句 / 原文引用 |
+| `body` | 可选 | `--fs-2-5` | 叙述正文 |
+| `label` | 可选 | `--fs-2` | 标签 / 眉标 / 等宽小字 |
+| `num` | 可选 | `--fs-13`（`num-large`）；大数字 / 步骤数字自带类即可，不必标 role | 大数字 |
 
-只强制主标题：主标题错档是最高频翻车（2026-11-23 已发生一次）；正文 / 标签的自造字号已被「全量字号 ∈ §1 档位集合」这条挡住，逐个标 `data-role` 边际收益低。
+**`page-title` 还是 `page-title-compact`**：一页只有两三块、留白偏多 → `page-title`；条目四条以上、或正文段落占了一半高度 → `page-title-compact`。用 9.3 撑满密页的标题会挤掉正文，反而更容易撞压盖和密度硬检。
+
+**本表不写值**：`style.css :root` 是唯一真源，令牌名「值即名」（`--fs-9-3` 就是 9.3cqw）。校验器从令牌名反解档位、再读节点的 computedStyle 实测比对（容差 ±0.05cqw），**改档只改 `:root`，这张表和代码都不用动**。
+
+只强制主标题：主标题错档由机器硬拦（`render.mjs` 在截图会话里读 computedStyle，错档即停）；正文 / 标签的裸字号已被页面级令牌校验拦死，合法令牌但错档的节点由全量字号扫描兜底，逐个标 `data-role` 边际收益低。
 
 ---
 
@@ -37,10 +41,10 @@
 |---|---|---|---|
 | 画布根 | `.artwork-page` + `data-artwork` + `data-size="1080x1440"` | 唯一根；flex 纵列；`container-type:size`；自带 `overflow:hidden`。深底变体加 `.dark` | — |
 | 网格底纹 | `.paper-noise` | `<div class="paper-noise"></div>`，永远第一个子元素，`z-index:0` | — |
-| 顶栏 | `.brand-top` | `.left > .logo > .ph`（logo 字）+ `.brand-name`；`.right` 放期号。手写值 | logo ≤2 字符；品牌名 ≤12 字；期号 ≤14 字 |
+| 顶栏 | `.brand-top` | `.left > .logo > .ph`（logo 字）+ `.brand-name`；`.right` 放期号。logo 与品牌名带 `data-sys="brand-logo"` / `"brand-name"` 则由 render 注入，不带则保留手写值 | logo ≤2 字符；品牌名 ≤12 字；期号 ≤14 字 |
 | 分界线 | `.after-hero` | `<div class="after-hero"></div>`，2px 墨色，左右 6.6cqw；仅在有超大标题时放在 `.content` 前 | — |
-| 主内容区 | `.content` | **无共享 CSS 定义**——布局由根的 `layoutBase` 类提供（见 `references/COMPOSED-MODE.md` §4）。校验器按派生法会把它判成私有类，故列白名单显式豁免（见同文件 §9 fail 第 2 项） | — |
-| 页脚 | `.pg-footer` | 两个 `<span>`：署名 + `.page-no`。只放这两项；封面删页码节点 | 署名 ≤24 字；页码固定 `NN / 总页数` |
+| 主内容区 | `.content` | **无共享 CSS 定义**——布局由根的 `layoutBase` 类提供（见 `references/COMPOSED-MODE.md` §3）。校验器按派生法会把它判成私有类，故列白名单显式豁免（机器会报，见同文 §7） | — |
+| 页脚 | `.pg-footer` | 两个 `<span>`：署名（`data-sys="footer-id"`）+ `.page-no`（`data-sys="page-no"`，节点内写 `{{page-no}}`）。只放这两项；封面 `nn=01` 由 render 自动置空并隐藏页码，不必手删节点 | 署名 ≤24 字；页码由机器生成为 `NN / 总页数` |
 
 ## 2. 字级（大标题必须衬线）
 
@@ -80,16 +84,14 @@
 
 圆角只允许 `.4 / .8 / 1.4cqw` 三级令牌；胶囊、圆形沿用既有实现，不自造新档。
 
-### 4.1 填充机制两枚类（阻断项 · 尚未加进 style.css）
+### 4.1 填充机制两枚类
 
 | 语义 | 类 | 定义 | 用法 |
 |---|---|---|---|
-| 均分拉伸 | `.fill-grow` | `flex:1;min-height:0;` | 内容块等分内容区高度 |
-| 收尾沉底 | `.fill-sink` | `margin-top:auto;` | 末块推到页底 |
+| 均分拉伸 | `.fill-grow` | `flex:1;min-height:0;` | flex 纵列里让某块吃掉剩余高度 |
+| 收尾沉底 | `.fill-sink` | `margin-top:auto;` | 把末块推到页底 |
 
-**现状**：两枚类在 `style.css` 与本文均 0 命中（截至 2026-11-24）。自由组合页的「填充机制必须声明」这条 fail 因此**无法写出**——内联 `style` 被禁，没有类就没有合规写法。
-
-**落地动作**：加入 `style.css` 共享段 → 本文转正（去掉「尚未加进」）→ 7 页样板回改验证 → 校验器才能把此条从 `[未启用]` 转为生效。
+两枚类定义在 `style.css` 共享段，派生词表自动收录。**用法按骨架分档**：顶对齐纵列必须声明一枚，否则内容堆顶、肚底留白；居中骨架与网格骨架各有天然机制，写了反而破坏版面——校验器按所选骨架判定并告警。规则见 `references/COMPOSED-MODE.md`「填充」。
 
 ## 5. 内容组件（可直接组合）
 
@@ -170,24 +172,24 @@
 
 ```html
 <div class="ph-img" data-fit="cover">
-  <img class="ph-img__img" src="data:image/png;base64,…"
+  <img class="ph-img__img" src="shots/a.png"
        data-slot="image" data-layer="唯一id" data-label="图 01"
        data-ratio="16:9" alt="">
   <span class="ph-img__label">IMG · 1280 × 720</span>
 </div>
 ```
 
-- **图片必须 base64 内嵌**（`custom/composed-*` 页不收集素材、不产 `assets/`）。
+- **图片写相对任务工作区的路径**（`<img src="shots/a.png">`），出图时自动转 base64 内嵌（`custom/composed-*` 页不收集素材、不产 `assets/`）；写了 img 就必须给图，无 src 硬停。
 - `<img>` 绝对定位铺满容器；`data-fit="cover"` 裁切填满，`contain` 完整显示。
 - 有图后给容器补 `data-filled`，或删掉 `.ph-img__label`，否则占位文字浮在图上。
 - **容器尺寸没有共享定义**：宽高由 `layoutBase` 的网格 / flex 决定，或写在所在单元容器内；词表不提供「万能图框」。
-- `data-ratio` 用常用比（清单唯一收在 `catalog.md` 头部「图槽约定」，此处不复制）；图与槽比例差很多时先预裁。
+- `data-ratio` 用常用比（清单唯一收在 `references/CONTRACT.md`「图槽 crop」，此处不复制）；图与槽比例差很多时先预裁。
 
 ### 图片卡（带占位与角标）
 
 ```html
 <div class="img-card ph-img" data-fit="cover">
-  <img class="ph-img__img" src="data:image/png;base64,…" data-slot="image" data-layer="img-1" data-ratio="3:4" alt="">
+  <img class="ph-img__img" src="shots/b.png" data-slot="image" data-layer="img-1" data-ratio="3:4" alt="">
   <div class="placeholder ph-img__label">IMG · 01</div>
   <div class="corner-num">01</div>
 </div>
@@ -203,7 +205,8 @@
 
 | 项 | 原因 |
 |---|---|
-| `.num-list` | CSS 注释明确为专属段实现：N10/N11 样式完全分叉（flex 行 vs grid 四列，子类 `t/d` vs `name/desc`），**没有共享定义**。`design-system.md` §2 原误列进共享表，**已修正为表下注记**；两处现已一致，不要再按旧状态说「待修订」 |
-| 任何 `n<nn>-` 前缀类 | 专属段，需要对应根类；`custom/composed-*` 页禁用（根上的 `layoutBase` 只用来取 `.content` 骨架） |
+| `.num-list` | 专属段实现：两套母版的样式完全分叉（flex 行 vs grid 四列，子类 `t/d` vs `name/desc`），**没有共享定义**，不进共享词表 |
+| 原样搬用母版专属类 | 专属段需对应根类，本页根上只有 `layoutBase` 一个母版类，原样搬来拿不到 CSS 定义会静默失效（校验器硬拦）。**可复制其结构**：改自造类名 + 页内 `<style>` 定义 + 值走令牌，见 §0 与 `COMPOSED-MODE.md` §5 |
 | 裸 `.content` | 无共享 CSS，必须靠 `layoutBase` |
-| 自造类 / 内联样式 / 自造变量 | 风格一致性红线，机器尚未拦，人审把关 |
+| 无页面级定义的类名 / 内联样式 / 自造变量 | 风格一致性红线。无定义类名与内联 `style="…"` 由 `script/composed.mjs` 硬拦；自造 `var()` 由 `script/page-css.mjs` 查令牌存在性 |
+| 自造类（有页内 `<style>` 定义） | 组合页合法：`custom/composed-*` 可在 markup 带一个 `<style>` 块自定义组件，类须在块内有定义；视觉值只走令牌，布局属性自由 |

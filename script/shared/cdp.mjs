@@ -17,6 +17,25 @@ export function createOptions(overrides = {}) {
 }
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 
+// process.exit 不走 finally，异步 closeBrowser 到不了——被 exit 打断时 Chrome 子进程与 cover-cdp-* 目录会残留。
+// 这里为所有活跃实例装一个同步兜底：进程退出时 kill 子进程组 + 删临时目录。只装一次，实例增删走集合。
+const liveInstances = new Set();
+let exitHookInstalled = false;
+function installExitHook() {
+  if (exitHookInstalled) return;
+  exitHookInstalled = true;
+  process.on('exit', () => {
+    for (const inst of liveInstances) {
+      const alive = inst.child.exitCode === null && inst.child.signalCode === null;
+      if (alive && inst.child.pid) {
+        if (process.platform === 'win32') spawnSync('taskkill', ['/pid', String(inst.child.pid), '/T', '/F'], { stdio: 'ignore' });
+        else { try { process.kill(-inst.child.pid, 'SIGKILL'); } catch { /* 已退出 */ } }
+      }
+      try { fs.rmSync(inst.userDataDir, { recursive: true, force: true }); } catch { /* 目录被占用，交给下次系统清理 */ }
+    }
+  });
+}
+
 class CdpPipe {
   constructor(write, read) {
     this.write = write; this.buffer = Buffer.alloc(0); this.nextId = 1; this.pending = new Map(); this.closed = false;
@@ -82,6 +101,7 @@ async function launchOnce(opts) {
   const child = spawn(opts.chrome, args, { detached: process.platform !== 'win32', stdio: ['ignore', 'ignore', 'pipe', 'pipe', 'pipe'] });
   const cdp = new CdpPipe(child.stdio[3], child.stdio[4]);
   const inst = { child, cdp, userDataDir, stderr: '' };
+  liveInstances.add(inst); installExitHook();
   child.stderr.on('data', chunk => { inst.stderr = (inst.stderr + chunk).slice(-6000); });
   child.on('error', error => cdp.close(error));
   try {
@@ -111,6 +131,7 @@ async function launchOnce(opts) {
 
 export async function closeBrowser(inst) {
   if (!inst) return;
+  liveInstances.delete(inst);
   try { await inst.cdp.send('Browser.close', {}, undefined, 2000); } catch { /* already closed */ }
   inst.cdp.close();
   if (inst.child.exitCode === null && inst.child.signalCode === null)

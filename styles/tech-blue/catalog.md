@@ -1,22 +1,36 @@
 # tech-blue · catalog.md（选型牌桌）
 
-> **用法**：各栏只写**选型语义**——条数区间、行数、形态（「短标」「一小段」）、可选槽，用于判断内容装不装得下。可选槽直接写结果：「X 可选槽（留空自动隐藏）」；机器填不了的空缺写「固定 N 个/张」并给替代路径（换母版 / 走 custom）。精确限值（`≤N字` / `≤N字符` / `repeat ×min-max`）只在母版说明头「限制」行与 repeat 注释，不进本表；图槽比例与模式见下条。
+> **用法**：各栏只写**选型语义**——条数区间、行数、形态（「短标」「一小段」）、可选槽，用于判断内容装不装得下。可选槽直接写结果：「X 可选槽（留空自动隐藏）」；机器填不了的空缺写「固定 N 个/张」并给替代路径（换母版 / 走 custom）。精确限值（`≤N字` / `≤N字符` / `repeat ×min-max`）只在母版说明头「限制」行与 repeat 注释，不进本表。
 > **条目 slug**：标题后反引号内为该母版的 layout slug，与 `templates.html` 的 `data-layout` 一一对应——plan.json 的 `layout` 抄它；两侧改名必须同步，发现不一致以 templates 为准（真源）。
 >
-> **大数字可去**：大数字不是必填——数量不是这页主角时 plan 填 `""` 即自动隐藏；各母版 big-num / step-num 可选还是制式留空（如 N26/N27），以该母版说明头为准（可选槽机器语义见 `references/CONTRACT.md`「键名与系统槽」，去/留判据见 `styles/tech-blue/design-system.md`「大数字的去留」）。
-> **图槽约定**：
-> - 图槽 = `<img data-slot="image">`，图片按 `data-fit` **裁切填满、不拉伸**，贴边内容会被切；裁得不对在 `plan.json` 写 `crop` 选区，写法与裁切判断见 `references/CONTRACT.md`「图槽 crop」。
-> - 比例分两种模式：固定比用常用比声明——16:9 / 16:10 / 4:3 / 3:2 / 1:1 / 4:5 / 3:4 / 2:3 / 9:16 / 2:1（N24 效果图为 8:3），盒形零头偏差由裁切吸收，条目与母版 `data-ratio` 同源；填充型槽（槽高由 flex 吃掉剩余空间，如 N19 主图）不写 `data-ratio`，条目写「素材建议比 + 盒高自适应」。异形槽（手机屏、横长条、Bento 格）归固定比，保留实测比，条目只标方向与张数。
-> - **无图槽的页**分两类：纯文字母版（多数档，如 N01/N12/N25/N30，条目照常写文字槽语义）与图形母版（母版内自带 SVG 的 N33/N35，条目写「图形：……」，不接受图片）。
-> - 用户截图与自绘图形（按 design-system「自绘图形」节现画、`figure.mjs` 出的 PNG）同权。
+> **大数字不是必填**：数量不是这页主角时 plan 填 `""` 即自动隐藏；哪个母版可选、哪个是制式留空，以该母版说明头为准（去/留判据见 `design-system.md`「大数字的去留」，可选槽语义见 `references/CONTRACT.md`）。
 >
-> **第 1 页怎么选**：先看「封面」组（首选池，13 张），挑不到再从别组按形态补。同一母版可以在一份 plan 里重复出现（页名不同即可），没有「一篇只能用一次」的规则。
+> **图槽**：本表只标「几张、什么比例」——裁切、`crop` 与 `data-ratio` 常用比清单见 `references/CONTRACT.md`「图槽 crop」，选图与看图见 `references/IMAGE-WORKFLOW.md`，槽的 HTML 写法见 `components.md` §6。填充型槽（槽高由 flex 吃掉剩余空间，如 N19 主图）不写 `data-ratio`，条目写「素材建议比 + 盒高自适应」；异形槽（手机屏、横长条、Bento 格）归固定比，保留实测比，条目只标方向与张数。无图槽的页分两类：纯文字母版条目照常写文字槽语义，图形母版条目写「图形：……」，不接受图片。
 >
-> 组名沿用全库统一语义分类学（9 组），见 style-picker.md「语义组名」。
+> **第 1 页**：先从下面「封面」组挑，挑不到再从别组按形态补；同一母版可在一份 plan 里重复出现（页名不同即可）。组名沿用全库统一语义分类学（9 组），见 `style-picker.md`「语义组名」。
+
+## 先按主角找牌
+
+`references/CONTENT-REFINEMENT.md` 要求「拿这页的主角去比对」，而下面按语义组排——先查这张表锁定两三个候选，再翻到组里看细节。右列就是 plan 的 `layout` 值。
+
+| 这页的主角 | 候选母版 |
+|---|---|
+| 一句主张 / 金句 / 观点 | `N01-shock-cover` · `N30-ending-thanks-dark` · `N31-ending-thanks-light` |
+| 步骤 / 流程（2–4 步） | `N06-step-detail` · `N07-step-single` · `N08-steps-pair` · `N33-flow-4` · `N35-flow-timeline` · `N39-phone-trio` |
+| 对比 / 前后差异 | `N09-step-compare` · `N20-before-after` · `N21-editor-compare` · `N38-phone-duo` |
+| 数据 / 指标 | `N25-metrics` |
+| 清单 / 要点集合 | `N05-timeline-overview` · `N10-tool-list` · `N11-tool-list-basic` · `N12-checklist` · `N14-myths-bust` |
+| 教程 / 截图演示 | `N02-dialog-cover` · `N13-prompt-tutorial` · `N22-annotated-shot` · `N23-chat-demo` · `N24-code-editor` · `N34-prompt-effect` |
+| 画面 / 作品 / 手机界面 | `N15-agent-gallery` · `N16-group-showcase` · `N17-grid-gallery` · `N18-bento-showcase` · `N19-single-deep` · `N37-phone-focus` · `N38-phone-duo` · `N39-phone-trio` · `N40-phone-annotate` |
+| 概念解释 / 术语 / 人群 | `N41-glossary` · `N42-what-it-is` · `N43-persona` · `N45-agent-entry` |
+| 号召 / 转化 | `N26-free-course` · `N27-community-recruit` · `N28-ending-cta` · `N44-ugc` |
+| 收尾致谢 | `N29-ending-cards` · `N30-ending-thanks-dark` · `N31-ending-thanks-light` |
+
+一张牌可以既是封面也是内容页——页码只认 `nn`，机器不认识「封面」。候选都不合就按 `references/COMPOSED-MODE.md` 走自由组合。
 
 ## 封面
 
-> **本组是开篇首选池，不是「只能用封面」的组**：3 张开篇制式（N01–N03）+ 9 张整图与手机界面（N15–N19、N37–N40）+ 1 张定义页（N42）。定第 1 页先从这里挑，省得扫全库；这 10 张同样适合放中段做内容页，别处组的牌也可以当第 1 页——页码只认 `nn`，机器不认识「封面」。组内标题字号不统一，按 `design-system.md` §1.1「标题角色表」判定。
+> **本组 = 13 张开篇首选池**：3 张开篇制式（N01–N03）+ 5 张作品/图片网格（N15–N19）+ 4 张手机界面（N37–N40）+ 1 张定义页（N42）。这 13 张中段同样可用，别组的牌也能当第 1 页。组内标题字号不统一，按 `design-system.md` §1.1「标题角色表」判定。
 
 #### N01 金句震撼封面 `N01-shock-cover`
 适合：单句主张 + 数据点撑场的开篇；观点/实测类
@@ -144,7 +158,7 @@
 不适合：段数≠4；分支/汇合流程；这一页需要展示真实界面
 可以变：节点名/参数/时间、底部三项汇总全部可改；**段数固定 4**
 字数语义：大数字=段数；节点名短词；参数/时间一行；汇总项短
-图形：横向时间轴 + 4 节点 + 走向箭头 + 底部 3 项汇总，母版内 SVG **写死的四段示意**（**无图槽，不支持换图**）；分支/汇合/自由布局走 FIGURE-GUIDE 自绘 PNG
+图形：横向时间轴 + 4 节点 + 走向箭头 + 底部 3 项汇总，母版内 SVG **写死的四段示意**（**无图槽，不支持换图**）；分支/汇合/自由布局走 `references/FIGURE-GUIDE.md` 自绘 PNG
 
 ## 清单
 

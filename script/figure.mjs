@@ -5,8 +5,8 @@
  * 用法：
  *   node script/figure.mjs <figure.html> <out.png> --style=<风格名>|<style.css 路径> [--selector=#figure] [--dsf=2]
  *
- * 定位：把「按这页内容现画的图形 HTML」截成 PNG，产物落 assets/，随后作为**普通图片**走任意图槽。
- *   图形没有可复用资产层——每次按内容现写一份，属**任务产物**，写 runs/<任务>/figures/ 随 plan.json 留档。
+ * 定位：把「按这页内容现画的图形 HTML」截成 PNG，产物落任务工作区，随后作为**普通图片**走任意图槽。
+ *   图形没有可复用资产层——每次按内容现写一份，属**任务产物**，写 <任务工作区>/figures/ 随 plan.json 留档。
  *   画法与数值（画布、安全区、px 字号档、线宽圆角）见 styles/<风格>/design-system.md「自绘图形」节。
  *
  * 为什么要有这一步：

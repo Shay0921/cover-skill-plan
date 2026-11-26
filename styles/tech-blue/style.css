@@ -217,6 +217,12 @@ html,body{margin:0;padding:0;background:#ECEEF3;font-family:var(--sans);}
   border-radius:0;padding:var(--space-30);
   }
 
+/* ---------- 填充机制（自由组合页专用 · COMPOSED-MODE §4.1） ----------
+   组合页禁内联 style，肚子（.content）撑满只剩两条路：均分拉伸 / 收尾沉底。
+   两枚类只服务「借来的骨架」，母版专属段各自已有等价实现，不要往回改母版。 */
+.fill-grow{flex:1;min-height:0;}
+.fill-sink{margin-top:auto;}
+
 /* 底部补充说明条（全库唯一的 .callout 定义 · 白底细线）
    注意：下方「Callout 附属样式」只定义子元素，勿再声明 .callout 本体 */
 .callout{

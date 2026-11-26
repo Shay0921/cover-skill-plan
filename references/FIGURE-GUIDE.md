@@ -8,10 +8,10 @@
 
 ## 流程
 
-文件写 `runs/<任务>/figures/<名>.html`，与 `plan.json` 同级；风格目录不放图形样板。
+文件写 `<任务工作区>/figures/<名>.html`，与 `plan.json` 同级；风格目录不放图形样板。
 
 ```
-node script/figure.mjs <任务运行区>/figures/<名>.html <任务运行区>/assets/<名>.png --style=<风格>
+node script/figure.mjs <任务工作区>/figures/<名>.html <任务工作区>/figures/<名>.png --style=<风格>
 ```
 
 - **图形先于 plan 出发，且先定风格**：`--style` 必传（风格名或 style.css 路径，同级无 `style.css` 时不给就报错）；解析不到令牌拒绝出图。
