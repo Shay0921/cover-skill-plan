@@ -30,7 +30,7 @@
   - **共享组件被骨架改成深底**（如 `.tag` 挂了墨底）：浅底页上会突兀，需另行覆写。
 
   改 `style.css` 后要重测；新骨架按这两类加上 §4.1 的填充分型实测过、确认没有意外，再进常量表（常量表在代码里，不在本文）。
-- `markup` 整页 HTML、文案写死，不写 `fields`。唯一可留的占位符是 `{{page-no}}` / `{{progress}}`，且必须挂在对应 `data-sys` 节点内；其余文案直接写进 markup。图按相对任务工作区的路径写 `<img src="shots/a.png">`，出图时自动转 base64；写了 `<img>` 就必须给图，无 src 硬停。
+- `markup` 整页 HTML、文案写死，不写 `fields`。唯一可留的占位符是 `{{page-no}}` / `{{progress}}`，且必须挂在对应 `data-sys` 节点内；其余文案直接写进 markup。图按相对任务工作区的路径写 `<img src="shots/a.png">`，出图时自动复制进交付 `assets/` 并改写为相对路径；写了 `<img>` 就必须给图，无 src 硬停。
 - `layout` 与 `layoutBase` 要自洽：前者说这是什么版式，后者说借谁的骨架。机器只查 base 在不在允许集、根类是否一致，**判不了语义**（三栏配两栏骨架它看不出来），这一项靠人审。
 
 ## 3. 页面结构
@@ -47,7 +47,7 @@
 
 - 根三件套齐全，根上只挂一个母版类。四件套缺一不可、顺序固定。
 - **系统槽惰性注入**：写了 `data-sys` 就由渲染脚本填，没写就跳过——不强迫带槽，但带了就与全篇同源，品牌改名、加删页自动跟随。`data-sys` 的合法取值、必填节点形态由校验器报告，不在此列举。
-- `data-layer` 页内唯一；富文本只认 `span.hl` / `span.hl-line` / `br` / `strong`。
+- `data-layer` 页内唯一；富文本只认 `span.hl` / `span.hl-line` / `br` / `strong`。标了 `data-layer` 顺手写 `data-label`（中文短名）：不写也能改字，但面板里一列 `row-1-t` / `row-2-d` 谁也认不出是哪个。
 - 禁区与补空页同一套（`position:fixed` / `@media` / `@import` / `@font-face` / `url(` / 脚本与动画标签 / `animation:` / `transition:`），清单与理由见 `IMPROVISATION.md`「四条硬约束」第 3 条；内联 `style=` 两类都禁，本页样式写进页内 `<style>` 块。
 - 每页有且只有一个主标题并带 `data-role`，这是字号对位的抓手；不标则无从判断该用哪一档。
 - 系统槽主标题节点必须带 `data-layer` + `data-editable="text"`，否则编辑器认不到图层或认到却改不了字。
@@ -102,7 +102,7 @@
 
 ## 6. 图与字数
 
-- 图按相对任务工作区路径写 `<img src="shots/a.png">`，出图时自动转 base64（不产 `assets/`，交付 HTML 自包含）。图槽写法与必填规则见 `components.md`，图槽没有"可省"机制——写了就必须给值，不要无图形态就别写 img 节点。**路径本身在静态阶段就查**：缺 src / 空 src / 越界 / 文件不存在 / 扩展名与内容不符 / 外链 / `srcset` 都会在 `composed.mjs` 单跑时直接报错，不用等出图。`crop` 描述只属于母版槽位，组合页用页内 CSS 的 `object-fit:cover` 自己控裁切。
+- 图按相对任务工作区路径写 `<img src="shots/a.png">`，出图时自动复制进交付 `assets/` 并把 src 改写为 `assets/<文件名>`。图槽写法与必填规则见 `components.md`，图槽没有"可省"机制——写了就必须给值，不要无图形态就别写 img 节点。**路径本身在静态阶段就查**：缺 src / 空 src / 越界 / 文件不存在 / 扩展名与内容不符 / 外链 / `srcset` 都会在 `composed.mjs` 单跑时直接报错，不用等出图。`crop` 描述只属于母版槽位，组合页用页内 CSS 的 `object-fit:cover` 自己控裁切。
 - 没有字数说明头可依：字数靠几何体检 + 目检收口，机器无精确上限可比对，别指望越档告警兜底。
 
 ## 7. 校验与自检
@@ -122,10 +122,13 @@ node script/render.mjs <任务工作区>/ --check-geometry   # 几何与密度�
 |---|---|---|
 | layoutBase / 类名 / 四件套 / 禁区 / data-role / 填充 / 令牌 / 占位符 | 查 | 查（同一份实现） |
 | `<img>` 的 src 缺失、路径越界、文件不存在、扩展名与内容不符、外链、srcset | 查（路径相对 `plan.json` 所在目录） | 查 |
-| 图片转 base64 内嵌、系统槽注入、编辑器图层 | 不查（不产 HTML） | 查 |
+| 编辑器契约：属性取值域、图层 id 唯一 | 查（`shared/editor.mjs`） | 查（同一份实现） |
+| 图片复制进 `assets/` 并改写 src、系统槽注入 | 不查（不产 HTML） | 查 |
 | 密度 / 压盖 / 孤字 / 主标题字号对位 | 不查（需 computedStyle） | 查 |
 
 所以「静态 0 硬错」只说明 markup 结构合规，出图前仍必须跑一次 `--check-geometry`。
+
+组合页不产 `fields.json`：文案写在 markup 里，没有槽位填充通道。能不能在编辑器里改字只取决于 markup 有没有标 `data-layer`（`data-sys` 与主标题由机器强制），走法与母版同路，见 `EDITOR.md`。
 
 **出图后逐页自检**（机器只保证"没违规"，不保证"排得好"）：
 

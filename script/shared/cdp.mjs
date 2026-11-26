@@ -6,12 +6,13 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { findChrome } from './find-chrome.mjs';
+import { CANVAS, ROOT_SELECTOR } from './canvas.mjs';
 
 export function createOptions(overrides = {}) {
   // 出图倍率：默认 2x——1x 下屏内截图等小图位只有 ~366 物理像素宽，
   // 3.5 倍一步降采样双线性插值必然糊。2x 后 PNG 为
   // 2160×2880，小图位细节可读。COVER_DSF=1 可临时回退 1x；GIF 预转换显式传 dsf:1 不受影响。
-  return { width: 1080, height: 1440, dsf: +(process.env.COVER_DSF || 2), selector: '.artwork-page', waitSelector: '.artwork-page',
+  return { ...CANVAS, dsf: +(process.env.COVER_DSF || 2), selector: ROOT_SELECTOR, waitSelector: ROOT_SELECTOR,
     timeout: 30000, fontTimeout: 5000, noSandbox: false, ...overrides,
     chrome: overrides.chrome || findChrome() };
 }

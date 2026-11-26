@@ -1,14 +1,87 @@
 # 编辑器微调（可选路径）
 
 > 只在需要 GUI 改字时走。依赖本机 pageApp 仓库，换环境不可用——**不是通用能力，别当成交付必做步骤**。
+> 默认交付不含编辑器件（`fields.json` / `editor.manifest.json`）；用户说「打开编辑器 / 在面板里改字 / 我要改封面」才进这条路。
+> 术语锁定（本文件「编辑器」= pageApp 封面编辑器、非任何 IDE）的唯一权威表述在 `SKILL.md`「交付」节，此处不重复。
+
+## 四个按钮的准确语义（交付时要跟用户讲清）
+
+编辑器右上角四类操作，名字容易混，按实际行为解释：
+
+| 按钮 | 实际做什么 | 落点 / 边界 |
+|---|---|---|
+| 恢复存档（`ed-import`） | 载入存档 JSON，**恢复全部页**编辑状态 | `showOpenFilePicker({id})` 记住上次目录，失败回退 `<input file>`；**只认同一套封面的存档**（存档只存图层状态，母版在编辑器里，换一套会报"模板不匹配"）；不读 skill 的 `fields.json` |
+| 存档 JSON（全部页）（`ed-download-project`，一级按钮） | 导出**全部页**编辑状态为一个 JSON | `showSaveFilePicker({id, suggestedName:'<项目名>-存档-<时间>.json'})` 让用户选位置并记住；失败回退 `<a download>`（落到浏览器下载目录）。**首选用对话框指定位置，不再无脑下载** |
+| 下载当前页 ▾ → 当前页 HTML / PNG | 只下载**当前停留的这一页**（HTML 图片内嵌可离线看；PNG 固定 1080×1440） | 浏览器下载目录；多页要逐页导，或用「导出全部文件」 |
+| 导出全部文件（`ed-save`） | 逐页 mount 导出**全部页**的 HTML + PNG，再加一份存档 JSON 和 `使用说明.txt`，写进 `<项目名>-编辑导出-<可读时间>/` 子目录 | File System Access API，**首次需用户选目录授权**，之后靠 `id` 记住；每次新建子目录不覆盖旧件。交付时说明会逐页渲染、耗时随页数增加 |
+
+**目录与命名的两条硬边界**（交付时如实说，别夸大）：
+1. `file://` 下脚本**不能把自身路径变成可写目录句柄**——浏览器安全模型禁止指定绝对路径，只能由用户在授权弹窗里选一次。优化已做到"记住上次目录"（三个 Picker 都带 `id`，且**不传 `startIn`**——传了会把起点钉死在固定目录、反而盖掉记忆），首次仍要选。不要说"会自动存到编辑器旁边"。
+2. 项目名从 `location.pathname` 的父目录提取（如 `2026-11-26-AI热点日报9图`），只用于给文件夹/存档文件**命名**；浏览器不允许据此自动定位目录。时间戳用 `YYYY-MM-DD-HHmm` 可读格式，非 ISO 原始串。
+3. 系统授权窗口的提示文案（含开头的本地来源标识）由浏览器生成，**网页无法改写**。编辑器只在本次会话首次调用原生选择器前弹一次页内说明解释它的含义；别承诺能消掉那行字。真要换掉它只能改用本地服务方式打开编辑器，那等于多一套启动步骤，默认不做。
 
 ## 流程
 
-1. `node script/render.mjs <任务工作区>/ --with-editor [--delivery=<目录>]` —— 完整渲染一次，额外产出 `fields.json`、`editor.manifest.json`、`assets/`。
-2. `cd <pageApp 仓库>/demo && node pack.mjs "<产物目录>"` —— 产物目录 = 带 `--with-editor` 的交付目录；没加 `--delivery` 时用终端打印的系统临时目录（退出后不再清理的那次）；产出 `covers-edit.html`。
-3. 浏览器打开 `covers-edit.html` 改字，导出。
+两种入口，按 **plan 还在不在** 选，别混：
+
+| 现场 | 走哪条 |
+|---|---|
+| 同一会话，`plan.json` 与素材还在任务工作区 | `node script/render.mjs <任务工作区>/ --with-editor --force [--delivery=<目录>]` —— 重跑一遍，顺带补 `fields.json` |
+| 交付早于本次会话，任务工作区已清 | `node script/editor-prep.mjs <交付目录>` —— 只读 P 页补 `editor.manifest.json`，页面与 PNG 一个字不动 |
+
+两条都接同一步：`cd <pageApp 仓库>/demo && node pack.mjs "<交付目录>"` → 产出 `covers-edit.html` → 浏览器打开改字、导出。
+
+- 补件之所以必要：打包器靠 `editor.manifest.json` 找画布根与页序，没有它只会得到「找不到根节点：.p-page」。
+- `editor-prep` **不产 `fields.json`**：编辑器至今不读它（见下节），事后从 HTML 反解文本还会破 `span.hl`，为一个没有消费者的文件多造一条转写路径不划算。真要 `fields` 就走上面那条重跑。
+- 补件前会先验一遍页面（属性取值域 / 图层唯一 / 每页 `<style>` / `assets/` 素材是否还在），有硬错**不写** manifest；`--dry-run` 只看不改。
+- 补件按文件名反解页序（`P<nn>-<名>.html`），文件名不合规范会直接拒绝——页序无从确定时宁可不做。
 
 pageApp 仓库本机两处：Windows `D:\AI\pageApp\demo`｜macOS `/Users/shay/Code/AI/pageApp/demo`。
+
+**重跑 render 后 `covers-edit.html` 就过期了**——它装的是打包那一刻的页面副本，不会跟着更新，必须重跑打包那一步。`covers-edit.html` 由打包器写进交付目录，不属交付白名单，`--force` 重跑会把它列成「非本次产物」提示人工确认。
+
+## 契约谁在管
+
+取值域（8 条属性、每个合法值）真源是 pageApp《HTML产物交接规范》的「属性表」，本库不复制规则，只镜像出图侧必须拦住的部分：`script/shared/editor.mjs`。母版页与手写页出图前都会过一遍，违规即停——**不等打包器报**。为什么不等：打包器首错即停、一次只报一条，而它报错时交付已经做完了。
+
+这一份实现同时管三件事，别在别处再写一遍：属性取值域、`data-layer` 唯一性、占位符/系统槽 → 图层的映射（`fields.json` 的键）。`composed.mjs` 的单跑入口调的是同一个函数，所以「重复 id」不会在两个入口各报一条。
+
+交付目录被人动过（手改页、编辑器导出件放回、重跑 render 之后）想不重新出图就确认还能不能打包：
+
+```sh
+node script/editor-contract.mjs <交付目录>
+```
+
+它查属性取值域、图层 id 唯一性、manifest 是否登记了目录里的每一页（没登记的页打包时会被静默丢掉）、manifest 指向的页是否存在、每页是否仍带 `<style>`（打包器硬前提）、`fields.json` 的键是否落在真图层上、`covers-edit.html` 是否早于页面。**只读**：缺 manifest 只告警、不代写——写入是 `editor-prep` 的事，体检不偷偷改交付。
+
+判定逻辑在 `script/shared/editor-audit.mjs`，`editor-prep` 补件前跑的是同一份：补件不验等于没补，两处各写一套必然漂移。
+
+## fields.json 的键（当前没有消费者）
+
+**编辑器至今不读生成期 `fields.json`**（pageApp 契约 §6 自述「T6 剩余」；编辑器自己的存档叫 `cover-project.json`）。所以打开 `covers-edit.html` 看到的文案，来自**页面 HTML 本身**——那已经是 render 填好槽位的终稿，不是从 fields 带出来的初稿。
+
+键仍然要写对，因为契约把「键 = `data-layer` id」定死了，pageApp 一旦落地「读初稿」这份文件立刻生效；而写错时不报错，只会静默带不出值：
+
+- 键 = 页面的 `data-layer` id，不是 plan 里的 `{{占位符}}` 名——两者常不同名（`{{issue}}` ↔ `sys-issue`、`{{foot-tag}}` ↔ `n39-foot-1`）。
+- 出图侧按「占位符所在图层」转写，落盘前自检每个键都能落到真图层上；图槽没有占位符，键本来就是图层 id。
+- **想改文案就改 plan 重新出图，或直接改页面 HTML**；改 `fields.json` 今天不会影响任何东西。
+
+组合页不记 fields：它的文案在 markup 里，没有槽位填充通道。能不能改字取决于 markup 有没有标 `data-layer`（`data-sys` 与主标题由机器强制，其余建议都标上），标了就能在编辑器里改字导出，与母版同路。
+
+## 复核（pageApp 出 v1.x 时跑一遍）
+
+1. 读契约「属性表」与「契约对照表」，看有没有属性从「未读」变「已读」。
+2. `grep -n "data-" <pageApp>/demo/lib/markers.mjs` 对照实装读了几条（当前 6 条）。
+3. `node script/render.mjs <任务工作区>/ --with-editor` → `node script/editor-contract.mjs <交付目录>` → `node pack.mjs <交付目录>`，两处都要 0 硬错。
+
+取值域只能靠**双跑比对**验收，不能靠读代码。工具在 dev 仓（不进生产链路）：
+
+```sh
+node final/03-母版创建规范/check-editor-contract.mjs --pageapp=../../../pageApp            # 0 差异则退出码 0
+node final/03-母版创建规范/check-editor-contract.mjs --pageapp=../../../pageApp --self-test # 负向自测：检测器本身会响
+```
+
+它把母版各节与内置边界用例同时喂给 `markers.mjs` 的 `scanMarkers` 与本库 `checkMarkerContracts`，比「通过/失败」结论与图层 id 集。本库已按此修掉三处误判（`data-group=""` 被误杀、非图层元素上的标记被误杀、`<template>` 内图层被多算），以及两处漏判（页内 `<style>` 写在最前时根节点规则失效、合法取值挂在非图层元素上被静默吞掉）。
 
 ## 已知差异（交接时须说明）
 
@@ -17,3 +90,5 @@ pageApp 仓库本机两处：Windows `D:\AI\pageApp\demo`｜macOS `/Users/shay/C
 - 有没有损失取决于图与槽是否同比例：二维码类 1:1 的 `contain` 槽放 1:1 图时两者渲染一致；塞非等比图才会被裁。
 - 规则：`contain` 槽只放同比例图。
 - 已被裁的页，重跑 render 即恢复。
+- **`covers-edit.html` 体积 ≈ 图片总量**：打包器把每页图片 base64 内联，7 页手机截图实测 10.4MB。图多的任务打开会慢，属预期。
+- 富文本：编辑器按文本片段改字、保留 `<br>` 与 `.hl` 高亮（pageApp 契约已验证）。所以槽值里带 `span.hl` 的，改字不会破结构。

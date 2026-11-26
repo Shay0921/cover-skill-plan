@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 /* render.mjs · 实例化器——生产环境固定脚本，不是临时文件
- * 用法：node script/render.mjs <任务工作区>/ [--delivery=<交付目录>] [--with-editor] [--force] [--check-geometry] [--only=N01,N02] [--font-report]
+ * 用法：node script/render.mjs <任务工作区>/ [--delivery=<交付目录>] [--with-editor] [--force] [--check-geometry] [--only=N01,N02] [--font-report] [--preflight]
+ *   --preflight 是写 plan 后的静态预检：只跑填槽与素材校验，输出「格式 / 图槽比例 / 覆盖 / 完整性 / 版式节奏」后退出，
+ *              不启动截图、不写 P 页与交付目录。用它替代「先渲染一遍看看报什么」。详见文件末尾 buildStaticReport。
  *   --font-report 是诊断开关（不进常规出图）：打印每页实际命中字体、三套字体栈的字宽实测，
  *                 并与权重表里的建模值逐族对照（实测≠建模时要能一眼看出原因），见 shared/cdp.mjs fontReport
  *   --only + --font-report = 只读诊断：只写临时 HTML 跑体检、跑完即删；不写 P 页 / PNG / fields.json / manifest / preview.png。
@@ -15,10 +17,10 @@
  *   出图倍率：默认 2x（PNG 像素 2160×2880，画布逻辑尺寸仍 1080×1440）——小图位降采样糊的对策；
  *   COVER_DSF=1 可临时回退 1x，见 shared/cdp.mjs createOptions
  *   ④ 交付目录 = 用户选中的工作区（--delivery 或 plan.delivery，写绝对路径，命名 YYYY-MM-DD-<小标题>）：校验+截图全过后按白名单拷贝
- * 交付白名单（默认，编辑器不在默认链路上）：P<nn>-<名>.html + P<nn>-<名>.png + preview.png
- *   --with-editor 追加：fields.json + editor.manifest.json + assets/（仅用户要开编辑器时才走）
- * 硬校验（即停）：{{ 残留 / 图片缺失或格式不符 / 根节点与画布 / data-layer 重复 / 文字槽为空（可选槽除外） / plan 字段与槽位对不上 / repeat 区间 / 富文本白名单外标签
- *   / data-sys 白名单外取值 / plan 出现手填 page-no / progress 字段
+ * 交付白名单（默认，编辑器不在默认链路上）：P<nn>-<名>.html + P<nn>-<名>.png + preview.png + assets/（有图才建）
+ *   --with-editor 追加：fields.json + editor.manifest.json（仅用户要开编辑器时才走；事后再要可跑 editor-prep 补 manifest）
+ * 硬校验（即停）：{{ 残留 / 图片缺失或格式不符 / 根节点与画布 / 文字槽为空（可选槽除外） / plan 字段与槽位对不上 / repeat 区间 / 富文本白名单外标签
+ *   / data-sys 白名单外取值 / plan 出现手填 page-no / progress 字段 / 编辑器契约：data-* 取值域与 data-layer 唯一（见 shared/editor.mjs）
  *   文案里的裸 < > 不算标签（"年收入 > 10 万"、"A < B" 照常出图，注入前转义为实体显示）
  * 软校验（WARN）：字数超限（解析说明头"限制"行）/ 图片与槽位比例差异大 / crop 百分比超界（clamp 到 5–99）
  * 即兴页（layout: custom/*）：形态校验 + --check-geometry 几何体检
@@ -35,10 +37,68 @@ import url from 'node:url';
 import { launchBrowser, closeBrowser, withPage, evaluate, captureReadyPage, createOptions, fontReport } from './shared/cdp.mjs';
 import { SYS_META_KEY, scanSysTags } from './shared/sys-slots.mjs';
 import { rootOf, maskStyleBlocks } from './shared/markup.mjs';
-import { resolveInDir, readImage } from './shared/image.mjs';
+import { resolveInDir, readImage, sniffMime } from './shared/image.mjs';
+import { checkMarkerContracts, scanLayerMaps, buildManifest, MANIFEST_DEFAULTS } from './shared/editor.mjs';
 import { checkComposed, checkCustomBasics, checkRoleFontSize, checkAllFontSizes, composedNotices } from './composed.mjs';
 
 const ROOT = path.resolve(path.dirname(url.fileURLToPath(import.meta.url)), '..');
+// ---------- 素材格式扫描（预检共用，放在最前：写 plan 之前也能单独跑）----------
+// 只读文件头 32 字节做魔数嗅探：预检要扫整个工作区，不能把几十 MB 素材全读进内存。
+const EXT_MIME = { '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.webp': 'image/webp' };
+const IMAGE_SCAN_RE = /\.(png|jpe?g|webp|gif|avif|heic|heif|tiff?|bmp)$/i;
+
+function sniffFileHead(file) {
+  let fd;
+  try {
+    fd = fs.openSync(file, 'r');
+    const buf = Buffer.alloc(64);   // ftyp 的 compatible brands 可能排在 32 字节之后
+    const n = fs.readSync(fd, buf, 0, 64, 0);
+    return sniffMime(buf.subarray(0, n));
+  } catch { return null; }
+  finally { if (fd !== undefined) { try { fs.closeSync(fd); } catch {} } }
+}
+
+// 任务工作区内的图片文件（跳过隐藏目录；包含 figures/ 与预裁件）
+function scanWorkspaceImages(dir) {
+  const out = [];
+  const walk = (d) => {
+    let entries;
+    try { entries = fs.readdirSync(d, { withFileTypes: true }); } catch { return; }
+    for (const e of entries) {
+      if (e.name.startsWith('.')) continue;
+      const p = path.join(d, e.name);
+      if (e.isDirectory()) walk(p);
+      else if (IMAGE_SCAN_RE.test(e.name)) out.push(p);
+    }
+  };
+  walk(dir);
+  return out;
+}
+
+// 扩展名声明 vs 文件头实际内容。两个入口共用：写 plan 前的格式预检、--preflight 的①表。
+function collectFormatIssues(dir) {
+  const files = scanWorkspaceImages(dir);
+  const bad = [];
+  let ok = 0;
+  const rel = (f) => path.relative(dir, f).replace(/\\/g, '/');
+  for (const f of files) {
+    const ext = path.extname(f).toLowerCase();
+    const actual = sniffFileHead(f);
+    const expect = EXT_MIME[ext];
+    if (!expect) {
+      if (ext === '.gif' && actual === 'image/gif') { ok++; continue; }   // GIF 母版图槽可自动取首帧
+      bad.push({ file: rel(f), msg: actual ? `扩展名 ${ext} 不受支持（实际 ${actual}），须转成 PNG/JPEG/WebP` : `扩展名 ${ext} 不受支持，须转成 PNG/JPEG/WebP` });
+      continue;
+    }
+    if (!actual) { bad.push({ file: rel(f), msg: '文件头无法识别，请重新导出为 PNG/JPEG/WebP' }); continue; }
+    if (actual !== expect) {
+      bad.push({ file: rel(f), msg: `扩展名声明 ${expect}，实际内容 ${actual}；先转码再引用（render 会直接拒绝）` });
+      continue;
+    }
+    ok++;
+  }
+  return { files, bad, ok };
+}
 const argv = process.argv.slice(2);
 const consumedIdx = new Set();
 function flagValue(name) {
@@ -52,6 +112,9 @@ function flagValue(name) {
 const GEOM = argv.includes('--check-geometry');
 const FORCE = argv.includes('--force');
 const WITH_EDITOR = argv.includes('--with-editor');
+// 静态预检：写 plan 后跑一遍，把「格式 / 图槽比例 / 覆盖 / 完整性 / 版式节奏」提前到出图之前暴露。
+// 它不截图、不写产物，因此也不吃 --delivery / --check-geometry（那两项只对成品有意义）。
+const PREFLIGHT = argv.includes('--preflight');
 // 字体体检：默认关闭（每页要多走一次全量 DOM + 逐文字节点协议往返），只在核对字面/重测字宽时开
 const FONT_REPORT = argv.includes('--font-report');
 const onlyArg = flagValue('--only');
@@ -65,16 +128,29 @@ if (onlyArg !== null) {
   if (!ONLY.length) fail('--only 不能为空：请写 --only=N01,N02（也接受 02 / P02 写法）');
 }
 // 编辑器产物（fields.json / editor.manifest.json）按需生成，默认生图链路不产：
-//   ① 只有 --with-editor 才写——默认交付就是 P 页 HTML + PNG + preview.png，编辑器不在默认链路上；
+//   ① 只有 --with-editor 才写——默认交付就是 P 页 HTML + PNG + preview.png + assets/，编辑器不在默认链路上；
 //   ② --only 单页调试不写——这两个是跨页聚合件，单页版会把多页任务工作区的正式版本覆盖掉；
 //   ③ 只读体检（DIAG_ONLY）不写——诊断不落任何正式文件。
 const EDITOR_OUT = WITH_EDITOR && !ONLY && !DIAG_ONLY;
 const deliveryArg = flagValue('--delivery');
 // 先解析带值参数，避免把 "--only N01,N02" / "--delivery <路径>" 的值误认成任务目录
-const taskDir = path.resolve(argv.find((a, i) => !a.startsWith('--') && !consumedIdx.has(i)) || '');
+const taskArg = argv.find((a, i) => !a.startsWith('--') && !consumedIdx.has(i)) || '';
+const taskDir = path.resolve(taskArg || '');
 
-if (!taskDir || !fs.existsSync(path.join(taskDir, 'plan.json'))) {
-  console.error('用法: node script/render.mjs <任务工作区>/ [--delivery=<交付目录>] [--with-editor] [--force] [--check-geometry] [--only=N01,N02]  （任务工作区须含 plan.json）');
+// --preflight 允许没有 plan.json：识图盘点阶段先把「扩展名 vs 实际内容」批量扫一遍（AVIF 改名图在这里现形），
+// 不必等到写完 plan 才发现素材读不出来。必须显式给目录——不给就落到当前目录，会把技能仓库当素材扫。
+const planFile = taskArg ? path.join(taskDir, 'plan.json') : '';
+if (!taskArg || !fs.existsSync(planFile)) {
+  if (PREFLIGHT && taskArg && fs.existsSync(taskDir) && fs.statSync(taskDir).isDirectory()) {
+    const { files, bad, ok } = collectFormatIssues(taskDir);
+    console.log('🔍 预检 --preflight（未找到 plan.json：只验素材格式）\n');
+    console.log(`① 素材格式 · ${files.length} 个图片文件，正常 ${ok}，需处理 ${bad.length}`);
+    for (const r of bad) console.log(`   ✗ ${r.file} — ${r.msg}`);
+    console.log('');
+    console.log(bad.length ? '❌ 先转码上面这些素材，再继续识图与写 plan' : '✅ 素材格式全部可用，可以继续识图');
+    process.exit(bad.length ? 2 : 0);
+  }
+  console.error('用法: node script/render.mjs <任务工作区>/ [--delivery=<交付目录>] [--with-editor] [--force] [--check-geometry] [--only=N01,N02] [--preflight]  （任务工作区须含 plan.json；--preflight 可只验素材格式）');
   process.exit(2);
 }
 const plan = JSON.parse(fs.readFileSync(path.join(taskDir, 'plan.json'), 'utf8'));
@@ -89,7 +165,9 @@ if (deliveryArg === '') fail('--delivery 不能为空：请写 --delivery=<目�
 // 只读诊断（--only + --font-report）不产出交付物：忽略 --delivery / plan.delivery，既不报错也不拷贝。
 // 否则带 delivery 的正式任务无法就地体检，与「可在正式任务工作区直接跑」的用法矛盾。
 // 单独 --only 同样忽略 plan.delivery：调试不该逼人改 plan；显式 --delivery 仍然报错（见下），防止写出半套交付。
-const DELIVERY = (DIAG_ONLY || (ONLY && deliveryArg === null)) ? null : (DELIVERY_RAW ? path.resolve(DELIVERY_RAW) : null);
+// --preflight 与只读诊断一样不产出交付：显式 --delivery 被忽略并提示，不做目录冲突检查
+const DELIVERY = (DIAG_ONLY || PREFLIGHT || (ONLY && deliveryArg === null)) ? null : (DELIVERY_RAW ? path.resolve(DELIVERY_RAW) : null);
+if (PREFLIGHT && deliveryArg !== null) console.warn('⚠ --preflight 只做静态预检，不产出交付：--delivery 已忽略');
 if (DELIVERY && DELIVERY === taskDir) fail('交付目录不能等于任务工作区（过程件与成品必须分开）');
 // --only 是调试开关：只出部分页会形成「新页 + 旧页」混装包，故禁止与显式 --delivery 同用。
 // 只读诊断（DIAG_ONLY）的 DELIVERY 已在上方置 null，因此不受这道守卫限制。
@@ -263,7 +341,7 @@ function injectProgress(body, done, total, layout, errors) {
 }
 
 // ---------- 图片处理 ----------
-// 只产出「dataURL + crop 样式」，不拼全新 <img> 标签。
+// 只产出「assets 相对路径 + crop 样式」，不拼全新 <img> 标签。
 // 母版 img 上的 data-slot/data-layer/data-label/data-ratio 是编辑器图层的身份证，
 // 必须由 fillSection 在替换 src 时原样保留。
 // 魔数嗅探已搬进 shared/image.mjs——母版槽位、custom 内联、静态单跑共用一份。
@@ -338,10 +416,33 @@ function resolveInTask(src, where, errors) {
 // 因此读图时允许「任务工作区输入」与「临时输出」两个根。
 function readImageValue(src, where, errors) {
   const abs = path.resolve(taskDir, src);
-  if (isInside(abs, taskDir)) return readImage(abs, taskDir, where, errors);
-  if (isInside(abs, OUT)) return readImage(abs, OUT, where, errors);
+  if (isInside(abs, taskDir)) return readImage(abs, taskDir, where, errors, { dataUrl: false });
+  if (isInside(abs, OUT)) return readImage(abs, OUT, where, errors, { dataUrl: false });
   resolveInDir(src, taskDir, where, errors);   // 越界：复用 shared 的同一句报错
   return null;
+}
+
+// 交付素材登记：图片不再内嵌 base64，统一引用 `assets/<文件名>`。
+// 同一文件只登记一次；不同目录下的同名文件加 `-2/-3` 后缀，保证 HTML 引用与 assets/ 实际文件一致。
+const assetRefs = new Map();   // 绝对路径 → assets/<文件名>
+const assetNames = new Set();
+function assetRefFor(file) {
+  const abs = path.resolve(file);
+  const hit = assetRefs.get(abs);
+  if (hit) return hit;
+  const raw = path.basename(abs);
+  // 交付文件名要能安全放进 src：空格/引号/#/?/%/冒号统一换成 -，保留中英文与 ._-。
+  const safe = raw.replace(/["'<>&#?%:\\\s]+/g, '-') || 'asset';
+  const safeExt = path.extname(safe);
+  const base = path.basename(safe, safeExt);
+  let name = safe;
+  let key = name.toLowerCase();   // macOS 常见大小写不敏感文件系统：Foo.png 与 foo.png 不能共存
+  let n = 2;
+  while (assetNames.has(key)) { name = `${base}-${n++}${safeExt}`; key = name.toLowerCase(); }
+  assetNames.add(key);
+  const ref = `assets/${name}`;
+  assetRefs.set(abs, ref);
+  return ref;
 }
 
 function imgValue(v, where, errors, usedFiles, warns) {
@@ -351,7 +452,7 @@ function imgValue(v, where, errors, usedFiles, warns) {
   if (!img) return null;
   usedFiles.push(img.file);
   const buf = img.buf;
-  const dataUrl = img.dataUrl;
+  const src = assetRefFor(img.file);
   let cropStyle = null;
   if (spec.crop) {
     const crop = parseCrop(spec.crop);
@@ -361,18 +462,19 @@ function imgValue(v, where, errors, usedFiles, warns) {
       ? `height:${(100 / crop.fraction).toFixed(1)}%;width:100%;${crop.align === 'end' ? 'bottom:0;top:auto;' : crop.align === 'start' ? 'top:0;bottom:auto;' : 'top:50%;bottom:auto;transform:translateY(-50%);'}`
       : `width:${(100 / crop.fraction).toFixed(1)}%;height:100%;${crop.align === 'end' ? 'right:0;left:auto;' : crop.align === 'start' ? 'left:0;right:auto;' : 'left:50%;right:auto;transform:translateX(-50%);'}`;
   }
-  return { dataUrl, cropStyle, spec, buf };
+  return { src, cropStyle, spec, buf };
 }
 
 // custom 页（补空 / 组合）的图：markup 里的 <img src> 写的是相对任务工作区的路径，
-// 交付 HTML 必须自包含——逐张读文件转 base64 内嵌，复用母版页同一套路径边界与 MIME 校验并登记 usedFiles。
+// 出图时统一改写成交付目录的 `assets/<文件名>`，由写产物阶段把文件复制到 assets/。
+// 复用母版页同一套路径边界与 MIME 校验并登记 usedFiles。
 // 无 src / 空 src 的 <img> 直接报错：图槽没有「可省」机制，写了 img 就必须给图；不要图就删掉整个节点。
 // <style> 块先换成哨兵再扫：注释里举例的 <img> 不是真图，否则正常书写会被硬停。
 function inlineCustomImages(html, where, errors, usedFiles, warns) {
   const { masked, restore } = maskStyleBlocks(html);
   const out = masked.replace(/<img\b[^>]*>/gi, (tag) => {
     if (/\bsrcset\s*=/i.test(tag)) {
-      errors.push(`${where}: <img> 不支持 srcset——交付 HTML 单文件自包含，多倍图不会被内嵌；删掉 srcset 只留 src`);
+      errors.push(`${where}: <img> 不支持 srcset——交付只改写 src，srcset 的多倍图不会被处理；删掉 srcset 只留 src`);
       return tag;
     }
     const m = tag.match(/\bsrc\s*=\s*(["'])([^"']*)\1/i);
@@ -380,16 +482,16 @@ function inlineCustomImages(html, where, errors, usedFiles, warns) {
     const src = m[2].trim();
     if (!src) { errors.push(`${where}: <img> 的 src 为空——填相对任务工作区的图片路径，或删掉整个 img 节点`); return tag; }
     if (/^data:/i.test(src)) {                       // 已内嵌，机器无法校验格式
-      warns.push(`${where}: <img src="data:…"> 已内嵌——建议改相对路径，让工具链统一转码与校验`);
+      warns.push(`${where}: <img src="data:…"> 已内嵌——建议改相对路径，让工具链统一转码、校验并复制进 assets/`);
       return tag;
     }
     if (/^(?:https?:)?\/\//i.test(src)) {
-      errors.push(`${where}: <img> 不接受外链 ${src}——交付 HTML 必须自包含，把图存到任务工作区再写相对路径`);
+      errors.push(`${where}: <img> 不接受外链 ${src}——把图存到任务工作区再写相对路径`);
       return tag;
     }
     const spec = imgValue({ src }, where, errors, usedFiles, warns);
     if (!spec) return tag;                            // 校验失败已记 error，保留原标签让上层 fail
-    return tag.replace(m[0], () => `src="${spec.dataUrl}"`);
+    return tag.replace(m[0], () => `src="${spec.src}"`);
   });
   return restore(out);
 }
@@ -443,9 +545,14 @@ function nearestSlot(k, candidates) {
   return bestD <= 2 ? best : null;
 }
 
-function fillSection(layout, body, fields, errors, warns, usedFiles, meta, nn, total) {
+// slotReports：图槽静态样本（图尺寸 / 槽声明比例 / 偏差），供 buildStaticReport 汇总。
+// 比例判断不在填槽时直接 WARN——同一个结论要同时服务「出图前提示」和「--preflight 表格」，集中算一次。
+function fillSection(layout, body, fields, errors, warns, usedFiles, meta, nn, total, slotReports) {
   const placeholders = [...body.matchAll(/\{\{([^}]+)\}\}/g)].map((m) => m[1].trim());
   const names = [...new Set(placeholders)];
+  // 占位符 → 所在图层的映射必须在替换前算：替换之后 {{名}} 已被文案顶掉，映射无从谈起。
+  // fields.json 的键要用图层 id 而不是占位符名，转写全靠这张表。系统槽映射同源同扫，顺手一起拿。
+  const { slots: slotLayerMap, sys: sysLayerMap } = scanLayerMaps(body);
   const repeatNames = [...body.matchAll(/data-repeat="([^"]+)"/g)].map((m) => m[1]);
   // 图槽识别不依赖属性顺序：扫全部 <img> 标签，标签内同时有 data-slot="image" 与 data-layer 才算图槽
   const imgIds = [];
@@ -576,24 +683,25 @@ function fillSection(layout, body, fields, errors, warns, usedFiles, meta, nn, t
     const opens = [...before.matchAll(/<([a-z0-9]+)\b[^>]*\bclass="[^"]*\bph-img\b[^"]*"[^>]*>/g)];
     const lastOpen = opens[opens.length - 1];
 
-    // ratio 软校验：优先读母版 img 标签；img 上没写则回退读 .ph-img 容器（规范允许两处任写其一）
+    // 图槽比例采样：优先读母版 img 标签；img 上没写则回退读 .ph-img 容器（规范允许两处任写其一）。
+    // 这里只记录事实、不判定，阈值与措辞统一在 buildStaticReport（与渲染后盒形体检同为 15%）。
     const ratioM = origTag.match(/data-ratio="([0-9:]+)"/) || (lastOpen ? lastOpen[0].match(/data-ratio="([0-9:]+)"/) : null);
-    if (ratioM && imgSpec.spec.src && imgSpec.buf) {
-      const [rw, rh] = ratioM[1].split(':').map(Number);
-      // 复用 imgValue 已读的 buf，避免二次 readFileSync
-      // 尺寸头解析 PNG/JPEG/WebP 全支持（imageDims）；GIF 预转换成真 PNG 后才走到这里
+    if (slotReports && imgSpec.buf) {
+      // 复用 imgValue 已读的 buf，避免二次 readFileSync；尺寸头解析 PNG/JPEG/WebP 全支持（imageDims）
       const dims = imageDims(imgSpec.buf);
       if (dims) {
-        const want = rw / rh, got = dims.w / dims.h;
-        if (Math.abs(got - want) / want > 0.45) {
-          // 措辞按 data-fit 分流：cover 差异=裁切量大；contain 差异=留白量大，不裁切
-          const fit = (lastOpen && lastOpen[0].match(/data-fit="([^"]*)"/)?.[1] || 'cover').toLowerCase();
-          warns.push(`${layout}: 图槽 ${id} 比例差异大（槽 ${ratioM[1]} vs 图 ${dims.w}x${dims.h}），${fit === 'contain' ? 'contain 留白量大，核对槽声明或换图' : 'cover 裁切量大，建议 crop'}`);
+        const fit = (lastOpen && lastOpen[0].match(/data-fit="([^"]*)"/)?.[1] || 'cover').toLowerCase();
+        let ratio = null, dev = null;
+        if (ratioM) {
+          const [rw, rh] = ratioM[1].split(':').map(Number);
+          const want = rw / rh;
+          if (want > 0) { ratio = ratioM[1]; dev = Math.abs(dims.w / dims.h - want) / want; }
         }
+        slotReports.push({ nn, layout, id, ratio, fit, w: dims.w, h: dims.h, dev });
       }
     }
 
-    let newTag = origTag.replace(/\bsrc="[^"]*"/, `src="${imgSpec.dataUrl}"`);
+    let newTag = origTag.replace(/\bsrc="[^"]*"/, `src="${imgSpec.src}"`);
     if (imgSpec.cropStyle) {
       // 危险边界：contain 槽（整图完整显示）与 crop 互斥——crop 会把槽放大成条带再强制 cover，
       // 毁掉整图显示且无提示，命中即 fail，二选一。
@@ -745,8 +853,9 @@ function fillSection(layout, body, fields, errors, warns, usedFiles, meta, nn, t
   const dup = layers.filter((v, i) => layers.indexOf(v) !== i);
   if (dup.length) errors.push(`${layout}: data-layer 重复 ${[...new Set(dup)].join(',')}`);
 
-  // 归档系统槽信息供 fields.json 转写：品牌槽值取 meta，page-no/progress 取机械值
-  return { body, unitLayerMaps, sysTally, pageNoValue: pg.pageNoValue, pageNoHidden: pg.hidden, progressValue: pr.progressValue };
+  // 归档系统槽信息供 fields.json 转写：品牌槽值取 meta，page-no/progress 取机械值；
+  // sysLayerMap 给的是「这个系统槽挂在哪个图层上」，键按它写，不按 sys-<值> 猜。
+  return { body, unitLayerMaps, slotLayerMap, sysLayerMap, sysTally, pageNoValue: pg.pageNoValue, pageNoHidden: pg.hidden, progressValue: pr.progressValue };
 }
 let _frame = null;
 function getFrameDataUrl() {
@@ -1003,6 +1112,9 @@ function collectImageSpecs(v, out = []) {
 }
 
 let gifInst = null;   // 转换用浏览器实例；截图阶段复用，避免二次启动
+// GIF 预转换阶段就要登记「已消费的源文件」（原 GIF 不在 usedFiles 里，避免覆盖检查误报），
+// 因此必须在下面的 GIF 块之前初始化；否则带 GIF 的任务会撞 TDZ。
+const consumedSources = new Set();
 {
   const byFile = new Map();   // 绝对路径 → 引用该文件的记录列表：同一 GIF 可被多槽引用，转换一次、全部改写
   for (const ref of collectImageSpecs(targets.map((p) => p.fields || {}))) {
@@ -1018,6 +1130,7 @@ let gifInst = null;   // 转换用浏览器实例；截图阶段复用，避免�
     try {
       gifInst = await launchBrowser(createOptions({ width: 256, height: 256, dsf: 1 }));
       for (const [file, refs] of byFile) {
+        consumedSources.add(path.resolve(file));   // 覆盖检查按「源文件已消费」处理，不报未引用
         const gifB64 = fs.readFileSync(file).toString('base64');
         const dataUrl = await withPage(gifInst, 'about:blank',
           { width: 256, height: 256, dsf: 1, timeout: 20000, fontTimeout: 1000 },
@@ -1059,6 +1172,7 @@ let gifInst = null;   // 转换用浏览器实例；截图阶段复用，避免�
 }
 
 const usedFiles = [];
+const slotReports = [];       // 图槽静态样本（见 fillSection 注释），供出图前预检与 --preflight 汇总
 const allWarns = [];
 const built = [];
 let composedSeen = false;
@@ -1082,7 +1196,7 @@ for (const page of targets) {
     // 自由组合页（带 layoutBase 或 composed- 命名）额外走一遍静态规则；即兴补空页不经过。
     // 规则见 COMPOSED-MODE §2/§3/§5：layoutBase / 类名词表 / 四件套与禁区 / data-role / 填充声明。
     let customHtml = page.markup;
-    // 图片内嵌：custom 页不收集素材，交付 HTML 必须自包含。裸路径 <img src="shots/a.png"> 在这里转 base64；
+    // 图片改路径：custom 页的裸路径 <img src="shots/a.png"> 在这里登记并改写为 assets/<文件名>；
     // 无 src / 空 src 硬停。母版页走 fillSection 的 imgValue，本函数复用同一套边界校验。
     {
       const imgErrors = [];
@@ -1138,8 +1252,8 @@ for (const page of targets) {
   if (!sections.has(layout)) fail(`P${nn}: layout "${layout}" 在 templates.html 中不存在`);
   const fields = page.fields || {};
   const errors = []; const warns = [];
-  const { body, unitLayerMaps, sysTally, pageNoValue, pageNoHidden, progressValue } =
-    fillSection(layout, sections.get(layout), fields, errors, warns, usedFiles, plan.meta, nn, pages.length);
+  const { body, unitLayerMaps, slotLayerMap, sysLayerMap, sysTally, pageNoValue, pageNoHidden, progressValue } =
+    fillSection(layout, sections.get(layout), fields, errors, warns, usedFiles, plan.meta, nn, pages.length, slotReports);
   if (errors.length) {
     console.error(`\n❌ P${nn} · ${layout} 校验失败（即停）：`);
     errors.forEach((e) => console.error('   - ' + e));
@@ -1163,7 +1277,23 @@ for (const page of targets) {
   catch (e) { fail(`P${nn}: 母版 "${layout}" 画布根异常：${e.message}`); }
   const rootClose = '</div>';
   const masterHtml = `  ${rootTag}\n${inner}\n  ${rootClose}`;
-  built.push({ nn, name: page.name || layout, html: masterHtml, custom: false, layout, fields, unitLayerMaps, sysTally, pageNoValue, pageNoHidden, progressValue });
+  built.push({ nn, name: page.name || layout, html: masterHtml, custom: false, layout, fields, unitLayerMaps, slotLayerMap, sysLayerMap, sysTally, pageNoValue, pageNoHidden, progressValue });
+}
+
+// 编辑器契约：属性取值域 + 图层 id 规则，母版页与手写页都查。
+// 违规的后果是打包器抛错（首错即停、一次只报一条），而打包发生在交付之后——出图前拦住，
+// 报错才指得出是哪个属性写错，而不是让人对着一个 10MB 的产物页找。
+// 这里同时收下每页的图层 id 集（checkMarkerContracts 扫描时本就算出来了），fields 转写与落盘自检直接复用。
+for (const b of built) {
+  const { errors: mErrors, warns: mWarns, ids } = checkMarkerContracts(b.html, `P${b.nn} · ${b.name}`);
+  if (mErrors.length) {
+    console.error(`\n❌ P${b.nn} · 编辑器契约校验失败（即停）：`);
+    mErrors.forEach((e) => console.error('   - ' + e));
+    console.error('   取值域真源见 pageApp《HTML产物交接规范》属性表');
+    process.exit(1);
+  }
+  b.layerIdSet = ids;
+  allWarns.push(...mWarns);
 }
 
 // 未实现项自曝 + 未开体检提醒：有 custom 页（补空或组合）时每次运行都喊，避免「以为已受约束」（COMPOSED-MODE §7）
@@ -1174,12 +1304,170 @@ if (customSeen) {
   if (!GEOM) allWarns.push(`WARN: 有${composedSeen ? '自由组合' : '手写'}页但未开 --check-geometry——密度 / 压盖 / 标题孤字${composedSeen ? ' / 全量字号' : ''}均未检查，等于零体检出图（交付前补跑 --check-geometry）`);
 }
 
+// ---------- 静态预检：出图前把「格式 / 图槽比例 / 覆盖 / 完整性 / 版式节奏」一次说清 ----------
+// 背景：填槽阶段本来就能拿到图尺寸与槽声明比例，但旧实现把结论留到最后一行 WARN 才打印，
+// 问题在出图中途就存在、却在截图全跑完之后才看见——只能靠再渲染一轮修正。
+// 这里统一阈值并集中输出：--preflight 打完即退出；正式出图也会在启动浏览器前先亮风险。
+const SLOT_RATIO_WARN = 0.15;      // 与渲染后盒形体检同阈值（IMAGE-WORKFLOW：偏差 ≥15%）
+const FILLING_SLOT_WIDE = 2.2;     // 填充型槽没有 data-ratio，只能按图片形态给风险提示
+const FILLING_SLOT_TALL = 0.6;
+const LAYOUT_RUN_HARD = 3;          // 同一 layout 连续 ≥3 页：--preflight 硬错（2 连放行，兼容上下篇）
+const LAYOUT_SHARE_WARN = 0.4;      // 单一 layout 占比 >40%：只 WARN（图集/清单类可天然集中）
+const RHYTHM_MIN_PAGES = 6;         // 页数太少时占比没有统计意义
+
+// 版式节奏：只看 plan.pages 的 layout 字符串与顺序，不读 catalog、不认母版名、不区分风格——
+// 任何风格（现有或以后新增）都走同一套规则，无需在 render 里加风格分支。
+// 连续同版式是精确信号（硬错）；占比是粗信号（只提示，避免误伤图集/清单类）。
+function buildRhythmReport() {
+  const pages = Array.isArray(plan.pages) ? plan.pages : [];
+  const total = pages.length;
+  const layouts = pages.map((p) => String(p.layout || ''));
+  // `custom/*` 是手写/组合页，按需复用同一结构是正常用法；它们不参与节奏计数。
+  // 这是 plan 级约定（CONTRACT 统一定义），不是某个风格的判断。
+  const skipLayout = (l) => !l || l.startsWith('custom/');
+  const runs = [];
+  let start = 0;
+  for (let i = 1; i <= total; i++) {
+    const prev = layouts[i - 1];
+    const cur = i < total ? layouts[i] : null;
+    if (i === total || cur !== prev || skipLayout(prev) || skipLayout(cur)) {
+      if (!skipLayout(prev) && i - start >= 2) runs.push({ layout: prev, start, len: i - start });
+      start = i;
+    }
+  }
+  const hard = ONLY ? [] : runs.filter((r) => r.len >= LAYOUT_RUN_HARD);
+  const counts = new Map();
+  for (const l of layouts) if (!skipLayout(l)) counts.set(l, (counts.get(l) || 0) + 1);
+  const shares = [...counts.entries()]
+    .map(([layout, count]) => ({ layout, count, share: total ? count / total : 0 }))
+    .sort((a, b) => b.count - a.count);
+  const shareWarn = !ONLY && total >= RHYTHM_MIN_PAGES
+    ? shares.filter((s) => s.share > LAYOUT_SHARE_WARN)
+    : [];
+  return { total, runs, hard, shares, shareWarn, skipped: ONLY };
+}
+
+function buildStaticReport() {
+  const { files, bad: formatBad, ok: formatOk } = collectFormatIssues(taskDir);
+  const usedAbs = new Set([...usedFiles, ...consumedSources].map((f) => path.resolve(f)));
+  const usedBase = [...new Set(usedFiles.map((f) => path.basename(f)))];
+  const rel = (f) => path.relative(taskDir, f).replace(/\\/g, '/');
+
+  // ② 图槽比例：固定比槽按声明值比对；填充型槽按图片形态给风险（无 data-ratio 可对）
+  const ratioBad = [];
+  let ratioOk = 0;
+  for (const s of slotReports) {
+    const got = s.w / s.h;
+    if (s.ratio && s.dev !== null) {
+      if (s.dev >= SLOT_RATIO_WARN) {
+        ratioBad.push({ ...s, got, msg: s.fit === 'contain'
+          ? `偏差 ${Math.round(s.dev * 100)}%，contain 留白大：换一张贴合比例的图`
+          : `偏差 ${Math.round(s.dev * 100)}%，cover 裁切大：按槽预裁或换母版` });
+      } else ratioOk++;
+    } else if (!s.ratio) {
+      if (got > FILLING_SLOT_WIDE || got < FILLING_SLOT_TALL) {
+        ratioBad.push({ ...s, got, msg: got > FILLING_SLOT_WIDE
+          ? '填充型槽（无 data-ratio）遇到超宽图：横向裁切风险，换固定比槽或预裁'
+          : '填充型槽（无 data-ratio）遇到窄竖图：纵向裁切风险，换固定比槽或预裁' });
+      } else ratioOk++;
+    } else ratioOk++;   // data-ratio 解析异常（如 0:1）也计入已检，避免总数对不上
+  }
+
+  // ③ 覆盖：工作区里有、plan 没引用的素材
+  const unused = [];
+  const derived = [];
+  if (!ONLY) {
+    for (const f of files) {
+      if (usedAbs.has(path.resolve(f))) continue;
+      const base = path.basename(f);
+      const stem = base.slice(0, base.length - path.extname(base).length);
+      // 预裁/转码派生件的原料：文件名是已引用件的词干前缀（如 21-nvidia.webp → 21-nvidia-square.png）
+      const isDerived = usedBase.some((b) => b !== base && (b.startsWith(stem + '-') || b.startsWith(stem + '_')));
+      (isDerived ? derived : unused).push(rel(f));
+    }
+  }
+
+  return { files, formatBad, formatOk, ratioBad, ratioOk, unused, derived, slots: slotReports.length, rhythm: buildRhythmReport() };
+}
+
+function printStaticReport(rep, full) {
+  const customCount = built.filter((b) => b.custom).length;
+  const issues = rep.formatBad.length + rep.ratioBad.length + rep.unused.length + rep.rhythm.hard.length;
+  if (!full && !issues && !rep.rhythm.shareWarn.length) return;   // 正式出图只在有风险时提示，避免刷屏
+
+  console.log(full
+    ? '🔍 预检 --preflight：只跑静态校验（不截图、不产出交付）'
+    : '⚠ 出图前静态预检（出图继续，建议先修再跑）');
+  console.log('');
+
+  if (full) console.log(`① 素材格式 · 工作区 ${rep.files.length} 个图片文件，正常 ${rep.formatOk}，需处理 ${rep.formatBad.length}`);
+  else if (rep.formatBad.length) console.log(`① 素材格式 · ${rep.formatBad.length} 个需处理`);
+  for (const r of rep.formatBad) console.log(`   ✗ ${r.file} — ${r.msg}`);
+
+  if (full) console.log(`\n② 图槽比例 · 已检 ${rep.ratioBad.length + rep.ratioOk} 槽（阈值 ${Math.round(SLOT_RATIO_WARN * 100)}%），偏差 ${rep.ratioBad.length} 个`);
+  else if (rep.ratioBad.length) console.log(`\n② 图槽比例 · ${rep.ratioBad.length} 个偏差大`);
+  for (const r of rep.ratioBad) {
+    const slot = r.ratio ? `槽 ${r.ratio}` : '填充型槽（无 data-ratio）';
+    console.log(`   ⚠ P${r.nn} ${r.layout} ${r.id} · ${slot} · 图 ${r.w}×${r.h}（${r.got.toFixed(2)}）— ${r.msg}`);
+  }
+
+  if (full) console.log(`\n③ 素材覆盖 · 已引用 ${new Set(usedFiles).size} 个，未引用 ${rep.unused.length} 个${ONLY ? '（--only 已跳过覆盖检查）' : ''}`);
+  else if (rep.unused.length) console.log(`\n③ 素材覆盖 · ${rep.unused.length} 个未被引用`);
+  for (const f of rep.unused) console.log(`   ⚠ ${f} — 未被任何页引用：弃图请写进素材清单，否则补页`);
+  if (full && rep.derived.length) console.log(`   ✓ ${rep.derived.length} 个派生源（预裁/转码前原图）已跳过：${rep.derived.join('、')}`);
+
+  if (full) {
+    console.log(`\n④ 结构完整性 · 页数 ${built.length}（母版 ${built.length - customCount} / 手写 ${customCount}）· 图槽样本 ${rep.slots} 个${ONLY ? '（--only 只含指定页）' : ''}`);
+    console.log('   字段 / repeat / 图槽填报这类硬错会在执行到此之前直接停下，本表只汇报规模。');
+    if (customCount) console.log('   ⚠ 手写页的密度 / 压盖 / 越界不在静态预检内：正式出图必须带 --check-geometry。');
+  }
+
+  const rhythmIssues = rep.rhythm.hard.length + rep.rhythm.shareWarn.length;
+  if (full || rhythmIssues) {
+    const r = rep.rhythm;
+    const label = (i) => `P${String(plan.pages[i]?.nn || i + 1).padStart(2, '0')}`;
+    if (full) {
+      const maxRun = r.runs.reduce((m, x) => Math.max(m, x.len), 1);
+      console.log(`\n⑤ 版式节奏 · ${r.total} 页 · 最长连续同名 ${maxRun} 页${r.skipped ? '（--only 不参与硬错判定）' : ''}`);
+      console.log('   ' + (r.shares.map((s) => `${s.layout || '(空)'}×${s.count}`).join('  ') || '（无页）'));
+    } else {
+      console.log('\n⑤ 版式节奏');
+    }
+    const mark = full ? '❌' : '⚠';
+    for (const h of r.hard) console.log(`   ${mark} ${h.layout} 连续 ${h.len} 页（${label(h.start)}–${label(h.start + h.len - 1)}）—— 上限 ${LAYOUT_RUN_HARD - 1} 页`);
+    for (const s of r.shareWarn) console.log(`   ⚠ ${s.layout} 占比 ${Math.round(s.share * 100)}%（${s.count}/${r.total}）—— 只提示：图集/清单类可天然集中`);
+  }
+
+  if (full && allWarns.length) {
+    console.log(`\n⑥ 文字与版面类告警 ${allWarns.length} 条（只提示，不拦）：`);
+    for (const w of allWarns) console.log('   - ' + w);
+  }
+
+  console.log('');
+  const advisories = rep.rhythm.shareWarn.length;
+  if (issues) console.log(full
+    ? `❌ 预检发现 ${issues} 处风险：修完素材 / plan 后重跑，再出图`
+    : `⚠ 共 ${issues} 处风险（本次已继续出图；建议修完后重跑）`);
+  else if (full && advisories) console.log(`✅ 无阻断项；另有 ${advisories} 条节奏提示（单一版式占比），交人判断`);
+  else if (full) console.log('✅ 预检通过：无格式 / 比例 / 覆盖 / 版式节奏风险');
+}
+
+const staticReport = buildStaticReport();
+printStaticReport(staticReport, PREFLIGHT);
+if (PREFLIGHT) {
+  console.log('ℹ 预检不产出交付；确认无误后去掉 --preflight 再跑完整出图。');
+  // 硬错：素材格式不符会让 render 直接拒绝；连续同版式 ≥3 是设计硬规则。其余只提示。
+  const blocking = staticReport.formatBad.length + staticReport.rhythm.hard.length;
+  process.exit(blocking ? 2 : 0);
+}
+
 // ---------- 写产物 ----------
-// 只读体检不建 assets、不拷素材副本（与「只读」口径一致：诊断不消费图片文件）
-// 没用到图片时不建空目录（assets/ 只承载用了的素材副本；图形产物由 figure.mjs 自己建目录写 figures/）
-if (!DIAG_ONLY && usedFiles.length) {
+// 图片统一走 assets/ 相对路径：按登记表把素材复制进去（同名文件已在 assetRefFor 去重）。
+// 只读体检也要复制——它的 HTML 同样引用 assets/，否则字体/几何体检会因缺图失真。
+// 没用到图片时不建空目录（assets/ 只承载本次引用的素材）。
+if (usedFiles.length) {
   fs.mkdirSync(path.join(OUT, 'assets'), { recursive: true });
-  for (const f of new Set(usedFiles)) fs.copyFileSync(f, path.join(OUT, 'assets', path.basename(f)));
+  for (const [file, ref] of assetRefs) fs.copyFileSync(file, path.join(OUT, ref));
 }
 
 // 交付页 CSS：防御性剥离 @import 行（默认字体策略为本机字体栈，源 CSS 已不含外链；编辑器打包器拒绝外链）
@@ -1216,8 +1504,7 @@ if (EDITOR_OUT) {
   // 素材副本按 basename 平铺在 assets/，plan 里的 `shots/xxx.png` 只存在于任务工作区，交付目录没有 shots/。
   // 两种写法都要改：对象形态 `{src, crop}` 与字符串形态 `"shots/x.png"`。
   // 判据用「绝对路径命中已用素材表」，不靠键名猜槽类型——字符串槽（纯文案）永远命中不了，天然不受影响。
-  const assetMap = new Map();
-  for (const f of new Set(usedFiles)) assetMap.set(path.resolve(f), `assets/${path.basename(f)}`);
+  const assetMap = assetRefs;
   const toAssetRef = (src) => assetMap.get(path.resolve(taskDir, src)) || src;
   const normField = (v) => {
     if (typeof v === 'string') return toAssetRef(v);
@@ -1225,45 +1512,69 @@ if (EDITOR_OUT) {
     return v;
   };
   const pagesOut = [];
+  const unmappedKeys = [];
   for (const b of built) {
     const flat = {};
-    // custom 页不做槽位填充，plan.fields 对它无效——不转写，避免 fields.json 记页面里不存在的值
-    for (const [k, v] of Object.entries(b.custom ? {} : b.fields)) {
-      if (Array.isArray(v)) {
-        const map = b.unitLayerMaps?.get(k);
-        v.forEach((item, i) => {
-          for (const [ik, iv] of Object.entries(item)) {
-            const layer = map?.get(ik) || ik;           // 单元内短名 → 该元素的 data-layer
-            flat[i === 0 ? layer : `${layer}-${i + 1}`] = normField(iv);
-          }
-        });
-      } else flat[k] = normField(v);
-    }
-    // 系统槽：品牌槽从 meta 展开、页码取机械值，仅当该页母版确有对应 data-sys 槽时写入，
-    // 保证 fields.json 与页面可见内容一致、编辑器打开即见当前值（meta 缺失则该槽保留母版默认，不写）。
-    if (!b.custom && b.sysTally) {
+    const ids = b.layerIdSet;   // 契约校验那一轮已扫出，这里不再重扫
+    // 只在母版页转写：custom 页没有槽位填充通道，文案写死在 markup 里，fields 对它无效
+    if (!b.custom) {
+      for (const [k, v] of Object.entries(b.fields)) {
+        if (Array.isArray(v)) {
+          const map = b.unitLayerMaps?.get(k);
+          v.forEach((item, i) => {
+            for (const [ik, iv] of Object.entries(item)) {
+              const layer = map?.get(ik) || ik;           // 单元内短名 → 该元素的 data-layer
+              flat[i === 0 ? layer : `${layer}-${i + 1}`] = normField(iv);
+            }
+          });
+          continue;
+        }
+        // 键必须是图层的 data-layer id（契约要求键对应源标记），而 plan 的键是 {{占位符}} 名，
+        // 两者常不同名（{{issue}} ↔ sys-issue、{{foot-tag}} ↔ n39-foot-1）——不转写就是一堆对不上节点的死键。
+        // 图槽没有占位符，plan 的键本来就是图层 id（契约：图槽键 = <img> 的 data-layer）——
+        // 查不到占位符映射时退回「键即图层」，否则每个图槽都会被误报成对不上。
+        const targets = b.slotLayerMap?.get(k) || (ids.has(k) ? [k] : []);
+        if (!targets.length) { unmappedKeys.push(`P${b.nn} · ${k}`); continue; }
+        for (const id of targets) flat[id] = normField(v);
+      }
+      // 系统槽：品牌槽从 meta 展开、页码与进度取机械值。键读节点自带的 data-layer，
+      // 不按 `sys-<值>` 拼——拼出来的键在没这么命名图层的母版上指向不存在的图层。
       const brand = plan.meta && plan.meta.brand ? plan.meta.brand : {};
       for (const [sys, key] of Object.entries(SYS_META_KEY)) {
-        if (b.sysTally[sys] && brand[key] !== undefined && brand[key] !== null && brand[key] !== '') {
-          flat[`sys-${sys}`] = String(brand[key]);
-        }
+        if (!b.sysTally || !b.sysTally[sys]) continue;
+        const val = brand[key];
+        if (val === undefined || val === null || val === '') continue;   // meta 缺失则保留母版默认文本，不记
+        for (const id of b.sysLayerMap?.get(sys) || []) flat[id] = String(val);
       }
-      if (b.sysTally['page-no']) flat['sys-page-no'] = b.pageNoValue;   // 封面为 ''，与 display:none 一致
-      if (b.sysTally['progress']) flat['sys-progress'] = b.progressValue;
+      if (b.sysTally && b.sysTally['page-no']) {
+        for (const id of b.sysLayerMap?.get('page-no') || []) flat[id] = b.pageNoValue;   // 封面为 ''，与 display:none 一致
+      }
+      if (b.sysTally && b.sysTally['progress']) {
+        for (const id of b.sysLayerMap?.get('progress') || []) flat[id] = b.progressValue;
+      }
     }
     pagesOut.push({ id: `p${b.nn}`, fields: flat });
   }
-  fs.writeFileSync(path.join(OUT, 'fields.json'), JSON.stringify({ canvas: { width: 1080, height: 1440 }, pages: pagesOut }, null, 2));
+  if (unmappedKeys.length) {
+    allWarns.push(`fields.json: ${unmappedKeys.length} 个 plan 键找不到所在图层（${unmappedKeys.slice(0, 4).join(' / ')}${unmappedKeys.length > 4 ? ' …' : ''}）——这些值不记入契约初稿`);
+  }
+  // 落盘前自检：每个键都要在页内真有对应图层。契约把「键 = data-layer id」定死了，
+  // 键对不上不会报错——pageApp 将来读到这份初稿时静默取不到值，打包期也不会报，只能在这里拦。
+  // 普通槽由 slotLayerMap 从同一份 html 推出，天然指得到；真正需要这张网的是 repeat 单元：
+  // 短名经 unitLayerMaps 映射，映射缺失时会原样落到键上。
+  for (let i = 0; i < pagesOut.length; i++) {
+    const pageIds = built[i].layerIdSet;
+    const bad = Object.keys(pagesOut[i].fields).filter((k) => !pageIds.has(k));
+    if (bad.length) fail(`fields.json · P${built[i].nn}: 键 ${bad.slice(0, 6).join(', ')}${bad.length > 6 ? ' …' : ''} 在页内没有对应图层（编辑器按 data-layer 找节点，键必须等于图层 id）`);
+  }
+  fs.writeFileSync(path.join(OUT, 'fields.json'), JSON.stringify({ canvas: MANIFEST_DEFAULTS.canvas, pages: pagesOut }, null, 2));
 }
 
 // editor.manifest.json（同上：仅 --with-editor 生成，且 --only / 只读体检都不写）
 if (EDITOR_OUT) {
-  fs.writeFileSync(path.join(OUT, 'editor.manifest.json'), JSON.stringify({
-    format: 'pageapp-editor-manifest', version: 1,
-    root: '.artwork-page', canvas: { width: 1080, height: 1440 }, layerMode: 'markers',
-    assetDirs: ['./assets'],
-    pages: built.map((b) => ({ file: `P${b.nn}-${b.name}.html`, id: `p${b.nn}`, name: `P${b.nn} · ${b.name}` })),
-  }, null, 2));
+  fs.writeFileSync(path.join(OUT, 'editor.manifest.json'), JSON.stringify(buildManifest(
+    built.map((b) => ({ file: `P${b.nn}-${b.name}.html`, id: `p${b.nn}`, name: `P${b.nn} · ${b.name}` })),
+  ), null, 2));
 }
 
 // ---------- 字体体检输出（--font-report）----------
@@ -1284,7 +1595,7 @@ function printFontReport(rep, tag) {
 }
 
 // ---------- 截图 ----------
-const opts = createOptions({ selector: '.artwork-page', waitSelector: '.artwork-page', timeout: 60000 });
+const opts = createOptions({ timeout: 60000 });
 const inst = gifInst || await launchBrowser(opts);   // GIF 预转换已启动浏览器时直接复用
 try {
   for (const b of built) {
@@ -1585,9 +1896,15 @@ try {
   // preview.png 总览：跨页聚合件，--only（含只读体检）只跑了部分页，拼图只会把多页总览覆盖成残缺版，故不写
   if (!ONLY) {
     const files = built.map((b) => `P${b.nn}-${b.name}.png`);
+    // preview 列数按页数自适应：页少时单页更大，便于直接用 preview 判断版面；
+    // 页多时才收成 4 列，避免拼图过高。1 页单列，2–4 页 2 列，5–8 页 3 列，>8 页 4 列。
+    const cols = built.length === 1 ? 1
+      : built.length <= 4 ? 2
+      : built.length <= 8 ? 3
+      : 4;
     const gridHtml = `<!doctype html><html><head><meta charset="utf-8"><style>
       body{margin:0;background:#ECEEF3;font-family:sans-serif;padding:16px;}
-      .g{display:grid;grid-template-columns:repeat(${Math.min(4, built.length)},1fr);gap:12px;}
+      .g{display:grid;grid-template-columns:repeat(${cols},1fr);gap:12px;}
       img{width:100%;display:block;border:1px solid #d5d9e0;}
     </style></head><body><div class="g">
       ${files.map((f) => `<img src="file:///${path.join(OUT, f).replace(/\\/g, '/')}">`).join('\n')}
@@ -1617,7 +1934,7 @@ if (DELIVERY) {
   // --force 只覆盖白名单，不删旧文件；旧页数比这次多时会留下上次的 P 页，交付物就不再是「本次全量」
   {
     const allowed = new Set(white);
-    if (WITH_EDITOR) allowed.add('assets');
+    allowed.add('assets');
     const extra = fs.readdirSync(DELIVERY).filter((f) => !f.startsWith('.') && !allowed.has(f));
     if (extra.length) console.warn(`⚠ 交付目录里有 ${extra.length} 个非本次产物（--force 不删，请人工确认是否该留在交付里）：${extra.slice(0, 8).join(', ')}${extra.length > 8 ? ' …' : ''}`);
   }
@@ -1626,16 +1943,14 @@ if (DELIVERY) {
     if (!fs.existsSync(src)) fail(`交付白名单文件缺失：${f}`);
     fs.copyFileSync(src, path.join(DELIVERY, f));
   }
-  if (WITH_EDITOR) {
-    // 逐文件拷贝（不用 fs.cpSync：该调用在本环境会令进程静默退出 127）
-    const a = path.join(OUT, 'assets');
-    if (fs.existsSync(a)) {
-      const dstA = path.join(DELIVERY, 'assets');
-      fs.mkdirSync(dstA, { recursive: true });
-      for (const f of fs.readdirSync(a)) {
-        const s = path.join(a, f);
-        if (fs.statSync(s).isFile()) fs.copyFileSync(s, path.join(dstA, f));
-      }
+  // assets/ 是默认交付的一部分（HTML 按相对路径引用），与是否开编辑器无关
+  const a = path.join(OUT, 'assets');
+  if (fs.existsSync(a)) {
+    const dstA = path.join(DELIVERY, 'assets');
+    fs.mkdirSync(dstA, { recursive: true });
+    for (const f of fs.readdirSync(a)) {
+      const s = path.join(a, f);
+      if (fs.statSync(s).isFile()) fs.copyFileSync(s, path.join(dstA, f));
     }
   }
   delivered = { dir: DELIVERY, count: white.length };
@@ -1648,12 +1963,18 @@ if (DIAG_ONLY) {
 } else if (delivered) {
   fs.rmSync(OUT, { recursive: true, force: true });
   console.log(`\n✅ ${built.length} 页出图完毕`);
-  console.log(`📦 交付目录 → ${delivered.dir}（${delivered.count} 个文件${WITH_EDITOR ? ' + assets/' : ''}；plan.json / 过程件未拷入）`);
+  console.log(`📦 交付目录 → ${delivered.dir}（${delivered.count} 个文件 + assets/；plan.json / 过程件未拷入）`);
   console.log('🧹 系统临时产物已清理；任务工作区只保留 plan.json / 素材 / 清单 md');
 } else {
   keepOut = true;   // 未交付的产物留给用户看效果，退出钩子不删
   console.log(`\n✅ ${built.length} 页出图完毕 → ${OUT}（系统临时目录）`);
   console.log('ℹ 未指定 --delivery 或 plan.delivery：产物只留在系统临时区，任务工作区未写入 HTML/PNG');
+}
+if (EDITOR_OUT) {
+  // 必须说清：fields.json 今天没有消费者。页面文案 render 已经写进 HTML，编辑器打开看到的就是最终稿；
+  // fields 只是契约件（pageApp T6「读生成期初稿」未落）。不说这句，下一个人会以为改 fields 能改文案。
+  console.log('ℹ 编辑器材料：fields.json / editor.manifest.json 已写出；fields.json 当前无消费者（pageApp 仍不读生成期初稿），改文案请改 plan 或页面 HTML');
+  console.log('   下一步：cd <pageApp>/demo && node pack.mjs "<交付目录>"，再打开 covers-edit.html');
 }
 if (allWarns.length) {
   console.log('⚠ 软校验 WARN:');

@@ -1,6 +1,7 @@
 // 自由组合页静态校验（layout: custom/composed-* + layoutBase）
 // 定位：custom/ 下两条路都查——有 layoutBase 的走本模块组合页规则（checkComposed），
-//   无 layoutBase 的走 checkCustomBasics（根三件套 / 禁区 / 内联 style / data-layer 唯一）。
+//   无 layoutBase 的走 checkCustomBasics（根三件套 / 禁区 / 内联 style）。
+//   图层 id 唯一属编辑器契约，真源在 shared/editor.mjs（render 与 CLI 都调那一份，不在这里重复）。
 //   图片两边都查，且与 render 同源（shared/image.mjs 的 checkImgTags）——否则「单跑绿、出图红」
 //   会从图片这一项重新长回来。系统槽的静态检查在 checkComposed 内部（scanSysTags）。
 // 边界：本模块只做 markup / plan 字符串级检查。字号档（需 computedStyle）属 CDP 阶段，
@@ -11,9 +12,11 @@ import fs from 'node:fs';
 import path from 'node:path';
 import url from 'node:url';
 import { rootOf, maskStyleBlocks } from './shared/markup.mjs';
+import { CANVAS_SIZE_ATTR, ROOT_CLASS } from './shared/canvas.mjs';
 import { checkImgTags } from './shared/image.mjs';
 import { plainCss, scanDeclarations } from './shared/css.mjs';
 import { scanSysTags, checkPlaceholderHosts } from './shared/sys-slots.mjs';
+import { checkMarkerContracts } from './shared/editor.mjs';
 import { extractPageCss, checkPageCss } from './page-css.mjs';
 
 // 已实测副作用、可作 layoutBase 的骨架（COMPOSED-MODE §2）。必须是常量而不是推导：
@@ -22,7 +25,7 @@ export const LAYOUT_BASES = ['n01', 'n10', 'n11', 'n12', 'n14', 'n15', 'n18', 'n
 
 // 结构类白名单。`.content` 在 style.css 里没有裸定义（32 条 `.nNN .content` 规则，覆盖 29 个骨架），
 // 派生法会把它判成私有类；四件套又强制它存在，故必须显式豁免。
-const STRUCT_CLASSES = ['artwork-page', 'paper-noise', 'brand-top', 'after-hero', 'content', 'pg-footer'];
+const STRUCT_CLASSES = [ROOT_CLASS, 'paper-noise', 'brand-top', 'after-hero', 'content', 'pg-footer'];
 
 // 填充两枚类：定义在 style.css 共享段（.fill-grow / .fill-sink），与 COMPOSED-MODE §4.1 同步。
 // 只在本模块内消费（render 不需要这份表），不 export——多一个导出就多一条没人维护的对外契约。
@@ -213,7 +216,9 @@ function classTokens(html) {
 // 两个入口各写一份正则，迟早会出现「单跑绿、出图红」的假绿。
 export const CUSTOM_FORBIDDEN_RE = /position\s*:\s*fixed|@media|@import|@font-face|url\s*\(|<\s*\/?\s*(?:script|animate|animatetransform|animatemotion|set)\b|animation\s*:|transition\s*:/i;
 
-// 通用硬检查：根三件套 + 禁区属性 + 内联样式 + data-layer 页内唯一。
+// 通用硬检查：根三件套 + 禁区属性 + 内联样式。
+// 图层 id 唯一不在这里查：那是编辑器契约（pageApp 构建期报错项），真源在 shared/editor.mjs，
+// 由 render 的统一契约校验与 CLI 的同一次调用覆盖——这里再写一份正则，会让同一个重复 id 报两条。
 // render 对所有 custom 页调用，CLI 经 checkComposed 调用——同一份实现，两个入口不许各写一套。
 // allowStyleBlock：组合页有页内 <style>（视觉值走令牌校验），补空页连 <style> 块都禁——
 // 「只用 style.css 既有类」是补空页的硬约束，靠人审会漏，所以并进这里。
@@ -224,15 +229,12 @@ export function checkCustomBasics(markup, label = '', { allowStyleBlock = false 
   catch (e) { return [`${label}根节点异常：${e.message}`]; }
   if (!/data-artwork/.test(rootTag)) errors.push(`${label}根节点缺 data-artwork`);
   // 属性值允许单双引号与等号两侧空白：判档与 render 的宽松实现保持一致
-  if (!/data-size\s*=\s*["']1080x1440["']/.test(rootTag)) errors.push(`${label}根节点缺 data-size="1080x1440"`);
+  const sizeRe = new RegExp(`data-size\\s*=\\s*["']${CANVAS_SIZE_ATTR}["']`);
+  if (!sizeRe.test(rootTag)) errors.push(`${label}根节点缺 data-size="${CANVAS_SIZE_ATTR}"`);
   // 报出具体命中的那一小段，别只说「含禁区属性」——否则 @import / url() 这类新增命中项
   // 只给一句笼统提示，写的人不知道是哪一条
   const forbidden = markup.match(CUSTOM_FORBIDDEN_RE);
   if (forbidden) errors.push(`${label}含禁区属性：${forbidden[0].trim()}（布局劫持 position:fixed / @media / 脚本动画标签 / 动效 CSS）`);
-  // 单双引号都认：手写 markup 用 ' 也合法，只认双引号会让 'dup' 两处静默通过
-  const layers = [...markup.matchAll(/data-layer\s*=\s*(["'])([^"']+)\1/g)].map((m) => m[2]);
-  const dup = layers.filter((v, i) => layers.indexOf(v) !== i);
-  if (dup.length) errors.push(`${label}data-layer 重复 ${[...new Set(dup)].join(',')}`);
   // 内联样式两类都禁：组合页该写进页内 <style>（好让令牌校验一处扫完），补空页根本没有样式通道。
   if (/<[a-zA-Z][^>]*\sstyle\s*=\s*["']/i.test(markup)) {
     errors.push(allowStyleBlock
@@ -334,8 +336,8 @@ export function checkComposed({ nn, page, total, cssFile, baseDir = '' }) {
   if (badScoped.length) errors.push(`原样搬用了母版专属类（n<nn>- 前缀）：${badScoped.join(', ')}——本页根上只有 layoutBase 一个母版类，原样搬来拿不到它的 CSS 定义会静默失效。复制母版组件的结构是允许的：把类名改成自造名，在页内 <style> 用令牌重写样式即可（见 COMPOSED-MODE.md §5；fail 2 只拦无定义的类名，不是禁止复制）`);
   if (badUnknown.length) errors.push(`未定义类名：${badUnknown.join(', ')}——自造类必须在页内 <style> 有定义，或在 style.css 共享段有裸定义并登记 components.md`);
 
-  // —— fail 3：四件套 / 禁区 / 标注唯一 ——
-  // 禁区、内联样式与 data-layer 用 checkCustomBasics（与 render 同一份实现），否则单跑会「绿着出坏图」。
+  // —— fail 3：四件套 / 禁区 ——
+  // 禁区与内联样式用 checkCustomBasics（与 render 同一份实现），否则单跑会「绿着出坏图」。
   // 组合页放行页内 <style>（下面的令牌校验扫它），补空页不放行——两者的样式通道不同。
   errors.push(...checkCustomBasics(markup, '', { allowStyleBlock: true }));
   // 图片：与 render 同源（shared/image.mjs 的 checkImgTags）。静态单跑跳过这一项的话，
@@ -374,7 +376,7 @@ export function checkComposed({ nn, page, total, cssFile, baseDir = '' }) {
   // 编辑器 pack.mjs 只认有 data-layer 的节点。故只强制两类最该可编辑的节点：
   //   ① 系统槽（data-sys=...）——注入链路已认它，标注后品牌/期号/页码可在编辑器里改；
   //   ② 主标题（data-role=cover-title/page-title/closing-quote）——最高频改字对象。
-  // 其余文本节点不强制（写了 data-layer 就必须唯一，已由 checkCustomBasics 查）。
+  // 其余文本节点不强制（写了 data-layer 就必须唯一，由 shared/editor.mjs 的契约校验查）。
   const editableNodes = [...markup.matchAll(/<([a-z0-9]+)\b([^>]*)>/gi)].filter((m) => /\bdata-(sys|role)\s*=/.test(m[2]));
   for (const m of editableNodes) {
     const attrs = m[2];
@@ -491,6 +493,11 @@ if (process.argv[1] && import.meta.url === url.pathToFileURL(path.resolve(proces
     } else {
       ({ errors, warns } = checkCustomPage(String(page.markup || ''), { baseDir, label: `P${nn}: custom markup ` }));
     }
+    // 编辑器契约（属性取值域 / 图层 id）：出图侧也会查，单跑也查同一份——
+    // 少了它，markup 里的非法 data-layer 要等打包器首错即停才暴露，而那时交付已经完成。
+    const marks = checkMarkerContracts(String(page.markup || ''), `P${nn}: custom markup `);
+    errors.push(...marks.errors);
+    warns.push(...marks.warns);
     if (errors.length || warns.length) console.log(`\nP${nn} · ${page.layout}${page.layoutBase ? ` (${page.layoutBase})` : ''}`);
     errors.forEach((e) => console.log('  ❌ ' + e));
     warns.forEach((w) => console.log('  ⚠ ' + w));

@@ -179,7 +179,7 @@
 </div>
 ```
 
-- **图片写相对任务工作区的路径**（`<img src="shots/a.png">`），出图时自动转 base64 内嵌（`custom/composed-*` 页不收集素材、不产 `assets/`）；写了 img 就必须给图，无 src 硬停。
+- **图片写相对任务工作区的路径**（`<img src="shots/a.png">`），出图时自动复制进交付 `assets/` 并把 src 改写为 `assets/<文件名>`；写了 img 就必须给图，无 src 硬停。
 - `<img>` 绝对定位铺满容器；`data-fit="cover"` 裁切填满，`contain` 完整显示。
 - 有图后给容器补 `data-filled`，或删掉 `.ph-img__label`，否则占位文字浮在图上。
 - **容器尺寸没有共享定义**：宽高由 `layoutBase` 的网格 / flex 决定，或写在所在单元容器内；词表不提供「万能图框」。

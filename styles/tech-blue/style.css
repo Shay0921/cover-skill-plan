@@ -2345,7 +2345,8 @@ html,body{margin:0;padding:0;background:#ECEEF3;font-family:var(--sans);}
 .n41 .mega-hero .hero-text .title{font-size:var(--fs-7-2);}
 .n41 .content{flex:1;min-height:0;display:flex;flex-direction:column;gap:var(--space-14);margin:var(--space-20) var(--space-page);}
 .n41-grid{flex:1;min-height:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--space-14);}
-/* 2 张改上下两行；3/4 张维持 2 列，末位自然落单不空塌 */
+/* 固定 4 张 2×2 满格（唯一口径：templates/catalog/SKILL 均写固定 4 条）。
+   下方 :has 单列规则仅为兼容旧产物保留，不是"可填 2 张"的依据：2 张被 flex 拉高留白、3 张右下空一格，均视觉失衡。 */
 .n41-grid:has(> :nth-child(2):last-child){grid-template-columns:1fr;}
 .n41-card{
   display:flex;flex-direction:column;gap:var(--space-12);

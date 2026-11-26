@@ -26,6 +26,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import url from 'node:url';
 import { launchBrowser, closeBrowser, withPage, evaluate, createOptions, WIDTH_SAMPLES } from './shared/cdp.mjs';
+import { ROOT_CLASS } from './shared/canvas.mjs';
 
 const ROOT = path.resolve(path.dirname(url.fileURLToPath(import.meta.url)), '..');
 const OUT = path.join(ROOT, 'script', 'font-weights.json');
@@ -70,7 +71,7 @@ const PROBE_HTML = path.join(path.dirname(url.fileURLToPath(import.meta.url)), '
 function buildProbeHtml() {
   const rows = families.map((f, i) =>
     `<div class="probe" data-i="${i}" style="font:400 100px &quot;${f.replace(/"/g, '')}&quot;;">中文ABC测试Wm 0123</div>`).join('\n');
-  return `<!doctype html><html><head><meta charset="utf-8"></head><body><div class="artwork-page">${rows}</div></body></html>`;
+  return `<!doctype html><html><head><meta charset="utf-8"></head><body><div class="${ROOT_CLASS}">${rows}</div></body></html>`;
 }
 
 const opts = createOptions({ width: 900, height: 300, dsf: 1 });

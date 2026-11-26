@@ -15,16 +15,28 @@ const IMAGE_MIME = {
 // 魔数嗅探：读文件头判真实格式，与扩展名声明的 MIME 交叉校验。
 // GIF 伪装成白名单后缀（如改名 .png）会在此被拦——浏览器虽按内容解码能显示，
 // 但编辑器 pack.mjs 嗅探内容后整批拒绝。
-function sniffMime(buf) {
+// AVIF/HEIC 也识别：它们不在白名单里，识别出来只为把「无法识别」升级成确切格式名。
+// 典型场景：素材扩展名是 .png、内容实际是 AVIF——不认出来时只能报「无法识别」，认出来才能直接说「转码」。
+export function sniffMime(buf) {
   if (buf.length >= 8 && buf.toString('hex', 0, 8) === '89504e470d0a1a0a') return 'image/png';
   if (buf.length >= 3 && buf.toString('hex', 0, 3) === 'ffd8ff') return 'image/jpeg';
   if (buf.length >= 12 && buf.toString('latin1', 0, 4) === 'RIFF' && buf.toString('latin1', 8, 12) === 'WEBP') return 'image/webp';
   if (buf.length >= 4 && buf.toString('latin1', 0, 4) === 'GIF8') return 'image/gif';
+  // ISO-BMFF（ftyp）容器：AVIF / HEIC 共用同一段文件头，靠 major brand 区分
+  if (buf.length >= 12 && buf.toString('latin1', 4, 8) === 'ftyp') {
+    const brand = buf.toString('latin1', 8, 12);
+    if (brand === 'avif' || brand === 'avis') return 'image/avif';
+    if (['heic', 'heix', 'hevc', 'hevx'].includes(brand)) return 'image/heic';
+    // mif1/msf1 是通用容器：AVIF 常把它当 major brand、再在 compatible brands 里声明 avif
+    if (brand === 'mif1' || brand === 'msf1') {
+      return buf.toString('latin1').includes('avif') ? 'image/avif' : 'image/heif';
+    }
+  }
   return null;
 }
 
 // 图片路径边界校验：src 必须解析在任务工作区内。
-// 绝对路径与 ../ 逃逸会把本机任意文件 base64 内嵌进交付 HTML（数据外泄面），入口即拦；
+// 绝对路径与 ../ 逃逸会把本机任意文件复制进交付 assets/（数据外泄面），入口即拦；
 // Windows 盘符差异由 path.relative 天然兼容。越界只认 `..` 本身或 `../` 开头——
 // 用 startsWith('..') 会误拦 `..foo.png` / `...png` 这类合法文件名。
 export function resolveInDir(src, baseDir, where = '', errors = null) {
@@ -67,9 +79,9 @@ export function readImage(src, baseDir, where = '', errors = [], { dataUrl = tru
 export function checkImgTags(markup, baseDir, label, errors, warns) {
   for (const m0 of markup.matchAll(/<img\b[^>]*>/gi)) {
     const tag = m0[0];
-    // 与 render 口径一致：交付 HTML 单文件自包含，srcset 的多倍图不会被内嵌，直接拦。
+    // 与 render 口径一致：交付只改写 src，srcset 的多倍图不会被处理，直接拦。
     if (/\bsrcset\s*=/i.test(tag)) {
-      errors.push(`${label}<img> 不支持 srcset——交付 HTML 单文件自包含，多倍图不会被内嵌；删掉 srcset 只留 src`);
+      errors.push(`${label}<img> 不支持 srcset——交付只改写 src，srcset 的多倍图不会被处理；删掉 srcset 只留 src`);
     }
     const m = tag.match(/\bsrc\s*=\s*(["'])([^"']*)\1/i);
     if (!m) {
@@ -82,11 +94,11 @@ export function checkImgTags(markup, baseDir, label, errors, warns) {
       continue;
     }
     if (/^data:/i.test(src)) {
-      warns.push(`${label}<img src="data:…"> 已内嵌——机器无法校验其格式，建议改相对路径让工具链统一转码`);
+      warns.push(`${label}<img src="data:…"> 已内嵌——机器无法校验其格式，建议改相对路径让工具链统一转码、校验并复制进 assets/`);
       continue;
     }
     if (/^(?:https?:)?\/\//i.test(src)) {
-      errors.push(`${label}<img> 不接受外链 ${src}——交付 HTML 必须自包含，把图存到任务工作区再写相对路径`);
+      errors.push(`${label}<img> 不接受外链 ${src}——把图存到任务工作区再写相对路径`);
       continue;
     }
     readImage(src, baseDir, `${label}<img>`, errors, { dataUrl: false });
