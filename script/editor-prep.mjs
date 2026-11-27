@@ -6,11 +6,11 @@
  * 这时候任务工作区的 plan.json 通常已经没了，重跑 render 这条路走不通；
  * 本脚本只读交付目录里的 P 页 HTML，就地补出 editor.manifest.json，PNG 与页面一个字都不动。
  *
- * 只补 manifest，不补 fields.json：编辑器不读生成期 fields（pageApp 契约 §6「T6 剩余」），
+ * 只补 manifest，不补 fields.json：编辑器不读生成期 fields（pageApp 契约自述「读生成期初稿」尚未实现），
  * 而事后从 HTML 反解文本填 fields 会破 span.hl 结构、且天然拿不到图槽的 crop——为一个没有消费者的文件
  * 造第二条转写路径，只会让「键 = data-layer」这条单一真源出现两个版本。要 fields 就走重跑 render 那条路。
  *
- * 补完自己复检（与 editor-contract 同一份 auditDelivery）：补件不验等于没补。
+ * 补件前用与 editor-contract 同一份 auditDelivery 验一遍：补件不验等于没补。
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -95,9 +95,6 @@ if (before === after) {
   }
 }
 
-// 复检走同一个 auditDelivery：写入的是刚生成的 manifest，必然自洽——这一步证明的是「加上它之后整目录能打包」，
-// 而不是再猜一遍 manifest 对不对。
 for (const w of preWarns) console.warn('⚠ ' + w);
-console.log(`✅ 复检通过：${pages.length} 页 · 图层 ${pre.layerCount} 个`);
 console.log('ℹ 未生成 fields.json：编辑器不读生成期 fields（打开看到的就是 HTML 终稿）；需要它就重跑 render 加 --with-editor');
-console.log(`\n下一步：cd <pageApp>/demo && node pack.mjs "${dir}"，再打开 covers-edit.html`);
+console.log(`\n下一步：node <pageApp>/demo/pack.mjs "${dir}"，再打开 covers-edit.html`);

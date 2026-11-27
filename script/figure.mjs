@@ -102,7 +102,7 @@ function injectTokens(doc, rootCss) {
   return doc.slice(0, at) + tag + doc.slice(at);
 }
 
-// 风格解析：--style=tech-blue | --style=styles/tech-blue/style.css | 退化：文件同级有 style.css 就用它
+// 风格解析：--style=tech-blue | --style=styles/tech-blue/style.css | 退化：图形文件父目录有 style.css 就用它
 function resolveStyle(v) {
   if (!v) return null;
   if (!v.includes('/') && !v.includes('\\')) {
@@ -131,7 +131,7 @@ if (flags['no-tokens']) {
   console.log('· 该文件未引用 var() 令牌，跳过注入');
 } else if (!stylePath) {
   console.error('✗ 没解析到图形所属风格的 style.css —— 图形必须带风格，拒绝出图。');
-  console.error('  顺序上先定风格（SKILL 八步第 1 步），再按该风格画图形：令牌、字体、配色都来自 style.css。');
+  console.error('  先定风格再画图形：令牌、字体、配色都来自该风格的 style.css。');
   console.error('  修法：显式指定风格 → --style=tech-blue（等价于 styles/tech-blue/style.css）');
   console.error('  只想看这份文件本身长什么样：加 --no-tokens（不注入，用文件自带的兜底令牌）。');
   process.exit(1);

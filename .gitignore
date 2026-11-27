@@ -31,7 +31,6 @@ work/
 
 # 本地会话数据（只忽略、不删除）
 .workbuddy/
-runs/
 
 # 本地备份（只忽略、不删除）
 .backup/

@@ -3,8 +3,7 @@
 // 为什么出图侧要自己查一遍：pack.mjs 打包时才校验，且首错即停、一次只报一条——等它报出来，交付已经做完了。
 //
 // 扫描口径与 pageApp lib/markers.mjs 逐条对齐（它读哪几条属性、每条的合法值、哪些元素算图层），
-// 那边放开一个取值这里才跟着放开。差分测试（同一批 markup 双跑两边）是唯一验收方式，别凭读代码判断，
-// 工具在 dev：final/03-母版创建规范/check-editor-contract.mjs。
+// 那边放开一个取值这里才跟着放开。差分测试（同一批 markup 双跑两边）是唯一验收方式，别凭读代码判断。
 // 本库只多三处判断：缺 data-label 只 WARN、根节点不得带 data-layer、标记挂在非图层元素上只 WARN。
 
 import { ROOT_SELECTOR, CANVAS } from './canvas.mjs';
@@ -28,7 +27,7 @@ export function buildManifest(pages) {
 
 const LAYER_TYPES = new Set(['text', 'group', 'image']);
 const ID_PATTERN = /^[A-Za-z0-9_-]+$/;
-// 取值域真源不在本仓：改这里之前先确认 pageApp 契约没变（复核动作见 final/03 §2.4，不在生产文档留步骤）。
+// 取值域真源不在本仓：改这里之前先确认 pageApp 契约与标记实现没变。
 const MARKER_ATTRS = ['data-layer', 'data-label', 'data-type', 'data-editable', 'data-group', 'data-slot'];
 const VOID = new Set(['area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source', 'track', 'wbr',
   'circle', 'ellipse', 'line', 'path', 'polygon', 'polyline', 'rect', 'stop', 'use']);
@@ -60,7 +59,7 @@ function findTagEnd(html, start) {
 
 // 标签扫描（带位置，供图层映射取标签之间的文本）。注释 / doctype / 处理指令跳过，
 // <style> / <script> 内容整段跳过——CSS 里的 .a > .b 不是标签，不跳会被拼成假元素。
-function scanTags(html) {
+export function scanTags(html) {
   const out = [];
   let i = 0;
   while (i < html.length) {

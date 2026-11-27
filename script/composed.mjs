@@ -16,7 +16,7 @@ import { CANVAS_SIZE_ATTR, ROOT_CLASS } from './shared/canvas.mjs';
 import { checkImgTags } from './shared/image.mjs';
 import { plainCss, scanDeclarations } from './shared/css.mjs';
 import { scanSysTags, checkPlaceholderHosts } from './shared/sys-slots.mjs';
-import { checkMarkerContracts } from './shared/editor.mjs';
+import { checkMarkerContracts, scanTags } from './shared/editor.mjs';
 import { extractPageCss, checkPageCss } from './page-css.mjs';
 
 // 已实测副作用、可作 layoutBase 的骨架（COMPOSED-MODE §2）。必须是常量而不是推导：
@@ -377,14 +377,15 @@ export function checkComposed({ nn, page, total, cssFile, baseDir = '' }) {
   //   ① 系统槽（data-sys=...）——注入链路已认它，标注后品牌/期号/页码可在编辑器里改；
   //   ② 主标题（data-role=cover-title/page-title/closing-quote）——最高频改字对象。
   // 其余文本节点不强制（写了 data-layer 就必须唯一，由 shared/editor.mjs 的契约校验查）。
-  const editableNodes = [...markup.matchAll(/<([a-z0-9]+)\b([^>]*)>/gi)].filter((m) => /\bdata-(sys|role)\s*=/.test(m[2]));
-  for (const m of editableNodes) {
-    const attrs = m[2];
-    const kind = /\bdata-sys\s*=/.test(attrs) ? 'data-sys' : 'data-role';
-    const hasLayer = /\bdata-layer\s*=\s*["'][^"']+["']/.test(attrs);
-    const hasEditable = /\bdata-editable\s*=\s*["']text["']/.test(attrs);
-    if (!hasLayer) errors.push(`fail 8: <${m[1]}> 带 ${kind} 却缺 data-layer——编辑器认不到该图层，改字会失效`);
-    else if (!hasEditable) errors.push(`fail 8: <${m[1]}> 带 ${kind} 却缺 data-editable="text"——编辑器认到图层但不可编辑`);
+  // 标签扫描共用 shared/editor.mjs 的引号感知实现：属性值里出现 > 时不能截断标签，
+  // 否则 data-layer 写在后面就会被误判成缺失（同一段 markup 有两套扫描口径必然漂移）。
+  for (const t of scanTags(markup)) {
+    if (t.closing) continue;
+    const kind = t.attrs.has('data-sys') ? 'data-sys' : t.attrs.has('data-role') ? 'data-role' : null;
+    if (!kind) continue;
+    const layer = t.attrs.get('data-layer');
+    if (!layer || !layer.trim()) errors.push(`fail 8: <${t.tag}> 带 ${kind} 却缺 data-layer——编辑器认不到该图层，改字会失效`);
+    else if (t.attrs.get('data-editable') !== 'text') errors.push(`fail 8: <${t.tag}> 带 ${kind} 却缺 data-editable="text"——编辑器认到图层但不可编辑`);
   }
 
   // —— fail 4：data-role 值与主标题唯一 ——

@@ -1305,8 +1305,7 @@ if (customSeen) {
 }
 
 // ---------- 静态预检：出图前把「格式 / 图槽比例 / 覆盖 / 完整性 / 版式节奏」一次说清 ----------
-// 背景：填槽阶段本来就能拿到图尺寸与槽声明比例，但旧实现把结论留到最后一行 WARN 才打印，
-// 问题在出图中途就存在、却在截图全跑完之后才看见——只能靠再渲染一轮修正。
+// 背景：填槽阶段就能拿到图尺寸与槽声明比例；在截图前集中输出，避免出图末行才 WARN、用户再渲染一轮。
 // 这里统一阈值并集中输出：--preflight 打完即退出；正式出图也会在启动浏览器前先亮风险。
 const SLOT_RATIO_WARN = 0.15;      // 与渲染后盒形体检同阈值（IMAGE-WORKFLOW：偏差 ≥15%）
 const FILLING_SLOT_WIDE = 2.2;     // 填充型槽没有 data-ratio，只能按图片形态给风险提示
@@ -1930,7 +1929,7 @@ if (DELIVERY) {
   const white = [];
   for (const b of built) white.push(`P${b.nn}-${b.name}.html`, `P${b.nn}-${b.name}.png`);
   white.push('preview.png');
-  if (WITH_EDITOR) white.push('fields.json', 'editor.manifest.json');
+  if (EDITOR_OUT) white.push('fields.json', 'editor.manifest.json');
   // --force 只覆盖白名单，不删旧文件；旧页数比这次多时会留下上次的 P 页，交付物就不再是「本次全量」
   {
     const allowed = new Set(white);
@@ -1972,9 +1971,9 @@ if (DIAG_ONLY) {
 }
 if (EDITOR_OUT) {
   // 必须说清：fields.json 今天没有消费者。页面文案 render 已经写进 HTML，编辑器打开看到的就是最终稿；
-  // fields 只是契约件（pageApp T6「读生成期初稿」未落）。不说这句，下一个人会以为改 fields 能改文案。
+  // fields 只是契约件（pageApp 契约自述「读生成期初稿」尚未实现）。不说这句，下一个人会以为改 fields 能改文案。
   console.log('ℹ 编辑器材料：fields.json / editor.manifest.json 已写出；fields.json 当前无消费者（pageApp 仍不读生成期初稿），改文案请改 plan 或页面 HTML');
-  console.log('   下一步：cd <pageApp>/demo && node pack.mjs "<交付目录>"，再打开 covers-edit.html');
+  console.log('   下一步：node <pageApp>/demo/pack.mjs "<交付目录>"，再打开 covers-edit.html');
 }
 if (allWarns.length) {
   console.log('⚠ 软校验 WARN:');

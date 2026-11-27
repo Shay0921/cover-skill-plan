@@ -23,6 +23,7 @@
  * 表里没有可用项则回退到内置兜底值（偏宽，只会多报不会漏报）。
  */
 import fs from 'node:fs';
+import os from 'node:os';
 import path from 'node:path';
 import url from 'node:url';
 import { launchBrowser, closeBrowser, withPage, evaluate, createOptions, WIDTH_SAMPLES } from './shared/cdp.mjs';
@@ -66,7 +67,8 @@ const families = familiesRaw ? familiesRaw.split(',').map((s) => s.trim()).filte
 // W/m 单列是因为它们是「最宽大写/最宽小写」——模型取的是 26 字母平均值，W 才是真正的上界，
 // 全大写标题（如「WWW」）会突破平均值模型，这是「单值模型」的已知代价，写进表里备查。
 const SAMPLES = WIDTH_SAMPLES;
-const PROBE_HTML = path.join(path.dirname(url.fileURLToPath(import.meta.url)), '..', 'runs', '_font-probe.html');
+const PROBE_DIR = fs.mkdtempSync(path.join(os.tmpdir(), 'cover-font-'));
+const PROBE_HTML = path.join(PROBE_DIR, '_font-probe.html');
 
 function buildProbeHtml() {
   const rows = families.map((f, i) =>
@@ -78,7 +80,6 @@ const opts = createOptions({ width: 900, height: 300, dsf: 1 });
 const inst = await launchBrowser(opts);
 let report;
 try {
-  fs.mkdirSync(path.dirname(PROBE_HTML), { recursive: true });
   fs.writeFileSync(PROBE_HTML, buildProbeHtml(), 'utf8');
   await withPage(inst, url.pathToFileURL(PROBE_HTML).href, opts, async (ctx) => {
     // 量宽：每个 family 用 canvas 直接指定族名量（不依赖 DOM 行的 class）。
@@ -174,7 +175,7 @@ try {
   });
 } finally {
   await closeBrowser(inst);
-  try { fs.unlinkSync(PROBE_HTML); } catch { /* ignore */ }
+  fs.rmSync(PROBE_DIR, { recursive: true, force: true });
 }
 
 if (JSON_OUT) {

@@ -2,7 +2,7 @@
 
 > 只在需要 GUI 改字时走。依赖本机 pageApp 仓库，换环境不可用——**不是通用能力，别当成交付必做步骤**。
 > 默认交付不含编辑器件（`fields.json` / `editor.manifest.json`）；用户说「打开编辑器 / 在面板里改字 / 我要改封面」才进这条路。
-> 术语锁定（本文件「编辑器」= pageApp 封面编辑器、非任何 IDE）的唯一权威表述在 `SKILL.md`「交付」节，此处不重复。
+> 术语锁定（本文件「编辑器」= pageApp 封面编辑器、非任何 IDE）的唯一权威表述在 `SKILL.md` 文件头「术语」节，此处不重复。
 
 ## 四个按钮的准确语义（交付时要跟用户讲清）
 
@@ -15,7 +15,7 @@
 | 下载当前页 ▾ → 当前页 HTML / PNG | 只下载**当前停留的这一页**（HTML 图片内嵌可离线看；PNG 固定 1080×1440） | 浏览器下载目录；多页要逐页导，或用「导出全部文件」 |
 | 导出全部文件（`ed-save`） | 逐页 mount 导出**全部页**的 HTML + PNG，再加一份存档 JSON 和 `使用说明.txt`，写进 `<项目名>-编辑导出-<可读时间>/` 子目录 | File System Access API，**首次需用户选目录授权**，之后靠 `id` 记住；每次新建子目录不覆盖旧件。交付时说明会逐页渲染、耗时随页数增加 |
 
-**目录与命名的两条硬边界**（交付时如实说，别夸大）：
+**目录与命名的三条硬边界**（交付时如实说，别夸大）：
 1. `file://` 下脚本**不能把自身路径变成可写目录句柄**——浏览器安全模型禁止指定绝对路径，只能由用户在授权弹窗里选一次。优化已做到"记住上次目录"（三个 Picker 都带 `id`，且**不传 `startIn`**——传了会把起点钉死在固定目录、反而盖掉记忆），首次仍要选。不要说"会自动存到编辑器旁边"。
 2. 项目名从 `location.pathname` 的父目录提取（如 `2026-11-26-AI热点日报9图`），只用于给文件夹/存档文件**命名**；浏览器不允许据此自动定位目录。时间戳用 `YYYY-MM-DD-HHmm` 可读格式，非 ISO 原始串。
 3. 系统授权窗口的提示文案（含开头的本地来源标识）由浏览器生成，**网页无法改写**。编辑器只在本次会话首次调用原生选择器前弹一次页内说明解释它的含义；别承诺能消掉那行字。真要换掉它只能改用本地服务方式打开编辑器，那等于多一套启动步骤，默认不做。
@@ -29,7 +29,7 @@
 | 同一会话，`plan.json` 与素材还在任务工作区 | `node script/render.mjs <任务工作区>/ --with-editor --force [--delivery=<目录>]` —— 重跑一遍，顺带补 `fields.json` |
 | 交付早于本次会话，任务工作区已清 | `node script/editor-prep.mjs <交付目录>` —— 只读 P 页补 `editor.manifest.json`，页面与 PNG 一个字不动 |
 
-两条都接同一步：`cd <pageApp 仓库>/demo && node pack.mjs "<交付目录>"` → 产出 `covers-edit.html` → 浏览器打开改字、导出。
+两条都接同一步：`node <pageApp 仓库>/demo/pack.mjs "<交付目录>"` → 产出 `covers-edit.html` → 浏览器打开改字、导出。
 
 - 补件之所以必要：打包器靠 `editor.manifest.json` 找画布根与页序，没有它只会得到「找不到根节点：.p-page」。
 - `editor-prep` **不产 `fields.json`**：编辑器至今不读它（见下节），事后从 HTML 反解文本还会破 `span.hl`，为一个没有消费者的文件多造一条转写路径不划算。真要 `fields` 就走上面那条重跑。
@@ -58,7 +58,7 @@ node script/editor-contract.mjs <交付目录>
 
 ## fields.json 的键（当前没有消费者）
 
-**编辑器至今不读生成期 `fields.json`**（pageApp 契约 §6 自述「T6 剩余」；编辑器自己的存档叫 `cover-project.json`）。所以打开 `covers-edit.html` 看到的文案，来自**页面 HTML 本身**——那已经是 render 填好槽位的终稿，不是从 fields 带出来的初稿。
+**编辑器至今不读生成期 `fields.json`**（pageApp 契约自述「读生成期初稿」尚未实现；编辑器自己的存档叫 `cover-project.json`）。所以打开 `covers-edit.html` 看到的文案，来自**页面 HTML 本身**——那已经是 render 填好槽位的终稿，不是从 fields 带出来的初稿。
 
 键仍然要写对，因为契约把「键 = `data-layer` id」定死了，pageApp 一旦落地「读初稿」这份文件立刻生效；而写错时不报错，只会静默带不出值：
 
@@ -70,18 +70,8 @@ node script/editor-contract.mjs <交付目录>
 
 ## 复核（pageApp 出 v1.x 时跑一遍）
 
-1. 读契约「属性表」与「契约对照表」，看有没有属性从「未读」变「已读」。
-2. `grep -n "data-" <pageApp>/demo/lib/markers.mjs` 对照实装读了几条（当前 6 条）。
-3. `node script/render.mjs <任务工作区>/ --with-editor` → `node script/editor-contract.mjs <交付目录>` → `node pack.mjs <交付目录>`，两处都要 0 硬错。
-
-取值域只能靠**双跑比对**验收，不能靠读代码。工具在 dev 仓（不进生产链路）：
-
-```sh
-node final/03-母版创建规范/check-editor-contract.mjs --pageapp=../../../pageApp            # 0 差异则退出码 0
-node final/03-母版创建规范/check-editor-contract.mjs --pageapp=../../../pageApp --self-test # 负向自测：检测器本身会响
-```
-
-它把母版各节与内置边界用例同时喂给 `markers.mjs` 的 `scanMarkers` 与本库 `checkMarkerContracts`，比「通过/失败」结论与图层 id 集。本库已按此修掉三处误判（`data-group=""` 被误杀、非图层元素上的标记被误杀、`<template>` 内图层被多算），以及两处漏判（页内 `<style>` 写在最前时根节点规则失效、合法取值挂在非图层元素上被静默吞掉）。
+1. 读契约「属性表」与「契约对照表」，看有没有属性从「未读」变「已读」；实际读取范围以 pageApp 的标记实现为准，不靠本库文档判断。
+2. 按「流程」节的链路依次重跑出图、体检、打包（命令见上文），两处都要 0 硬错。
 
 ## 已知差异（交接时须说明）
 
